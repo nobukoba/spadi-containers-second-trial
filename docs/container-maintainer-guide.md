@@ -54,7 +54,7 @@ User and devel images in the same family must use the same revisions.\n\nARTEMIS
 
 The GitHub Actions workflow sources `versions/versions.env` and passes those values as Docker build arguments. Dockerfile `ARG` values are fallback defaults for direct/manual builds; CI must not maintain an independent version list. When a pinned dependency changes, update `versions/versions.env` first.
 
-## Build cost and CI
+## AlmaLinux 9 runtime policy\n\nAlmaLinux 9 is the container OS baseline. Use its supported runtime packages where practical. In particular, DAQ uses the AlmaLinux 9 `valkey` package as the Redis-compatible service instead of forcing an historical Redis server package solely to match old upstream documentation. Keep NestDAQ-facing client/build libraries pinned independently, and keep RedisTimeSeries pinned as an explicit module dependency for `TS.*` metrics commands.\n\n## Build cost and CI
 
 ROOT and ARTEMIS builds are expensive. Documentation-only changes and host-only helper changes must not trigger those builds. Keep expensive compiled layers cacheable when changing lightweight image-resident scripts.
 
