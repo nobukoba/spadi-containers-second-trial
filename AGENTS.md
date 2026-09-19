@@ -39,7 +39,7 @@ Do not instruct normal container users to build Docker or SIF images.
 
 Second-trial builds must be reproducible. The repository-level source of truth for upstream versions and revisions is `versions/versions.env`.
 
-Prefer an upstream project's official stable release tag when it exists and is suitable for the tested stack. NestDAQ and `nestdaq-user-impl` both publish an official `v1.0.0` release, so second-trial uses that release as the intended baseline rather than an unpinned `main` checkout. For repositories without an appropriate release tag, pin an exact commit SHA.
+Prefer an upstream project's official stable release tag when it exists and is suitable for the tested stack. NestDAQ and `nestdaq-user-impl` both publish an official `v1.0.0` release, so second-trial uses that release as the intended baseline rather than an unpinned `main` checkout. Keep NestDAQ-facing dependencies aligned with the versions documented by that release where exact versions are specified: hiredis `v1.0.0` and redis-plus-plus `1.2.1`. NestDAQ documents FairMQ `1.4.26 or later`, so the repository may pin a newer tested FairMQ release such as `v1.4.55`. For repositories without an appropriate release tag, pin an exact commit SHA.
 
 Do not silently replace a pinned ref with `main`, `master`, or another moving branch. When updating a pin, make it a deliberate change, record why when non-obvious, and rebuild/test every image family affected by that component.
 
