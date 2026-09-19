@@ -38,6 +38,21 @@ User and development images of the same family must use the same pinned upstream
 
 A change to documentation or a host-only helper must not trigger expensive ROOT/ARTEMIS/FULL rebuilds. When image-resident scripts change, structure Docker layers so the expensive compiled dependency layers remain cacheable and only the lightweight final layers rebuild where practical.
 
+## User development overlay
+
+Do not overwrite the validated base installation when a user rebuilds software interactively. The immutable/container-provided installation remains under `/opt/spadi`; user-built software installs into a separate writable local prefix, normally `/workspace/local`.
+
+The development environment should search the local prefix before the base prefix:
+
+- executables: `/workspace/local/bin` before `/opt/spadi/bin`
+- libraries: `/workspace/local/lib` and `/workspace/local/lib64` before `/opt/spadi/lib*`
+- CMake: `/workspace/local` before `/opt/spadi`
+- pkg-config: local pkgconfig directories before the base directories
+
+This makes the same workflow usable with Docker and with a read-only Apptainer SIF, provided `/workspace` is a writable bind mount. It also makes it easy to discard experimental builds without modifying the validated base software.
+
+Provide developer helper scripts that can rebuild the source shipped in the devel image into the local prefix. Also provide an explicit opt-in workflow for cloning the latest upstream source into a writable workspace source tree (for example `/workspace/src/<project>`) and building it against the validated `/opt/spadi` base. The normal container build remains pinned and reproducible; a developer asking for `latest` is intentionally leaving that pinned baseline. Never make the image build itself silently clone latest/main.
+
 ## Paths
 
 All SPADI-related software uses the single installation prefix `/opt/spadi`.
@@ -48,8 +63,10 @@ All SPADI-related software uses the single installation prefix `/opt/spadi`.
 - Installed headers: `/opt/spadi/include`
 - Scripts: `/opt/spadi/scripts`
 - Experiment configuration: `/opt/spadi/scripts/exp-config`
-- User/local scripts: `/opt/spadi/scripts/local`
+- Container-provided scripts: `/opt/spadi/scripts`
 - User working directory: `/workspace`
+- User source checkouts: `/workspace/src/<project>`
+- User-built installation prefix: `/workspace/local`
 
 Do not use `/work`.
 
