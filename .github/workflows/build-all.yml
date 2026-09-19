@@ -201,6 +201,9 @@ jobs:
             --platform linux/amd64
             --target "${{ matrix.target }}"
             --build-arg NPROC=4
+            --build-arg SPADI_CONTAINER_VERSION="${GITHUB_REF_TYPE:-branch}-${GITHUB_REF_NAME:-main}"
+            --build-arg SPADI_GIT_COMMIT="$GITHUB_SHA"
+            --build-arg SPADI_IMAGE_TARGET="${{ matrix.target }}"
             --build-arg HUL_COMMON_LIB_REF="$HUL_COMMON_LIB_REF"
             --build-arg AMANEQ_SOFT_REF="$AMANEQ_SOFT_REF"
             --build-arg OPENFPGALOADER_REF="$OPENFPGALOADER_REF"
