@@ -41,7 +41,9 @@ Second-trial builds must be reproducible. The repository-level source of truth f
 
 Prefer an upstream project's official stable release tag when it exists and is suitable for the tested stack. NestDAQ and `nestdaq-user-impl` both publish an official `v1.0.0` release, so second-trial uses that release as the intended baseline rather than an unpinned `main` checkout. Keep NestDAQ-facing dependencies aligned with the versions documented by that release where exact versions are specified: hiredis `v1.0.0` and redis-plus-plus `1.2.1`. NestDAQ documents FairMQ `1.4.26 or later`, so the repository may pin a newer tested FairMQ release such as `v1.4.55`. For repositories without an appropriate release tag, pin an exact commit SHA.
 
-ARTEMIS is developed upstream on the moving `develop` branch. Treat that as an upstream development model, not as a reason for container builds to move: select a known-good commit from `develop`, record its exact SHA as `ARTEMIS_REF` in `versions/versions.env`, and build published images from that SHA. Updating ARTEMIS is an explicit pin-update operation followed by validation.\n\nDo not silently replace a pinned ref with `main`, `master`, or another moving branch. When updating a pin, make it a deliberate change, record why when non-obvious, and rebuild/test every image family affected by that component.
+ARTEMIS is developed upstream on the moving `develop` branch. Treat that as an upstream development model, not as a reason for container builds to move: select a known-good commit from `develop`, record its exact SHA as `ARTEMIS_REF` in `versions/versions.env`, and build published images from that SHA. Updating ARTEMIS is an explicit pin-update operation followed by validation.
+
+Do not silently replace a pinned ref with `main`, `master`, or another moving branch. When updating a pin, make it a deliberate change, record why when non-obvious, and rebuild/test every image family affected by that component.
 
 User and development images of the same family must use the same pinned upstream revisions. Dockerfiles and CI should consume the centralized revision set rather than maintaining independent copies that can drift.
 
@@ -87,7 +89,11 @@ User images should not normally contain `/opt/spadi/src`. Development images ret
 
 ROOT/Cling is an exception to the general preference to omit compiler-related runtime content. When ROOT is built against the system GCC toolchain, Cling invokes a `c++` compiler driver to discover the standard-library include paths and also requires installed ROOT headers such as `/opt/spadi/include/ROOT.modulemap` at runtime. ARTEMIS and FULL user images that include this ROOT build must therefore retain `/opt/spadi/include` and provide `gcc-c++` (or an equivalent `c++` driver plus matching standard C++ headers). They should still omit `/opt/spadi/src`, CMake, Git, and unrelated development tools unless another runtime component genuinely requires them. On AlmaLinux 9, installing `gcc-c++` may also install `make` as a package dependency; do not treat the mere presence of `make` as a runtime-image failure when it is pulled in this way. Smoke tests must launch ROOT and verify both `c++` and `ROOT.modulemap` so this failure is caught before SIF publication.
 
-## AlmaLinux 9 runtime baseline\n\nAlmaLinux 9 is the runtime baseline for second-trial images. Prefer AlmaLinux 9-supported runtime packages over recreating historical distribution/package combinations from upstream documentation. For NestDAQ, retain the exact compatible build-library pins where they matter (for example hiredis and redis-plus-plus), but use AlmaLinux 9 `valkey` as the Redis-compatible runtime service. RedisTimeSeries is built as a separately pinned module because NestDAQ metrics uses `TS.*` commands. Document this distinction rather than claiming the image exactly reproduces NestDAQ's historical Redis server package baseline.\n\n## Environment isolation
+## AlmaLinux 9 runtime baseline
+
+AlmaLinux 9 is the runtime baseline for second-trial images. Prefer AlmaLinux 9-supported runtime packages over recreating historical distribution/package combinations from upstream documentation. For NestDAQ, retain the exact compatible build-library pins where they matter (for example hiredis and redis-plus-plus), but use AlmaLinux 9 `valkey` as the Redis-compatible runtime service. RedisTimeSeries is built as a separately pinned module because NestDAQ metrics uses `TS.*` commands. Document this distinction rather than claiming the image exactly reproduces NestDAQ's historical Redis server package baseline.
+
+## Environment isolation
 
 Do not make the container runtime depend on software environment variables inherited from the host.
 
