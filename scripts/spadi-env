@@ -1,0 +1,21 @@
+#!/bin/bash
+set -euo pipefail
+
+show_path_var() {
+    local name="$1"
+    local value="${!name:-}"
+    printf '%-18s\n' "${name}"
+    if [[ -z "${value}" ]]; then
+        echo "  (empty)"
+    else
+        tr ':' '\n' <<< "${value}" | sed 's/^/  /'
+    fi
+    echo
+}
+
+printf 'SPADI_ROOT  = %s\n' "${SPADI_ROOT:-}"
+printf 'SPADI_LOCAL = %s\n\n' "${SPADI_LOCAL:-}"
+show_path_var PATH
+show_path_var LD_LIBRARY_PATH
+show_path_var CMAKE_PREFIX_PATH
+show_path_var PKG_CONFIG_PATH
