@@ -31,7 +31,7 @@ if [[ -d "${SPADI_ROOT}/src" ]]; then
     shopt -u nullglob
 fi
 
-for script in "${SPADI_ROOT}/scripts/"*_build.sh "${SPADI_ROOT}/scripts/"*_clone_latest.sh; do
+for script in "${SPADI_ROOT}/scripts/"*-build.sh "${SPADI_ROOT}/scripts/"*-clone-latest.sh; do
     [[ -e "$script" ]] || continue
     name="$(basename "$script")"
     copy_if_missing "$script" "${SPADI_LOCAL}/scripts/$name" "scripts/$name"
