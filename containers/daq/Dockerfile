@@ -13,7 +13,7 @@ ARG LIBZMQ_VERSION=v4.3.5
 ARG FMT_VERSION=10.2.1
 ARG FAIRMQ_VERSION=v1.4.55
 ARG HIREDIS_VERSION=v1.0.0
-ARG REDIS_PLUS_PLUS_VERSION=1.2.1
+ARG REDIS_PLUS_PLUS_VERSION=1.3.6
 ARG REDISTIMESERIES_VERSION=v1.10.24
 ARG NESTDAQ_REF=v1.0.0
 ARG NESTDAQ_USER_IMPL_REF=v1.0.0
@@ -113,8 +113,7 @@ RUN cd /opt/spadi/src && \
       -DREDIS_PLUS_PLUS_BUILD_STATIC=OFF && \
     cmake --build redis-plus-plus/build -j${NPROC} && \
     cmake --install redis-plus-plus/build && \
-    install -d /opt/spadi/include/sw/redis++/patterns && \
-    install -m 0644 redis-plus-plus/src/sw/redis++/patterns/redlock.h /opt/spadi/include/sw/redis++/patterns/redlock.h
+    test -f /opt/spadi/include/sw/redis++/patterns/redlock.h
 
 # NestDAQ metrics uses RedisTimeSeries commands such as TS.ADD.
 RUN cd /opt/spadi/src && \
