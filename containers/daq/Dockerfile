@@ -5,6 +5,9 @@ ARG FEE_USER_IMAGE=ghcr.io/nobukoba/spadi-containers-first-trial/spadi-user-fee:
 
 FROM ${FEE_DEVEL_IMAGE} AS daq-build
 
+ARG SPADI_CONTAINER_VERSION=unreleased
+ARG SPADI_GIT_COMMIT=unknown
+ARG SPADI_IMAGE_TARGET=unknown
 ARG NPROC=4
 ARG LIBZMQ_VERSION=v4.3.5
 ARG FMT_VERSION=10.2.1
@@ -203,6 +206,11 @@ RUN printf '%s\n' '/opt/spadi/lib' '/opt/spadi/lib64' > /etc/ld.so.conf.d/spadi.
 
 RUN mkdir -p /opt/spadi/versions
 COPY versions/versions.env /opt/spadi/versions/versions.env
+RUN printf '%s\n' \
+      "SPADI_CONTAINER_VERSION=${SPADI_CONTAINER_VERSION}" \
+      "SPADI_GIT_COMMIT=${SPADI_GIT_COMMIT}" \
+      "SPADI_IMAGE_TARGET=${SPADI_IMAGE_TARGET}" \
+      > /opt/spadi/versions/container.env
 COPY scripts/spadi-version.sh /opt/spadi/scripts/spadi-version.sh
 COPY scripts/spadi-setup.sh /opt/spadi/spadi-setup.sh
 COPY scripts/smoke-test-daq.sh /opt/spadi/scripts/smoke-test-daq.sh
