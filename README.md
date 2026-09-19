@@ -153,7 +153,7 @@ The DAQ image intentionally follows the dependency baseline documented by the of
 | redis-plus-plus | `1.2.1` | `1.2.1` |
 | libzmq | `v4.3.5` | pinned container dependency |
 
-The exact repository-wide pins are maintained in `versions/versions.env`. Moving branches such as `main` are not used as the normal NestDAQ container baseline.
+The exact repository-wide pins are maintained in `versions/versions.env`. Moving branches such as `main` are not used as the normal NestDAQ container baseline. ARTEMIS upstream development occurs on `develop`; the container records and builds a specific tested `develop` commit via `ARTEMIS_REF`, so an upstream branch update does not silently change the image.
 
 ### Container maintainers
 
