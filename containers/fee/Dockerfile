@@ -89,15 +89,19 @@ RUN git clone https://github.com/nobukoba/sitcp-sitcpxg-mpc-mpcx-ip-utility-firs
 RUN printf '%s\n' '/opt/spadi/lib' '/opt/spadi/lib64' > /etc/ld.so.conf.d/spadi.conf && ldconfig
 
 COPY scripts/spadi-setup.sh /opt/spadi/spadi-setup.sh
-COPY scripts/spadi-prepare-local.sh scripts/spadi-env.sh /opt/spadi/scripts/
-COPY scripts/hul-common-lib-build.sh scripts/amaneq-build.sh /opt/spadi/scripts/
-COPY scripts/openfpgaloader-build.sh scripts/sitcp-utility-build.sh /opt/spadi/scripts/
 COPY scripts/smoke-test-fee.sh /opt/spadi/scripts/smoke-test-fee.sh
-RUN chmod 0755 /opt/spadi/spadi-setup.sh /opt/spadi/scripts/*.sh
+RUN chmod 0755 /opt/spadi/spadi-setup.sh /opt/spadi/scripts/smoke-test-fee.sh
 
 WORKDIR /workspace
 
 FROM fee-build AS devel-fee
+RUN find /opt/spadi/src -type d -name build -prune -exec rm -rf '{}' + && rm -rf /opt/spadi/src/root-build
+COPY scripts/spadi-prepare-local.sh scripts/spadi-env.sh /opt/spadi/scripts/
+COPY scripts/hul-common-lib-build.sh scripts/amaneq-build.sh /opt/spadi/scripts/
+COPY scripts/openfpgaloader-build.sh scripts/sitcp-utility-build.sh /opt/spadi/scripts/
+COPY scripts/hul-common-lib-clone-latest.sh scripts/amaneq-clone-latest.sh /opt/spadi/scripts/
+COPY scripts/openfpgaloader-clone-latest.sh scripts/sitcp-utility-clone-latest.sh /opt/spadi/scripts/
+RUN chmod 0755 /opt/spadi/scripts/*.sh
 
 ENV SPADI_IMAGE_KIND=devel
 CMD ["/bin/bash"]
