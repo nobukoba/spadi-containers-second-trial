@@ -128,7 +128,7 @@ RUN cd /opt/spadi/src && \
     git clone --branch ${NESTDAQ_REF} --depth 1 https://github.com/spadi-alliance/nestdaq.git && \
     sed -i \
       's/-Ofast -DNDEBUG -march=native/-Ofast -DNDEBUG -march=x86-64 -mtune=generic -mno-avx -mno-avx2/' \
-      nestdaq/cmake/common.cmake && \
+      nestdaq/CMakeLists.txt && \
     sed -i 's/ec\.what()/ec.message()/g' \
       nestdaq/controller/websocket_session.cxx \
       nestdaq/controller/http_session.cxx \
@@ -202,15 +202,17 @@ RUN for exe in /opt/spadi/bin/daq-webctl /opt/spadi/bin/TimeFrameBuilder /opt/sp
 RUN printf '%s\n' '/opt/spadi/lib' '/opt/spadi/lib64' > /etc/ld.so.conf.d/spadi.conf && ldconfig
 
 COPY scripts/spadi-setup.sh /opt/spadi/spadi-setup.sh
-COPY scripts/spadi-prepare-local.sh scripts/spadi-env.sh /opt/spadi/scripts/
-COPY scripts/nestdaq-build.sh scripts/nestdaq-clone-latest.sh /opt/spadi/scripts/
-COPY scripts/nestdaq-user-impl-build.sh scripts/nestdaq-user-impl-clone-latest.sh /opt/spadi/scripts/
 COPY scripts/smoke-test-daq.sh /opt/spadi/scripts/smoke-test-daq.sh
 RUN chmod 0755 /opt/spadi/spadi-setup.sh /opt/spadi/scripts/*.sh
 
 WORKDIR /workspace
 
 FROM daq-build AS devel-daq
+RUN find /opt/spadi/src -type d -name build -prune -exec rm -rf '{}' + && rm -rf /opt/spadi/src/root-build
+COPY scripts/spadi-prepare-local.sh scripts/spadi-env.sh /opt/spadi/scripts/
+COPY scripts/nestdaq-build.sh scripts/nestdaq-clone-latest.sh /opt/spadi/scripts/
+COPY scripts/nestdaq-user-impl-build.sh scripts/nestdaq-user-impl-clone-latest.sh /opt/spadi/scripts/
+RUN chmod 0755 /opt/spadi/scripts/*.sh
 ENV SPADI_IMAGE_KIND=devel
 CMD ["/bin/bash"]
 
