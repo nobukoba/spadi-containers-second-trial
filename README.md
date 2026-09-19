@@ -107,7 +107,28 @@ can be used to discard a build tree without deleting the edited source.
 
 `spadi_setup.sh` places the local installation before the validated installation. In particular, `$SPADI_LOCAL/bin` and `$SPADI_LOCAL/scripts` take precedence over their `$SPADI_ROOT` counterparts.
 
-This means editable helper scripts can be invoked from any directory once the environment is loaded. Use:
+This means editable helper scripts can be invoked from any directory once the environment is loaded. For example:
+
+```bash
+nestdaq_build.sh
+nestdaq_user_impl_build.sh
+artemis_build.sh
+```
+
+Each build uses the source under `$SPADI_LOCAL/src`, a separate build tree under `$SPADI_LOCAL/build`, and installs into `$SPADI_LOCAL`. The validated `/opt/spadi` installation is not modified.
+
+To deliberately try the latest upstream source, keep cloning separate from building. The clone helpers refuse to overwrite an existing source tree:
+
+```bash
+# Remove or rename the existing local source yourself first if you really
+# intend to replace it.
+nestdaq_clone_latest.sh
+nestdaq_build.sh
+```
+
+The same pattern is available for `nestdaq-user-impl` and ARTEMIS. There is no `--latest` mode hidden inside the build script.
+
+Use:
 
 ```bash
 spadi_env.sh
