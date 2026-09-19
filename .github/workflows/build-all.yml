@@ -200,6 +200,7 @@ jobs:
             --build-arg FAIRLOGGER_REF="$FAIRLOGGER_REF"
             --build-arg UHBOOK_REF="$UHBOOK_REF"
             --build-arg EXP_CONFIG_REF="$EXP_CONFIG_REF"
+            --build-arg ARTEMIS_REF="$ARTEMIS_REF"
             --build-arg ROOT_VERSION="$ROOT_VERSION"
             --build-arg YAML_CPP_VERSION="$YAML_CPP_VERSION"
             --cache-from "type=gha,scope=${{ matrix.target }}"
