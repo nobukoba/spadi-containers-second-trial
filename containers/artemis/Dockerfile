@@ -126,11 +126,11 @@ RUN printf '%s\n' '/opt/spadi/lib' '/opt/spadi/lib64' > /etc/ld.so.conf.d/spadi.
     root-config --version && \
     test -x /opt/spadi/bin/artemis
 
-COPY scripts/spadi_setup.sh /opt/spadi/spadi_setup.sh
-COPY scripts/spadi_prepare_local.sh scripts/spadi_env.sh /opt/spadi/scripts/
-COPY scripts/artemis_build.sh scripts/artemis_clone_latest.sh /opt/spadi/scripts/
+COPY scripts/spadi-setup.sh /opt/spadi/spadi-setup.sh
+COPY scripts/spadi-prepare-local.sh scripts/spadi-env.sh /opt/spadi/scripts/
+COPY scripts/artemis-build.sh scripts/artemis-clone-latest.sh /opt/spadi/scripts/
 COPY scripts/smoke-test-artemis.sh /opt/spadi/scripts/smoke-test-artemis.sh
-RUN chmod 0755 /opt/spadi/spadi_setup.sh /opt/spadi/scripts/*.sh
+RUN chmod 0755 /opt/spadi/spadi-setup.sh /opt/spadi/scripts/*.sh
 
 WORKDIR /workspace
 
