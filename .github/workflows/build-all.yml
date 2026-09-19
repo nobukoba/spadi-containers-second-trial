@@ -64,7 +64,6 @@ jobs:
             family: full
             kind: devel
 
-    if: github.event_name != 'workflow_dispatch' || inputs.target == 'all' || inputs.target == matrix.target
     steps:
       - uses: actions/checkout@v4
 
