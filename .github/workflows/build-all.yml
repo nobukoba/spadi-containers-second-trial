@@ -110,7 +110,7 @@ jobs:
           # for another matrix target or another workflow to publish :latest.
           if [[ "${{ matrix.family }}" == "full" ]]; then
             run_logged artemis-prerequisite \
-              docker buildx build --platform linux/amd64 --target devel-artemis --build-arg NPROC=4 \
+              docker buildx build --platform linux/amd64 --target devel-artemis --build-arg NPROC=4 --build-arg ROOT_VERSION="$ROOT_VERSION" --build-arg ARTEMIS_REF="$ARTEMIS_REF" --build-arg LIBZMQ_VERSION="$LIBZMQ_VERSION" --build-arg HIREDIS_VERSION="$HIREDIS_VERSION" --build-arg REDIS_PLUS_PLUS_VERSION="$REDIS_PLUS_PLUS_VERSION" --build-arg YAML_CPP_VERSION="$YAML_CPP_VERSION" \
                 --cache-from type=gha,scope=devel-artemis \
                 --cache-to type=gha,mode=max,scope=${{ matrix.target }}-artemis-devel \
                 -t "${{ steps.names.outputs.artemis_devel }}" --push \
@@ -139,7 +139,7 @@ jobs:
 
           if [[ "${{ matrix.family }}" == "full" ]]; then
             run_logged daq-devel-prerequisite \
-              docker buildx build --platform linux/amd64 --target devel-daq --build-arg NPROC=4 \
+              docker buildx build --platform linux/amd64 --target devel-daq --build-arg NPROC=4 --build-arg LIBZMQ_VERSION="$LIBZMQ_VERSION" --build-arg FMT_VERSION="$FMT_VERSION" --build-arg FAIRMQ_VERSION="$FAIRMQ_VERSION" --build-arg HIREDIS_VERSION="$HIREDIS_VERSION" --build-arg REDIS_PLUS_PLUS_VERSION="$REDIS_PLUS_PLUS_VERSION" --build-arg REDISTIMESERIES_VERSION="$REDISTIMESERIES_VERSION" --build-arg NESTDAQ_REF="$NESTDAQ_REF" --build-arg NESTDAQ_USER_IMPL_REF="$NESTDAQ_USER_IMPL_REF" --build-arg FAIRLOGGER_REF="$FAIRLOGGER_REF" --build-arg UHBOOK_REF="$UHBOOK_REF" --build-arg EXP_CONFIG_REF="$EXP_CONFIG_REF" \
                 --build-arg FEE_DEVEL_IMAGE="${{ steps.names.outputs.fee_devel }}" \
                 --build-arg FEE_USER_IMAGE="${{ steps.names.outputs.fee_user }}" \
                 --cache-from type=gha,scope=devel-daq \
@@ -149,7 +149,7 @@ jobs:
             p_daq_devel=$!
 
             run_logged daq-user-prerequisite \
-              docker buildx build --platform linux/amd64 --target user-daq --build-arg NPROC=4 \
+              docker buildx build --platform linux/amd64 --target user-daq --build-arg NPROC=4 --build-arg LIBZMQ_VERSION="$LIBZMQ_VERSION" --build-arg FMT_VERSION="$FMT_VERSION" --build-arg FAIRMQ_VERSION="$FAIRMQ_VERSION" --build-arg HIREDIS_VERSION="$HIREDIS_VERSION" --build-arg REDIS_PLUS_PLUS_VERSION="$REDIS_PLUS_PLUS_VERSION" --build-arg REDISTIMESERIES_VERSION="$REDISTIMESERIES_VERSION" --build-arg NESTDAQ_REF="$NESTDAQ_REF" --build-arg NESTDAQ_USER_IMPL_REF="$NESTDAQ_USER_IMPL_REF" --build-arg FAIRLOGGER_REF="$FAIRLOGGER_REF" --build-arg UHBOOK_REF="$UHBOOK_REF" --build-arg EXP_CONFIG_REF="$EXP_CONFIG_REF" \
                 --build-arg FEE_DEVEL_IMAGE="${{ steps.names.outputs.fee_devel }}" \
                 --build-arg FEE_USER_IMAGE="${{ steps.names.outputs.fee_user }}" \
                 --cache-from type=gha,scope=user-daq \
