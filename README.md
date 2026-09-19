@@ -19,11 +19,21 @@ The images target `linux/amd64`. Use `spadi-user-*` for normal operation and `sp
 
 For example, to use the NestDAQ development image on x86-64 Linux:
 
+Pull the image:
+
 ```bash
 docker pull ghcr.io/nobukoba/spadi-containers-second-trial/spadi-devel-daq:latest
+```
 
+Create the persistent workspace once if needed:
+
+```bash
 mkdir -p "$PWD/workspace"
+```
 
+Run the container:
+
+```bash
 docker run --rm -it \
   -v "$PWD/workspace:/workspace" \
   ghcr.io/nobukoba/spadi-containers-second-trial/spadi-devel-daq:latest
@@ -31,10 +41,16 @@ docker run --rm -it \
 
 On Apple Silicon, explicitly select the x86-64 image:
 
+Pull the x86-64 image:
+
 ```bash
 docker pull --platform linux/amd64 \
   ghcr.io/nobukoba/spadi-containers-second-trial/spadi-devel-daq:latest
+```
 
+Run it with the same persistent workspace:
+
+```bash
 docker run --rm -it \
   --platform linux/amd64 \
   -v "$PWD/workspace:/workspace" \
@@ -150,10 +166,10 @@ The DAQ image uses an AlmaLinux 9 runtime. It follows the NestDAQ `v1.0.0` build
 | nestdaq-user-impl | `v1.0.0` | matching official stable release |
 | FairMQ | `v1.4.55` | `1.4.26` or later |
 | hiredis | `v1.0.0` | `1.0.0` |
-| redis-plus-plus | `1.2.1` | `1.2.1` |
+| redis-plus-plus | `1.3.6` | `1.2.1 (recipes branch)` in the README; released source requires `patterns/redlock.h`, first available in official release `1.3.6` |
 | libzmq | `v4.3.5` | pinned container dependency |
 
-The exact repository-wide pins are maintained in `versions/versions.env`. Moving branches such as `main` are not used as the normal NestDAQ container baseline. ARTEMIS upstream development occurs on `develop`; the container records and builds a specific tested `develop` commit via `ARTEMIS_REF`, so an upstream branch update does not silently change the image.
+The redis-plus-plus difference above is intentional: NestDAQ v1.0.0 source includes `<sw/redis++/patterns/redlock.h>`, while its dependency table still reflects the older `recipes`-branch naming. The exact repository-wide pins are maintained in `versions/versions.env`. Moving branches such as `main` are not used as the normal NestDAQ container baseline. ARTEMIS upstream development occurs on `develop`; the container records and builds a specific tested `develop` commit via `ARTEMIS_REF`, so an upstream branch update does not silently change the image.
 
 ### Container maintainers
 
