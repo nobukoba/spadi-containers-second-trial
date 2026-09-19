@@ -236,3 +236,10 @@ Use these existing implementations as references rather than guessing their beha
 - `nobukoba/container-hul-common-lib-amaneq-soft-first-trial`
 - `nobukoba/container-interfacing-nestdaq-eicrecon`
 - `nobukoba/container-artemis-first-trial`
+
+
+## CI lessons from 2026-09-19
+
+- redis-plus-plus 1.2.1 builds the RedLock implementation but its CMake install does not provide `sw/redis++/patterns/redlock.h` in the installed prefix as required by NestDAQ v1.0.0. Explicitly install that pinned header into `/opt/spadi/include/sw/redis++/patterns/` before building NestDAQ.
+- An exact ARTEMIS commit SHA is not a branch name. Clone the repository and then `git checkout "$ARTEMIS_REF"`; do not pass an arbitrary SHA to `git clone --branch`.
+- Shared-library smoke tests must only run `ldd` on ELF executables. Executable scripts or other non-ELF files can make `ldd` return nonzero even when no dependency is missing, especially under `set -o pipefail`.

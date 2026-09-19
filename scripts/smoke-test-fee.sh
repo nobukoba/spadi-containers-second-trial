@@ -91,7 +91,13 @@ command -v lsof
 
 echo "=== Shared libraries ==="
 while IFS= read -r exe; do
-  ldd "$exe" | (! grep -q 'not found')
+  if file "$exe" | grep -q 'ELF'; then
+    if ldd "$exe" 2>&1 | grep -q 'not found'; then
+      echo "ERROR: unresolved shared library dependency: $exe" >&2
+      ldd "$exe" >&2 || true
+      exit 1
+    fi
+  fi
 done < <(find /opt/spadi/bin /opt/spadi/StrHRTDC/bin -maxdepth 1 -type f -perm -111 2>/dev/null)
 
 if [[ "$kind" == "user" ]]; then

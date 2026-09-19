@@ -112,7 +112,9 @@ RUN cd /opt/spadi/src && \
       -DREDIS_PLUS_PLUS_BUILD_TEST=OFF \
       -DREDIS_PLUS_PLUS_BUILD_STATIC=OFF && \
     cmake --build redis-plus-plus/build -j${NPROC} && \
-    cmake --install redis-plus-plus/build
+    cmake --install redis-plus-plus/build && \
+    install -d /opt/spadi/include/sw/redis++/patterns && \
+    install -m 0644 redis-plus-plus/src/sw/redis++/patterns/redlock.h /opt/spadi/include/sw/redis++/patterns/redlock.h
 
 # NestDAQ metrics uses RedisTimeSeries commands such as TS.ADD.
 RUN cd /opt/spadi/src && \
