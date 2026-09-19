@@ -1,6 +1,18 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+
+# Version metadata must be self-describing in Docker and SIF images.
+test -x /opt/spadi/scripts/spadi-version.sh
+test -r /opt/spadi/versions/versions.env
+test -r /opt/spadi/versions/container.env
+version_output="$(/opt/spadi/scripts/spadi-version.sh)"
+grep -q '^SPADI container version : ' <<<"$version_output"
+grep -q '^Git commit              : ' <<<"$version_output"
+grep -q '^Image target            : ' <<<"$version_output"
+grep -q '^NESTDAQ_REF=' /opt/spadi/versions/versions.env
+grep -q '^ROOT_VERSION=' /opt/spadi/versions/versions.env
+grep -q '^ARTEMIS_REF=' /opt/spadi/versions/versions.env
 kind="${1:-${SPADI_IMAGE_KIND:-}}"
 if [[ "$kind" != "user" && "$kind" != "devel" ]]; then
   echo "usage: smoke-test-artemis.sh {user|devel}" >&2
