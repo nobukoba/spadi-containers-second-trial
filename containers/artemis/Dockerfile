@@ -2,6 +2,9 @@
 
 FROM quay.io/almalinuxorg/9-base:9 AS artemis-build
 
+ARG SPADI_CONTAINER_VERSION=unreleased
+ARG SPADI_GIT_COMMIT=unknown
+ARG SPADI_IMAGE_TARGET=unknown
 ARG NPROC=4
 ARG ROOT_VERSION=v6-32-06
 ARG ARTEMIS_REF=c74e24adf90a83227fa3e5c38dc255ddc4aeb785
@@ -128,6 +131,11 @@ RUN printf '%s\n' '/opt/spadi/lib' '/opt/spadi/lib64' > /etc/ld.so.conf.d/spadi.
 
 RUN mkdir -p /opt/spadi/versions
 COPY versions/versions.env /opt/spadi/versions/versions.env
+RUN printf '%s\n' \
+      "SPADI_CONTAINER_VERSION=${SPADI_CONTAINER_VERSION}" \
+      "SPADI_GIT_COMMIT=${SPADI_GIT_COMMIT}" \
+      "SPADI_IMAGE_TARGET=${SPADI_IMAGE_TARGET}" \
+      > /opt/spadi/versions/container.env
 COPY scripts/spadi-version.sh /opt/spadi/scripts/spadi-version.sh
 COPY scripts/spadi-setup.sh /opt/spadi/spadi-setup.sh
 COPY scripts/smoke-test-artemis.sh /opt/spadi/scripts/smoke-test-artemis.sh
