@@ -1,0 +1,5 @@
+#!/bin/bash
+set -euo pipefail
+: "${SPADI_LOCAL:=/workspace/spadi}"
+mkdir -p "${SPADI_LOCAL}"/{bin,lib,include,share,src}
+printf 'Initialized SPADI local prefix: %s\n' "${SPADI_LOCAL}"
