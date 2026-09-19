@@ -203,8 +203,10 @@ RUN printf '%s\n' '/opt/spadi/lib' '/opt/spadi/lib64' > /etc/ld.so.conf.d/spadi.
 
 COPY scripts/spadi_setup.sh /opt/spadi/spadi_setup.sh
 COPY scripts/spadi_prepare_local.sh scripts/spadi_env.sh /opt/spadi/scripts/
+COPY scripts/nestdaq_build.sh scripts/nestdaq_clone_latest.sh /opt/spadi/scripts/
+COPY scripts/nestdaq_user_impl_build.sh scripts/nestdaq_user_impl_clone_latest.sh /opt/spadi/scripts/
 COPY scripts/smoke-test-daq.sh /opt/spadi/scripts/smoke-test-daq.sh
-RUN chmod 0755 /opt/spadi/spadi_setup.sh /opt/spadi/scripts/spadi_prepare_local.sh /opt/spadi/scripts/spadi_env.sh /opt/spadi/scripts/smoke-test-daq.sh
+RUN chmod 0755 /opt/spadi/spadi_setup.sh /opt/spadi/scripts/*.sh
 
 WORKDIR /workspace
 
