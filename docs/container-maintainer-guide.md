@@ -50,11 +50,36 @@ A successful Docker build alone is not sufficient validation.
 
 `versions/versions.env` is the source of truth for pinned upstream revisions. Prefer suitable official stable release tags; otherwise use an exact commit SHA. Do not silently replace a pin with a moving `main`, `master`, or development branch.
 
-User and devel images in the same family must use the same revisions.\n\nARTEMIS upstream uses the moving `develop` branch. Published containers do not build directly from that moving branch: `ARTEMIS_REF` records a selected exact commit SHA from `develop`. To update ARTEMIS, choose the intended `develop` commit, update `ARTEMIS_REF`, then rebuild and validate the affected images.
+User and devel images in the same family must use the same revisions.
+
+ARTEMIS upstream uses the moving `develop` branch. Published containers do not build directly from that moving branch: `ARTEMIS_REF` records a selected exact commit SHA from `develop`. To update ARTEMIS, choose the intended `develop` commit, update `ARTEMIS_REF`, then rebuild and validate the affected images.
 
 The GitHub Actions workflow sources `versions/versions.env` and passes those values as Docker build arguments. Dockerfile `ARG` values are fallback defaults for direct/manual builds; CI must not maintain an independent version list. When a pinned dependency changes, update `versions/versions.env` first.
 
-## AlmaLinux 9 runtime policy\n\nAlmaLinux 9 is the container OS baseline. Use its supported runtime packages where practical. In particular, DAQ uses the AlmaLinux 9 `valkey` package as the Redis-compatible service instead of forcing an historical Redis server package solely to match old upstream documentation. Keep NestDAQ-facing client/build libraries pinned independently, and keep RedisTimeSeries pinned as an explicit module dependency for `TS.*` metrics commands.\n\n## Build cost and CI
+### Container release version and embedded metadata
+
+The SPADI container release version is the Git tag, for example `v0.1.0`. A release tag must map to the corresponding GHCR image tags for all eight images; released version tags are immutable and must not be overwritten. Keep `latest` only as a convenience pointer, and retain UTC/CI tags for traceability.
+
+Every image must also be self-describing. The container contains:
+
+- `/opt/spadi/versions/versions.env`: pinned component versions and commit SHAs
+- `/opt/spadi/versions/container.env`: SPADI container version, repository Git commit, and image target
+- `/opt/spadi/scripts/spadi-version.sh`: human-readable version reporter
+
+Inside Docker or SIF, run:
+
+```bash
+source /opt/spadi/spadi-setup.sh
+spadi-version.sh
+```
+
+This metadata must survive into both user and devel images. Docker and Apptainer smoke tests must verify it so an old standalone SIF can identify its exact container release and component revisions without consulting GitHub.
+
+## AlmaLinux 9 runtime policy
+
+AlmaLinux 9 is the container OS baseline. Use its supported runtime packages where practical. In particular, DAQ uses the AlmaLinux 9 `valkey` package as the Redis-compatible service instead of forcing an historical Redis server package solely to match old upstream documentation. Keep NestDAQ-facing client/build libraries pinned independently, and keep RedisTimeSeries pinned as an explicit module dependency for `TS.*` metrics commands.
+
+## Build cost and CI
 
 ROOT and ARTEMIS builds are expensive. Documentation-only changes and host-only helper changes must not trigger those builds. Keep expensive compiled layers cacheable when changing lightweight image-resident scripts.
 
