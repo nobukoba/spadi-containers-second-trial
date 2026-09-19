@@ -7,6 +7,14 @@ if [[ "$kind" != "user" && "$kind" != "devel" ]]; then
   exit 2
 fi
 
+assert_command_absent() {
+  local cmd="$1"
+  if command -v "$cmd" >/dev/null 2>&1; then
+    echo "ERROR: unexpected command in runtime image: $cmd ($(command -v "$cmd"))" >&2
+    return 1
+  fi
+}
+
 contains_path_entry() {
   local value="$1"
   local expected="$2"
@@ -65,11 +73,11 @@ rm -f /tmp/spadi-smoke.dis
 
 if [[ "$kind" == "user" ]]; then
   echo "=== User image policy ==="
-  ! command -v gcc
-  ! command -v g++
-  ! command -v cmake
-  ! command -v make
-  ! command -v git
+  assert_command_absent gcc
+  assert_command_absent g++
+  assert_command_absent cmake
+  assert_command_absent make
+  assert_command_absent git
   test ! -d /opt/spadi/src
   test ! -d /opt/spadi/include
 else
@@ -83,7 +91,10 @@ else
   test -d /opt/spadi/src/nestdaq-user-impl
   test -d /opt/spadi/src/libzmq
   test -d /opt/spadi/include
-  ! grep -R --line-number -- '-march=native' /opt/spadi/src/nestdaq/cmake /opt/spadi/src/nestdaq-user-impl/CMakeLists.txt
+  if grep -R --line-number -- '-march=native' /opt/spadi/src/nestdaq/cmake /opt/spadi/src/nestdaq/CMakeLists.txt /opt/spadi/src/nestdaq-user-impl/CMakeLists.txt; then
+    echo "ERROR: -march=native remains in DAQ development sources" >&2
+    exit 1
+  fi
 fi
 
 echo "DAQ ${kind} container check passed."
