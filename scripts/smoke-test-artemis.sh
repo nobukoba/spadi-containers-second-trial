@@ -1,0 +1,68 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+kind="${1:-${SPADI_IMAGE_KIND:-}}"
+if [[ "$kind" != "user" && "$kind" != "devel" ]]; then
+  echo "usage: smoke-test-artemis.sh {user|devel}" >&2
+  exit 2
+fi
+
+assert_command_absent() {
+  local cmd="$1"
+  if command -v "$cmd" >/dev/null 2>&1; then
+    echo "ERROR: unexpected command in runtime image: $cmd ($(command -v "$cmd"))" >&2
+    return 1
+  fi
+}
+
+echo "=== SPADI / ROOT / ARTEMIS environment ==="
+test "${SPADI_ROOT:-}" = "/opt/spadi"
+test "${ROOTSYS:-}" = "/opt/spadi"
+test "${ARTEMIS_ROOT:-}" = "/opt/spadi"
+test "${TARTSYS:-}" = "/opt/spadi"
+test -d /workspace
+test -w /workspace
+
+test -r /opt/spadi/bin/thisroot.sh
+test -r /opt/spadi/bin/thisartemis.sh
+
+command -v root-config
+root-config --version
+command -v root
+root -b -q -e 'gSystem->Exit(0);'
+command -v artemis
+
+artemis --help >/tmp/artemis-help.txt 2>&1 || true
+
+for exe in "$(command -v root)" "$(command -v artemis)"; do
+  if ldd "$exe" | grep -q 'not found'; then
+    echo "ERROR: unresolved shared library for $exe" >&2
+    exit 1
+  fi
+done
+
+find /opt/spadi -path '*/cmake/artemis/artemis-config.cmake' -print -quit | grep -q .
+
+if [[ "$kind" == "user" ]]; then
+  echo "=== User image policy ==="
+  # ROOT/Cling built with the system GCC toolchain needs a C++ compiler driver,
+  # matching standard C++ headers, and ROOT.modulemap at runtime. On AlmaLinux,
+  # gcc-c++ may pull make in as a package dependency, so make is not forbidden.
+  command -v c++
+  test -r /opt/spadi/include/ROOT.modulemap
+  assert_command_absent cmake
+  assert_command_absent git
+  test ! -d /opt/spadi/src
+else
+  echo "=== Development image policy ==="
+  command -v gcc
+  command -v g++
+  command -v cmake
+  command -v make
+  command -v git
+  test -d /opt/spadi/src/root
+  test -d /opt/spadi/src/artemis
+  test -d /opt/spadi/include
+fi
+
+echo "ARTEMIS ${kind} container check passed."
