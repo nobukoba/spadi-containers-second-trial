@@ -122,7 +122,7 @@ The supported image names are:
 
 `DAQ = FEE + NestDAQ` and `FULL = DAQ + ARTEMIS`.
 
-User images are runtime images. Do not add compilers, CMake, development headers, source trees, or unrelated development tools unless required at runtime.
+User images are runtime images. Do not add compilers, CMake, development headers, source trees, or unrelated development tools unless required at runtime. Development helper scripts belong only in devel images; runtime smoke tests and the side-effect-free `spadi-setup.sh` may remain in user images. Before finalizing a devel image, remove in-tree `build` directories from retained source trees so `spadi-prepare-local.sh` copies clean source rather than stale container build artifacts.
 
 Development images provide the corresponding runtime environment plus source and build tools.
 
