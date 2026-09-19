@@ -2,6 +2,9 @@
 
 FROM almalinux:9 AS fee-build
 
+ARG SPADI_CONTAINER_VERSION=unreleased
+ARG SPADI_GIT_COMMIT=unknown
+ARG SPADI_IMAGE_TARGET=unknown
 ARG NPROC=4
 ARG HUL_COMMON_LIB_REF=65476509aa401aad10148ec7c2d2a50ba7d2db3e
 ARG AMANEQ_SOFT_REF=86fef97ccc4e6488739e2d8b549a1c5bddd3542e
@@ -90,6 +93,11 @@ RUN printf '%s\n' '/opt/spadi/lib' '/opt/spadi/lib64' > /etc/ld.so.conf.d/spadi.
 
 RUN mkdir -p /opt/spadi/versions
 COPY versions/versions.env /opt/spadi/versions/versions.env
+RUN printf '%s\n' \
+      "SPADI_CONTAINER_VERSION=${SPADI_CONTAINER_VERSION}" \
+      "SPADI_GIT_COMMIT=${SPADI_GIT_COMMIT}" \
+      "SPADI_IMAGE_TARGET=${SPADI_IMAGE_TARGET}" \
+      > /opt/spadi/versions/container.env
 COPY scripts/spadi-version.sh /opt/spadi/scripts/spadi-version.sh
 COPY scripts/spadi-setup.sh /opt/spadi/spadi-setup.sh
 COPY scripts/smoke-test-fee.sh /opt/spadi/scripts/smoke-test-fee.sh
