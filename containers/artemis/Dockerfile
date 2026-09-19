@@ -127,14 +127,16 @@ RUN printf '%s\n' '/opt/spadi/lib' '/opt/spadi/lib64' > /etc/ld.so.conf.d/spadi.
     test -x /opt/spadi/bin/artemis
 
 COPY scripts/spadi-setup.sh /opt/spadi/spadi-setup.sh
-COPY scripts/spadi-prepare-local.sh scripts/spadi-env.sh /opt/spadi/scripts/
-COPY scripts/artemis-build.sh scripts/artemis-clone-latest.sh /opt/spadi/scripts/
 COPY scripts/smoke-test-artemis.sh /opt/spadi/scripts/smoke-test-artemis.sh
 RUN chmod 0755 /opt/spadi/spadi-setup.sh /opt/spadi/scripts/*.sh
 
 WORKDIR /workspace
 
 FROM artemis-build AS devel-artemis
+RUN find /opt/spadi/src -type d -name build -prune -exec rm -rf '{}' + && rm -rf /opt/spadi/src/root-build
+COPY scripts/spadi-prepare-local.sh scripts/spadi-env.sh /opt/spadi/scripts/
+COPY scripts/artemis-build.sh scripts/artemis-clone-latest.sh /opt/spadi/scripts/
+RUN chmod 0755 /opt/spadi/scripts/*.sh
 ENV SPADI_IMAGE_KIND=devel
 CMD ["/bin/bash"]
 
