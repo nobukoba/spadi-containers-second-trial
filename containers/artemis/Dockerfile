@@ -4,7 +4,7 @@ FROM quay.io/almalinuxorg/9-base:9 AS artemis-build
 
 ARG NPROC=4
 ARG ROOT_VERSION=v6-32-06
-ARG ARTEMIS_BRANCH=develop
+ARG ARTEMIS_REF=c74e24adf90a83227fa3e5c38dc255ddc4aeb785
 ARG LIBZMQ_VERSION=v4.3.5
 ARG HIREDIS_VERSION=v1.0.0
 ARG REDIS_PLUS_PLUS_VERSION=1.2.1
@@ -108,7 +108,7 @@ RUN cd /opt/spadi/src && \
     cmake --install redis-plus-plus/build
 
 RUN cd /opt/spadi/src && \
-    git clone --depth 1 --branch ${ARTEMIS_BRANCH} https://github.com/artemis-dev/artemis.git && \
+    git clone --depth 1 --branch ${ARTEMIS_REF} https://github.com/artemis-dev/artemis.git && \
     cmake -S artemis -B artemis/build \
       -DCMAKE_BUILD_TYPE=Release \
       -DCMAKE_INSTALL_PREFIX=/opt/spadi \
