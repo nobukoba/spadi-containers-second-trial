@@ -201,12 +201,12 @@ RUN for exe in /opt/spadi/bin/daq-webctl /opt/spadi/bin/TimeFrameBuilder /opt/sp
 
 RUN printf '%s\n' '/opt/spadi/lib' '/opt/spadi/lib64' > /etc/ld.so.conf.d/spadi.conf && ldconfig
 
-COPY scripts/spadi_setup.sh /opt/spadi/spadi_setup.sh
-COPY scripts/spadi_prepare_local.sh scripts/spadi_env.sh /opt/spadi/scripts/
-COPY scripts/nestdaq_build.sh scripts/nestdaq_clone_latest.sh /opt/spadi/scripts/
-COPY scripts/nestdaq_user_impl_build.sh scripts/nestdaq_user_impl_clone_latest.sh /opt/spadi/scripts/
+COPY scripts/spadi-setup.sh /opt/spadi/spadi-setup.sh
+COPY scripts/spadi-prepare-local.sh scripts/spadi-env.sh /opt/spadi/scripts/
+COPY scripts/nestdaq-build.sh scripts/nestdaq-clone-latest.sh /opt/spadi/scripts/
+COPY scripts/nestdaq-user-impl-build.sh scripts/nestdaq-user-impl-clone-latest.sh /opt/spadi/scripts/
 COPY scripts/smoke-test-daq.sh /opt/spadi/scripts/smoke-test-daq.sh
-RUN chmod 0755 /opt/spadi/spadi_setup.sh /opt/spadi/scripts/*.sh
+RUN chmod 0755 /opt/spadi/spadi-setup.sh /opt/spadi/scripts/*.sh
 
 WORKDIR /workspace
 
