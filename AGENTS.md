@@ -40,18 +40,18 @@ A change to documentation or a host-only helper must not trigger expensive ROOT/
 
 ## User development overlay
 
-Do not overwrite the validated base installation when a user rebuilds software interactively. The immutable/container-provided installation remains under `/opt/spadi`; user-built software installs into a separate writable local prefix, normally `/workspace/local`.
+Do not overwrite the validated base installation when a user rebuilds software interactively. The immutable/container-provided installation remains under `/opt/spadi` and is named by `SPADI_ROOT`. The writable user installation prefix is `/workspace/spadi` and is named by `SPADI_LOCAL`.
 
-The development environment should search the local prefix before the base prefix:
+Keep the two prefixes structurally parallel where practical:
 
-- executables: `/workspace/local/bin` before `/opt/spadi/bin`
-- libraries: `/workspace/local/lib` and `/workspace/local/lib64` before `/opt/spadi/lib*`
-- CMake: `/workspace/local` before `/opt/spadi`
-- pkg-config: local pkgconfig directories before the base directories
+- `$SPADI_ROOT/bin`, `lib`, `include`, `share`, `src`: validated container-provided stack.
+- `$SPADI_LOCAL/bin`, `lib`, `include`, `share`, `src`: user-built stack and user source checkouts.
 
-This makes the same workflow usable with Docker and with a read-only Apptainer SIF, provided `/workspace` is a writable bind mount. It also makes it easy to discard experimental builds without modifying the validated base software.
+The local prefix takes precedence over the validated base in `PATH`, `LD_LIBRARY_PATH`, `CMAKE_PREFIX_PATH`, and `PKG_CONFIG_PATH`. The canonical environment entry point is `/opt/spadi/spadi_setup.sh`; interactive shell startup may source it, but scripts and CI must also be able to source it explicitly. Keep setup side-effect free: it sets environment variables but does not create directories. `spadi-init` creates the writable local prefix, and `spadi-env` displays the effective search paths.
 
-Provide developer helper scripts that can rebuild the source shipped in the devel image into the local prefix. Also provide an explicit opt-in workflow for cloning the latest upstream source into a writable workspace source tree (for example `/workspace/src/<project>`) and building it against the validated `/opt/spadi` base. The normal container build remains pinned and reproducible; a developer asking for `latest` is intentionally leaving that pinned baseline. Never make the image build itself silently clone latest/main.
+SPADI's own build recipes should install libraries under `$PREFIX/lib`, not split SPADI libraries between `lib` and `lib64`. Existing Dockerfiles still mention `lib64` defensively; remove those references only after every component's actual install layout has been verified. OS libraries under `/usr/lib64` are unrelated to this SPADI prefix policy.
+
+Provide developer helper scripts that can rebuild the source shipped in the devel image into `SPADI_LOCAL`. Also provide an explicit opt-in workflow for cloning latest upstream source into `$SPADI_LOCAL/src/<project>` and building it against the validated `SPADI_ROOT` base. The normal container build remains pinned and reproducible; a developer asking for `latest` is intentionally leaving that pinned baseline. Never make the image build itself silently clone latest/main.
 
 ## Paths
 
@@ -65,8 +65,8 @@ All SPADI-related software uses the single installation prefix `/opt/spadi`.
 - Experiment configuration: `/opt/spadi/scripts/exp-config`
 - Container-provided scripts: `/opt/spadi/scripts`
 - User working directory: `/workspace`
-- User source checkouts: `/workspace/src/<project>`
-- User-built installation prefix: `/workspace/local`
+- User source checkouts: `$SPADI_LOCAL/src/<project>` (normally `/workspace/spadi/src/<project>`)
+- User-built installation prefix: `$SPADI_LOCAL` (normally `/workspace/spadi`)
 
 Do not use `/work`.
 
