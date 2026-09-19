@@ -52,6 +52,8 @@ A successful Docker build alone is not sufficient validation.
 
 User and devel images in the same family must use the same revisions.
 
+The GitHub Actions workflow sources `versions/versions.env` and passes those values as Docker build arguments. Dockerfile `ARG` values are fallback defaults for direct/manual builds; CI must not maintain an independent version list. When a pinned dependency changes, update `versions/versions.env` first.
+
 ## Build cost and CI
 
 ROOT and ARTEMIS builds are expensive. Documentation-only changes and host-only helper changes must not trigger those builds. Keep expensive compiled layers cacheable when changing lightweight image-resident scripts.
