@@ -16,7 +16,9 @@ _spadi_prepend_path() {
 }
 
 _spadi_prepend_path PATH "${SPADI_ROOT}/bin"
+_spadi_prepend_path PATH "${SPADI_ROOT}/scripts"
 _spadi_prepend_path PATH "${SPADI_LOCAL}/bin"
+_spadi_prepend_path PATH "${SPADI_LOCAL}/scripts"
 
 _spadi_prepend_path LD_LIBRARY_PATH "${SPADI_ROOT}/lib"
 _spadi_prepend_path LD_LIBRARY_PATH "${SPADI_LOCAL}/lib"
