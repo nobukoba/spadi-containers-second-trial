@@ -49,6 +49,10 @@ User and development images of the same family must use the same pinned upstream
 
 A change to documentation or a host-only helper must not trigger expensive ROOT/ARTEMIS/FULL rebuilds. When image-resident scripts change, structure Docker layers so the expensive compiled dependency layers remain cacheable and only the lightweight final layers rebuild where practical.
 
+## Container version metadata
+
+Every published image must be self-describing. Keep the pinned component manifest at `/opt/spadi/versions/versions.env`, build metadata at `/opt/spadi/versions/container.env`, and the user-facing reporter at `/opt/spadi/scripts/spadi-version.sh`. The reporter must show the SPADI container version, source Git commit, image target, and pinned component versions. Docker and SIF smoke tests must verify these files and the reporter so an old standalone SIF remains identifiable without external metadata.
+
 ## User development overlay
 
 Do not overwrite the validated base installation when a user rebuilds software interactively. The immutable/container-provided installation remains under `/opt/spadi` and is named by `SPADI_ROOT`. The writable user installation prefix is `/workspace/spadi` and is named by `SPADI_LOCAL`.
