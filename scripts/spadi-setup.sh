@@ -1,6 +1,6 @@
 #!/bin/bash
 # SPADI environment setup.
-# Source this file: source /opt/spadi/spadi_setup.sh
+# Source this file: source /opt/spadi/spadi-setup.sh
 
 export SPADI_ROOT="${SPADI_ROOT:-/opt/spadi}"
 export SPADI_LOCAL="${SPADI_LOCAL:-/workspace/spadi}"
