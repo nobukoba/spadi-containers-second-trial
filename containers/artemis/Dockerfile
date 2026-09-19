@@ -111,7 +111,10 @@ RUN cd /opt/spadi/src && \
     cmake --install redis-plus-plus/build
 
 RUN cd /opt/spadi/src && \
-    git clone --depth 1 --branch ${ARTEMIS_REF} https://github.com/artemis-dev/artemis.git && \
+    git init artemis && \
+    git -C artemis remote add origin https://github.com/artemis-dev/artemis.git && \
+    git -C artemis fetch --depth 1 origin ${ARTEMIS_REF} && \
+    git -C artemis checkout --detach FETCH_HEAD && \
     cmake -S artemis -B artemis/build \
       -DCMAKE_BUILD_TYPE=Release \
       -DCMAKE_INSTALL_PREFIX=/opt/spadi \
