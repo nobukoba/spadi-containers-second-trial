@@ -26,6 +26,15 @@ When transferring dependency build recipes from a reference repository, verify e
 
 Explicit new corrections from Nobuyuki Kobayashi should also be incorporated into `AGENTS.md` when they establish a reusable repository rule.
 
+## Two developer audiences
+
+Keep these two audiences distinct in documentation and terminology:
+
+1. **Container users developing SPADI software** use an already-built `spadi-devel-*` Docker/SIF image, edit source under `$SPADI_LOCAL`, and self-build software into `$SPADI_LOCAL`. This is a normal user workflow and belongs in the main README.
+2. **Container maintainers** modify Dockerfiles, CI, image composition, SIF generation, publishing, and releases. Their documentation belongs in `docs/container-maintainer-guide.md`, not in the main README's normal development workflow.
+
+Do not instruct normal container users to build Docker or SIF images.
+
 ## Version and revision policy
 
 Second-trial builds must be reproducible. The repository-level source of truth for upstream versions and revisions is `versions/versions.env`.
