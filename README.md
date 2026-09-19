@@ -142,7 +142,7 @@ to inspect the effective paths.
 
 ### NestDAQ baseline
 
-The DAQ image intentionally follows the dependency baseline documented by the official NestDAQ `v1.0.0` release where NestDAQ specifies exact versions.
+The DAQ image uses an AlmaLinux 9 runtime. It follows the NestDAQ `v1.0.0` build-dependency baseline where appropriate, while the Redis-compatible runtime service is the AlmaLinux 9 `valkey` package. RedisTimeSeries remains a separately pinned module used for NestDAQ `TS.*` metrics commands; the container does not attempt to reproduce an old Linux distribution merely to run the historical Redis package version.
 
 | Component | Version used here | NestDAQ v1.0.0 requirement/baseline |
 |---|---:|---:|
