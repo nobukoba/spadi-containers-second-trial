@@ -130,7 +130,7 @@ nestdaq-clone-latest.sh
 nestdaq-build.sh
 ```
 
-The same pattern is available for `nestdaq-user-impl` and ARTEMIS. There is no `--latest` mode hidden inside the build script.
+The same pattern is available for FEE components (`hul-common-lib`, AMANEQ, openFPGALoader, and the SiTCP utility), `nestdaq-user-impl`, and ARTEMIS. There is no `--latest` mode hidden inside the build script.
 
 Use:
 
