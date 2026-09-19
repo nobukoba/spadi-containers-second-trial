@@ -7,6 +7,14 @@ if [[ "$kind" != "user" && "$kind" != "devel" ]]; then
   exit 2
 fi
 
+assert_command_absent() {
+  local cmd="$1"
+  if command -v "$cmd" >/dev/null 2>&1; then
+    echo "ERROR: unexpected command in runtime image: $cmd ($(command -v "$cmd"))" >&2
+    return 1
+  fi
+}
+
 contains_path_entry() {
   local value="$1"
   local expected="$2"
@@ -76,11 +84,11 @@ done < <(find /opt/spadi/bin /opt/spadi/StrHRTDC/bin -maxdepth 1 -type f -perm -
 
 if [[ "$kind" == "user" ]]; then
   echo "=== User image policy ==="
-  ! command -v gcc
-  ! command -v g++
-  ! command -v cmake
-  ! command -v make
-  ! command -v git
+  assert_command_absent gcc
+  assert_command_absent g++
+  assert_command_absent cmake
+  assert_command_absent make
+  assert_command_absent git
   test ! -d /opt/spadi/src
   test ! -d /opt/spadi/include
 else
