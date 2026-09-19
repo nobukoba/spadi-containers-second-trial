@@ -73,6 +73,11 @@ RUN rm -rf /opt/spadi/src/nestdaq-user-impl/build && \
 
 RUN printf '%s\n' '/opt/spadi/lib' '/opt/spadi/lib64' > /etc/ld.so.conf.d/spadi.conf && ldconfig
 
+# Keep retained development sources clean. Interactive rebuilds use
+# /workspace/spadi/build rather than container-build directories in source.
+RUN find /opt/spadi/src -type d -name build -prune -exec rm -rf '{}' + && \
+    rm -rf /opt/spadi/src/root-build
+
 COPY scripts/smoke-test-full.sh /opt/spadi/scripts/smoke-test-full.sh
 RUN chmod 0755 /opt/spadi/scripts/smoke-test-full.sh
 
