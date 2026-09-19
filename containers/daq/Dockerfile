@@ -12,6 +12,11 @@ ARG FAIRMQ_VERSION=v1.4.55
 ARG HIREDIS_VERSION=v1.0.0
 ARG REDIS_PLUS_PLUS_VERSION=1.2.1
 ARG REDISTIMESERIES_VERSION=v1.10.24
+ARG NESTDAQ_REF=v1.0.0
+ARG NESTDAQ_USER_IMPL_REF=v1.0.0
+ARG FAIRLOGGER_REF=5aee7970fbfc66c2f0f1668ea15671b43166df68
+ARG UHBOOK_REF=e979eb28fb64de2eb216ebec31f73a6696d257ec
+ARG EXP_CONFIG_REF=0ac32181304f92e608d4bdd1bb0aa087300e82f7
 
 ENV SPADI_ROOT=/opt/spadi
 ENV EXP_CONFIG_ROOT=/opt/spadi/scripts/exp-config
@@ -60,7 +65,8 @@ RUN cd /opt/spadi/src && \
     cmake --install fmt/build
 
 RUN cd /opt/spadi/src && \
-    git clone --depth 1 https://github.com/FairRootGroup/FairLogger.git && \
+    git clone https://github.com/FairRootGroup/FairLogger.git && \
+    git -C FairLogger checkout ${FAIRLOGGER_REF} && \
     cmake -S FairLogger -B FairLogger/build \
       -DCMAKE_BUILD_TYPE=Release \
       -DCMAKE_INSTALL_PREFIX=/opt/spadi \
@@ -119,7 +125,7 @@ RUN cd /opt/spadi/src && \
 # at the source so GitHub runner CPU features cannot leak into distributed
 # binaries. Keep the baseline usable on generic x86-64 machines without AVX.
 RUN cd /opt/spadi/src && \
-    git clone --depth 1 https://github.com/spadi-alliance/nestdaq.git && \
+    git clone --branch ${NESTDAQ_REF} --depth 1 https://github.com/spadi-alliance/nestdaq.git && \
     sed -i \
       's/-Ofast -DNDEBUG -march=native/-Ofast -DNDEBUG -march=x86-64 -mtune=generic -mno-avx -mno-avx2/' \
       nestdaq/cmake/common.cmake && \
@@ -139,7 +145,8 @@ RUN cd /opt/spadi/src && \
     cmake --install nestdaq/build
 
 RUN cd /opt/spadi/src && \
-    git clone --depth 1 https://github.com/spadi-alliance/uhbook.git && \
+    git clone https://github.com/spadi-alliance/uhbook.git && \
+    git -C uhbook checkout ${UHBOOK_REF} && \
     ln -sf /opt/spadi/src/uhbook/uhbook.cxx /opt/spadi/include/uhbook.cxx
 
 # nestdaq-user-impl also sets -march=native for Release builds. The project
@@ -148,7 +155,7 @@ RUN cd /opt/spadi/src && \
 # proven reference container. ROOT-dependent TriggerView is disabled in DAQ-only
 # images; it is available later in the FULL image where ROOT is present.
 RUN cd /opt/spadi/src && \
-    git clone --depth 1 https://github.com/spadi-alliance/nestdaq-user-impl.git && \
+    git clone --branch ${NESTDAQ_USER_IMPL_REF} --depth 1 https://github.com/spadi-alliance/nestdaq-user-impl.git && \
     python3 - <<'PY'
 from pathlib import Path
 p = Path('/opt/spadi/src/nestdaq-user-impl/CMakeLists.txt')
@@ -178,7 +185,8 @@ RUN ! grep -R --line-number -- '-march=native' /opt/spadi/src/nestdaq-user-impl/
     cmake --build /opt/spadi/src/nestdaq-user-impl/build -j${NPROC} --verbose && \
     cmake --install /opt/spadi/src/nestdaq-user-impl/build
 
-RUN git clone --depth 1 https://github.com/spadi-alliance/exp-config.git /opt/spadi/scripts/exp-config
+RUN git clone https://github.com/spadi-alliance/exp-config.git /opt/spadi/scripts/exp-config && \
+    git -C /opt/spadi/scripts/exp-config checkout ${EXP_CONFIG_REF}
 
 # Fail the build if representative distributed binaries contain AVX register
 # use. This catches accidental reintroduction of native CPU tuning.
@@ -193,8 +201,10 @@ RUN for exe in /opt/spadi/bin/daq-webctl /opt/spadi/bin/TimeFrameBuilder /opt/sp
 
 RUN printf '%s\n' '/opt/spadi/lib' '/opt/spadi/lib64' > /etc/ld.so.conf.d/spadi.conf && ldconfig
 
+COPY scripts/spadi_setup.sh /opt/spadi/spadi_setup.sh
+COPY scripts/spadi_prepare_local.sh scripts/spadi_env.sh /opt/spadi/scripts/
 COPY scripts/smoke-test-daq.sh /opt/spadi/scripts/smoke-test-daq.sh
-RUN chmod 0755 /opt/spadi/scripts/smoke-test-daq.sh
+RUN chmod 0755 /opt/spadi/spadi_setup.sh /opt/spadi/scripts/spadi_prepare_local.sh /opt/spadi/scripts/spadi_env.sh /opt/spadi/scripts/smoke-test-daq.sh
 
 WORKDIR /workspace
 
