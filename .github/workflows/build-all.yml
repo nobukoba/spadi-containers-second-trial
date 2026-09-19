@@ -6,7 +6,8 @@ on:
     branches: [main]
     paths:
       - "containers/**"
-      - "scripts/smoke-test-*.sh"
+      - "versions/**"
+      - "scripts/**"
       - ".github/workflows/build-all.yml"
 
 permissions:
@@ -49,6 +50,16 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+
+      - id: versions
+        shell: bash
+        run: |
+          set -euo pipefail
+          source versions/versions.env
+          while IFS='=' read -r name value; do
+            [[ "$name" =~ ^[A-Z0-9_]+$ ]] || continue
+            echo "$name=$value" >> "$GITHUB_ENV"
+          done < versions/versions.env
 
       - id: tag
         run: echo "tag=$(date -u +%Y%m%d-%H%Mutc)" >> "$GITHUB_OUTPUT"
@@ -108,7 +119,7 @@ jobs:
           fi
 
           run_logged fee-devel-prerequisite \
-            docker buildx build --platform linux/amd64 --target devel-fee --build-arg NPROC=4 \
+            docker buildx build --platform linux/amd64 --target devel-fee --build-arg NPROC=4 --build-arg HUL_COMMON_LIB_REF="$HUL_COMMON_LIB_REF" --build-arg AMANEQ_SOFT_REF="$AMANEQ_SOFT_REF" --build-arg OPENFPGALOADER_REF="$OPENFPGALOADER_REF" --build-arg SITCP_IP_UTILITY_REF="$SITCP_IP_UTILITY_REF" \
               --cache-from type=gha,scope=devel-fee \
               --cache-to type=gha,mode=max,scope=${{ matrix.target }}-fee-devel \
               -t "${{ steps.names.outputs.fee_devel }}" --push \
@@ -116,7 +127,7 @@ jobs:
           p_fee_devel=$!
 
           run_logged fee-user-prerequisite \
-            docker buildx build --platform linux/amd64 --target user-fee --build-arg NPROC=4 \
+            docker buildx build --platform linux/amd64 --target user-fee --build-arg NPROC=4 --build-arg HUL_COMMON_LIB_REF="$HUL_COMMON_LIB_REF" --build-arg AMANEQ_SOFT_REF="$AMANEQ_SOFT_REF" --build-arg OPENFPGALOADER_REF="$OPENFPGALOADER_REF" --build-arg SITCP_IP_UTILITY_REF="$SITCP_IP_UTILITY_REF" \
               --cache-from type=gha,scope=user-fee \
               --cache-to type=gha,mode=max,scope=${{ matrix.target }}-fee-user \
               -t "${{ steps.names.outputs.fee_user }}" --push \
@@ -174,6 +185,23 @@ jobs:
             --platform linux/amd64
             --target "${{ matrix.target }}"
             --build-arg NPROC=4
+            --build-arg HUL_COMMON_LIB_REF="$HUL_COMMON_LIB_REF"
+            --build-arg AMANEQ_SOFT_REF="$AMANEQ_SOFT_REF"
+            --build-arg OPENFPGALOADER_REF="$OPENFPGALOADER_REF"
+            --build-arg SITCP_IP_UTILITY_REF="$SITCP_IP_UTILITY_REF"
+            --build-arg LIBZMQ_VERSION="$LIBZMQ_VERSION"
+            --build-arg FMT_VERSION="$FMT_VERSION"
+            --build-arg FAIRMQ_VERSION="$FAIRMQ_VERSION"
+            --build-arg HIREDIS_VERSION="$HIREDIS_VERSION"
+            --build-arg REDIS_PLUS_PLUS_VERSION="$REDIS_PLUS_PLUS_VERSION"
+            --build-arg REDISTIMESERIES_VERSION="$REDISTIMESERIES_VERSION"
+            --build-arg NESTDAQ_REF="$NESTDAQ_REF"
+            --build-arg NESTDAQ_USER_IMPL_REF="$NESTDAQ_USER_IMPL_REF"
+            --build-arg FAIRLOGGER_REF="$FAIRLOGGER_REF"
+            --build-arg UHBOOK_REF="$UHBOOK_REF"
+            --build-arg EXP_CONFIG_REF="$EXP_CONFIG_REF"
+            --build-arg ROOT_VERSION="$ROOT_VERSION"
+            --build-arg YAML_CPP_VERSION="$YAML_CPP_VERSION"
             --cache-from "type=gha,scope=${{ matrix.target }}"
             --cache-to "type=gha,mode=max,scope=${{ matrix.target }}"
             -t "${{ steps.names.outputs.image }}:${{ steps.tag.outputs.tag }}"
