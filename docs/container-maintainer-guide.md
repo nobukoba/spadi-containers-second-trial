@@ -50,7 +50,7 @@ A successful Docker build alone is not sufficient validation.
 
 `versions/versions.env` is the source of truth for pinned upstream revisions. Prefer suitable official stable release tags; otherwise use an exact commit SHA. Do not silently replace a pin with a moving `main`, `master`, or development branch.
 
-User and devel images in the same family must use the same revisions.
+User and devel images in the same family must use the same revisions.\n\nARTEMIS upstream uses the moving `develop` branch. Published containers do not build directly from that moving branch: `ARTEMIS_REF` records a selected exact commit SHA from `develop`. To update ARTEMIS, choose the intended `develop` commit, update `ARTEMIS_REF`, then rebuild and validate the affected images.
 
 The GitHub Actions workflow sources `versions/versions.env` and passes those values as Docker build arguments. Dockerfile `ARG` values are fallback defaults for direct/manual builds; CI must not maintain an independent version list. When a pinned dependency changes, update `versions/versions.env` first.
 
