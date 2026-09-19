@@ -3,9 +3,9 @@
 FROM almalinux:9 AS fee-build
 
 ARG NPROC=4
-ARG HUL_COMMON_LIB_REF=main
-ARG AMANEQ_SOFT_REF=main
-ARG OPENFPGALOADER_REF=master
+ARG HUL_COMMON_LIB_REF=65476509aa401aad10148ec7c2d2a50ba7d2db3e
+ARG AMANEQ_SOFT_REF=86fef97ccc4e6488739e2d8b549a1c5bddd3542e
+ARG OPENFPGALOADER_REF=24e46d13bb8f2bc9371e9ca8443ece2fafc4b20d
 ARG SITCP_IP_UTILITY_REF=75353888d15381bb03ce5bfea410851a832ef9a7
 
 ENV SPADI_ROOT=/opt/spadi
@@ -88,8 +88,12 @@ RUN git clone https://github.com/nobukoba/sitcp-sitcpxg-mpc-mpcx-ip-utility-firs
 
 RUN printf '%s\n' '/opt/spadi/lib' '/opt/spadi/lib64' > /etc/ld.so.conf.d/spadi.conf && ldconfig
 
+COPY scripts/spadi-setup.sh /opt/spadi/spadi-setup.sh
+COPY scripts/spadi-prepare-local.sh scripts/spadi-env.sh /opt/spadi/scripts/
+COPY scripts/hul-common-lib-build.sh scripts/amaneq-build.sh /opt/spadi/scripts/
+COPY scripts/openfpgaloader-build.sh scripts/sitcp-utility-build.sh /opt/spadi/scripts/
 COPY scripts/smoke-test-fee.sh /opt/spadi/scripts/smoke-test-fee.sh
-RUN chmod 0755 /opt/spadi/scripts/smoke-test-fee.sh
+RUN chmod 0755 /opt/spadi/spadi-setup.sh /opt/spadi/scripts/*.sh
 
 WORKDIR /workspace
 
