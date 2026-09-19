@@ -26,6 +26,10 @@ on:
       - "scripts/**"
       - ".github/workflows/build-all.yml"
 
+concurrency:
+  group: spadi-build-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 permissions:
   contents: write
   packages: write

@@ -186,6 +186,13 @@ When asserting that a command must be absent, do not rely on a bare `! command -
 
 Hardware-dependent tests (JTAG, Digilent HS3, SiTCP hardware, real DAQ networks) are separate from container-only smoke tests.
 
+
+## Commit batching and CI economy
+
+When one logical change touches multiple repository files, batch those edits into one Git commit and update `main` once. Do not use one Contents API commit per file when Git Data API blob/tree/commit/ref operations are available. Each push to an image-affecting path can launch the expensive eight-target workflow, including multi-hour ROOT/ARTEMIS builds, so per-file commits waste runner time and create obsolete queued runs.
+
+Treat one coherent implementation plus its tests and documentation as one commit where practical. Documentation-only changes should not trigger container builds. CI should also cancel superseded runs on the same branch as a safety net, but batching changes before push is the primary defense because cancellation can still discard hours of useful build work.
+
 ## GitHub Actions
 
 Keep workflows readable from top to bottom. Build, Docker test, SIF creation, SIF test, and publishing should be visibly separate operations.
