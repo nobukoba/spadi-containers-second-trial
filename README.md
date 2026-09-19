@@ -110,6 +110,10 @@ can be used to discard a build tree without deleting the edited source.
 This means editable helper scripts can be invoked from any directory once the environment is loaded. For example:
 
 ```bash
+hul-common-lib-build.sh
+amaneq-build.sh
+openfpgaloader-build.sh
+sitcp-utility-build.sh
 nestdaq-build.sh
 nestdaq-user-impl-build.sh
 artemis-build.sh
