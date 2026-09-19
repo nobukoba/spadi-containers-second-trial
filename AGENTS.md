@@ -26,6 +26,18 @@ When transferring dependency build recipes from a reference repository, verify e
 
 Explicit new corrections from Nobuyuki Kobayashi should also be incorporated into `AGENTS.md` when they establish a reusable repository rule.
 
+## Version and revision policy
+
+Second-trial builds must be reproducible. The repository-level source of truth for upstream versions and revisions is `versions/versions.env`.
+
+Prefer an upstream project's official stable release tag when it exists and is suitable for the tested stack. NestDAQ and `nestdaq-user-impl` both publish an official `v1.0.0` release, so second-trial uses that release as the intended baseline rather than an unpinned `main` checkout. For repositories without an appropriate release tag, pin an exact commit SHA.
+
+Do not silently replace a pinned ref with `main`, `master`, or another moving branch. When updating a pin, make it a deliberate change, record why when non-obvious, and rebuild/test every image family affected by that component.
+
+User and development images of the same family must use the same pinned upstream revisions. Dockerfiles and CI should consume the centralized revision set rather than maintaining independent copies that can drift.
+
+A change to documentation or a host-only helper must not trigger expensive ROOT/ARTEMIS/FULL rebuilds. When image-resident scripts change, structure Docker layers so the expensive compiled dependency layers remain cacheable and only the lightweight final layers rebuild where practical.
+
 ## Paths
 
 All SPADI-related software uses the single installation prefix `/opt/spadi`.
