@@ -1,8 +1,10 @@
-# SPADI Containers — First Trial
+# SPADI Containers — Second Trial
 
 Pre-built Docker/OCI and Apptainer SIF environments for SPADI FEE, NestDAQ, and ARTEMIS software.
 
-## Quick Start
+The images target `linux/amd64`. Use `spadi-user-*` for normal operation and `spadi-devel-*` when you want to edit and rebuild SPADI software inside the container.
+
+## Images
 
 | Purpose | User image | Development image |
 |---|---|---|
@@ -11,163 +13,127 @@ Pre-built Docker/OCI and Apptainer SIF environments for SPADI FEE, NestDAQ, and 
 | ARTEMIS | `spadi-user-artemis` | `spadi-devel-artemis` |
 | Everything | `spadi-user-full` | `spadi-devel-full` |
 
-Use `spadi-user-*` for normal operation and `spadi-devel-*` when compilers, headers, CMake, and source trees are needed.
-
-## Apptainer
-
-```bash
-curl -L -O \
-  https://github.com/nobukoba/spadi-containers-first-trial/releases/download/latest/spadi-user-fee.sif
-
-apptainer shell --cleanenv spadi-user-fee.sif
-```
-
-The other SIF images use the same naming scheme: `spadi-user-daq.sif`, `spadi-user-artemis.sif`, and `spadi-user-full.sif`.
+`DAQ = FEE + NestDAQ`; `FULL = DAQ + ARTEMIS`.
 
 ## Docker
 
-The images target `linux/amd64` with generic x86-64 compatibility.
-
-On an x86-64 Linux host:
+For example, to use the NestDAQ development image on x86-64 Linux:
 
 ```bash
-docker pull ghcr.io/nobukoba/spadi-containers-first-trial/spadi-user-fee:latest
-```
+docker pull ghcr.io/nobukoba/spadi-containers-second-trial/spadi-devel-daq:latest
 
-```bash
+mkdir -p "$PWD/workspace"
+
 docker run --rm -it \
-  -v "$PWD:/workspace" \
-  ghcr.io/nobukoba/spadi-containers-first-trial/spadi-user-fee:latest
+  -v "$PWD/workspace:/workspace" \
+  ghcr.io/nobukoba/spadi-containers-second-trial/spadi-devel-daq:latest
 ```
 
-On an Apple Silicon Mac (`arm64`), explicitly select the x86-64 image so Docker Desktop runs it through amd64 emulation:
+On Apple Silicon, explicitly select the x86-64 image:
 
 ```bash
 docker pull --platform linux/amd64 \
-  ghcr.io/nobukoba/spadi-containers-first-trial/spadi-user-fee:latest
-```
+  ghcr.io/nobukoba/spadi-containers-second-trial/spadi-devel-daq:latest
 
-```bash
 docker run --rm -it \
   --platform linux/amd64 \
-  -v "$PWD:/workspace" \
-  ghcr.io/nobukoba/spadi-containers-first-trial/spadi-user-fee:latest
+  -v "$PWD/workspace:/workspace" \
+  ghcr.io/nobukoba/spadi-containers-second-trial/spadi-devel-daq:latest
 ```
 
-Without `--platform linux/amd64`, Docker on Apple Silicon reports `no matching manifest for linux/arm64/v8` because these images intentionally do not publish a native ARM64 variant.
+The bind-mounted `/workspace` is persistent. Files edited below `/workspace/spadi` remain after the container exits or is replaced.
 
-If you want `linux/amd64` to be the default for the current shell session:
+## Apptainer
 
-```bash
-export DOCKER_DEFAULT_PLATFORM=linux/amd64
-```
+SIF images use the same eight image names. Run them with a writable host directory bound to `/workspace`; the SIF itself can remain read-only.
 
-After that, the normal `docker pull` and `docker run` commands above can be used without repeating `--platform`.
-
-## Image Structure
-
-```text
-FEE ──> DAQ ──┐
-              ├──> FULL
-ARTEMIS ──────┘
-```
-
-- `DAQ = FEE + NestDAQ`
-- `FULL = DAQ + ARTEMIS`
-
-## Container Directory Structure
-
-All installed SPADI software uses the single prefix `/opt/spadi`.
-
-```text
-/opt/spadi/
-├── bin/                    # Installed executables
-├── lib/                    # Installed libraries
-├── lib64/                  # Installed libraries
-├── include/                # Installed headers
-├── share/                  # Shared data/resources
-├── etc/                    # Package configuration, when needed
-├── src/                    # Source trees (devel images only)
-│   ├── hul-common-lib/
-│   ├── amaneq-soft/
-│   ├── nestdaq/
-│   ├── nestdaq-user-impl/
-│   ├── root/
-│   └── artemis/
-└── scripts/
-    ├── exp-config/         # Experiment configurations
-    └── local/              # User/local scripts
-
-/workspace/                 # User working directory
-```
-
-The basic rule is:
-
-```text
-source  -> /opt/spadi/src/<project>
-install -> /opt/spadi
-work    -> /workspace
-```
-
-User images normally do not contain `/opt/spadi/src`. Development images retain source trees.
-
-## Environment Isolation
-
-SPADI environment variables are defined by the container and must not depend on host software environments. Apptainer examples therefore use `--cleanenv`.
-
-## Image Tags
-
-Successful builds use both `latest` and a UTC timestamp tag:
-
-```text
-latest
-YYYYMMDD-HHMMutc
-```
+`--cleanenv` is recommended so the SPADI environment does not accidentally depend on host software settings.
 
 ## For Developers
 
-The repository is intentionally organized so that Dockerfiles, helper scripts, tests, and GitHub Actions remain understandable to humans. Common logic should be shared where useful, but important build behavior should not be hidden behind excessive abstraction.
+This section is for developers who **use a pre-built `spadi-devel-*` image to develop SPADI software**. Developers who modify Dockerfiles, GitHub Actions, SIF generation, or image publishing should instead read [Container Maintainer Guide](docs/container-maintainer-guide.md).
 
-Validation follows:
+### Validated installation and local development area
 
-```text
-Build image
-    ↓
-Test Docker image
-    ↓
-Create Apptainer SIF
-    ↓
-Test SIF with a clean environment
-    ↓
-Publish
-```
-
-A successful Docker build alone is not sufficient validation.
-
-### Repository Structure
+The container-provided installation is:
 
 ```text
-spadi-containers-first-trial/
-├── README.md
-├── AGENTS.md
-├── containers/
-│   ├── fee/
-│   ├── daq/
-│   ├── artemis/
-│   └── full/
-├── scripts/
-└── .github/
-    └── workflows/
+SPADI_ROOT=/opt/spadi
 ```
 
-### Reference Implementations
+Your writable development installation is:
 
-- `nobukoba/container-hul-common-lib-amaneq-soft-first-trial` — FEE environment
-- `nobukoba/container-interfacing-nestdaq-eicrecon` — NestDAQ build/runtime environment
-- `nobukoba/container-artemis-first-trial` — ROOT/ARTEMIS and Docker/GHCR/SIF workflow
+```text
+SPADI_LOCAL=/workspace/spadi
+```
 
-README writing follows `nobukoba/nobuyuki-kobayashi-instructions-for-ai`.
+The intended layout is:
 
-## Status
+```text
+/opt/spadi/                    /workspace/spadi/
+├── bin/                       ├── bin/
+├── lib/                       ├── lib/
+├── include/                   ├── include/
+├── share/                     ├── share/
+├── scripts/                   ├── scripts/
+└── src/                       ├── src/
+                               └── build/
+```
 
-This repository is an experimental first-trial implementation. Paths and build details may change while the eight images are being validated.
+`/opt/spadi` is the validated container baseline. Do not edit it for normal development. Source files, build trees, scripts, and locally installed software belong under `/workspace/spadi`.
+
+### Prepare a persistent development workspace
+
+Load the environment and prepare the local area:
+
+```bash
+source /opt/spadi/spadi_setup.sh
+spadi_prepare_local.sh
+```
+
+`spadi_prepare_local.sh` creates the local directory structure and copies available source trees and editable build scripts from `/opt/spadi` into `/workspace/spadi`.
+
+It is safe to run repeatedly. Existing files and directories under `$SPADI_LOCAL` are kept and are never overwritten by the prepare script. Therefore edits made in `$SPADI_LOCAL/src` or `$SPADI_LOCAL/scripts` survive another prepare operation.
+
+The build directory is local scratch space:
+
+```bash
+rm -rf "$SPADI_LOCAL/build/<project>"
+```
+
+can be used to discard a build tree without deleting the edited source.
+
+### Search-path precedence
+
+`spadi_setup.sh` places the local installation before the validated installation. In particular, `$SPADI_LOCAL/bin` and `$SPADI_LOCAL/scripts` take precedence over their `$SPADI_ROOT` counterparts.
+
+This means editable helper scripts can be invoked from any directory once the environment is loaded. Use:
+
+```bash
+spadi_env.sh
+```
+
+to inspect the effective paths.
+
+### NestDAQ baseline
+
+The DAQ image intentionally follows the dependency baseline documented by the official NestDAQ `v1.0.0` release where NestDAQ specifies exact versions.
+
+| Component | Version used here | NestDAQ v1.0.0 requirement/baseline |
+|---|---:|---:|
+| NestDAQ | `v1.0.0` | official stable release |
+| nestdaq-user-impl | `v1.0.0` | matching official stable release |
+| FairMQ | `v1.4.55` | `1.4.26` or later |
+| hiredis | `v1.0.0` | `1.0.0` |
+| redis-plus-plus | `1.2.1` | `1.2.1` |
+| libzmq | `v4.3.5` | pinned container dependency |
+
+The exact repository-wide pins are maintained in `versions/versions.env`. Moving branches such as `main` are not used as the normal NestDAQ container baseline.
+
+### Container maintainers
+
+Building Docker/SIF images is intentionally separate from rebuilding SPADI software inside a devel image. Container implementation, CI, validation, publishing, and version-maintenance procedures are documented in [docs/container-maintainer-guide.md](docs/container-maintainer-guide.md).
+
+## Environment isolation
+
+SPADI runtime settings are defined by the container and should not depend on software environment variables inherited from the host. Published binaries target generic x86-64 rather than `-march=native`/AVX-specific runner hardware.
