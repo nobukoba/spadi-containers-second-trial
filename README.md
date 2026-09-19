@@ -87,11 +87,11 @@ The intended layout is:
 Load the environment and prepare the local area:
 
 ```bash
-source /opt/spadi/spadi_setup.sh
-spadi_prepare_local.sh
+source /opt/spadi/spadi-setup.sh
+spadi-prepare-local.sh
 ```
 
-`spadi_prepare_local.sh` creates the local directory structure and copies available source trees and editable build scripts from `/opt/spadi` into `/workspace/spadi`.
+`spadi-prepare-local.sh` creates the local directory structure and copies available source trees and editable build scripts from `/opt/spadi` into `/workspace/spadi`.
 
 It is safe to run repeatedly. Existing files and directories under `$SPADI_LOCAL` are kept and are never overwritten by the prepare script. Therefore edits made in `$SPADI_LOCAL/src` or `$SPADI_LOCAL/scripts` survive another prepare operation.
 
@@ -105,14 +105,14 @@ can be used to discard a build tree without deleting the edited source.
 
 ### Search-path precedence
 
-`spadi_setup.sh` places the local installation before the validated installation. In particular, `$SPADI_LOCAL/bin` and `$SPADI_LOCAL/scripts` take precedence over their `$SPADI_ROOT` counterparts.
+`spadi-setup.sh` places the local installation before the validated installation. In particular, `$SPADI_LOCAL/bin` and `$SPADI_LOCAL/scripts` take precedence over their `$SPADI_ROOT` counterparts.
 
 This means editable helper scripts can be invoked from any directory once the environment is loaded. For example:
 
 ```bash
-nestdaq_build.sh
-nestdaq_user_impl_build.sh
-artemis_build.sh
+nestdaq-build.sh
+nestdaq-user-impl-build.sh
+artemis-build.sh
 ```
 
 Each build uses the source under `$SPADI_LOCAL/src`, a separate build tree under `$SPADI_LOCAL/build`, and installs into `$SPADI_LOCAL`. The validated `/opt/spadi` installation is not modified.
@@ -122,8 +122,8 @@ To deliberately try the latest upstream source, keep cloning separate from build
 ```bash
 # Remove or rename the existing local source yourself first if you really
 # intend to replace it.
-nestdaq_clone_latest.sh
-nestdaq_build.sh
+nestdaq-clone-latest.sh
+nestdaq-build.sh
 ```
 
 The same pattern is available for `nestdaq-user-impl` and ARTEMIS. There is no `--latest` mode hidden inside the build script.
@@ -131,7 +131,7 @@ The same pattern is available for `nestdaq-user-impl` and ARTEMIS. There is no `
 Use:
 
 ```bash
-spadi_env.sh
+spadi-env.sh
 ```
 
 to inspect the effective paths.
