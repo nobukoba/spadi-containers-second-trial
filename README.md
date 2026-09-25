@@ -17,45 +17,27 @@ The images target `linux/amd64`. Use `spadi-user-*` for normal operation and `sp
 
 ## Docker
 
-For example, to use the NestDAQ development image on x86-64 Linux:
+For example, to use the NestDAQ development image:
 
 Pull the image:
-
-```bash
-docker pull ghcr.io/nobukoba/spadi-containers-second-trial/spadi-devel-daq:latest
-```
-
-Create the persistent workspace once if needed:
-
-```bash
-mkdir -p "$PWD/workspace"
-```
-
-Run the container:
-
-```bash
-docker run --rm -it \
-  -v "$PWD/workspace:/workspace" \
-  ghcr.io/nobukoba/spadi-containers-second-trial/spadi-devel-daq:latest
-```
-
-On Apple Silicon, explicitly select the x86-64 image:
-
-Pull the x86-64 image:
 
 ```bash
 docker pull --platform linux/amd64 \
   ghcr.io/nobukoba/spadi-containers-second-trial/spadi-devel-daq:latest
 ```
 
-Run it with the same persistent workspace:
+Create the persistent workspace if needed and run the container:
 
 ```bash
+mkdir -p "$PWD/workspace"
+
 docker run --rm -it \
   --platform linux/amd64 \
   -v "$PWD/workspace:/workspace" \
   ghcr.io/nobukoba/spadi-containers-second-trial/spadi-devel-daq:latest
 ```
+
+The images target `linux/amd64`, so the same commands can be used on both Apple Silicon macOS and amd64 Linux. On an amd64 Linux host, `--platform linux/amd64` is optional and may be omitted.
 
 The bind-mounted `/workspace` is persistent. Files edited below `/workspace/spadi` remain after the container exits or is replaced.
 
