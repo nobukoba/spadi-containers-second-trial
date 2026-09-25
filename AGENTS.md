@@ -68,6 +68,12 @@ SPADI's own build recipes should install libraries under `$PREFIX/lib`, not spli
 
 Provide developer helper scripts that can rebuild the source shipped in the devel image into `SPADI_LOCAL`. Build helpers use short natural names such as `<component>-build.sh`; do not call them `self-build`, `user-build`, or `local-build`. Put editable copies in `$SPADI_LOCAL/scripts` and put that directory on `PATH` so helpers can run from any working directory. Prefer one small script per operation/component instead of one argument-driven dispatcher. Also provide an explicit opt-in workflow for cloning latest upstream source into `$SPADI_LOCAL/src/<project>` and building it against the validated `SPADI_ROOT` base. The normal container build remains pinned and reproducible; a developer asking for `latest` is intentionally leaving that pinned baseline. Never make the image build itself silently clone latest/main.
 
+## Runtime user identity
+
+Docker containers run interactive commands as the non-root user `spadi`. The Docker entrypoint reads `LOCAL_UID` and `LOCAL_GID` and remaps the numeric UID/GID of `spadi` at startup before dropping privileges. User-facing Docker commands should pass `LOCAL_UID="$(id -u)"` and `LOCAL_GID="$(id -g)"` on both macOS and Linux. The container username remains `spadi`; only its numeric identity follows the host user. This keeps bind-mounted `/workspace` files owned by the invoking host user without requiring separate macOS and Linux command variants.
+
+Do not replace this with Docker `--user` alone: the named `spadi` account and its HOME must remain valid for interactive development tools.
+
 ## Paths
 
 All SPADI-related software uses the single installation prefix `/opt/spadi`.

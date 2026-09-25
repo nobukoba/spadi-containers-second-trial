@@ -34,7 +34,7 @@ RUN dnf -y update && \
       which findutils diffutils patch tar gzip bzip2 xz unzip \
       wget ca-certificates python3 python3-pip rsync \
       binutils file procps-ng tmux vim-minimal \
-      openssl-devel zlib-devel xz-devel bzip2-devel pcre2-devel \
+      openssl-devel zlib-devel xz-devel bzip2-devel pcre2-devel shadow-utils \
       libX11-devel libXext-devel libXft-devel libXpm-devel libXrender-devel \
       libjpeg-turbo-devel libpng-devel freetype-devel giflib-devel \
       mesa-libGL-devel mesa-libGLU-devel \
@@ -144,7 +144,12 @@ COPY scripts/spadi-setup.sh /opt/spadi/spadi-setup.sh
 COPY scripts/smoke-test-artemis.sh /opt/spadi/scripts/smoke-test-artemis.sh
 RUN chmod 0755 /opt/spadi/spadi-setup.sh /opt/spadi/scripts/*.sh
 
+RUN groupadd --gid 1000 spadi && useradd --uid 1000 --gid spadi --create-home --shell /bin/bash spadi
+COPY scripts/spadi-entrypoint.sh /usr/local/bin/spadi-entrypoint.sh
+RUN chmod 0755 /usr/local/bin/spadi-entrypoint.sh
+
 WORKDIR /workspace
+ENTRYPOINT ["/usr/local/bin/spadi-entrypoint.sh"]
 
 FROM artemis-build AS devel-artemis
 RUN find /opt/spadi/src -type d -name build -prune -exec rm -rf '{}' + && rm -rf /opt/spadi/src/root-build
@@ -175,7 +180,7 @@ RUN dnf -y update && \
     dnf -y install dnf-plugins-core && \
     dnf config-manager --set-enabled crb && \
     dnf -y install \
-      which findutils procps-ng tmux ca-certificates gcc-c++ \
+      which findutils procps-ng tmux ca-certificates gcc-c++ shadow-utils \
       openssl-libs zlib xz-libs bzip2-libs pcre2 \
       libX11 libXext libXft libXpm libXrender \
       libjpeg-turbo libpng freetype giflib \
@@ -189,5 +194,10 @@ RUN mkdir -p /workspace && chmod 1777 /workspace && \
     printf '%s\n' '/opt/spadi/lib' '/opt/spadi/lib64' > /etc/ld.so.conf.d/spadi.conf && \
     ldconfig
 
+RUN groupadd --gid 1000 spadi && useradd --uid 1000 --gid spadi --create-home --shell /bin/bash spadi
+COPY scripts/spadi-entrypoint.sh /usr/local/bin/spadi-entrypoint.sh
+RUN chmod 0755 /usr/local/bin/spadi-entrypoint.sh
+
 WORKDIR /workspace
+ENTRYPOINT ["/usr/local/bin/spadi-entrypoint.sh"]
 CMD ["/bin/bash"]

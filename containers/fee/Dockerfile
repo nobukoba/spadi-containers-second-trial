@@ -28,7 +28,7 @@ RUN dnf -y update && \
       libftdi-devel libusbx-devel hidapi-devel libgpiod-devel systemd-devel zlib-devel \
       iproute iputils net-tools bind-utils traceroute tcpdump nmap-ncat \
       curl-minimal wget procps-ng psmisc lsof which less vim-minimal findutils tar gzip \
-      binutils file && \
+      binutils file shadow-utils && \
     dnf clean all && rm -rf /var/cache/dnf
 
 RUN mkdir -p \
@@ -103,7 +103,12 @@ COPY scripts/spadi-setup.sh /opt/spadi/spadi-setup.sh
 COPY scripts/smoke-test-fee.sh /opt/spadi/scripts/smoke-test-fee.sh
 RUN chmod 0755 /opt/spadi/spadi-setup.sh /opt/spadi/scripts/spadi-version.sh /opt/spadi/scripts/smoke-test-fee.sh
 
+RUN groupadd --gid 1000 spadi && useradd --uid 1000 --gid spadi --create-home --shell /bin/bash spadi
+COPY scripts/spadi-entrypoint.sh /usr/local/bin/spadi-entrypoint.sh
+RUN chmod 0755 /usr/local/bin/spadi-entrypoint.sh
+
 WORKDIR /workspace
+ENTRYPOINT ["/usr/local/bin/spadi-entrypoint.sh"]
 
 FROM fee-build AS devel-fee
 RUN find /opt/spadi/src -type d -name build -prune -exec rm -rf '{}' + && rm -rf /opt/spadi/src/root-build
@@ -137,7 +142,7 @@ RUN dnf -y update && \
     dnf -y install \
       iproute iputils net-tools bind-utils traceroute tcpdump nmap-ncat \
       curl-minimal wget procps-ng psmisc lsof which less vim-minimal findutils tar gzip \
-      libftdi libusbx hidapi libgpiod systemd-libs zlib && \
+      libftdi libusbx hidapi libgpiod systemd-libs zlib shadow-utils && \
     dnf clean all && rm -rf /var/cache/dnf
 
 COPY --from=fee-runtime-files /opt/spadi /opt/spadi
@@ -146,5 +151,10 @@ RUN mkdir -p /workspace && chmod 1777 /workspace && \
     printf '%s\n' '/opt/spadi/lib' '/opt/spadi/lib64' > /etc/ld.so.conf.d/spadi.conf && \
     ldconfig
 
+RUN groupadd --gid 1000 spadi && useradd --uid 1000 --gid spadi --create-home --shell /bin/bash spadi
+COPY scripts/spadi-entrypoint.sh /usr/local/bin/spadi-entrypoint.sh
+RUN chmod 0755 /usr/local/bin/spadi-entrypoint.sh
+
 WORKDIR /workspace
+ENTRYPOINT ["/usr/local/bin/spadi-entrypoint.sh"]
 CMD ["/bin/bash"]
