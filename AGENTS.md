@@ -233,6 +233,8 @@ Before creating or revising `README.md`, read and follow `nobukoba/nobuyuki-koba
 
 Organize the README around what a user actually needs to do. Keep download and run commands copy-pasteable, include concrete URLs and paths, document the container directory structure, and keep documentation consistent with the actual implementation.
 
+When adapting a reference README or reorganizing it, preserve each supported runtime's complete download/pull, startup, workspace-mount, and environment-setup commands. Compare the previous and revised instructions explicitly: an Apptainer section with prose but no executable commands is incomplete. Update repository URLs and paths to the current implementation instead of deleting the examples. Keep both Docker and Apptainer workflows usable independently.
+
 Explicit new corrections from Nobuyuki Kobayashi take precedence over this file and should be incorporated here when they establish a reusable repository rule.
 
 ## Reference repositories

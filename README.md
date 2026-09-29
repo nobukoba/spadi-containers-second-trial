@@ -15,6 +15,51 @@ The images target `linux/amd64`. Use `spadi-user-*` for normal operation and `sp
 
 `DAQ = FEE + NestDAQ`; `FULL = DAQ + ARTEMIS`.
 
+## Apptainer
+
+Use an x86-64 Linux host with Apptainer installed. The following example uses the NestDAQ development image. On macOS, use the Docker instructions below.
+
+Download the pre-built SIF on the host:
+
+```bash
+curl -fL -O \
+  https://github.com/nobukoba/spadi-containers-second-trial/releases/download/latest/spadi-devel-daq.sif
+```
+
+Create a persistent workspace and open a shell:
+
+```bash
+mkdir -p "$PWD/workspace"
+
+apptainer shell --cleanenv \
+  --bind "$PWD/workspace:/workspace" \
+  spadi-devel-daq.sif
+```
+
+Inside the container, load the SPADI environment and enter the workspace:
+
+```bash
+source /opt/spadi/spadi-setup.sh
+cd /workspace
+```
+
+Use `--cleanenv` to avoid inheriting host software settings. The SIF remains read-only; files written under `/workspace` are saved in the host's `workspace` directory. Apptainer uses your host user identity, so the Docker-specific `LOCAL_UID` and `LOCAL_GID` options are not needed.
+
+For another image, replace `spadi-devel-daq` in both the download URL and SIF filename with any name in the image table. For example, normal FEE operation uses:
+
+```bash
+curl -fL -O \
+  https://github.com/nobukoba/spadi-containers-second-trial/releases/download/latest/spadi-user-fee.sif
+
+mkdir -p "$PWD/workspace"
+
+apptainer shell --cleanenv \
+  --bind "$PWD/workspace:/workspace" \
+  spadi-user-fee.sif
+```
+
+Then run the same environment setup commands inside that container.
+
 ## Docker
 
 For example, to use the NestDAQ development image:
@@ -43,11 +88,33 @@ The images target `linux/amd64`, so the same commands can be used on both Apple 
 
 The bind-mounted `/workspace` is persistent. Files edited below `/workspace/spadi` remain after the container exits or is replaced.
 
-## Apptainer
+Inside the Docker container, load the environment and enter the workspace:
 
-SIF images use the same eight image names. Run them with a writable host directory bound to `/workspace`; the SIF itself can remain read-only.
+```bash
+source /opt/spadi/spadi-setup.sh
+cd /workspace
+```
 
-`--cleanenv` is recommended so the SPADI environment does not accidentally depend on host software settings.
+To use another image, replace `spadi-devel-daq` in both Docker commands with its name from the image table.
+
+## Leave and reopen the container
+
+Run `exit` inside either container to return to the host. Repeat the corresponding shell/run command from the same host directory to reuse `workspace`. Download or pull again only when you want to update the image. Keep your work under `/workspace`; changes elsewhere in a disposable Docker container are not persistent.
+
+## Image versions
+
+Docker images are published at `ghcr.io/nobukoba/spadi-containers-second-trial/<image-name>` with `latest` and UTC build tags in `YYYYMMDD-HHMMutc` format. SIF files are available from [GitHub Releases](https://github.com/nobukoba/spadi-containers-second-trial/releases/tag/latest), with both stable filenames such as `spadi-devel-daq.sif` and timestamped filenames.
+
+`latest` can change. For a repeatable environment, retain the selected timestamped SIF or record the Docker image digest. Pinned component revisions are listed in [versions/versions.env](versions/versions.env); the current repository manifest may differ from an older downloaded image.
+
+Images containing the version reporter can identify themselves from inside the container:
+
+```bash
+source /opt/spadi/spadi-setup.sh
+/opt/spadi/scripts/spadi-version.sh
+```
+
+The reporter reads `/opt/spadi/versions/container.env` and `/opt/spadi/versions/versions.env`. Older images published before this metadata was added may not contain these files or the reporter.
 
 ## For Developers
 
@@ -80,11 +147,13 @@ The intended layout is:
                                └── build/
 ```
 
+Development images retain source trees under `/opt/spadi/src`; user images normally omit them and do not provide the development helpers.
+
 `/opt/spadi` is the validated container baseline. Do not edit it for normal development. Source files, build trees, scripts, and locally installed software belong under `/workspace/spadi`.
 
 ### Prepare a persistent development workspace
 
-Load the environment and prepare the local area:
+Start a `spadi-devel-*` container using either method above. Run the following commands inside the container to load the environment and prepare the local area:
 
 ```bash
 source /opt/spadi/spadi-setup.sh
@@ -95,29 +164,38 @@ spadi-prepare-local.sh
 
 It is safe to run repeatedly. Existing files and directories under `$SPADI_LOCAL` are kept and are never overwritten by the prepare script. Therefore edits made in `$SPADI_LOCAL/src` or `$SPADI_LOCAL/scripts` survive another prepare operation.
 
-The build directory is local scratch space:
+The build directory is local scratch space. For example, to discard only the NestDAQ build tree before rebuilding:
 
 ```bash
-rm -rf "$SPADI_LOCAL/build/<project>"
+rm -rf "$SPADI_LOCAL/build/nestdaq"
 ```
 
-can be used to discard a build tree without deleting the edited source.
+This keeps the edited source under `$SPADI_LOCAL/src/nestdaq`.
 
 ### Search-path precedence
 
 `spadi-setup.sh` places the local installation before the validated installation. In particular, `$SPADI_LOCAL/bin` and `$SPADI_LOCAL/scripts` take precedence over their `$SPADI_ROOT` counterparts.
 
-This means editable helper scripts can be invoked from any directory once the environment is loaded. For example:
+Edit the sources under `/workspace/spadi/src` (the host's `workspace/spadi/src`). Editable helper scripts live under `/workspace/spadi/scripts` and can be invoked from any directory once the environment is loaded.
+
+For the NestDAQ development image used above, rebuild NestDAQ and then its user implementation:
 
 ```bash
-hul-common-lib-build.sh
-amaneq-build.sh
-openfpgaloader-build.sh
-sitcp-utility-build.sh
 nestdaq-build.sh
 nestdaq-user-impl-build.sh
-artemis-build.sh
 ```
+
+Other components have their own helpers. Run only the helpers for the components you want to rebuild:
+
+| Build helper | Development images |
+|---|---|
+| `hul-common-lib-build.sh` | FEE, DAQ, FULL |
+| `amaneq-build.sh` | FEE, DAQ, FULL |
+| `openfpgaloader-build.sh` | FEE, DAQ, FULL |
+| `sitcp-utility-build.sh` | FEE, DAQ, FULL |
+| `nestdaq-build.sh` | DAQ, FULL |
+| `nestdaq-user-impl-build.sh` | DAQ, FULL |
+| `artemis-build.sh` | ARTEMIS, FULL |
 
 Each build uses the source under `$SPADI_LOCAL/src`, a separate build tree under `$SPADI_LOCAL/build`, and installs into `$SPADI_LOCAL`. The validated `/opt/spadi` installation is not modified.
 
