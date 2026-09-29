@@ -71,6 +71,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Test Docker entrypoint before compiling SPADI
+        run: bash scripts/test-entrypoint.sh
+
       - id: versions
         shell: bash
         run: |

@@ -29,4 +29,10 @@ export HOME=/home/spadi
 export USER=spadi
 export LOGNAME=spadi
 
-exec setpriv   --reuid="${SPADI_UID}"   --regid="${SPADI_GID}"   --init-groups   --reset-env=false   -- "$@"
+# setpriv preserves the environment unless --reset-env is requested. That
+# option is a flag, not a boolean argument; --reset-env=false aborts startup.
+exec setpriv \
+  --reuid="${SPADI_UID}" \
+  --regid="${SPADI_GID}" \
+  --init-groups \
+  -- "$@"

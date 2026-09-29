@@ -74,6 +74,8 @@ Docker containers run interactive commands as the non-root user `spadi`. The Doc
 
 Do not replace this with Docker `--user` alone: the named `spadi` account and its HOME must remain valid for interactive development tools.
 
+`setpriv` preserves the environment by default. Its `--reset-env` option is a flag with no argument; `--reset-env=false` aborts startup before the requested command can run. Omit the flag when retaining SPADI paths while dropping privileges. Run `bash scripts/test-entrypoint.sh` to verify the real AlmaLinux 9 command, user/group remapping, environment preservation, workspace ownership, argument forwarding, and exit status before expensive SPADI builds. The workflow runs this host-side regression check before compilation for each independent target.
+
 ## Paths
 
 All SPADI-related software uses the single installation prefix `/opt/spadi`.
