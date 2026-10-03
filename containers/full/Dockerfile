@@ -52,9 +52,19 @@ s = s.replace('set(CMAKE_CXX_FLAGS_RELEASE "-Ofast -DNDEBUG -march=native")',
               'set(CMAKE_CXX_FLAGS_RELEASE "-Ofast -DNDEBUG -march=x86-64 -mtune=generic -mno-avx -mno-avx2 -fpermissive")')
 s = s.replace('  target_include_directories(${EXEC} PUBLIC \n',
               '  target_include_directories(${EXEC} PUBLIC \n    ${CMAKE_INSTALL_PREFIX}/include;\n', 1)
-s = s.replace('#==============================================================================\n# Sampler(for Emulator), Sink, FileSink, STFBuilder, TimeFrameBuilder\n',
-              '#==============================================================================\n# Internal libraries must exist before executables link to them.\nadd_subdirectory(utility)\nadd_subdirectory(emulator)\nadd_subdirectory(sqlite)\n\n#==============================================================================\n# Sampler(for Emulator), Sink, FileSink, STFBuilder, TimeFrameBuilder\n', 1)
-s = s.replace('#================================================================================\nadd_subdirectory(utility)\nadd_subdirectory(emulator)\nadd_subdirectory(sqlite)\n', '', 1)
+for subdir in ('utility', 'emulator', 'sqlite'):
+    s = s.replace(f'add_subdirectory({subdir})\n', '')
+marker = '#==============================================================================\n# Sampler(for Emulator), Sink, FileSink, STFBuilder, TimeFrameBuilder\n'
+if marker not in s:
+    raise RuntimeError('nestdaq-user-impl executable marker not found')
+s = s.replace(marker,
+              '#==============================================================================\n'
+              '# Internal libraries must exist before executables link to them.\n'
+              'add_subdirectory(utility)\n'
+              'add_subdirectory(emulator)\n'
+              'add_subdirectory(sqlite)\n\n'
+              + marker,
+              1)
 p.write_text(s)
 PY
 
