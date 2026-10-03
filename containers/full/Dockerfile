@@ -66,6 +66,18 @@ s = s.replace(marker,
               + marker,
               1)
 p.write_text(s)
+
+# Upstream TriggerView installs into ${CMAKE_SOURCE_DIR}/bin, which leaves the
+# executable under the source tree and drops it from the runtime image. Install
+# it into the configured prefix like the other DAQ executables.
+trigger = Path('/opt/spadi/src/nestdaq-user-impl/TriggerView/CMakeLists.txt')
+t = trigger.read_text()
+old_bindir = 'set(INSTALL_BINDIR ${CMAKE_SOURCE_DIR}/bin)'
+if old_bindir not in t:
+    raise RuntimeError('TriggerView install bindir marker not found')
+trigger.write_text(t.replace(old_bindir,
+                             'set(INSTALL_BINDIR ${CMAKE_INSTALL_BINDIR})',
+                             1))
 PY
 
 RUN rm -rf /opt/spadi/src/nestdaq-user-impl/build && \
