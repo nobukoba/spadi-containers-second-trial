@@ -48,6 +48,113 @@ command -v STFBFilePlayer
 test -r /opt/spadi/lib/redistimeseries.so
 test -d /opt/spadi/scripts/exp-config
 
+
+echo "=== Redis client linkage ==="
+grep -q '^REDIS_PLUS_PLUS_VERSION=1.3.15
+command -v root-config
+root-config --version
+command -v root
+root -b -q -e 'gSystem->Exit(0);'
+command -v artemis
+test -r /opt/spadi/bin/thisroot.sh
+test -r /opt/spadi/bin/thisartemis.sh
+artemis --help >/tmp/artemis-help.txt 2>&1 || true
+
+for exe in \
+  "$(command -v openFPGALoader)" \
+  "$(command -v daq-webctl)" \
+  "$(command -v TimeFrameBuilder)" \
+  "$(command -v root)" \
+  "$(command -v artemis)"; do
+  if ldd "$exe" | grep -q 'not found'; then
+    echo "ERROR: unresolved shared library for $exe" >&2
+    exit 1
+  fi
+done
+
+command -v TriggerView >/dev/null 2>&1 || {
+  echo "ERROR: ROOT-dependent TriggerView was not installed in FULL image" >&2
+  exit 1
+}
+
+if [[ "$kind" == "user" ]]; then
+  echo "=== User image policy ==="
+  command -v c++
+  test -r /opt/spadi/include/ROOT.modulemap
+  assert_command_absent cmake
+  assert_command_absent git
+  test ! -d /opt/spadi/src
+else
+  echo "=== Development image policy ==="
+  command -v gcc
+  command -v g++
+  command -v cmake
+  command -v make
+  command -v git
+  test -d /opt/spadi/src/nestdaq
+  test -d /opt/spadi/src/nestdaq-user-impl
+  test -d /opt/spadi/src/root
+  test -d /opt/spadi/src/artemis
+  test -d /opt/spadi/include
+fi
+
+echo "FULL ${kind} container check passed."
+ /opt/spadi/versions/versions.env
+grep -q '^HIREDIS_VERSION=v1.0.0
+command -v root-config
+root-config --version
+command -v root
+root -b -q -e 'gSystem->Exit(0);'
+command -v artemis
+test -r /opt/spadi/bin/thisroot.sh
+test -r /opt/spadi/bin/thisartemis.sh
+artemis --help >/tmp/artemis-help.txt 2>&1 || true
+
+for exe in \
+  "$(command -v openFPGALoader)" \
+  "$(command -v daq-webctl)" \
+  "$(command -v TimeFrameBuilder)" \
+  "$(command -v root)" \
+  "$(command -v artemis)"; do
+  if ldd "$exe" | grep -q 'not found'; then
+    echo "ERROR: unresolved shared library for $exe" >&2
+    exit 1
+  fi
+done
+
+command -v TriggerView >/dev/null 2>&1 || {
+  echo "ERROR: ROOT-dependent TriggerView was not installed in FULL image" >&2
+  exit 1
+}
+
+if [[ "$kind" == "user" ]]; then
+  echo "=== User image policy ==="
+  command -v c++
+  test -r /opt/spadi/include/ROOT.modulemap
+  assert_command_absent cmake
+  assert_command_absent git
+  test ! -d /opt/spadi/src
+else
+  echo "=== Development image policy ==="
+  command -v gcc
+  command -v g++
+  command -v cmake
+  command -v make
+  command -v git
+  test -d /opt/spadi/src/nestdaq
+  test -d /opt/spadi/src/nestdaq-user-impl
+  test -d /opt/spadi/src/root
+  test -d /opt/spadi/src/artemis
+  test -d /opt/spadi/include
+fi
+
+echo "FULL ${kind} container check passed."
+ /opt/spadi/versions/versions.env
+test -e /opt/spadi/lib/libredis++.so
+test -e /opt/spadi/lib/libhiredis.so
+ldd /opt/spadi/bin/TimeFrameBuilder | grep -Eq 'libredis\+\+\.so.*=> /opt/spadi/lib/'
+ldd /opt/spadi/bin/TimeFrameBuilder | grep -Eq 'libhiredis\.so.*=> /opt/spadi/lib/'
+
 echo "=== ROOT / ARTEMIS ==="
 command -v root-config
 root-config --version

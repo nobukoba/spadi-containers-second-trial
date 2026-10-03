@@ -225,13 +225,13 @@ The DAQ image uses an AlmaLinux 9 runtime. It follows the NestDAQ `v1.0.0` build
 | Component | Version used here | NestDAQ v1.0.0 requirement/baseline |
 |---|---:|---:|
 | NestDAQ | `v1.0.0` | official stable release |
-| nestdaq-user-impl | `v1.0.0` | matching official stable release |
+| nestdaq-user-impl | `47897e9` | latest tested upstream commit (2026-10-03) |
 | FairMQ | `v1.4.55` | `1.4.26` or later |
 | hiredis | `v1.0.0` | `1.0.0` |
-| redis-plus-plus | `1.3.6` | `1.2.1 (recipes branch)` in the README; released source requires `patterns/redlock.h`, first available in official release `1.3.6` |
+| redis-plus-plus | `1.3.15` | newer tested release; avoids the older redis-plus-plus setup associated with LockCatcher `SIGABRT` |
 | libzmq | `v4.3.5` | pinned container dependency |
 
-The redis-plus-plus difference above is intentional: NestDAQ v1.0.0 source includes `<sw/redis++/patterns/redlock.h>`, while its dependency table still reflects the older `recipes`-branch naming. The exact repository-wide pins are maintained in `versions/versions.env`. Moving branches such as `main` are not used as the normal NestDAQ container baseline. ARTEMIS upstream development occurs on `develop`; the container records and builds a specific tested `develop` commit via `ARTEMIS_REF`, so an upstream branch update does not silently change the image.
+The redis-plus-plus difference above is intentional: NestDAQ v1.0.0 source includes `<sw/redis++/patterns/redlock.h>`, while its dependency table still reflects the older `recipes`-branch naming. The container now pins redis-plus-plus 1.3.15 because the older client setup triggered LockCatcher `SIGABRT` during current NestDAQ debugging. The image keeps redis-plus-plus and hiredis in the single `/opt/spadi` prefix to avoid mixing older libraries at runtime. `nestdaq-user-impl` is pinned to the exact tested 2026-10-03 commit rather than a moving `main` branch. The exact repository-wide pins are maintained in `versions/versions.env`. Moving branches such as `main` are not used as the normal container baseline. ARTEMIS upstream development occurs on `develop`; the container records and builds a specific tested `develop` commit via `ARTEMIS_REF`, so an upstream branch update does not silently change the image.
 
 ### Container maintainers
 
