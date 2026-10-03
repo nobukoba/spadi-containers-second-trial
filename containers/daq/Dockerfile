@@ -159,7 +159,10 @@ RUN cd /opt/spadi/src && \
 # proven reference container. ROOT-dependent TriggerView is disabled in DAQ-only
 # images; it is available later in the FULL image where ROOT is present.
 RUN cd /opt/spadi/src && \
-    git clone --branch ${NESTDAQ_USER_IMPL_REF} --depth 1 https://github.com/spadi-alliance/nestdaq-user-impl.git && \
+    git init nestdaq-user-impl && \
+    git -C nestdaq-user-impl remote add origin https://github.com/spadi-alliance/nestdaq-user-impl.git && \
+    git -C nestdaq-user-impl fetch --depth 1 origin ${NESTDAQ_USER_IMPL_REF} && \
+    git -C nestdaq-user-impl checkout --detach FETCH_HEAD && \
     python3 - <<'PY'
 from pathlib import Path
 p = Path('/opt/spadi/src/nestdaq-user-impl/CMakeLists.txt')
