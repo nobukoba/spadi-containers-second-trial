@@ -1,0 +1,204 @@
+{
+  "freeze_sha256": "421f356f17bfbcef4a3c42ce0b93cc113cb0e45568c45fc015333a6c4e32e105",
+  "phase": "pilot",
+  "started_utc": "2026-10-04T19:07:41.646623+00:00",
+  "cases": {
+    "f2f72667592f67fb": {
+      "status": "ok",
+      "alarms": [
+        {
+          "evidence": "Record index 21 has corrupted magic field 0x00454d4954425500 instead of 0x00454d4954425553",
+          "indexes": [
+            21
+          ],
+          "kind": "header_corruption"
+        }
+      ],
+      "elapsed_seconds": 3.3894519999739714,
+      "usage": {
+        "input_tokens": 5727,
+        "input_tokens_details": {
+          "cache_write_tokens": 0,
+          "cached_tokens": 0
+        },
+        "output_tokens": 51,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 5778
+      },
+      "actual_model": "gpt-4.1-mini-2025-04-14",
+      "request_id": "resp_09086f67eaf90e3d016ac2a3fde15487d0aece95d7cb4be372",
+      "input_sha256": "aa03c72889ecdb267a92bcc9e1d7b873d9dabb394f89e831dd15863ea949a5b7"
+    },
+    "932e64a6d181e2b0": {
+      "status": "ok",
+      "alarms": [
+        {
+          "evidence": "Record indexes 1 and 2 have identical time_usec (692530) but different timeframe_id (7818316 and 7818320) and different payload_sha256, indicating no duplicate but possible header inconsistency. However, no header corruption detected as magic, length, header_length, fem_id, fem_type, messages, and type are stable and time_usec within range.",
+          "indexes": [
+            1,
+            2
+          ],
+          "kind": "missing"
+        },
+        {
+          "evidence": "Record indexes 13 and 14 have identical timeframe_id (7818364 and 7818368) but identical time_usec (692545) and different payload_sha256, indicating a duplicate timeframe_id with different payloads, suggesting a reorder or duplicate issue.",
+          "indexes": [
+            13,
+            14
+          ],
+          "kind": "reorder"
+        },
+        {
+          "evidence": "Record indexes 23 and 24 have identical time_usec (692561) but different timeframe_id (7818404 and 7818408) and different payload_sha256, no duplicate but possible timing anomaly, no header corruption.",
+          "indexes": [
+            23,
+            24
+          ],
+          "kind": "missing"
+        },
+        {
+          "evidence": "Record indexes 27 and 28 have identical time_usec (692569 and 692572) but different timeframe_id (7818420 and 7818424) and different payload_sha256, no duplicate but timing close, no header corruption.",
+          "indexes": [
+            27,
+            28
+          ],
+          "kind": "missing"
+        }
+      ],
+      "elapsed_seconds": 5.554207199980738,
+      "usage": {
+        "input_tokens": 5727,
+        "input_tokens_details": {
+          "cache_write_tokens": 0,
+          "cached_tokens": 0
+        },
+        "output_tokens": 283,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 6010
+      },
+      "actual_model": "gpt-4.1-mini-2025-04-14",
+      "request_id": "resp_0f5d35857b611290016ac2a400712087d0a849d97b61246477",
+      "input_sha256": "1bcca21c5a7de99048a526d67cd987ab847c951c94775567bb07fcb0733a5b07"
+    },
+    "c3e5cd7771d873df": {
+      "status": "ok",
+      "alarms": [
+        {
+          "evidence": "timeframe_id sequence increments by 4 as expected except between index 0 and 1 where it jumps from 7818312 to 7818316, which is consistent with id_step=4; no missing detected. However, at index 1 and 2, timeframe_id increments correctly from 7818316 to 7818320 but time_usec is identical (692530) for both, which is unusual but not a header corruption. No duplicate payload_sha256 values found. At indexes 21 and 22, timeframe_id increments correctly from 7818400 to 7818404 but time_usec increments by 1 (560 to 561) and then at index 23 timeframe_id increments by 4 again but time_usec remains 561, indicating possible reorder or duplicate time_usec but no header corruption. All magic values are correct. All byte_count values are 176, below volume_threshold 528. No header length or type anomalies. No missing, duplicate, reorder, header_corruption or byte_volume alarms supported by evidence in this data.",
+          "indexes": [
+            0,
+            1,
+            2,
+            21,
+            22,
+            23
+          ],
+          "kind": "missing"
+        }
+      ],
+      "elapsed_seconds": 2.9780162000097334,
+      "usage": {
+        "input_tokens": 5561,
+        "input_tokens_details": {
+          "cache_write_tokens": 0,
+          "cached_tokens": 0
+        },
+        "output_tokens": 241,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 5802
+      },
+      "actual_model": "gpt-4.1-mini-2025-04-14",
+      "request_id": "resp_0273b9dff721bbb1016ac2a405eda887d0adea8c69dcd3335c",
+      "input_sha256": "0906acb64f272bbdc3d99f942543e7fdbf7411fd451488d6e5d1f761ef5612d5"
+    },
+    "24c8cc2791f8f831": {
+      "status": "ok",
+      "alarms": [
+        {
+          "evidence": "Record indexes 1 and 2 have identical time_usec (692530) but different timeframe_id (7818316 and 7818320) and different payload_sha256, indicating no duplicate but possible header inconsistency. However, no header corruption detected as magic, length, header length, fem_id, fem_type, messages, and type are consistent and time_usec within range.",
+          "indexes": [
+            1,
+            2
+          ],
+          "kind": "missing"
+        },
+        {
+          "evidence": "Record indexes 23 and 24 have timeframe_id 7818400 and 7818408 respectively, but appear out of order in time_usec (692560 then 692561) and timeframe_id sequence is not strictly increasing relative to index order (index 23 has timeframe_id 7818400, index 24 has 7818408, but index 22 has 7818404). This suggests reorder between indexes 22, 23, and 24.",
+          "indexes": [
+            22,
+            23,
+            24
+          ],
+          "kind": "reorder"
+        },
+        {
+          "evidence": "Record indexes 26 and 27 have identical time_usec (692569) but different timeframe_id (7818416 and 7818420) and different payload_sha256, indicating no duplicate but possible header inconsistency. No header corruption detected.",
+          "indexes": [
+            26,
+            27
+          ],
+          "kind": "missing"
+        }
+      ],
+      "elapsed_seconds": 2.314070399996126,
+      "usage": {
+        "input_tokens": 5727,
+        "input_tokens_details": {
+          "cache_write_tokens": 0,
+          "cached_tokens": 0
+        },
+        "output_tokens": 269,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 5996
+      },
+      "actual_model": "gpt-4.1-mini-2025-04-14",
+      "request_id": "resp_0ec20675be50b8e1016ac2a408e69c87d0abbf698846faf61e",
+      "input_sha256": "fc0f048441cf81a33e76a472fd3beeb6688c376d8b3264e84b373c9f083b1e29"
+    },
+    "e1dfa6782e6314a3": {
+      "status": "ok",
+      "alarms": [
+        {
+          "evidence": "Duplicate payload_sha256 at indexes 8 and 9 with identical timeframe_id 7818344 and header fields.",
+          "indexes": [
+            8,
+            9
+          ],
+          "kind": "duplicate"
+        },
+        {
+          "evidence": "Reorder detected between indexes 1 and 2: timeframe_id 7818316 followed by 7818320 but microseconds identical at 692530, indicating possible reorder.",
+          "indexes": [
+            1,
+            2
+          ],
+          "kind": "reorder"
+        }
+      ],
+      "elapsed_seconds": 2.306701699999394,
+      "usage": {
+        "input_tokens": 5888,
+        "input_tokens_details": {
+          "cache_write_tokens": 0,
+          "cached_tokens": 0
+        },
+        "output_tokens": 93,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 5981
+      },
+      "actual_model": "gpt-4.1-mini-2025-04-14",
+      "request_id": "resp_0ec1d4a53c0e7d64016ac2a40b3ed087d0a652a3e81fcbbedb",
+      "input_sha256": "2d429a0dfa7b8c46f589940e2e1650fdf985932d6efd44bca25b6c74239939b2"
+    }
+  }
+}

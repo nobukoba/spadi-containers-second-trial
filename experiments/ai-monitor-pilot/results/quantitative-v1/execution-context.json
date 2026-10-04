@@ -1,0 +1,16 @@
+{
+  "credential_value_scan": "PASS",
+  "scanned_files": 28,
+  "python_version": "3.12.14",
+  "sys_platform": "win32",
+  "os": "Windows-11-10.0.26200-SP0",
+  "unit_tests_passed": 8,
+  "unit_tests_runtime": "Windows Python 3.12.14",
+  "credential_source": "OPENAI_API_KEY environment only; no credential value recorded",
+  "api_eval_attempted_60": true,
+  "frozen_implementation_unchanged": true,
+  "archived_input_hashes_verified": true,
+  "aws_submit_performed": false,
+  "temporary_user_environment_credential_removed": true,
+  "cleanup_note": "The original user PowerShell session may still contain its own process-scoped environment value; close it or Remove-Item Env:OPENAI_API_KEY."
+}

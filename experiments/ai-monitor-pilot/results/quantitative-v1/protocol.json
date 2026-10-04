@@ -1,0 +1,114 @@
+{
+  "version": 1,
+  "created_utc": "2026-10-04T19:07:11.820592+00:00",
+  "seed": 20261005,
+  "window_records_before_mutation": 32,
+  "development": "first half per source; one window per source",
+  "evaluation": "second half per source; four non-overlapping windows per source",
+  "expected_source_hashes": {
+    "00": "b73c444a3c08db81ca655d8bb01f872a0743cad5d6ccc8a0326769b02131a3a0",
+    "01": "3272efa10a4875ecc37e7b5559acbb36e7fdf16c4469e8ef5bab93a4de48d810",
+    "02": "553faf9912022e80b7cc9e2cc6b41c1d19065b99dfc5307b50e54097738acd9b"
+  },
+  "source_revision": "ccf94e725389b5d32b2cd167312deb88c6461eba",
+  "references": {
+    "00": {
+      "id_step": 4,
+      "fem_type": 6,
+      "fem_id": 3232238110,
+      "messages": 4,
+      "type": 0,
+      "volume_threshold": 528
+    },
+    "01": {
+      "id_step": 4,
+      "fem_type": 5,
+      "fem_id": 3232238120,
+      "messages": 4,
+      "type": 0,
+      "volume_threshold": 1104.0
+    },
+    "02": {
+      "id_step": 4,
+      "fem_type": 5,
+      "fem_id": 3232238121,
+      "messages": 4,
+      "type": 0,
+      "volume_threshold": 528
+    }
+  },
+  "model": "gpt-4.1-mini-2025-04-14",
+  "prompt": "Inspect one independently framed NestDAQ SubTimeFrame v1 stream window.\nRecords are presented in observed order. Their indexes are local observed indexes,\nnot original positions. Window lengths vary: do not infer a fault from record count.\nUse only supplied observations and the per-source reference derived from earlier\nrecords. No labels, injection locations or original sequence are available.\nSTF header layout is little endian <QIHHIIIIQQ (48 bytes): magic, total length,\nheader length, type, timeframe ID, FEM type, FEM ID, message count, seconds,\nmicroseconds. STF magic is 0x00454d4954425553. byte_count is independently observed\nrecord length, not the length declared in the header. Header fields are decoded\nwithout repair. payload_sha256 describes unchanged payload bytes.\nReport evidence-supported missing, duplicate, reorder, header_corruption or\nbyte_volume candidates, with local observed indexes. A missing candidate is\nanchored at the first observed record after the gap; duplicates at the later copy;\nreorder at both swapped records; header corruption at its record. Missing means\nan ID gap relative to reference step; an out-of-order continuous set is reorder,\nnot missing. Duplicated identical records are duplicate. Unexpected magic, length,\nheader length, stable FEM/type/message fields or usec outside [0,1000000) are\nheader_corruption candidates. byte_volume is length above reference threshold.\nDo not infer detector bursts, event rate, expert-confirmed natural faults, or\ncross-stream alignment. Untouched data may contain natural anomaly candidates.\nReturn only the required JSON; an empty alarms list means no supported candidate.\n",
+  "response_schema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "alarms": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "kind": {
+              "type": "string",
+              "enum": [
+                "missing",
+                "duplicate",
+                "reorder",
+                "header_corruption",
+                "byte_volume"
+              ]
+            },
+            "indexes": {
+              "type": "array",
+              "items": {
+                "type": "integer"
+              }
+            },
+            "evidence": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "kind",
+            "indexes",
+            "evidence"
+          ]
+        }
+      }
+    },
+    "required": [
+      "alarms"
+    ]
+  },
+  "max_output_tokens": 1000,
+  "api": {
+    "endpoint": "https://api.openai.com/v1/responses",
+    "temperature": 0,
+    "store": false,
+    "retries": 0,
+    "timeout_seconds": 60
+  },
+  "prices_usd_per_million": {
+    "input": 0.4,
+    "cached_input": 0.1,
+    "output": 1.6
+  },
+  "pricing_source": "https://developers.openai.com/api/docs/models/gpt-4.1-mini",
+  "pricing_checked_utc": "2026-10-04T19:07:11.820592+00:00",
+  "detection": "Any alarm whose indexes intersect injected targets; classification additionally requires correct kind. No credit for unrelated alarms.",
+  "alarm_units": "candidate alarms and windows with >=1 alarm; untouched alarms are not established false positives",
+  "baseline": "existing development-median *3 byte-volume screen",
+  "structural_baseline": "STF header validity, exact duplicates, ID order and gaps",
+  "api_scope": "All 60 selected evaluation cases (48 injected + 12 untouched); broader untouched-half scan is conventional only",
+  "framing": "Independent record boundaries from original valid STF parsing, retained through mutation. Header corruption does not destroy framing. Not an end-to-end byte-stream recovery test.",
+  "limitations": [
+    "Same-run halves, not an independent held-out run",
+    "No natural fault truth or detector burst data",
+    "Four synthetic header variants only",
+    "Paired cases share base windows; counts are not independent samples",
+    "No cross-source alignment claim",
+    "No real-time DAQ throughput measurement",
+    "No baseline results or injection labels supplied to AI"
+  ]
+}

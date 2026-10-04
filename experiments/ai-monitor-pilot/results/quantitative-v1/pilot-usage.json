@@ -1,0 +1,19 @@
+{
+  "freeze_sha256": "421f356f17bfbcef4a3c42ce0b93cc113cb0e45568c45fc015333a6c4e32e105",
+  "phase": "pilot",
+  "attempted_cases": 5,
+  "successful_cases": 5,
+  "input_tokens": 28630,
+  "output_tokens": 937,
+  "cached_input_tokens": 0,
+  "estimated_cost_usd": 0.012951200000000001,
+  "elapsed_seconds": 16.542447499959962,
+  "missing_usage_calls": 0,
+  "billing_note": "API-reported tokens priced at frozen official rates; estimate, not invoice",
+  "evaluation_cases": 60,
+  "projected_evaluation_input_tokens": 343560.0,
+  "projected_evaluation_output_tokens": 11244.0,
+  "projected_evaluation_cost_usd": 0.1554144,
+  "projected_evaluation_seconds": 198.50936999951955,
+  "projection_note": "Linear projection from five development cases; evaluation sizes and cache behavior may differ"
+}

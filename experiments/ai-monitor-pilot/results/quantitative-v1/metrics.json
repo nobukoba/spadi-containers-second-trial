@@ -1,0 +1,201 @@
+{
+  "status": "AI_PARTIAL",
+  "generated_utc": "2026-10-04T19:13:54.493706+00:00",
+  "methods": {
+    "byte_volume": {
+      "planned_cases": 60,
+      "successful_cases": 60,
+      "failed_cases": 0,
+      "by_kind": {
+        "missing": {
+          "planned": 12,
+          "measured": 12,
+          "detected": 0,
+          "correct_type": 0,
+          "detection_rate": 0.0,
+          "type_identification_rate": 0.0
+        },
+        "duplicate": {
+          "planned": 12,
+          "measured": 12,
+          "detected": 0,
+          "correct_type": 0,
+          "detection_rate": 0.0,
+          "type_identification_rate": 0.0
+        },
+        "reorder": {
+          "planned": 12,
+          "measured": 12,
+          "detected": 0,
+          "correct_type": 0,
+          "detection_rate": 0.0,
+          "type_identification_rate": 0.0
+        },
+        "header_corruption": {
+          "planned": 12,
+          "measured": 12,
+          "detected": 0,
+          "correct_type": 0,
+          "detection_rate": 0.0,
+          "type_identification_rate": 0.0
+        }
+      },
+      "untouched": {
+        "planned_windows": 12,
+        "measured_windows": 12,
+        "alarm_windows": 0,
+        "alarms": 0
+      },
+      "alarm_kind_counts": {},
+      "latency_seconds": {
+        "total": 0.00019109999993816018,
+        "median": 3.0999945010989904e-06,
+        "max": 6.200018106028438e-06
+      },
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "untouched_full_half_scan": {
+        "windows": 133,
+        "alarm_windows": 0,
+        "alarms": 0,
+        "frames": 4236,
+        "seconds": 0.0003275999624747783
+      }
+    },
+    "structural_rules": {
+      "planned_cases": 60,
+      "successful_cases": 60,
+      "failed_cases": 0,
+      "by_kind": {
+        "missing": {
+          "planned": 12,
+          "measured": 12,
+          "detected": 12,
+          "correct_type": 12,
+          "detection_rate": 1.0,
+          "type_identification_rate": 1.0
+        },
+        "duplicate": {
+          "planned": 12,
+          "measured": 12,
+          "detected": 12,
+          "correct_type": 12,
+          "detection_rate": 1.0,
+          "type_identification_rate": 1.0
+        },
+        "reorder": {
+          "planned": 12,
+          "measured": 12,
+          "detected": 12,
+          "correct_type": 12,
+          "detection_rate": 1.0,
+          "type_identification_rate": 1.0
+        },
+        "header_corruption": {
+          "planned": 12,
+          "measured": 12,
+          "detected": 12,
+          "correct_type": 12,
+          "detection_rate": 1.0,
+          "type_identification_rate": 1.0
+        }
+      },
+      "untouched": {
+        "planned_windows": 12,
+        "measured_windows": 12,
+        "alarm_windows": 0,
+        "alarms": 0
+      },
+      "alarm_kind_counts": {
+        "duplicate": 12,
+        "header_corruption": 12,
+        "missing": 12,
+        "reorder": 12
+      },
+      "latency_seconds": {
+        "total": 0.001460899948142469,
+        "median": 2.374999166931957e-05,
+        "max": 4.39999857917428e-05
+      },
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "untouched_full_half_scan": {
+        "windows": 133,
+        "alarm_windows": 0,
+        "alarms": 0,
+        "frames": 4236,
+        "seconds": 0.00303119994350709
+      }
+    },
+    "openai": {
+      "planned_cases": 60,
+      "successful_cases": 39,
+      "failed_cases": 21,
+      "by_kind": {
+        "missing": {
+          "planned": 12,
+          "measured": 5,
+          "detected": 2,
+          "correct_type": 2,
+          "detection_rate": null,
+          "type_identification_rate": null
+        },
+        "duplicate": {
+          "planned": 12,
+          "measured": 9,
+          "detected": 9,
+          "correct_type": 9,
+          "detection_rate": null,
+          "type_identification_rate": null
+        },
+        "reorder": {
+          "planned": 12,
+          "measured": 11,
+          "detected": 11,
+          "correct_type": 10,
+          "detection_rate": null,
+          "type_identification_rate": null
+        },
+        "header_corruption": {
+          "planned": 12,
+          "measured": 9,
+          "detected": 8,
+          "correct_type": 7,
+          "detection_rate": null,
+          "type_identification_rate": null
+        }
+      },
+      "untouched": {
+        "planned_windows": 12,
+        "measured_windows": 5,
+        "alarm_windows": 3,
+        "alarms": 4
+      },
+      "alarm_kind_counts": {
+        "duplicate": 12,
+        "header_corruption": 26,
+        "byte_volume": 5,
+        "reorder": 13,
+        "missing": 25
+      },
+      "latency_seconds": {
+        "total": 64.98951270006364,
+        "median": 1.3906114000128582,
+        "max": 6.147565300023416
+      },
+      "input_tokens": 221663,
+      "output_tokens": 5108
+    }
+  },
+  "limitations": [
+    "Same-run halves, not an independent held-out run",
+    "No natural fault truth or detector burst data",
+    "Four synthetic header variants only",
+    "Paired cases share base windows; counts are not independent samples",
+    "No cross-source alignment claim",
+    "No real-time DAQ throughput measurement",
+    "No baseline results or injection labels supplied to AI"
+  ],
+  "natural_fault_ground_truth_available": false,
+  "claim": "Synthetic integrity sensitivity only. No AI superiority, natural-fault recall or false-positive rate inferred."
+}

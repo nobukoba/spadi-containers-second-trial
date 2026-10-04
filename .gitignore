@@ -1,0 +1,8 @@
+.local/
+__pycache__/
+*.py[cod]
+.env
+.env.*
+# Exact frozen inputs are preserved in the ZIP, to keep repository text manageable.
+experiments/ai-monitor-pilot/results/quantitative-v1/inputs.json
+experiments/ai-monitor-pilot/results/quantitative-v1/untouched-scan-inputs.json

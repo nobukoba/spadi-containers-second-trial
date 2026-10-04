@@ -1,0 +1,10 @@
+{
+  "frozen_utc": "2026-10-04T19:07:11.861235+00:00",
+  "files": {
+    "protocol.json": "3fb0d3ac52a2eed400b262574b80539de1114378ac1603f139c2f69d517d62da",
+    "inputs.json": "34eecfd8b5d5cf57c32484eb404f0a1d19bc8a54edb8754ee96b3579c3f71ae0",
+    "labels.json": "1434e9d7e827e7eb6af7a6e12896706690632c3010af343ddb521f910d1f9951",
+    "untouched-scan-inputs.json": "9428f827f7e565d46a48812e4152d468a296493b49a69c6ca574ba7e1ae04a8c"
+  },
+  "implementation_sha256": "0b7dd012734899f164b8911ca1651b3323a4044184282aad81c58999db8a8abf"
+}

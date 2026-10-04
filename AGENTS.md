@@ -261,3 +261,28 @@ Use these existing implementations as references rather than guessing their beha
 - An exact ARTEMIS commit SHA is not a branch name. Clone the repository and then `git checkout "$ARTEMIS_REF"`; do not pass an arbitrary SHA to `git clone --branch`.
 - The same rule applies to `NESTDAQ_USER_IMPL_REF` when it is pinned to an exact commit: `git clone --branch <sha>` fails with exit 128 because a commit SHA is not a branch/tag. Initialize the checkout, fetch the exact SHA with depth 1, and detach at `FETCH_HEAD`.
 - Shared-library smoke tests must only run `ldd` on ELF executables. Executable scripts or other non-ELF files can make `ldd` return nonzero even when no dependency is missing, especially under `set -o pipefail`.
+
+## Host-side AI monitoring experiments
+
+The RARiS monitoring pilot must run with Windows Python and standard-library
+host tools; Docker is optional. Derive stream sequence increments from development
+records: the inspected public run advances STF IDs by four, not one. Keep each
+source independent unless alignment is separately demonstrated.
+
+Freeze development/evaluation selection, reference values, prompts, model,
+classification and location-scoring conditions before evaluating. Detectors receive
+an allowlisted observed representation; original positions, intervention types,
+and ground truth remain in the scoring layer. Synthetic record/header corruption
+must be labelled separately from untouched-data candidate alarms. Untouched data
+is not established normal truth, and record byte volume is not detector event rate
+or evidence of a burst. A framed-record test does not measure recovery from
+corrupted continuous byte streams.
+
+Read API credentials only from OPENAI_API_KEY. Never emit their values, request
+headers, HTTP error bodies, or unrestricted network exception details. Start with
+a small development-only API pilot, record usage and projected cost, then perform
+the frozen evaluation within a bounded cost reserve. Preserve exact bytes of
+hash-frozen implementation and JSON artifacts with .gitattributes; line-ending
+conversion during checkout otherwise invalidates the reproducibility hashes.
+PowerShell script execution may be disabled on a host; direct Python commands do
+not require changing that execution policy.

@@ -1,0 +1,72 @@
+{
+  "status": "REPRODUCED_PUBLIC_DATA",
+  "checked_utc": "2026-10-04T19:07:11.861235+00:00",
+  "total_frames": 8470,
+  "sources": [
+    {
+      "source": "00",
+      "sha256": "b73c444a3c08db81ca655d8bb01f872a0743cad5d6ccc8a0326769b02131a3a0",
+      "bytes": 496048,
+      "frames": 2815,
+      "development_frames": 1407,
+      "evaluation_frames": 1408,
+      "filesink_header_bytes": 304,
+      "filesink_trailer_bytes": 304,
+      "trailing_unparsed_bytes": 0,
+      "id_delta_counts": {
+        "4": 2814
+      },
+      "timestamp_regressions": 0,
+      "invalid_usec": 0,
+      "frame_size_min": 176,
+      "frame_size_max": 176,
+      "first_id": 7818184,
+      "last_id": 7829440,
+      "frame_count_matches_prior": true
+    },
+    {
+      "source": "01",
+      "sha256": "3272efa10a4875ecc37e7b5559acbb36e7fdf16c4469e8ef5bab93a4de48d810",
+      "bytes": 1056632,
+      "frames": 2840,
+      "development_frames": 1420,
+      "evaluation_frames": 1420,
+      "filesink_header_bytes": 304,
+      "filesink_trailer_bytes": 304,
+      "trailing_unparsed_bytes": 0,
+      "id_delta_counts": {
+        "4": 2839
+      },
+      "timestamp_regressions": 0,
+      "invalid_usec": 0,
+      "frame_size_min": 248,
+      "frame_size_max": 560,
+      "first_id": 7818184,
+      "last_id": 7829540,
+      "frame_count_matches_prior": true
+    },
+    {
+      "source": "02",
+      "sha256": "553faf9912022e80b7cc9e2cc6b41c1d19065b99dfc5307b50e54097738acd9b",
+      "bytes": 496048,
+      "frames": 2815,
+      "development_frames": 1407,
+      "evaluation_frames": 1408,
+      "filesink_header_bytes": 304,
+      "filesink_trailer_bytes": 304,
+      "trailing_unparsed_bytes": 0,
+      "id_delta_counts": {
+        "4": 2814
+      },
+      "timestamp_regressions": 0,
+      "invalid_usec": 0,
+      "frame_size_min": 176,
+      "frame_size_max": 176,
+      "first_id": 7818184,
+      "last_id": 7829440,
+      "frame_count_matches_prior": true
+    }
+  ],
+  "elapsed_seconds": 0.10540229998878203,
+  "conclusion": "Structural checks passed; this does not establish fault-free detector data."
+}

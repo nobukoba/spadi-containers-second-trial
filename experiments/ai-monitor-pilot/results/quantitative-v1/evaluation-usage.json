@@ -1,0 +1,13 @@
+{
+  "freeze_sha256": "421f356f17bfbcef4a3c42ce0b93cc113cb0e45568c45fc015333a6c4e32e105",
+  "phase": "evaluation",
+  "attempted_cases": 60,
+  "successful_cases": 39,
+  "input_tokens": 340014,
+  "output_tokens": 9918,
+  "cached_input_tokens": 6784,
+  "estimated_cost_usd": 0.1498392,
+  "elapsed_seconds": 111.63116509999963,
+  "missing_usage_calls": 0,
+  "billing_note": "API-reported tokens priced at frozen official rates; estimate, not invoice"
+}

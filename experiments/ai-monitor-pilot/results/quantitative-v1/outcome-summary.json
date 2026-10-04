@@ -1,0 +1,23 @@
+{
+  "evaluation_status": "ALL_60_REQUESTS_ATTEMPTED_WITH_21_UNUSABLE_OUTPUTS",
+  "api_attempted": 60,
+  "api_valid_outputs": 39,
+  "api_invalid_outputs": 21,
+  "artificial_interventions": 48,
+  "usable_localized_detections": 30,
+  "usable_correct_type_detections": 28,
+  "operational_detection_fraction": 0.625,
+  "operational_type_fraction": 0.5833333333333334,
+  "definition": "Valid alarm at injected location; invalid outputs provide no accepted detection. These operational fractions do not infer the content of invalid outputs.",
+  "untouched_windows": 12,
+  "untouched_valid_windows": 5,
+  "untouched_unusable_windows": 7,
+  "untouched_alarm_windows": 3,
+  "untouched_alarms": 4,
+  "artificial_invalid_outputs": 14,
+  "ai_superiority_demonstrated": false,
+  "natural_ground_truth_available": false,
+  "api_total_estimated_cost_usd": 0.1627904,
+  "output_logging_limitation": "Rejected response content was not retained; only status, input hash, API usage, model, request ID and elapsed time are retained. The cause of output rejection cannot be retrospectively diagnosed.",
+  "continuation": "After validation failures, only unattempted cases were sent in subsequent invocations. No failed case was retried; no prompt or scoring changes were made."
+}
