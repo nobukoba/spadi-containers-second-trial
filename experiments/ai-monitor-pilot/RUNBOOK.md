@@ -135,3 +135,19 @@ AIには元のペイロード全体、正解、注入位置、ルール判定の
 4種類を組み合わせた異常や高度なヘッダー破損も今回の対象外です。
 
 AWS申請に使う場合は、この範囲と未測定項目を併記してください。Submitは行いません。
+
+## 連続バイト列の復旧・Windows性能試験
+
+フレーム境界が既知の比較試験とは別に、公開データの連続バイト列からの再同期を確認する固定試験です。Windows PowerShellから、次を順に実行します（Docker不要、APIキー不要）。
+
+```powershell
+python -m unittest discover -s experiments/ai-monitor-pilot -p test_recovery.py -v
+python experiments/ai-monitor-pilot/recovery.py development
+python experiments/ai-monitor-pilot/recovery.py evaluate
+python experiments/ai-monitor-pilot/recovery.py performance
+python experiments/ai-monitor-pilot/recovery.py report
+```
+
+出力は`results/recovery-v1/`です。`freeze.json`が固定済み入力・正解・プロトコル・実装の変更を検査し、再集計時にも`report`が検証します。`development`完了後は`evaluate`と`performance`を実行できますが、評価後に条件を変更して再スコアしてはいけません。条件を変更する必要がある場合は新しい結果版を作り、先行版を保持してください。
+
+評価は8,470件全体の独立した再取得や自然故障を意味しません。12個の評価区間から作った未加工12ケース・人工介入96ケースを対象にし、3つの読込サイズは同じケースの反復です。`payload_truncation`の検出失敗と復旧時の余分なレコードも含め、`RESULTS-ja.md`の失敗をそのまま報告してください。速度はWindowsホストの事前読込データ再生だけで、AWS・I/O・実時間DAQの性能として引用しません。未加工ケースに警報がない結果は正常判定ではありません。

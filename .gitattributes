@@ -3,3 +3,5 @@ experiments/ai-monitor-pilot/benchmark.py -text whitespace=-blank-at-eol
 experiments/ai-monitor-pilot/results/quantitative-v1/*.json -text whitespace=cr-at-eol
 experiments/ai-monitor-pilot/diagnosis.py -text
 experiments/ai-monitor-pilot/results/diagnosis-v1/*.json -text whitespace=cr-at-eol
+experiments/ai-monitor-pilot/recovery.py -text
+experiments/ai-monitor-pilot/results/recovery-v1/*.json -text whitespace=cr-at-eol

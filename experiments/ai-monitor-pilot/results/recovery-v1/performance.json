@@ -1,0 +1,238 @@
+{
+  "measured_utc": "2026-10-04T20:48:47.165998+00:00",
+  "platform": "win32",
+  "python": "3.12.14",
+  "os": "Windows-11-10.0.26200-SP0",
+  "processor": "AMD64 Family 26 Model 68 Stepping 0, AuthenticAMD",
+  "unique_source_records": 8470,
+  "preloaded_body_bytes": 2046904,
+  "timings": [
+    {
+      "policy": "strict",
+      "repeat_factor": 1,
+      "trial": 0,
+      "seconds": 0.02085969998734072,
+      "frames_per_second": 406046.10829207767,
+      "mib_per_second": 93.58139254801804,
+      "frames": 8470,
+      "bytes": 2046904,
+      "candidate_alarms": 0
+    },
+    {
+      "policy": "strict",
+      "repeat_factor": 1,
+      "trial": 1,
+      "seconds": 0.020373000006657094,
+      "frames_per_second": 415746.33079233975,
+      "mib_per_second": 95.81700153690453,
+      "frames": 8470,
+      "bytes": 2046904,
+      "candidate_alarms": 0
+    },
+    {
+      "policy": "strict",
+      "repeat_factor": 1,
+      "trial": 2,
+      "seconds": 0.017115199996624142,
+      "frames_per_second": 494881.7426422508,
+      "mib_per_second": 114.05532937589122,
+      "frames": 8470,
+      "bytes": 2046904,
+      "candidate_alarms": 0
+    },
+    {
+      "policy": "strict",
+      "repeat_factor": 10,
+      "trial": 0,
+      "seconds": 0.16580449999310076,
+      "frames_per_second": 510842.5887326606,
+      "mib_per_second": 117.73382345053639,
+      "frames": 84700,
+      "bytes": 20469040,
+      "candidate_alarms": 0
+    },
+    {
+      "policy": "strict",
+      "repeat_factor": 10,
+      "trial": 1,
+      "seconds": 0.1645573000132572,
+      "frames_per_second": 514714.327429876,
+      "mib_per_second": 118.62614255289517,
+      "frames": 84700,
+      "bytes": 20469040,
+      "candidate_alarms": 0
+    },
+    {
+      "policy": "strict",
+      "repeat_factor": 10,
+      "trial": 2,
+      "seconds": 0.1643028999969829,
+      "frames_per_second": 515511.29043708515,
+      "mib_per_second": 118.8098185111197,
+      "frames": 84700,
+      "bytes": 20469040,
+      "candidate_alarms": 0
+    },
+    {
+      "policy": "strict",
+      "repeat_factor": 100,
+      "trial": 0,
+      "seconds": 1.5762383000110276,
+      "frames_per_second": 537355.297098208,
+      "mib_per_second": 123.84420381966113,
+      "frames": 847000,
+      "bytes": 204690400,
+      "candidate_alarms": 0
+    },
+    {
+      "policy": "strict",
+      "repeat_factor": 100,
+      "trial": 1,
+      "seconds": 1.5550775000010617,
+      "frames_per_second": 544667.3879593922,
+      "mib_per_second": 125.52942042746332,
+      "frames": 847000,
+      "bytes": 204690400,
+      "candidate_alarms": 0
+    },
+    {
+      "policy": "strict",
+      "repeat_factor": 100,
+      "trial": 2,
+      "seconds": 1.5561501999909524,
+      "frames_per_second": 544291.9327484741,
+      "mib_per_second": 125.44288931496254,
+      "frames": 847000,
+      "bytes": 204690400,
+      "candidate_alarms": 0
+    },
+    {
+      "policy": "resync",
+      "repeat_factor": 1,
+      "trial": 0,
+      "seconds": 0.015477699984330684,
+      "frames_per_second": 547238.9314029126,
+      "mib_per_second": 126.122083702712,
+      "frames": 8470,
+      "bytes": 2046904,
+      "candidate_alarms": 0
+    },
+    {
+      "policy": "resync",
+      "repeat_factor": 1,
+      "trial": 1,
+      "seconds": 0.015492400008952245,
+      "frames_per_second": 546719.6815926281,
+      "mib_per_second": 126.00241226802912,
+      "frames": 8470,
+      "bytes": 2046904,
+      "candidate_alarms": 0
+    },
+    {
+      "policy": "resync",
+      "repeat_factor": 1,
+      "trial": 2,
+      "seconds": 0.015598900004988536,
+      "frames_per_second": 542987.0053203296,
+      "mib_per_second": 125.14214286423675,
+      "frames": 8470,
+      "bytes": 2046904,
+      "candidate_alarms": 0
+    },
+    {
+      "policy": "resync",
+      "repeat_factor": 10,
+      "trial": 0,
+      "seconds": 0.15546870001708157,
+      "frames_per_second": 544804.1952540536,
+      "mib_per_second": 125.56095038645984,
+      "frames": 84700,
+      "bytes": 20469040,
+      "candidate_alarms": 0
+    },
+    {
+      "policy": "resync",
+      "repeat_factor": 10,
+      "trial": 1,
+      "seconds": 0.15520890001789667,
+      "frames_per_second": 545716.128329197,
+      "mib_per_second": 125.7711234809428,
+      "frames": 84700,
+      "bytes": 20469040,
+      "candidate_alarms": 0
+    },
+    {
+      "policy": "resync",
+      "repeat_factor": 10,
+      "trial": 2,
+      "seconds": 0.15507599999546073,
+      "frames_per_second": 546183.8066656302,
+      "mib_per_second": 125.8789092449095,
+      "frames": 84700,
+      "bytes": 20469040,
+      "candidate_alarms": 0
+    },
+    {
+      "policy": "resync",
+      "repeat_factor": 100,
+      "trial": 0,
+      "seconds": 1.5536455000110436,
+      "frames_per_second": 545169.409620135,
+      "mib_per_second": 125.64512129281377,
+      "frames": 847000,
+      "bytes": 204690400,
+      "candidate_alarms": 0
+    },
+    {
+      "policy": "resync",
+      "repeat_factor": 100,
+      "trial": 1,
+      "seconds": 1.5555931999988388,
+      "frames_per_second": 544486.8234192797,
+      "mib_per_second": 125.4878057419302,
+      "frames": 847000,
+      "bytes": 204690400,
+      "candidate_alarms": 0
+    },
+    {
+      "policy": "resync",
+      "repeat_factor": 100,
+      "trial": 2,
+      "seconds": 1.5574373999843374,
+      "frames_per_second": 543842.0831607857,
+      "mib_per_second": 125.33921254034674,
+      "frames": 847000,
+      "bytes": 204690400,
+      "candidate_alarms": 0
+    }
+  ],
+  "memory": [
+    {
+      "policy": "strict",
+      "repeat_factor": 1,
+      "python_traced_peak_bytes": 29908,
+      "frames": 8470
+    },
+    {
+      "policy": "strict",
+      "repeat_factor": 100,
+      "python_traced_peak_bytes": 29908,
+      "frames": 847000
+    },
+    {
+      "policy": "resync",
+      "repeat_factor": 1,
+      "python_traced_peak_bytes": 29908,
+      "frames": 8470
+    },
+    {
+      "policy": "resync",
+      "repeat_factor": 100,
+      "python_traced_peak_bytes": 29908,
+      "frames": 847000
+    }
+  ],
+  "api_calls": 0,
+  "api_tokens": 0,
+  "aws_execution": false
+}

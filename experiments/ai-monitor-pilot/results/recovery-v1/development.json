@@ -1,0 +1,3980 @@
+{
+  "61dcf1f53edd467c:512:strict": {
+    "case_id": "61dcf1f53edd467c",
+    "chunk_bytes": 512,
+    "policy": "strict",
+    "seconds": 0.00041019998025149107,
+    "alarms": [],
+    "recovered_frames": 64,
+    "score": {
+      "events": 0,
+      "detected_events": 0,
+      "full_case_match": null,
+      "intact_expected": 64,
+      "intact_recovered": 64,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "20eeacae2368d55640bd1aa048a94b4f56b8257ac04f9363608a4ebb261e2b1f"
+  },
+  "61dcf1f53edd467c:512:resync": {
+    "case_id": "61dcf1f53edd467c",
+    "chunk_bytes": 512,
+    "policy": "resync",
+    "seconds": 0.0003566000086721033,
+    "alarms": [],
+    "recovered_frames": 64,
+    "score": {
+      "events": 0,
+      "detected_events": 0,
+      "full_case_match": null,
+      "intact_expected": 64,
+      "intact_recovered": 64,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "20eeacae2368d55640bd1aa048a94b4f56b8257ac04f9363608a4ebb261e2b1f"
+  },
+  "61dcf1f53edd467c:4096:strict": {
+    "case_id": "61dcf1f53edd467c",
+    "chunk_bytes": 4096,
+    "policy": "strict",
+    "seconds": 0.00033239999902434647,
+    "alarms": [],
+    "recovered_frames": 64,
+    "score": {
+      "events": 0,
+      "detected_events": 0,
+      "full_case_match": null,
+      "intact_expected": 64,
+      "intact_recovered": 64,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "20eeacae2368d55640bd1aa048a94b4f56b8257ac04f9363608a4ebb261e2b1f"
+  },
+  "61dcf1f53edd467c:4096:resync": {
+    "case_id": "61dcf1f53edd467c",
+    "chunk_bytes": 4096,
+    "policy": "resync",
+    "seconds": 0.0003234999894630164,
+    "alarms": [],
+    "recovered_frames": 64,
+    "score": {
+      "events": 0,
+      "detected_events": 0,
+      "full_case_match": null,
+      "intact_expected": 64,
+      "intact_recovered": 64,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "20eeacae2368d55640bd1aa048a94b4f56b8257ac04f9363608a4ebb261e2b1f"
+  },
+  "61dcf1f53edd467c:65536:strict": {
+    "case_id": "61dcf1f53edd467c",
+    "chunk_bytes": 65536,
+    "policy": "strict",
+    "seconds": 0.0003194000164512545,
+    "alarms": [],
+    "recovered_frames": 64,
+    "score": {
+      "events": 0,
+      "detected_events": 0,
+      "full_case_match": null,
+      "intact_expected": 64,
+      "intact_recovered": 64,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "20eeacae2368d55640bd1aa048a94b4f56b8257ac04f9363608a4ebb261e2b1f"
+  },
+  "61dcf1f53edd467c:65536:resync": {
+    "case_id": "61dcf1f53edd467c",
+    "chunk_bytes": 65536,
+    "policy": "resync",
+    "seconds": 0.00032839999767020345,
+    "alarms": [],
+    "recovered_frames": 64,
+    "score": {
+      "events": 0,
+      "detected_events": 0,
+      "full_case_match": null,
+      "intact_expected": 64,
+      "intact_recovered": 64,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "20eeacae2368d55640bd1aa048a94b4f56b8257ac04f9363608a4ebb261e2b1f"
+  },
+  "a3e17f3112faf98e:512:strict": {
+    "case_id": "a3e17f3112faf98e",
+    "chunk_bytes": 512,
+    "policy": "strict",
+    "seconds": 0.00035089999437332153,
+    "alarms": [
+      {
+        "kind": "missing",
+        "start": 7744,
+        "end": 7745
+      }
+    ],
+    "recovered_frames": 63,
+    "score": {
+      "events": 1,
+      "detected_events": 1,
+      "full_case_match": true,
+      "intact_expected": 63,
+      "intact_recovered": 63,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "17a8da524bb5c1f77c94916e29f7cf55b8b29143a3db3e4f56ec1bb18a7bc213"
+  },
+  "a3e17f3112faf98e:512:resync": {
+    "case_id": "a3e17f3112faf98e",
+    "chunk_bytes": 512,
+    "policy": "resync",
+    "seconds": 0.00033569999504834414,
+    "alarms": [
+      {
+        "kind": "missing",
+        "start": 7744,
+        "end": 7745
+      }
+    ],
+    "recovered_frames": 63,
+    "score": {
+      "events": 1,
+      "detected_events": 1,
+      "full_case_match": true,
+      "intact_expected": 63,
+      "intact_recovered": 63,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "17a8da524bb5c1f77c94916e29f7cf55b8b29143a3db3e4f56ec1bb18a7bc213"
+  },
+  "a3e17f3112faf98e:4096:strict": {
+    "case_id": "a3e17f3112faf98e",
+    "chunk_bytes": 4096,
+    "policy": "strict",
+    "seconds": 0.00030550002702511847,
+    "alarms": [
+      {
+        "kind": "missing",
+        "start": 7744,
+        "end": 7745
+      }
+    ],
+    "recovered_frames": 63,
+    "score": {
+      "events": 1,
+      "detected_events": 1,
+      "full_case_match": true,
+      "intact_expected": 63,
+      "intact_recovered": 63,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "17a8da524bb5c1f77c94916e29f7cf55b8b29143a3db3e4f56ec1bb18a7bc213"
+  },
+  "a3e17f3112faf98e:4096:resync": {
+    "case_id": "a3e17f3112faf98e",
+    "chunk_bytes": 4096,
+    "policy": "resync",
+    "seconds": 0.0002992999798152596,
+    "alarms": [
+      {
+        "kind": "missing",
+        "start": 7744,
+        "end": 7745
+      }
+    ],
+    "recovered_frames": 63,
+    "score": {
+      "events": 1,
+      "detected_events": 1,
+      "full_case_match": true,
+      "intact_expected": 63,
+      "intact_recovered": 63,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "17a8da524bb5c1f77c94916e29f7cf55b8b29143a3db3e4f56ec1bb18a7bc213"
+  },
+  "a3e17f3112faf98e:65536:strict": {
+    "case_id": "a3e17f3112faf98e",
+    "chunk_bytes": 65536,
+    "policy": "strict",
+    "seconds": 0.000308599992422387,
+    "alarms": [
+      {
+        "kind": "missing",
+        "start": 7744,
+        "end": 7745
+      }
+    ],
+    "recovered_frames": 63,
+    "score": {
+      "events": 1,
+      "detected_events": 1,
+      "full_case_match": true,
+      "intact_expected": 63,
+      "intact_recovered": 63,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "17a8da524bb5c1f77c94916e29f7cf55b8b29143a3db3e4f56ec1bb18a7bc213"
+  },
+  "a3e17f3112faf98e:65536:resync": {
+    "case_id": "a3e17f3112faf98e",
+    "chunk_bytes": 65536,
+    "policy": "resync",
+    "seconds": 0.0003009999927598983,
+    "alarms": [
+      {
+        "kind": "missing",
+        "start": 7744,
+        "end": 7745
+      }
+    ],
+    "recovered_frames": 63,
+    "score": {
+      "events": 1,
+      "detected_events": 1,
+      "full_case_match": true,
+      "intact_expected": 63,
+      "intact_recovered": 63,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "17a8da524bb5c1f77c94916e29f7cf55b8b29143a3db3e4f56ec1bb18a7bc213"
+  },
+  "ee33333da8e0c3bd:512:strict": {
+    "case_id": "ee33333da8e0c3bd",
+    "chunk_bytes": 512,
+    "policy": "strict",
+    "seconds": 0.00032839999767020345,
+    "alarms": [
+      {
+        "kind": "duplicate",
+        "start": 4400,
+        "end": 4401
+      }
+    ],
+    "recovered_frames": 65,
+    "score": {
+      "events": 1,
+      "detected_events": 1,
+      "full_case_match": true,
+      "intact_expected": 65,
+      "intact_recovered": 65,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "26d2e4553e6f5c6144aaf26cdbec52ed4977807d2509229bd3be560ee5234300"
+  },
+  "ee33333da8e0c3bd:512:resync": {
+    "case_id": "ee33333da8e0c3bd",
+    "chunk_bytes": 512,
+    "policy": "resync",
+    "seconds": 0.00031740000122226775,
+    "alarms": [
+      {
+        "kind": "duplicate",
+        "start": 4400,
+        "end": 4401
+      }
+    ],
+    "recovered_frames": 65,
+    "score": {
+      "events": 1,
+      "detected_events": 1,
+      "full_case_match": true,
+      "intact_expected": 65,
+      "intact_recovered": 65,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "26d2e4553e6f5c6144aaf26cdbec52ed4977807d2509229bd3be560ee5234300"
+  },
+  "ee33333da8e0c3bd:4096:strict": {
+    "case_id": "ee33333da8e0c3bd",
+    "chunk_bytes": 4096,
+    "policy": "strict",
+    "seconds": 0.00030899999546818435,
+    "alarms": [
+      {
+        "kind": "duplicate",
+        "start": 4400,
+        "end": 4401
+      }
+    ],
+    "recovered_frames": 65,
+    "score": {
+      "events": 1,
+      "detected_events": 1,
+      "full_case_match": true,
+      "intact_expected": 65,
+      "intact_recovered": 65,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "26d2e4553e6f5c6144aaf26cdbec52ed4977807d2509229bd3be560ee5234300"
+  },
+  "ee33333da8e0c3bd:4096:resync": {
+    "case_id": "ee33333da8e0c3bd",
+    "chunk_bytes": 4096,
+    "policy": "resync",
+    "seconds": 0.0003103999770246446,
+    "alarms": [
+      {
+        "kind": "duplicate",
+        "start": 4400,
+        "end": 4401
+      }
+    ],
+    "recovered_frames": 65,
+    "score": {
+      "events": 1,
+      "detected_events": 1,
+      "full_case_match": true,
+      "intact_expected": 65,
+      "intact_recovered": 65,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "26d2e4553e6f5c6144aaf26cdbec52ed4977807d2509229bd3be560ee5234300"
+  },
+  "ee33333da8e0c3bd:65536:strict": {
+    "case_id": "ee33333da8e0c3bd",
+    "chunk_bytes": 65536,
+    "policy": "strict",
+    "seconds": 0.00030640000477433205,
+    "alarms": [
+      {
+        "kind": "duplicate",
+        "start": 4400,
+        "end": 4401
+      }
+    ],
+    "recovered_frames": 65,
+    "score": {
+      "events": 1,
+      "detected_events": 1,
+      "full_case_match": true,
+      "intact_expected": 65,
+      "intact_recovered": 65,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "26d2e4553e6f5c6144aaf26cdbec52ed4977807d2509229bd3be560ee5234300"
+  },
+  "ee33333da8e0c3bd:65536:resync": {
+    "case_id": "ee33333da8e0c3bd",
+    "chunk_bytes": 65536,
+    "policy": "resync",
+    "seconds": 0.00030839999089948833,
+    "alarms": [
+      {
+        "kind": "duplicate",
+        "start": 4400,
+        "end": 4401
+      }
+    ],
+    "recovered_frames": 65,
+    "score": {
+      "events": 1,
+      "detected_events": 1,
+      "full_case_match": true,
+      "intact_expected": 65,
+      "intact_recovered": 65,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "26d2e4553e6f5c6144aaf26cdbec52ed4977807d2509229bd3be560ee5234300"
+  },
+  "88aad01a6e5e5f84:512:strict": {
+    "case_id": "88aad01a6e5e5f84",
+    "chunk_bytes": 512,
+    "policy": "strict",
+    "seconds": 0.00031870001112110913,
+    "alarms": [
+      {
+        "kind": "reorder",
+        "start": 8272,
+        "end": 8449
+      }
+    ],
+    "recovered_frames": 64,
+    "score": {
+      "events": 1,
+      "detected_events": 1,
+      "full_case_match": true,
+      "intact_expected": 64,
+      "intact_recovered": 64,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "54fc54b3f2d5ab908dacd40fbe6b6cd63ee963be89e19a09fd0eec3cd74edf39"
+  },
+  "88aad01a6e5e5f84:512:resync": {
+    "case_id": "88aad01a6e5e5f84",
+    "chunk_bytes": 512,
+    "policy": "resync",
+    "seconds": 0.00030869999318383634,
+    "alarms": [
+      {
+        "kind": "reorder",
+        "start": 8272,
+        "end": 8449
+      }
+    ],
+    "recovered_frames": 64,
+    "score": {
+      "events": 1,
+      "detected_events": 1,
+      "full_case_match": true,
+      "intact_expected": 64,
+      "intact_recovered": 64,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "54fc54b3f2d5ab908dacd40fbe6b6cd63ee963be89e19a09fd0eec3cd74edf39"
+  },
+  "88aad01a6e5e5f84:4096:strict": {
+    "case_id": "88aad01a6e5e5f84",
+    "chunk_bytes": 4096,
+    "policy": "strict",
+    "seconds": 0.0003032000095117837,
+    "alarms": [
+      {
+        "kind": "reorder",
+        "start": 8272,
+        "end": 8449
+      }
+    ],
+    "recovered_frames": 64,
+    "score": {
+      "events": 1,
+      "detected_events": 1,
+      "full_case_match": true,
+      "intact_expected": 64,
+      "intact_recovered": 64,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "54fc54b3f2d5ab908dacd40fbe6b6cd63ee963be89e19a09fd0eec3cd74edf39"
+  },
+  "88aad01a6e5e5f84:4096:resync": {
+    "case_id": "88aad01a6e5e5f84",
+    "chunk_bytes": 4096,
+    "policy": "resync",
+    "seconds": 0.00030229997355490923,
+    "alarms": [
+      {
+        "kind": "reorder",
+        "start": 8272,
+        "end": 8449
+      }
+    ],
+    "recovered_frames": 64,
+    "score": {
+      "events": 1,
+      "detected_events": 1,
+      "full_case_match": true,
+      "intact_expected": 64,
+      "intact_recovered": 64,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "54fc54b3f2d5ab908dacd40fbe6b6cd63ee963be89e19a09fd0eec3cd74edf39"
+  },
+  "88aad01a6e5e5f84:65536:strict": {
+    "case_id": "88aad01a6e5e5f84",
+    "chunk_bytes": 65536,
+    "policy": "strict",
+    "seconds": 0.00030139999580569565,
+    "alarms": [
+      {
+        "kind": "reorder",
+        "start": 8272,
+        "end": 8449
+      }
+    ],
+    "recovered_frames": 64,
+    "score": {
+      "events": 1,
+      "detected_events": 1,
+      "full_case_match": true,
+      "intact_expected": 64,
+      "intact_recovered": 64,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "54fc54b3f2d5ab908dacd40fbe6b6cd63ee963be89e19a09fd0eec3cd74edf39"
+  },
+  "88aad01a6e5e5f84:65536:resync": {
+    "case_id": "88aad01a6e5e5f84",
+    "chunk_bytes": 65536,
+    "policy": "resync",
+    "seconds": 0.0003068000078201294,
+    "alarms": [
+      {
+        "kind": "reorder",
+        "start": 8272,
+        "end": 8449
+      }
+    ],
+    "recovered_frames": 64,
+    "score": {
+      "events": 1,
+      "detected_events": 1,
+      "full_case_match": true,
+      "intact_expected": 64,
+      "intact_recovered": 64,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "54fc54b3f2d5ab908dacd40fbe6b6cd63ee963be89e19a09fd0eec3cd74edf39"
+  },
+  "017867bee35d39fd:512:strict": {
+    "case_id": "017867bee35d39fd",
+    "chunk_bytes": 512,
+    "policy": "strict",
+    "seconds": 0.0001449999981559813,
+    "alarms": [
+      {
+        "kind": "framing_corruption",
+        "start": 4576,
+        "end": 4624
+      }
+    ],
+    "recovered_frames": 26,
+    "score": {
+      "events": 1,
+      "detected_events": 1,
+      "full_case_match": true,
+      "intact_expected": 63,
+      "intact_recovered": 26,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "799a21f366d8287d8b560a64dcd68d5c55aef79d0597d1566c226925b6b1c7d2"
+  },
+  "017867bee35d39fd:512:resync": {
+    "case_id": "017867bee35d39fd",
+    "chunk_bytes": 512,
+    "policy": "resync",
+    "seconds": 0.000312299991492182,
+    "alarms": [
+      {
+        "kind": "framing_corruption",
+        "start": 4576,
+        "end": 4752
+      },
+      {
+        "kind": "missing",
+        "start": 4752,
+        "end": 4753
+      }
+    ],
+    "recovered_frames": 63,
+    "score": {
+      "events": 1,
+      "detected_events": 1,
+      "full_case_match": true,
+      "intact_expected": 63,
+      "intact_recovered": 63,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "96f36c503f589eabcb41dc5e4924bfab873e446b70fd822e9f01de6035e10d83"
+  },
+  "017867bee35d39fd:4096:strict": {
+    "case_id": "017867bee35d39fd",
+    "chunk_bytes": 4096,
+    "policy": "strict",
+    "seconds": 0.0001314000110141933,
+    "alarms": [
+      {
+        "kind": "framing_corruption",
+        "start": 4576,
+        "end": 4624
+      }
+    ],
+    "recovered_frames": 26,
+    "score": {
+      "events": 1,
+      "detected_events": 1,
+      "full_case_match": true,
+      "intact_expected": 63,
+      "intact_recovered": 26,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "799a21f366d8287d8b560a64dcd68d5c55aef79d0597d1566c226925b6b1c7d2"
+  },
+  "017867bee35d39fd:4096:resync": {
+    "case_id": "017867bee35d39fd",
+    "chunk_bytes": 4096,
+    "policy": "resync",
+    "seconds": 0.0003000000142492354,
+    "alarms": [
+      {
+        "kind": "framing_corruption",
+        "start": 4576,
+        "end": 4752
+      },
+      {
+        "kind": "missing",
+        "start": 4752,
+        "end": 4753
+      }
+    ],
+    "recovered_frames": 63,
+    "score": {
+      "events": 1,
+      "detected_events": 1,
+      "full_case_match": true,
+      "intact_expected": 63,
+      "intact_recovered": 63,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "96f36c503f589eabcb41dc5e4924bfab873e446b70fd822e9f01de6035e10d83"
+  },
+  "017867bee35d39fd:65536:strict": {
+    "case_id": "017867bee35d39fd",
+    "chunk_bytes": 65536,
+    "policy": "strict",
+    "seconds": 0.00013130001025274396,
+    "alarms": [
+      {
+        "kind": "framing_corruption",
+        "start": 4576,
+        "end": 4624
+      }
+    ],
+    "recovered_frames": 26,
+    "score": {
+      "events": 1,
+      "detected_events": 1,
+      "full_case_match": true,
+      "intact_expected": 63,
+      "intact_recovered": 26,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "799a21f366d8287d8b560a64dcd68d5c55aef79d0597d1566c226925b6b1c7d2"
+  },
+  "017867bee35d39fd:65536:resync": {
+    "case_id": "017867bee35d39fd",
+    "chunk_bytes": 65536,
+    "policy": "resync",
+    "seconds": 0.00029899997753091156,
+    "alarms": [
+      {
+        "kind": "framing_corruption",
+        "start": 4576,
+        "end": 4752
+      },
+      {
+        "kind": "missing",
+        "start": 4752,
+        "end": 4753
+      }
+    ],
+    "recovered_frames": 63,
+    "score": {
+      "events": 1,
+      "detected_events": 1,
+      "full_case_match": true,
+      "intact_expected": 63,
+      "intact_recovered": 63,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "96f36c503f589eabcb41dc5e4924bfab873e446b70fd822e9f01de6035e10d83"
+  },
+  "408d1fa716284f04:512:strict": {
+    "case_id": "408d1fa716284f04",
+    "chunk_bytes": 512,
+    "policy": "strict",
+    "seconds": 0.00023289999808184803,
+    "alarms": [
+      {
+        "kind": "framing_corruption",
+        "start": 7920,
+        "end": 7968
+      }
+    ],
+    "recovered_frames": 45,
+    "score": {
+      "events": 1,
+      "detected_events": 1,
+      "full_case_match": true,
+      "intact_expected": 63,
+      "intact_recovered": 45,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "943440e1b70dc9512d3bb8a288927f8590265150809b8595f9c14ae9c87bbb7d"
+  },
+  "408d1fa716284f04:512:resync": {
+    "case_id": "408d1fa716284f04",
+    "chunk_bytes": 512,
+    "policy": "resync",
+    "seconds": 0.00030910002533346415,
+    "alarms": [
+      {
+        "kind": "framing_corruption",
+        "start": 7920,
+        "end": 8096
+      },
+      {
+        "kind": "missing",
+        "start": 8096,
+        "end": 8097
+      }
+    ],
+    "recovered_frames": 63,
+    "score": {
+      "events": 1,
+      "detected_events": 1,
+      "full_case_match": true,
+      "intact_expected": 63,
+      "intact_recovered": 63,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "1d73e65901feebe23408b1602ad72e390e7e6d3810fb63c2fd68946201b71f85"
+  },
+  "408d1fa716284f04:4096:strict": {
+    "case_id": "408d1fa716284f04",
+    "chunk_bytes": 4096,
+    "policy": "strict",
+    "seconds": 0.00022260000696405768,
+    "alarms": [
+      {
+        "kind": "framing_corruption",
+        "start": 7920,
+        "end": 7968
+      }
+    ],
+    "recovered_frames": 45,
+    "score": {
+      "events": 1,
+      "detected_events": 1,
+      "full_case_match": true,
+      "intact_expected": 63,
+      "intact_recovered": 45,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "943440e1b70dc9512d3bb8a288927f8590265150809b8595f9c14ae9c87bbb7d"
+  },
+  "408d1fa716284f04:4096:resync": {
+    "case_id": "408d1fa716284f04",
+    "chunk_bytes": 4096,
+    "policy": "resync",
+    "seconds": 0.0003020000003743917,
+    "alarms": [
+      {
+        "kind": "framing_corruption",
+        "start": 7920,
+        "end": 8096
+      },
+      {
+        "kind": "missing",
+        "start": 8096,
+        "end": 8097
+      }
+    ],
+    "recovered_frames": 63,
+    "score": {
+      "events": 1,
+      "detected_events": 1,
+      "full_case_match": true,
+      "intact_expected": 63,
+      "intact_recovered": 63,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "1d73e65901feebe23408b1602ad72e390e7e6d3810fb63c2fd68946201b71f85"
+  },
+  "408d1fa716284f04:65536:strict": {
+    "case_id": "408d1fa716284f04",
+    "chunk_bytes": 65536,
+    "policy": "strict",
+    "seconds": 0.00021930001094006002,
+    "alarms": [
+      {
+        "kind": "framing_corruption",
+        "start": 7920,
+        "end": 7968
+      }
+    ],
+    "recovered_frames": 45,
+    "score": {
+      "events": 1,
+      "detected_events": 1,
+      "full_case_match": true,
+      "intact_expected": 63,
+      "intact_recovered": 45,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "943440e1b70dc9512d3bb8a288927f8590265150809b8595f9c14ae9c87bbb7d"
+  },
+  "408d1fa716284f04:65536:resync": {
+    "case_id": "408d1fa716284f04",
+    "chunk_bytes": 65536,
+    "policy": "resync",
+    "seconds": 0.0003009999927598983,
+    "alarms": [
+      {
+        "kind": "framing_corruption",
+        "start": 7920,
+        "end": 8096
+      },
+      {
+        "kind": "missing",
+        "start": 8096,
+        "end": 8097
+      }
+    ],
+    "recovered_frames": 63,
+    "score": {
+      "events": 1,
+      "detected_events": 1,
+      "full_case_match": true,
+      "intact_expected": 63,
+      "intact_recovered": 63,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "1d73e65901feebe23408b1602ad72e390e7e6d3810fb63c2fd68946201b71f85"
+  },
+  "25ec1ec79c80172f:512:strict": {
+    "case_id": "25ec1ec79c80172f",
+    "chunk_bytes": 512,
+    "policy": "strict",
+    "seconds": 0.00023939998936839402,
+    "alarms": [
+      {
+        "kind": "framing_corruption",
+        "start": 7920,
+        "end": 7968
+      }
+    ],
+    "recovered_frames": 45,
+    "score": {
+      "events": 1,
+      "detected_events": 1,
+      "full_case_match": true,
+      "intact_expected": 64,
+      "intact_recovered": 45,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "943440e1b70dc9512d3bb8a288927f8590265150809b8595f9c14ae9c87bbb7d"
+  },
+  "25ec1ec79c80172f:512:resync": {
+    "case_id": "25ec1ec79c80172f",
+    "chunk_bytes": 512,
+    "policy": "resync",
+    "seconds": 0.00031090000993572176,
+    "alarms": [
+      {
+        "kind": "framing_corruption",
+        "start": 7920,
+        "end": 7929
+      }
+    ],
+    "recovered_frames": 64,
+    "score": {
+      "events": 1,
+      "detected_events": 1,
+      "full_case_match": true,
+      "intact_expected": 64,
+      "intact_recovered": 64,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "20eeacae2368d55640bd1aa048a94b4f56b8257ac04f9363608a4ebb261e2b1f"
+  },
+  "25ec1ec79c80172f:4096:strict": {
+    "case_id": "25ec1ec79c80172f",
+    "chunk_bytes": 4096,
+    "policy": "strict",
+    "seconds": 0.00021989998640492558,
+    "alarms": [
+      {
+        "kind": "framing_corruption",
+        "start": 7920,
+        "end": 7968
+      }
+    ],
+    "recovered_frames": 45,
+    "score": {
+      "events": 1,
+      "detected_events": 1,
+      "full_case_match": true,
+      "intact_expected": 64,
+      "intact_recovered": 45,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "943440e1b70dc9512d3bb8a288927f8590265150809b8595f9c14ae9c87bbb7d"
+  },
+  "25ec1ec79c80172f:4096:resync": {
+    "case_id": "25ec1ec79c80172f",
+    "chunk_bytes": 4096,
+    "policy": "resync",
+    "seconds": 0.0003056999994441867,
+    "alarms": [
+      {
+        "kind": "framing_corruption",
+        "start": 7920,
+        "end": 7929
+      }
+    ],
+    "recovered_frames": 64,
+    "score": {
+      "events": 1,
+      "detected_events": 1,
+      "full_case_match": true,
+      "intact_expected": 64,
+      "intact_recovered": 64,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "20eeacae2368d55640bd1aa048a94b4f56b8257ac04f9363608a4ebb261e2b1f"
+  },
+  "25ec1ec79c80172f:65536:strict": {
+    "case_id": "25ec1ec79c80172f",
+    "chunk_bytes": 65536,
+    "policy": "strict",
+    "seconds": 0.00021830000332556665,
+    "alarms": [
+      {
+        "kind": "framing_corruption",
+        "start": 7920,
+        "end": 7968
+      }
+    ],
+    "recovered_frames": 45,
+    "score": {
+      "events": 1,
+      "detected_events": 1,
+      "full_case_match": true,
+      "intact_expected": 64,
+      "intact_recovered": 45,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "943440e1b70dc9512d3bb8a288927f8590265150809b8595f9c14ae9c87bbb7d"
+  },
+  "25ec1ec79c80172f:65536:resync": {
+    "case_id": "25ec1ec79c80172f",
+    "chunk_bytes": 65536,
+    "policy": "resync",
+    "seconds": 0.00030169999809004366,
+    "alarms": [
+      {
+        "kind": "framing_corruption",
+        "start": 7920,
+        "end": 7929
+      }
+    ],
+    "recovered_frames": 64,
+    "score": {
+      "events": 1,
+      "detected_events": 1,
+      "full_case_match": true,
+      "intact_expected": 64,
+      "intact_recovered": 64,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "20eeacae2368d55640bd1aa048a94b4f56b8257ac04f9363608a4ebb261e2b1f"
+  },
+  "c7804b04a2e25439:512:strict": {
+    "case_id": "c7804b04a2e25439",
+    "chunk_bytes": 512,
+    "policy": "strict",
+    "seconds": 0.00024510000366717577,
+    "alarms": [
+      {
+        "kind": "framing_corruption",
+        "start": 8272,
+        "end": 8320
+      }
+    ],
+    "recovered_frames": 47,
+    "score": {
+      "events": 1,
+      "detected_events": 0,
+      "full_case_match": false,
+      "intact_expected": 63,
+      "intact_recovered": 46,
+      "extra_recovered_records": 1
+    },
+    "recovered_sequence_sha256": "8baeda2d052da77a1df3ba605a0e634d6f6c26d6bb196cbc43e15b37c546e1f8"
+  },
+  "c7804b04a2e25439:512:resync": {
+    "case_id": "c7804b04a2e25439",
+    "chunk_bytes": 512,
+    "policy": "resync",
+    "seconds": 0.00030869999318383634,
+    "alarms": [
+      {
+        "kind": "framing_corruption",
+        "start": 8272,
+        "end": 8431
+      },
+      {
+        "kind": "missing",
+        "start": 8431,
+        "end": 8432
+      }
+    ],
+    "recovered_frames": 63,
+    "score": {
+      "events": 1,
+      "detected_events": 0,
+      "full_case_match": false,
+      "intact_expected": 63,
+      "intact_recovered": 62,
+      "extra_recovered_records": 1
+    },
+    "recovered_sequence_sha256": "e1f6b9c2538c9e2705a23a534ae2b973985c6be5c23917cb07757eb2d06a3c5f"
+  },
+  "c7804b04a2e25439:4096:strict": {
+    "case_id": "c7804b04a2e25439",
+    "chunk_bytes": 4096,
+    "policy": "strict",
+    "seconds": 0.00023030000738799572,
+    "alarms": [
+      {
+        "kind": "framing_corruption",
+        "start": 8272,
+        "end": 8320
+      }
+    ],
+    "recovered_frames": 47,
+    "score": {
+      "events": 1,
+      "detected_events": 0,
+      "full_case_match": false,
+      "intact_expected": 63,
+      "intact_recovered": 46,
+      "extra_recovered_records": 1
+    },
+    "recovered_sequence_sha256": "8baeda2d052da77a1df3ba605a0e634d6f6c26d6bb196cbc43e15b37c546e1f8"
+  },
+  "c7804b04a2e25439:4096:resync": {
+    "case_id": "c7804b04a2e25439",
+    "chunk_bytes": 4096,
+    "policy": "resync",
+    "seconds": 0.0002995000104419887,
+    "alarms": [
+      {
+        "kind": "framing_corruption",
+        "start": 8272,
+        "end": 8431
+      },
+      {
+        "kind": "missing",
+        "start": 8431,
+        "end": 8432
+      }
+    ],
+    "recovered_frames": 63,
+    "score": {
+      "events": 1,
+      "detected_events": 0,
+      "full_case_match": false,
+      "intact_expected": 63,
+      "intact_recovered": 62,
+      "extra_recovered_records": 1
+    },
+    "recovered_sequence_sha256": "e1f6b9c2538c9e2705a23a534ae2b973985c6be5c23917cb07757eb2d06a3c5f"
+  },
+  "c7804b04a2e25439:65536:strict": {
+    "case_id": "c7804b04a2e25439",
+    "chunk_bytes": 65536,
+    "policy": "strict",
+    "seconds": 0.00023289999808184803,
+    "alarms": [
+      {
+        "kind": "framing_corruption",
+        "start": 8272,
+        "end": 8320
+      }
+    ],
+    "recovered_frames": 47,
+    "score": {
+      "events": 1,
+      "detected_events": 0,
+      "full_case_match": false,
+      "intact_expected": 63,
+      "intact_recovered": 46,
+      "extra_recovered_records": 1
+    },
+    "recovered_sequence_sha256": "8baeda2d052da77a1df3ba605a0e634d6f6c26d6bb196cbc43e15b37c546e1f8"
+  },
+  "c7804b04a2e25439:65536:resync": {
+    "case_id": "c7804b04a2e25439",
+    "chunk_bytes": 65536,
+    "policy": "resync",
+    "seconds": 0.00029779999749735,
+    "alarms": [
+      {
+        "kind": "framing_corruption",
+        "start": 8272,
+        "end": 8431
+      },
+      {
+        "kind": "missing",
+        "start": 8431,
+        "end": 8432
+      }
+    ],
+    "recovered_frames": 63,
+    "score": {
+      "events": 1,
+      "detected_events": 0,
+      "full_case_match": false,
+      "intact_expected": 63,
+      "intact_recovered": 62,
+      "extra_recovered_records": 1
+    },
+    "recovered_sequence_sha256": "e1f6b9c2538c9e2705a23a534ae2b973985c6be5c23917cb07757eb2d06a3c5f"
+  },
+  "57be0a2d633877e8:512:strict": {
+    "case_id": "57be0a2d633877e8",
+    "chunk_bytes": 512,
+    "policy": "strict",
+    "seconds": 0.0002175999979954213,
+    "alarms": [
+      {
+        "kind": "framing_corruption",
+        "start": 7040,
+        "end": 7088
+      },
+      {
+        "kind": "duplicate",
+        "start": 4224,
+        "end": 4225
+      },
+      {
+        "kind": "missing",
+        "start": 1408,
+        "end": 1409
+      }
+    ],
+    "recovered_frames": 40,
+    "score": {
+      "events": 3,
+      "detected_events": 3,
+      "full_case_match": true,
+      "intact_expected": 63,
+      "intact_recovered": 40,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "d3eec983ed0ecb4706f574da5134e6e8a5af169ad9a0e4875100b96ed4548dff"
+  },
+  "57be0a2d633877e8:512:resync": {
+    "case_id": "57be0a2d633877e8",
+    "chunk_bytes": 512,
+    "policy": "resync",
+    "seconds": 0.0003130999975837767,
+    "alarms": [
+      {
+        "kind": "framing_corruption",
+        "start": 7040,
+        "end": 7216
+      },
+      {
+        "kind": "duplicate",
+        "start": 4224,
+        "end": 4225
+      },
+      {
+        "kind": "missing",
+        "start": 1408,
+        "end": 1409
+      },
+      {
+        "kind": "missing",
+        "start": 7216,
+        "end": 7217
+      }
+    ],
+    "recovered_frames": 63,
+    "score": {
+      "events": 3,
+      "detected_events": 3,
+      "full_case_match": true,
+      "intact_expected": 63,
+      "intact_recovered": 63,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "2f3330ee638d295d99b155daa5815c909820a6e184b26441788b6d6551f6f955"
+  },
+  "57be0a2d633877e8:4096:strict": {
+    "case_id": "57be0a2d633877e8",
+    "chunk_bytes": 4096,
+    "policy": "strict",
+    "seconds": 0.0002023999986704439,
+    "alarms": [
+      {
+        "kind": "framing_corruption",
+        "start": 7040,
+        "end": 7088
+      },
+      {
+        "kind": "duplicate",
+        "start": 4224,
+        "end": 4225
+      },
+      {
+        "kind": "missing",
+        "start": 1408,
+        "end": 1409
+      }
+    ],
+    "recovered_frames": 40,
+    "score": {
+      "events": 3,
+      "detected_events": 3,
+      "full_case_match": true,
+      "intact_expected": 63,
+      "intact_recovered": 40,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "d3eec983ed0ecb4706f574da5134e6e8a5af169ad9a0e4875100b96ed4548dff"
+  },
+  "57be0a2d633877e8:4096:resync": {
+    "case_id": "57be0a2d633877e8",
+    "chunk_bytes": 4096,
+    "policy": "resync",
+    "seconds": 0.0003145999799016863,
+    "alarms": [
+      {
+        "kind": "framing_corruption",
+        "start": 7040,
+        "end": 7216
+      },
+      {
+        "kind": "duplicate",
+        "start": 4224,
+        "end": 4225
+      },
+      {
+        "kind": "missing",
+        "start": 1408,
+        "end": 1409
+      },
+      {
+        "kind": "missing",
+        "start": 7216,
+        "end": 7217
+      }
+    ],
+    "recovered_frames": 63,
+    "score": {
+      "events": 3,
+      "detected_events": 3,
+      "full_case_match": true,
+      "intact_expected": 63,
+      "intact_recovered": 63,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "2f3330ee638d295d99b155daa5815c909820a6e184b26441788b6d6551f6f955"
+  },
+  "57be0a2d633877e8:65536:strict": {
+    "case_id": "57be0a2d633877e8",
+    "chunk_bytes": 65536,
+    "policy": "strict",
+    "seconds": 0.00020500001846812665,
+    "alarms": [
+      {
+        "kind": "framing_corruption",
+        "start": 7040,
+        "end": 7088
+      },
+      {
+        "kind": "duplicate",
+        "start": 4224,
+        "end": 4225
+      },
+      {
+        "kind": "missing",
+        "start": 1408,
+        "end": 1409
+      }
+    ],
+    "recovered_frames": 40,
+    "score": {
+      "events": 3,
+      "detected_events": 3,
+      "full_case_match": true,
+      "intact_expected": 63,
+      "intact_recovered": 40,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "d3eec983ed0ecb4706f574da5134e6e8a5af169ad9a0e4875100b96ed4548dff"
+  },
+  "57be0a2d633877e8:65536:resync": {
+    "case_id": "57be0a2d633877e8",
+    "chunk_bytes": 65536,
+    "policy": "resync",
+    "seconds": 0.0003451000084169209,
+    "alarms": [
+      {
+        "kind": "framing_corruption",
+        "start": 7040,
+        "end": 7216
+      },
+      {
+        "kind": "duplicate",
+        "start": 4224,
+        "end": 4225
+      },
+      {
+        "kind": "missing",
+        "start": 1408,
+        "end": 1409
+      },
+      {
+        "kind": "missing",
+        "start": 7216,
+        "end": 7217
+      }
+    ],
+    "recovered_frames": 63,
+    "score": {
+      "events": 3,
+      "detected_events": 3,
+      "full_case_match": true,
+      "intact_expected": 63,
+      "intact_recovered": 63,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "2f3330ee638d295d99b155daa5815c909820a6e184b26441788b6d6551f6f955"
+  },
+  "ff867068776351f3:512:strict": {
+    "case_id": "ff867068776351f3",
+    "chunk_bytes": 512,
+    "policy": "strict",
+    "seconds": 0.00037379999412223697,
+    "alarms": [],
+    "recovered_frames": 64,
+    "score": {
+      "events": 0,
+      "detected_events": 0,
+      "full_case_match": null,
+      "intact_expected": 64,
+      "intact_recovered": 64,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "d3aa3f21e4c9d7f5faef29137916fb71bb0769bd726f4a1e811ecdd4b8ea2885"
+  },
+  "ff867068776351f3:512:resync": {
+    "case_id": "ff867068776351f3",
+    "chunk_bytes": 512,
+    "policy": "resync",
+    "seconds": 0.00033599999733269215,
+    "alarms": [],
+    "recovered_frames": 64,
+    "score": {
+      "events": 0,
+      "detected_events": 0,
+      "full_case_match": null,
+      "intact_expected": 64,
+      "intact_recovered": 64,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "d3aa3f21e4c9d7f5faef29137916fb71bb0769bd726f4a1e811ecdd4b8ea2885"
+  },
+  "ff867068776351f3:4096:strict": {
+    "case_id": "ff867068776351f3",
+    "chunk_bytes": 4096,
+    "policy": "strict",
+    "seconds": 0.00032890000147745013,
+    "alarms": [],
+    "recovered_frames": 64,
+    "score": {
+      "events": 0,
+      "detected_events": 0,
+      "full_case_match": null,
+      "intact_expected": 64,
+      "intact_recovered": 64,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "d3aa3f21e4c9d7f5faef29137916fb71bb0769bd726f4a1e811ecdd4b8ea2885"
+  },
+  "ff867068776351f3:4096:resync": {
+    "case_id": "ff867068776351f3",
+    "chunk_bytes": 4096,
+    "policy": "resync",
+    "seconds": 0.00032449999707750976,
+    "alarms": [],
+    "recovered_frames": 64,
+    "score": {
+      "events": 0,
+      "detected_events": 0,
+      "full_case_match": null,
+      "intact_expected": 64,
+      "intact_recovered": 64,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "d3aa3f21e4c9d7f5faef29137916fb71bb0769bd726f4a1e811ecdd4b8ea2885"
+  },
+  "ff867068776351f3:65536:strict": {
+    "case_id": "ff867068776351f3",
+    "chunk_bytes": 65536,
+    "policy": "strict",
+    "seconds": 0.00032599997939541936,
+    "alarms": [],
+    "recovered_frames": 64,
+    "score": {
+      "events": 0,
+      "detected_events": 0,
+      "full_case_match": null,
+      "intact_expected": 64,
+      "intact_recovered": 64,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "d3aa3f21e4c9d7f5faef29137916fb71bb0769bd726f4a1e811ecdd4b8ea2885"
+  },
+  "ff867068776351f3:65536:resync": {
+    "case_id": "ff867068776351f3",
+    "chunk_bytes": 65536,
+    "policy": "resync",
+    "seconds": 0.00032890000147745013,
+    "alarms": [],
+    "recovered_frames": 64,
+    "score": {
+      "events": 0,
+      "detected_events": 0,
+      "full_case_match": null,
+      "intact_expected": 64,
+      "intact_recovered": 64,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "d3aa3f21e4c9d7f5faef29137916fb71bb0769bd726f4a1e811ecdd4b8ea2885"
+  },
+  "3c4df4f5f9bd5a7c:512:strict": {
+    "case_id": "3c4df4f5f9bd5a7c",
+    "chunk_bytes": 512,
+    "policy": "strict",
+    "seconds": 0.0003443000023253262,
+    "alarms": [
+      {
+        "kind": "missing",
+        "start": 6872,
+        "end": 6873
+      }
+    ],
+    "recovered_frames": 63,
+    "score": {
+      "events": 1,
+      "detected_events": 1,
+      "full_case_match": true,
+      "intact_expected": 63,
+      "intact_recovered": 63,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "65942de2f6946bebd7bc8951e188335ee3eeaa08a2b015fd4519830280def8dc"
+  },
+  "3c4df4f5f9bd5a7c:512:resync": {
+    "case_id": "3c4df4f5f9bd5a7c",
+    "chunk_bytes": 512,
+    "policy": "resync",
+    "seconds": 0.00033549999352544546,
+    "alarms": [
+      {
+        "kind": "missing",
+        "start": 6872,
+        "end": 6873
+      }
+    ],
+    "recovered_frames": 63,
+    "score": {
+      "events": 1,
+      "detected_events": 1,
+      "full_case_match": true,
+      "intact_expected": 63,
+      "intact_recovered": 63,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "65942de2f6946bebd7bc8951e188335ee3eeaa08a2b015fd4519830280def8dc"
+  },
+  "3c4df4f5f9bd5a7c:4096:strict": {
+    "case_id": "3c4df4f5f9bd5a7c",
+    "chunk_bytes": 4096,
+    "policy": "strict",
+    "seconds": 0.00032389999250881374,
+    "alarms": [
+      {
+        "kind": "missing",
+        "start": 6872,
+        "end": 6873
+      }
+    ],
+    "recovered_frames": 63,
+    "score": {
+      "events": 1,
+      "detected_events": 1,
+      "full_case_match": true,
+      "intact_expected": 63,
+      "intact_recovered": 63,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "65942de2f6946bebd7bc8951e188335ee3eeaa08a2b015fd4519830280def8dc"
+  },
+  "3c4df4f5f9bd5a7c:4096:resync": {
+    "case_id": "3c4df4f5f9bd5a7c",
+    "chunk_bytes": 4096,
+    "policy": "resync",
+    "seconds": 0.00031790000502951443,
+    "alarms": [
+      {
+        "kind": "missing",
+        "start": 6872,
+        "end": 6873
+      }
+    ],
+    "recovered_frames": 63,
+    "score": {
+      "events": 1,
+      "detected_events": 1,
+      "full_case_match": true,
+      "intact_expected": 63,
+      "intact_recovered": 63,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "65942de2f6946bebd7bc8951e188335ee3eeaa08a2b015fd4519830280def8dc"
+  },
+  "3c4df4f5f9bd5a7c:65536:strict": {
+    "case_id": "3c4df4f5f9bd5a7c",
+    "chunk_bytes": 65536,
+    "policy": "strict",
+    "seconds": 0.0003205999964848161,
+    "alarms": [
+      {
+        "kind": "missing",
+        "start": 6872,
+        "end": 6873
+      }
+    ],
+    "recovered_frames": 63,
+    "score": {
+      "events": 1,
+      "detected_events": 1,
+      "full_case_match": true,
+      "intact_expected": 63,
+      "intact_recovered": 63,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "65942de2f6946bebd7bc8951e188335ee3eeaa08a2b015fd4519830280def8dc"
+  },
+  "3c4df4f5f9bd5a7c:65536:resync": {
+    "case_id": "3c4df4f5f9bd5a7c",
+    "chunk_bytes": 65536,
+    "policy": "resync",
+    "seconds": 0.0003171999996993691,
+    "alarms": [
+      {
+        "kind": "missing",
+        "start": 6872,
+        "end": 6873
+      }
+    ],
+    "recovered_frames": 63,
+    "score": {
+      "events": 1,
+      "detected_events": 1,
+      "full_case_match": true,
+      "intact_expected": 63,
+      "intact_recovered": 63,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "65942de2f6946bebd7bc8951e188335ee3eeaa08a2b015fd4519830280def8dc"
+  },
+  "75468098d66dee2e:512:strict": {
+    "case_id": "75468098d66dee2e",
+    "chunk_bytes": 512,
+    "policy": "strict",
+    "seconds": 0.0003507999936118722,
+    "alarms": [
+      {
+        "kind": "duplicate",
+        "start": 7584,
+        "end": 7585
+      }
+    ],
+    "recovered_frames": 65,
+    "score": {
+      "events": 1,
+      "detected_events": 1,
+      "full_case_match": true,
+      "intact_expected": 65,
+      "intact_recovered": 65,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "b334e6947ae37b8c6d40190eaabd8fc44635e4fdb19665a5db1dee357ece982a"
+  },
+  "75468098d66dee2e:512:resync": {
+    "case_id": "75468098d66dee2e",
+    "chunk_bytes": 512,
+    "policy": "resync",
+    "seconds": 0.0003375000087544322,
+    "alarms": [
+      {
+        "kind": "duplicate",
+        "start": 7584,
+        "end": 7585
+      }
+    ],
+    "recovered_frames": 65,
+    "score": {
+      "events": 1,
+      "detected_events": 1,
+      "full_case_match": true,
+      "intact_expected": 65,
+      "intact_recovered": 65,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "b334e6947ae37b8c6d40190eaabd8fc44635e4fdb19665a5db1dee357ece982a"
+  },
+  "75468098d66dee2e:4096:strict": {
+    "case_id": "75468098d66dee2e",
+    "chunk_bytes": 4096,
+    "policy": "strict",
+    "seconds": 0.00033420001273043454,
+    "alarms": [
+      {
+        "kind": "duplicate",
+        "start": 7584,
+        "end": 7585
+      }
+    ],
+    "recovered_frames": 65,
+    "score": {
+      "events": 1,
+      "detected_events": 1,
+      "full_case_match": true,
+      "intact_expected": 65,
+      "intact_recovered": 65,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "b334e6947ae37b8c6d40190eaabd8fc44635e4fdb19665a5db1dee357ece982a"
+  },
+  "75468098d66dee2e:4096:resync": {
+    "case_id": "75468098d66dee2e",
+    "chunk_bytes": 4096,
+    "policy": "resync",
+    "seconds": 0.00032740001915954053,
+    "alarms": [
+      {
+        "kind": "duplicate",
+        "start": 7584,
+        "end": 7585
+      }
+    ],
+    "recovered_frames": 65,
+    "score": {
+      "events": 1,
+      "detected_events": 1,
+      "full_case_match": true,
+      "intact_expected": 65,
+      "intact_recovered": 65,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "b334e6947ae37b8c6d40190eaabd8fc44635e4fdb19665a5db1dee357ece982a"
+  },
+  "75468098d66dee2e:65536:strict": {
+    "case_id": "75468098d66dee2e",
+    "chunk_bytes": 65536,
+    "policy": "strict",
+    "seconds": 0.00032839999767020345,
+    "alarms": [
+      {
+        "kind": "duplicate",
+        "start": 7584,
+        "end": 7585
+      }
+    ],
+    "recovered_frames": 65,
+    "score": {
+      "events": 1,
+      "detected_events": 1,
+      "full_case_match": true,
+      "intact_expected": 65,
+      "intact_recovered": 65,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "b334e6947ae37b8c6d40190eaabd8fc44635e4fdb19665a5db1dee357ece982a"
+  },
+  "75468098d66dee2e:65536:resync": {
+    "case_id": "75468098d66dee2e",
+    "chunk_bytes": 65536,
+    "policy": "resync",
+    "seconds": 0.0003268000145908445,
+    "alarms": [
+      {
+        "kind": "duplicate",
+        "start": 7584,
+        "end": 7585
+      }
+    ],
+    "recovered_frames": 65,
+    "score": {
+      "events": 1,
+      "detected_events": 1,
+      "full_case_match": true,
+      "intact_expected": 65,
+      "intact_recovered": 65,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "b334e6947ae37b8c6d40190eaabd8fc44635e4fdb19665a5db1dee357ece982a"
+  },
+  "64b352870f1ee905:512:strict": {
+    "case_id": "64b352870f1ee905",
+    "chunk_bytes": 512,
+    "policy": "strict",
+    "seconds": 0.0003468999930191785,
+    "alarms": [
+      {
+        "kind": "reorder",
+        "start": 5488,
+        "end": 5849
+      }
+    ],
+    "recovered_frames": 64,
+    "score": {
+      "events": 1,
+      "detected_events": 1,
+      "full_case_match": true,
+      "intact_expected": 64,
+      "intact_recovered": 64,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "be0606549711ac697fdaa77b69cc21656233e67a506cba8a89c46311e3915154"
+  },
+  "64b352870f1ee905:512:resync": {
+    "case_id": "64b352870f1ee905",
+    "chunk_bytes": 512,
+    "policy": "resync",
+    "seconds": 0.0003411000070627779,
+    "alarms": [
+      {
+        "kind": "reorder",
+        "start": 5488,
+        "end": 5849
+      }
+    ],
+    "recovered_frames": 64,
+    "score": {
+      "events": 1,
+      "detected_events": 1,
+      "full_case_match": true,
+      "intact_expected": 64,
+      "intact_recovered": 64,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "be0606549711ac697fdaa77b69cc21656233e67a506cba8a89c46311e3915154"
+  },
+  "64b352870f1ee905:4096:strict": {
+    "case_id": "64b352870f1ee905",
+    "chunk_bytes": 4096,
+    "policy": "strict",
+    "seconds": 0.00032530000316910446,
+    "alarms": [
+      {
+        "kind": "reorder",
+        "start": 5488,
+        "end": 5849
+      }
+    ],
+    "recovered_frames": 64,
+    "score": {
+      "events": 1,
+      "detected_events": 1,
+      "full_case_match": true,
+      "intact_expected": 64,
+      "intact_recovered": 64,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "be0606549711ac697fdaa77b69cc21656233e67a506cba8a89c46311e3915154"
+  },
+  "64b352870f1ee905:4096:resync": {
+    "case_id": "64b352870f1ee905",
+    "chunk_bytes": 4096,
+    "policy": "resync",
+    "seconds": 0.00032160000409930944,
+    "alarms": [
+      {
+        "kind": "reorder",
+        "start": 5488,
+        "end": 5849
+      }
+    ],
+    "recovered_frames": 64,
+    "score": {
+      "events": 1,
+      "detected_events": 1,
+      "full_case_match": true,
+      "intact_expected": 64,
+      "intact_recovered": 64,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "be0606549711ac697fdaa77b69cc21656233e67a506cba8a89c46311e3915154"
+  },
+  "64b352870f1ee905:65536:strict": {
+    "case_id": "64b352870f1ee905",
+    "chunk_bytes": 65536,
+    "policy": "strict",
+    "seconds": 0.00032300001475960016,
+    "alarms": [
+      {
+        "kind": "reorder",
+        "start": 5488,
+        "end": 5849
+      }
+    ],
+    "recovered_frames": 64,
+    "score": {
+      "events": 1,
+      "detected_events": 1,
+      "full_case_match": true,
+      "intact_expected": 64,
+      "intact_recovered": 64,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "be0606549711ac697fdaa77b69cc21656233e67a506cba8a89c46311e3915154"
+  },
+  "64b352870f1ee905:65536:resync": {
+    "case_id": "64b352870f1ee905",
+    "chunk_bytes": 65536,
+    "policy": "resync",
+    "seconds": 0.000321599974995479,
+    "alarms": [
+      {
+        "kind": "reorder",
+        "start": 5488,
+        "end": 5849
+      }
+    ],
+    "recovered_frames": 64,
+    "score": {
+      "events": 1,
+      "detected_events": 1,
+      "full_case_match": true,
+      "intact_expected": 64,
+      "intact_recovered": 64,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "be0606549711ac697fdaa77b69cc21656233e67a506cba8a89c46311e3915154"
+  },
+  "fc96564319d5a22a:512:strict": {
+    "case_id": "fc96564319d5a22a",
+    "chunk_bytes": 512,
+    "policy": "strict",
+    "seconds": 0.00021379999816417694,
+    "alarms": [
+      {
+        "kind": "framing_corruption",
+        "start": 14208,
+        "end": 14256
+      }
+    ],
+    "recovered_frames": 38,
+    "score": {
+      "events": 1,
+      "detected_events": 1,
+      "full_case_match": true,
+      "intact_expected": 63,
+      "intact_recovered": 38,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "462c5432369293c9fd67717f3361c7207920fa650954c6a9ad9c0c1aed6f1375"
+  },
+  "fc96564319d5a22a:512:resync": {
+    "case_id": "fc96564319d5a22a",
+    "chunk_bytes": 512,
+    "policy": "resync",
+    "seconds": 0.0003457999846432358,
+    "alarms": [
+      {
+        "kind": "framing_corruption",
+        "start": 14208,
+        "end": 14480
+      },
+      {
+        "kind": "missing",
+        "start": 14480,
+        "end": 14481
+      }
+    ],
+    "recovered_frames": 63,
+    "score": {
+      "events": 1,
+      "detected_events": 1,
+      "full_case_match": true,
+      "intact_expected": 63,
+      "intact_recovered": 63,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "448aab29c963cb42189e99b64bbc1001bcc69aa1ba1a7ef54beb9873d0645323"
+  },
+  "fc96564319d5a22a:4096:strict": {
+    "case_id": "fc96564319d5a22a",
+    "chunk_bytes": 4096,
+    "policy": "strict",
+    "seconds": 0.00019940000493079424,
+    "alarms": [
+      {
+        "kind": "framing_corruption",
+        "start": 14208,
+        "end": 14256
+      }
+    ],
+    "recovered_frames": 38,
+    "score": {
+      "events": 1,
+      "detected_events": 1,
+      "full_case_match": true,
+      "intact_expected": 63,
+      "intact_recovered": 38,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "462c5432369293c9fd67717f3361c7207920fa650954c6a9ad9c0c1aed6f1375"
+  },
+  "fc96564319d5a22a:4096:resync": {
+    "case_id": "fc96564319d5a22a",
+    "chunk_bytes": 4096,
+    "policy": "resync",
+    "seconds": 0.0003233000170439482,
+    "alarms": [
+      {
+        "kind": "framing_corruption",
+        "start": 14208,
+        "end": 14480
+      },
+      {
+        "kind": "missing",
+        "start": 14480,
+        "end": 14481
+      }
+    ],
+    "recovered_frames": 63,
+    "score": {
+      "events": 1,
+      "detected_events": 1,
+      "full_case_match": true,
+      "intact_expected": 63,
+      "intact_recovered": 63,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "448aab29c963cb42189e99b64bbc1001bcc69aa1ba1a7ef54beb9873d0645323"
+  },
+  "fc96564319d5a22a:65536:strict": {
+    "case_id": "fc96564319d5a22a",
+    "chunk_bytes": 65536,
+    "policy": "strict",
+    "seconds": 0.00020619999850168824,
+    "alarms": [
+      {
+        "kind": "framing_corruption",
+        "start": 14208,
+        "end": 14256
+      }
+    ],
+    "recovered_frames": 38,
+    "score": {
+      "events": 1,
+      "detected_events": 1,
+      "full_case_match": true,
+      "intact_expected": 63,
+      "intact_recovered": 38,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "462c5432369293c9fd67717f3361c7207920fa650954c6a9ad9c0c1aed6f1375"
+  },
+  "fc96564319d5a22a:65536:resync": {
+    "case_id": "fc96564319d5a22a",
+    "chunk_bytes": 65536,
+    "policy": "resync",
+    "seconds": 0.00032240001019090414,
+    "alarms": [
+      {
+        "kind": "framing_corruption",
+        "start": 14208,
+        "end": 14480
+      },
+      {
+        "kind": "missing",
+        "start": 14480,
+        "end": 14481
+      }
+    ],
+    "recovered_frames": 63,
+    "score": {
+      "events": 1,
+      "detected_events": 1,
+      "full_case_match": true,
+      "intact_expected": 63,
+      "intact_recovered": 63,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "448aab29c963cb42189e99b64bbc1001bcc69aa1ba1a7ef54beb9873d0645323"
+  },
+  "4d0f1e03299ee506:512:strict": {
+    "case_id": "4d0f1e03299ee506",
+    "chunk_bytes": 512,
+    "policy": "strict",
+    "seconds": 0.00024059999850578606,
+    "alarms": [
+      {
+        "kind": "framing_corruption",
+        "start": 16112,
+        "end": 16160
+      }
+    ],
+    "recovered_frames": 43,
+    "score": {
+      "events": 1,
+      "detected_events": 1,
+      "full_case_match": true,
+      "intact_expected": 63,
+      "intact_recovered": 43,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "3bb4c7fb27f92af8dd57de602ffad4f6dcf91c6c6bf7ae5cc0760a04eac3dd7d"
+  },
+  "4d0f1e03299ee506:512:resync": {
+    "case_id": "4d0f1e03299ee506",
+    "chunk_bytes": 512,
+    "policy": "resync",
+    "seconds": 0.00033999999868683517,
+    "alarms": [
+      {
+        "kind": "framing_corruption",
+        "start": 16112,
+        "end": 16552
+      },
+      {
+        "kind": "missing",
+        "start": 16552,
+        "end": 16553
+      }
+    ],
+    "recovered_frames": 63,
+    "score": {
+      "events": 1,
+      "detected_events": 1,
+      "full_case_match": true,
+      "intact_expected": 63,
+      "intact_recovered": 63,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "a0dbe320703549700aa5865ff935f5633d784768d91d57c89b8b673f73f8f9dd"
+  },
+  "4d0f1e03299ee506:4096:strict": {
+    "case_id": "4d0f1e03299ee506",
+    "chunk_bytes": 4096,
+    "policy": "strict",
+    "seconds": 0.00022770001669414341,
+    "alarms": [
+      {
+        "kind": "framing_corruption",
+        "start": 16112,
+        "end": 16160
+      }
+    ],
+    "recovered_frames": 43,
+    "score": {
+      "events": 1,
+      "detected_events": 1,
+      "full_case_match": true,
+      "intact_expected": 63,
+      "intact_recovered": 43,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "3bb4c7fb27f92af8dd57de602ffad4f6dcf91c6c6bf7ae5cc0760a04eac3dd7d"
+  },
+  "4d0f1e03299ee506:4096:resync": {
+    "case_id": "4d0f1e03299ee506",
+    "chunk_bytes": 4096,
+    "policy": "resync",
+    "seconds": 0.0003229000139981508,
+    "alarms": [
+      {
+        "kind": "framing_corruption",
+        "start": 16112,
+        "end": 16552
+      },
+      {
+        "kind": "missing",
+        "start": 16552,
+        "end": 16553
+      }
+    ],
+    "recovered_frames": 63,
+    "score": {
+      "events": 1,
+      "detected_events": 1,
+      "full_case_match": true,
+      "intact_expected": 63,
+      "intact_recovered": 63,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "a0dbe320703549700aa5865ff935f5633d784768d91d57c89b8b673f73f8f9dd"
+  },
+  "4d0f1e03299ee506:65536:strict": {
+    "case_id": "4d0f1e03299ee506",
+    "chunk_bytes": 65536,
+    "policy": "strict",
+    "seconds": 0.000225800002226606,
+    "alarms": [
+      {
+        "kind": "framing_corruption",
+        "start": 16112,
+        "end": 16160
+      }
+    ],
+    "recovered_frames": 43,
+    "score": {
+      "events": 1,
+      "detected_events": 1,
+      "full_case_match": true,
+      "intact_expected": 63,
+      "intact_recovered": 43,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "3bb4c7fb27f92af8dd57de602ffad4f6dcf91c6c6bf7ae5cc0760a04eac3dd7d"
+  },
+  "4d0f1e03299ee506:65536:resync": {
+    "case_id": "4d0f1e03299ee506",
+    "chunk_bytes": 65536,
+    "policy": "resync",
+    "seconds": 0.0003236000193282962,
+    "alarms": [
+      {
+        "kind": "framing_corruption",
+        "start": 16112,
+        "end": 16552
+      },
+      {
+        "kind": "missing",
+        "start": 16552,
+        "end": 16553
+      }
+    ],
+    "recovered_frames": 63,
+    "score": {
+      "events": 1,
+      "detected_events": 1,
+      "full_case_match": true,
+      "intact_expected": 63,
+      "intact_recovered": 63,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "a0dbe320703549700aa5865ff935f5633d784768d91d57c89b8b673f73f8f9dd"
+  },
+  "2721d0916ab34ddb:512:strict": {
+    "case_id": "2721d0916ab34ddb",
+    "chunk_bytes": 512,
+    "policy": "strict",
+    "seconds": 0.00013249999028630555,
+    "alarms": [
+      {
+        "kind": "framing_corruption",
+        "start": 8200,
+        "end": 8248
+      }
+    ],
+    "recovered_frames": 22,
+    "score": {
+      "events": 1,
+      "detected_events": 1,
+      "full_case_match": true,
+      "intact_expected": 64,
+      "intact_recovered": 22,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "5f68162df2514e02015dcab2cf03a369cb0427d91e6fa4dfdac17c89de3a419b"
+  },
+  "2721d0916ab34ddb:512:resync": {
+    "case_id": "2721d0916ab34ddb",
+    "chunk_bytes": 512,
+    "policy": "resync",
+    "seconds": 0.0003510999958962202,
+    "alarms": [
+      {
+        "kind": "framing_corruption",
+        "start": 8200,
+        "end": 8209
+      }
+    ],
+    "recovered_frames": 64,
+    "score": {
+      "events": 1,
+      "detected_events": 1,
+      "full_case_match": true,
+      "intact_expected": 64,
+      "intact_recovered": 64,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "d3aa3f21e4c9d7f5faef29137916fb71bb0769bd726f4a1e811ecdd4b8ea2885"
+  },
+  "2721d0916ab34ddb:4096:strict": {
+    "case_id": "2721d0916ab34ddb",
+    "chunk_bytes": 4096,
+    "policy": "strict",
+    "seconds": 0.0001202999847009778,
+    "alarms": [
+      {
+        "kind": "framing_corruption",
+        "start": 8200,
+        "end": 8248
+      }
+    ],
+    "recovered_frames": 22,
+    "score": {
+      "events": 1,
+      "detected_events": 1,
+      "full_case_match": true,
+      "intact_expected": 64,
+      "intact_recovered": 22,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "5f68162df2514e02015dcab2cf03a369cb0427d91e6fa4dfdac17c89de3a419b"
+  },
+  "2721d0916ab34ddb:4096:resync": {
+    "case_id": "2721d0916ab34ddb",
+    "chunk_bytes": 4096,
+    "policy": "resync",
+    "seconds": 0.0003273000183980912,
+    "alarms": [
+      {
+        "kind": "framing_corruption",
+        "start": 8200,
+        "end": 8209
+      }
+    ],
+    "recovered_frames": 64,
+    "score": {
+      "events": 1,
+      "detected_events": 1,
+      "full_case_match": true,
+      "intact_expected": 64,
+      "intact_recovered": 64,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "d3aa3f21e4c9d7f5faef29137916fb71bb0769bd726f4a1e811ecdd4b8ea2885"
+  },
+  "2721d0916ab34ddb:65536:strict": {
+    "case_id": "2721d0916ab34ddb",
+    "chunk_bytes": 65536,
+    "policy": "strict",
+    "seconds": 0.00011990001075901091,
+    "alarms": [
+      {
+        "kind": "framing_corruption",
+        "start": 8200,
+        "end": 8248
+      }
+    ],
+    "recovered_frames": 22,
+    "score": {
+      "events": 1,
+      "detected_events": 1,
+      "full_case_match": true,
+      "intact_expected": 64,
+      "intact_recovered": 22,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "5f68162df2514e02015dcab2cf03a369cb0427d91e6fa4dfdac17c89de3a419b"
+  },
+  "2721d0916ab34ddb:65536:resync": {
+    "case_id": "2721d0916ab34ddb",
+    "chunk_bytes": 65536,
+    "policy": "resync",
+    "seconds": 0.00032709998777136207,
+    "alarms": [
+      {
+        "kind": "framing_corruption",
+        "start": 8200,
+        "end": 8209
+      }
+    ],
+    "recovered_frames": 64,
+    "score": {
+      "events": 1,
+      "detected_events": 1,
+      "full_case_match": true,
+      "intact_expected": 64,
+      "intact_recovered": 64,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "d3aa3f21e4c9d7f5faef29137916fb71bb0769bd726f4a1e811ecdd4b8ea2885"
+  },
+  "32c546930f301a35:512:strict": {
+    "case_id": "32c546930f301a35",
+    "chunk_bytes": 512,
+    "policy": "strict",
+    "seconds": 9.560000034980476e-05,
+    "alarms": [
+      {
+        "kind": "framing_corruption",
+        "start": 5832,
+        "end": 5880
+      }
+    ],
+    "recovered_frames": 15,
+    "score": {
+      "events": 1,
+      "detected_events": 0,
+      "full_case_match": false,
+      "intact_expected": 63,
+      "intact_recovered": 14,
+      "extra_recovered_records": 1
+    },
+    "recovered_sequence_sha256": "901e93a5671d679bfaf64d508eadcf8e69732b862f0aa1f96699e5d3624a4408"
+  },
+  "32c546930f301a35:512:resync": {
+    "case_id": "32c546930f301a35",
+    "chunk_bytes": 512,
+    "policy": "resync",
+    "seconds": 0.0003370000049471855,
+    "alarms": [
+      {
+        "kind": "framing_corruption",
+        "start": 5832,
+        "end": 6175
+      },
+      {
+        "kind": "missing",
+        "start": 6175,
+        "end": 6176
+      }
+    ],
+    "recovered_frames": 63,
+    "score": {
+      "events": 1,
+      "detected_events": 0,
+      "full_case_match": false,
+      "intact_expected": 63,
+      "intact_recovered": 62,
+      "extra_recovered_records": 1
+    },
+    "recovered_sequence_sha256": "00b7b6f5a4bcbd937b9174797e413c904286ba859ce94bb03ba0858138d4dd08"
+  },
+  "32c546930f301a35:4096:strict": {
+    "case_id": "32c546930f301a35",
+    "chunk_bytes": 4096,
+    "policy": "strict",
+    "seconds": 8.530000923201442e-05,
+    "alarms": [
+      {
+        "kind": "framing_corruption",
+        "start": 5832,
+        "end": 5880
+      }
+    ],
+    "recovered_frames": 15,
+    "score": {
+      "events": 1,
+      "detected_events": 0,
+      "full_case_match": false,
+      "intact_expected": 63,
+      "intact_recovered": 14,
+      "extra_recovered_records": 1
+    },
+    "recovered_sequence_sha256": "901e93a5671d679bfaf64d508eadcf8e69732b862f0aa1f96699e5d3624a4408"
+  },
+  "32c546930f301a35:4096:resync": {
+    "case_id": "32c546930f301a35",
+    "chunk_bytes": 4096,
+    "policy": "resync",
+    "seconds": 0.0003260000084992498,
+    "alarms": [
+      {
+        "kind": "framing_corruption",
+        "start": 5832,
+        "end": 6175
+      },
+      {
+        "kind": "missing",
+        "start": 6175,
+        "end": 6176
+      }
+    ],
+    "recovered_frames": 63,
+    "score": {
+      "events": 1,
+      "detected_events": 0,
+      "full_case_match": false,
+      "intact_expected": 63,
+      "intact_recovered": 62,
+      "extra_recovered_records": 1
+    },
+    "recovered_sequence_sha256": "00b7b6f5a4bcbd937b9174797e413c904286ba859ce94bb03ba0858138d4dd08"
+  },
+  "32c546930f301a35:65536:strict": {
+    "case_id": "32c546930f301a35",
+    "chunk_bytes": 65536,
+    "policy": "strict",
+    "seconds": 8.460000390186906e-05,
+    "alarms": [
+      {
+        "kind": "framing_corruption",
+        "start": 5832,
+        "end": 5880
+      }
+    ],
+    "recovered_frames": 15,
+    "score": {
+      "events": 1,
+      "detected_events": 0,
+      "full_case_match": false,
+      "intact_expected": 63,
+      "intact_recovered": 14,
+      "extra_recovered_records": 1
+    },
+    "recovered_sequence_sha256": "901e93a5671d679bfaf64d508eadcf8e69732b862f0aa1f96699e5d3624a4408"
+  },
+  "32c546930f301a35:65536:resync": {
+    "case_id": "32c546930f301a35",
+    "chunk_bytes": 65536,
+    "policy": "resync",
+    "seconds": 0.00032359999022446573,
+    "alarms": [
+      {
+        "kind": "framing_corruption",
+        "start": 5832,
+        "end": 6175
+      },
+      {
+        "kind": "missing",
+        "start": 6175,
+        "end": 6176
+      }
+    ],
+    "recovered_frames": 63,
+    "score": {
+      "events": 1,
+      "detected_events": 0,
+      "full_case_match": false,
+      "intact_expected": 63,
+      "intact_recovered": 62,
+      "extra_recovered_records": 1
+    },
+    "recovered_sequence_sha256": "00b7b6f5a4bcbd937b9174797e413c904286ba859ce94bb03ba0858138d4dd08"
+  },
+  "ad791c19ddf08950:512:strict": {
+    "case_id": "ad791c19ddf08950",
+    "chunk_bytes": 512,
+    "policy": "strict",
+    "seconds": 0.00022869999520480633,
+    "alarms": [
+      {
+        "kind": "framing_corruption",
+        "start": 14840,
+        "end": 14888
+      },
+      {
+        "kind": "duplicate",
+        "start": 8840,
+        "end": 8841
+      },
+      {
+        "kind": "missing",
+        "start": 3288,
+        "end": 3289
+      }
+    ],
+    "recovered_frames": 40,
+    "score": {
+      "events": 3,
+      "detected_events": 3,
+      "full_case_match": true,
+      "intact_expected": 63,
+      "intact_recovered": 40,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "be457cec89abe292e039e422b9c94e73a1eaf5b97ff32253f5cc30d351beeff5"
+  },
+  "ad791c19ddf08950:512:resync": {
+    "case_id": "ad791c19ddf08950",
+    "chunk_bytes": 512,
+    "policy": "resync",
+    "seconds": 0.00033840001560747623,
+    "alarms": [
+      {
+        "kind": "framing_corruption",
+        "start": 14840,
+        "end": 15256
+      },
+      {
+        "kind": "duplicate",
+        "start": 8840,
+        "end": 8841
+      },
+      {
+        "kind": "missing",
+        "start": 3288,
+        "end": 3289
+      },
+      {
+        "kind": "missing",
+        "start": 15256,
+        "end": 15257
+      }
+    ],
+    "recovered_frames": 63,
+    "score": {
+      "events": 3,
+      "detected_events": 3,
+      "full_case_match": true,
+      "intact_expected": 63,
+      "intact_recovered": 63,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "1db18ea2ad82335cc504db8cf5eba2d615d98a8f5089d06211b85b86a1502f7e"
+  },
+  "ad791c19ddf08950:4096:strict": {
+    "case_id": "ad791c19ddf08950",
+    "chunk_bytes": 4096,
+    "policy": "strict",
+    "seconds": 0.00021240001660771668,
+    "alarms": [
+      {
+        "kind": "framing_corruption",
+        "start": 14840,
+        "end": 14888
+      },
+      {
+        "kind": "duplicate",
+        "start": 8840,
+        "end": 8841
+      },
+      {
+        "kind": "missing",
+        "start": 3288,
+        "end": 3289
+      }
+    ],
+    "recovered_frames": 40,
+    "score": {
+      "events": 3,
+      "detected_events": 3,
+      "full_case_match": true,
+      "intact_expected": 63,
+      "intact_recovered": 40,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "be457cec89abe292e039e422b9c94e73a1eaf5b97ff32253f5cc30d351beeff5"
+  },
+  "ad791c19ddf08950:4096:resync": {
+    "case_id": "ad791c19ddf08950",
+    "chunk_bytes": 4096,
+    "policy": "resync",
+    "seconds": 0.0003267000138293952,
+    "alarms": [
+      {
+        "kind": "framing_corruption",
+        "start": 14840,
+        "end": 15256
+      },
+      {
+        "kind": "duplicate",
+        "start": 8840,
+        "end": 8841
+      },
+      {
+        "kind": "missing",
+        "start": 3288,
+        "end": 3289
+      },
+      {
+        "kind": "missing",
+        "start": 15256,
+        "end": 15257
+      }
+    ],
+    "recovered_frames": 63,
+    "score": {
+      "events": 3,
+      "detected_events": 3,
+      "full_case_match": true,
+      "intact_expected": 63,
+      "intact_recovered": 63,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "1db18ea2ad82335cc504db8cf5eba2d615d98a8f5089d06211b85b86a1502f7e"
+  },
+  "ad791c19ddf08950:65536:strict": {
+    "case_id": "ad791c19ddf08950",
+    "chunk_bytes": 65536,
+    "policy": "strict",
+    "seconds": 0.00021199998445808887,
+    "alarms": [
+      {
+        "kind": "framing_corruption",
+        "start": 14840,
+        "end": 14888
+      },
+      {
+        "kind": "duplicate",
+        "start": 8840,
+        "end": 8841
+      },
+      {
+        "kind": "missing",
+        "start": 3288,
+        "end": 3289
+      }
+    ],
+    "recovered_frames": 40,
+    "score": {
+      "events": 3,
+      "detected_events": 3,
+      "full_case_match": true,
+      "intact_expected": 63,
+      "intact_recovered": 40,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "be457cec89abe292e039e422b9c94e73a1eaf5b97ff32253f5cc30d351beeff5"
+  },
+  "ad791c19ddf08950:65536:resync": {
+    "case_id": "ad791c19ddf08950",
+    "chunk_bytes": 65536,
+    "policy": "resync",
+    "seconds": 0.0003260000084992498,
+    "alarms": [
+      {
+        "kind": "framing_corruption",
+        "start": 14840,
+        "end": 15256
+      },
+      {
+        "kind": "duplicate",
+        "start": 8840,
+        "end": 8841
+      },
+      {
+        "kind": "missing",
+        "start": 3288,
+        "end": 3289
+      },
+      {
+        "kind": "missing",
+        "start": 15256,
+        "end": 15257
+      }
+    ],
+    "recovered_frames": 63,
+    "score": {
+      "events": 3,
+      "detected_events": 3,
+      "full_case_match": true,
+      "intact_expected": 63,
+      "intact_recovered": 63,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "1db18ea2ad82335cc504db8cf5eba2d615d98a8f5089d06211b85b86a1502f7e"
+  },
+  "5f7a3c9faea5656f:512:strict": {
+    "case_id": "5f7a3c9faea5656f",
+    "chunk_bytes": 512,
+    "policy": "strict",
+    "seconds": 0.0003217000048607588,
+    "alarms": [],
+    "recovered_frames": 64,
+    "score": {
+      "events": 0,
+      "detected_events": 0,
+      "full_case_match": null,
+      "intact_expected": 64,
+      "intact_recovered": 64,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "db5c7ae06a5b7df9380daaa244c98d662baaf17ee73a9ec3497b6b80ab00a7f8"
+  },
+  "5f7a3c9faea5656f:512:resync": {
+    "case_id": "5f7a3c9faea5656f",
+    "chunk_bytes": 512,
+    "policy": "resync",
+    "seconds": 0.00031090000993572176,
+    "alarms": [],
+    "recovered_frames": 64,
+    "score": {
+      "events": 0,
+      "detected_events": 0,
+      "full_case_match": null,
+      "intact_expected": 64,
+      "intact_recovered": 64,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "db5c7ae06a5b7df9380daaa244c98d662baaf17ee73a9ec3497b6b80ab00a7f8"
+  },
+  "5f7a3c9faea5656f:4096:strict": {
+    "case_id": "5f7a3c9faea5656f",
+    "chunk_bytes": 4096,
+    "policy": "strict",
+    "seconds": 0.00031060000765137374,
+    "alarms": [],
+    "recovered_frames": 64,
+    "score": {
+      "events": 0,
+      "detected_events": 0,
+      "full_case_match": null,
+      "intact_expected": 64,
+      "intact_recovered": 64,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "db5c7ae06a5b7df9380daaa244c98d662baaf17ee73a9ec3497b6b80ab00a7f8"
+  },
+  "5f7a3c9faea5656f:4096:resync": {
+    "case_id": "5f7a3c9faea5656f",
+    "chunk_bytes": 4096,
+    "policy": "resync",
+    "seconds": 0.000302100001135841,
+    "alarms": [],
+    "recovered_frames": 64,
+    "score": {
+      "events": 0,
+      "detected_events": 0,
+      "full_case_match": null,
+      "intact_expected": 64,
+      "intact_recovered": 64,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "db5c7ae06a5b7df9380daaa244c98d662baaf17ee73a9ec3497b6b80ab00a7f8"
+  },
+  "5f7a3c9faea5656f:65536:strict": {
+    "case_id": "5f7a3c9faea5656f",
+    "chunk_bytes": 65536,
+    "policy": "strict",
+    "seconds": 0.000305499997921288,
+    "alarms": [],
+    "recovered_frames": 64,
+    "score": {
+      "events": 0,
+      "detected_events": 0,
+      "full_case_match": null,
+      "intact_expected": 64,
+      "intact_recovered": 64,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "db5c7ae06a5b7df9380daaa244c98d662baaf17ee73a9ec3497b6b80ab00a7f8"
+  },
+  "5f7a3c9faea5656f:65536:resync": {
+    "case_id": "5f7a3c9faea5656f",
+    "chunk_bytes": 65536,
+    "policy": "resync",
+    "seconds": 0.0003017000271938741,
+    "alarms": [],
+    "recovered_frames": 64,
+    "score": {
+      "events": 0,
+      "detected_events": 0,
+      "full_case_match": null,
+      "intact_expected": 64,
+      "intact_recovered": 64,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "db5c7ae06a5b7df9380daaa244c98d662baaf17ee73a9ec3497b6b80ab00a7f8"
+  },
+  "2b997f77236c3b84:512:strict": {
+    "case_id": "2b997f77236c3b84",
+    "chunk_bytes": 512,
+    "policy": "strict",
+    "seconds": 0.0003189000126440078,
+    "alarms": [
+      {
+        "kind": "missing",
+        "start": 6512,
+        "end": 6513
+      }
+    ],
+    "recovered_frames": 63,
+    "score": {
+      "events": 1,
+      "detected_events": 1,
+      "full_case_match": true,
+      "intact_expected": 63,
+      "intact_recovered": 63,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "632d6267708cd4bb09c0aa47c313798d22c44f7e19030bfd51b19b24d1fbdadb"
+  },
+  "2b997f77236c3b84:512:resync": {
+    "case_id": "2b997f77236c3b84",
+    "chunk_bytes": 512,
+    "policy": "resync",
+    "seconds": 0.00030419998802244663,
+    "alarms": [
+      {
+        "kind": "missing",
+        "start": 6512,
+        "end": 6513
+      }
+    ],
+    "recovered_frames": 63,
+    "score": {
+      "events": 1,
+      "detected_events": 1,
+      "full_case_match": true,
+      "intact_expected": 63,
+      "intact_recovered": 63,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "632d6267708cd4bb09c0aa47c313798d22c44f7e19030bfd51b19b24d1fbdadb"
+  },
+  "2b997f77236c3b84:4096:strict": {
+    "case_id": "2b997f77236c3b84",
+    "chunk_bytes": 4096,
+    "policy": "strict",
+    "seconds": 0.0003502999898046255,
+    "alarms": [
+      {
+        "kind": "missing",
+        "start": 6512,
+        "end": 6513
+      }
+    ],
+    "recovered_frames": 63,
+    "score": {
+      "events": 1,
+      "detected_events": 1,
+      "full_case_match": true,
+      "intact_expected": 63,
+      "intact_recovered": 63,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "632d6267708cd4bb09c0aa47c313798d22c44f7e19030bfd51b19b24d1fbdadb"
+  },
+  "2b997f77236c3b84:4096:resync": {
+    "case_id": "2b997f77236c3b84",
+    "chunk_bytes": 4096,
+    "policy": "resync",
+    "seconds": 0.0002993999805767089,
+    "alarms": [
+      {
+        "kind": "missing",
+        "start": 6512,
+        "end": 6513
+      }
+    ],
+    "recovered_frames": 63,
+    "score": {
+      "events": 1,
+      "detected_events": 1,
+      "full_case_match": true,
+      "intact_expected": 63,
+      "intact_recovered": 63,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "632d6267708cd4bb09c0aa47c313798d22c44f7e19030bfd51b19b24d1fbdadb"
+  },
+  "2b997f77236c3b84:65536:strict": {
+    "case_id": "2b997f77236c3b84",
+    "chunk_bytes": 65536,
+    "policy": "strict",
+    "seconds": 0.00029850000282749534,
+    "alarms": [
+      {
+        "kind": "missing",
+        "start": 6512,
+        "end": 6513
+      }
+    ],
+    "recovered_frames": 63,
+    "score": {
+      "events": 1,
+      "detected_events": 1,
+      "full_case_match": true,
+      "intact_expected": 63,
+      "intact_recovered": 63,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "632d6267708cd4bb09c0aa47c313798d22c44f7e19030bfd51b19b24d1fbdadb"
+  },
+  "2b997f77236c3b84:65536:resync": {
+    "case_id": "2b997f77236c3b84",
+    "chunk_bytes": 65536,
+    "policy": "resync",
+    "seconds": 0.0003009999927598983,
+    "alarms": [
+      {
+        "kind": "missing",
+        "start": 6512,
+        "end": 6513
+      }
+    ],
+    "recovered_frames": 63,
+    "score": {
+      "events": 1,
+      "detected_events": 1,
+      "full_case_match": true,
+      "intact_expected": 63,
+      "intact_recovered": 63,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "632d6267708cd4bb09c0aa47c313798d22c44f7e19030bfd51b19b24d1fbdadb"
+  },
+  "126a37ccf15eb86f:512:strict": {
+    "case_id": "126a37ccf15eb86f",
+    "chunk_bytes": 512,
+    "policy": "strict",
+    "seconds": 0.00033149999217130244,
+    "alarms": [
+      {
+        "kind": "duplicate",
+        "start": 2288,
+        "end": 2289
+      }
+    ],
+    "recovered_frames": 65,
+    "score": {
+      "events": 1,
+      "detected_events": 1,
+      "full_case_match": true,
+      "intact_expected": 65,
+      "intact_recovered": 65,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "9990188d46f3b08ee0ffa777f4010308c8232551cc808569fd9bef6e1e01d940"
+  },
+  "126a37ccf15eb86f:512:resync": {
+    "case_id": "126a37ccf15eb86f",
+    "chunk_bytes": 512,
+    "policy": "resync",
+    "seconds": 0.0003223999810870737,
+    "alarms": [
+      {
+        "kind": "duplicate",
+        "start": 2288,
+        "end": 2289
+      }
+    ],
+    "recovered_frames": 65,
+    "score": {
+      "events": 1,
+      "detected_events": 1,
+      "full_case_match": true,
+      "intact_expected": 65,
+      "intact_recovered": 65,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "9990188d46f3b08ee0ffa777f4010308c8232551cc808569fd9bef6e1e01d940"
+  },
+  "126a37ccf15eb86f:4096:strict": {
+    "case_id": "126a37ccf15eb86f",
+    "chunk_bytes": 4096,
+    "policy": "strict",
+    "seconds": 0.00031170001602731645,
+    "alarms": [
+      {
+        "kind": "duplicate",
+        "start": 2288,
+        "end": 2289
+      }
+    ],
+    "recovered_frames": 65,
+    "score": {
+      "events": 1,
+      "detected_events": 1,
+      "full_case_match": true,
+      "intact_expected": 65,
+      "intact_recovered": 65,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "9990188d46f3b08ee0ffa777f4010308c8232551cc808569fd9bef6e1e01d940"
+  },
+  "126a37ccf15eb86f:4096:resync": {
+    "case_id": "126a37ccf15eb86f",
+    "chunk_bytes": 4096,
+    "policy": "resync",
+    "seconds": 0.00030849999166093767,
+    "alarms": [
+      {
+        "kind": "duplicate",
+        "start": 2288,
+        "end": 2289
+      }
+    ],
+    "recovered_frames": 65,
+    "score": {
+      "events": 1,
+      "detected_events": 1,
+      "full_case_match": true,
+      "intact_expected": 65,
+      "intact_recovered": 65,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "9990188d46f3b08ee0ffa777f4010308c8232551cc808569fd9bef6e1e01d940"
+  },
+  "126a37ccf15eb86f:65536:strict": {
+    "case_id": "126a37ccf15eb86f",
+    "chunk_bytes": 65536,
+    "policy": "strict",
+    "seconds": 0.0003079000161960721,
+    "alarms": [
+      {
+        "kind": "duplicate",
+        "start": 2288,
+        "end": 2289
+      }
+    ],
+    "recovered_frames": 65,
+    "score": {
+      "events": 1,
+      "detected_events": 1,
+      "full_case_match": true,
+      "intact_expected": 65,
+      "intact_recovered": 65,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "9990188d46f3b08ee0ffa777f4010308c8232551cc808569fd9bef6e1e01d940"
+  },
+  "126a37ccf15eb86f:65536:resync": {
+    "case_id": "126a37ccf15eb86f",
+    "chunk_bytes": 65536,
+    "policy": "resync",
+    "seconds": 0.0003063000040128827,
+    "alarms": [
+      {
+        "kind": "duplicate",
+        "start": 2288,
+        "end": 2289
+      }
+    ],
+    "recovered_frames": 65,
+    "score": {
+      "events": 1,
+      "detected_events": 1,
+      "full_case_match": true,
+      "intact_expected": 65,
+      "intact_recovered": 65,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "9990188d46f3b08ee0ffa777f4010308c8232551cc808569fd9bef6e1e01d940"
+  },
+  "6cea615f41de30aa:512:strict": {
+    "case_id": "6cea615f41de30aa",
+    "chunk_bytes": 512,
+    "policy": "strict",
+    "seconds": 0.00032550000469200313,
+    "alarms": [
+      {
+        "kind": "reorder",
+        "start": 7216,
+        "end": 7393
+      }
+    ],
+    "recovered_frames": 64,
+    "score": {
+      "events": 1,
+      "detected_events": 1,
+      "full_case_match": true,
+      "intact_expected": 64,
+      "intact_recovered": 64,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "fd69e7c39929d3b36f2a18a58835a17937d0caf35e67312e65c9fcd0df1d5eb0"
+  },
+  "6cea615f41de30aa:512:resync": {
+    "case_id": "6cea615f41de30aa",
+    "chunk_bytes": 512,
+    "policy": "resync",
+    "seconds": 0.0003100000030826777,
+    "alarms": [
+      {
+        "kind": "reorder",
+        "start": 7216,
+        "end": 7393
+      }
+    ],
+    "recovered_frames": 64,
+    "score": {
+      "events": 1,
+      "detected_events": 1,
+      "full_case_match": true,
+      "intact_expected": 64,
+      "intact_recovered": 64,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "fd69e7c39929d3b36f2a18a58835a17937d0caf35e67312e65c9fcd0df1d5eb0"
+  },
+  "6cea615f41de30aa:4096:strict": {
+    "case_id": "6cea615f41de30aa",
+    "chunk_bytes": 4096,
+    "policy": "strict",
+    "seconds": 0.0003060000017285347,
+    "alarms": [
+      {
+        "kind": "reorder",
+        "start": 7216,
+        "end": 7393
+      }
+    ],
+    "recovered_frames": 64,
+    "score": {
+      "events": 1,
+      "detected_events": 1,
+      "full_case_match": true,
+      "intact_expected": 64,
+      "intact_recovered": 64,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "fd69e7c39929d3b36f2a18a58835a17937d0caf35e67312e65c9fcd0df1d5eb0"
+  },
+  "6cea615f41de30aa:4096:resync": {
+    "case_id": "6cea615f41de30aa",
+    "chunk_bytes": 4096,
+    "policy": "resync",
+    "seconds": 0.00030270000570453703,
+    "alarms": [
+      {
+        "kind": "reorder",
+        "start": 7216,
+        "end": 7393
+      }
+    ],
+    "recovered_frames": 64,
+    "score": {
+      "events": 1,
+      "detected_events": 1,
+      "full_case_match": true,
+      "intact_expected": 64,
+      "intact_recovered": 64,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "fd69e7c39929d3b36f2a18a58835a17937d0caf35e67312e65c9fcd0df1d5eb0"
+  },
+  "6cea615f41de30aa:65536:strict": {
+    "case_id": "6cea615f41de30aa",
+    "chunk_bytes": 65536,
+    "policy": "strict",
+    "seconds": 0.0003014000249095261,
+    "alarms": [
+      {
+        "kind": "reorder",
+        "start": 7216,
+        "end": 7393
+      }
+    ],
+    "recovered_frames": 64,
+    "score": {
+      "events": 1,
+      "detected_events": 1,
+      "full_case_match": true,
+      "intact_expected": 64,
+      "intact_recovered": 64,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "fd69e7c39929d3b36f2a18a58835a17937d0caf35e67312e65c9fcd0df1d5eb0"
+  },
+  "6cea615f41de30aa:65536:resync": {
+    "case_id": "6cea615f41de30aa",
+    "chunk_bytes": 65536,
+    "policy": "resync",
+    "seconds": 0.0003000000142492354,
+    "alarms": [
+      {
+        "kind": "reorder",
+        "start": 7216,
+        "end": 7393
+      }
+    ],
+    "recovered_frames": 64,
+    "score": {
+      "events": 1,
+      "detected_events": 1,
+      "full_case_match": true,
+      "intact_expected": 64,
+      "intact_recovered": 64,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "fd69e7c39929d3b36f2a18a58835a17937d0caf35e67312e65c9fcd0df1d5eb0"
+  },
+  "57ad98527134c0e2:512:strict": {
+    "case_id": "57ad98527134c0e2",
+    "chunk_bytes": 512,
+    "policy": "strict",
+    "seconds": 0.00010470001143403351,
+    "alarms": [
+      {
+        "kind": "framing_corruption",
+        "start": 3168,
+        "end": 3216
+      }
+    ],
+    "recovered_frames": 18,
+    "score": {
+      "events": 1,
+      "detected_events": 1,
+      "full_case_match": true,
+      "intact_expected": 63,
+      "intact_recovered": 18,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "da8c6c3fac7fdb44e3a45b21bc26f472cebb023864e7a7ca9cce28a189187b5c"
+  },
+  "57ad98527134c0e2:512:resync": {
+    "case_id": "57ad98527134c0e2",
+    "chunk_bytes": 512,
+    "policy": "resync",
+    "seconds": 0.0003114999854005873,
+    "alarms": [
+      {
+        "kind": "framing_corruption",
+        "start": 3168,
+        "end": 3344
+      },
+      {
+        "kind": "missing",
+        "start": 3344,
+        "end": 3345
+      }
+    ],
+    "recovered_frames": 63,
+    "score": {
+      "events": 1,
+      "detected_events": 1,
+      "full_case_match": true,
+      "intact_expected": 63,
+      "intact_recovered": 63,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "7df469a3d3e2c132c5311a533afd93a5b6a0b727f74590d32f99267ee948527e"
+  },
+  "57ad98527134c0e2:4096:strict": {
+    "case_id": "57ad98527134c0e2",
+    "chunk_bytes": 4096,
+    "policy": "strict",
+    "seconds": 9.399998816661537e-05,
+    "alarms": [
+      {
+        "kind": "framing_corruption",
+        "start": 3168,
+        "end": 3216
+      }
+    ],
+    "recovered_frames": 18,
+    "score": {
+      "events": 1,
+      "detected_events": 1,
+      "full_case_match": true,
+      "intact_expected": 63,
+      "intact_recovered": 18,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "da8c6c3fac7fdb44e3a45b21bc26f472cebb023864e7a7ca9cce28a189187b5c"
+  },
+  "57ad98527134c0e2:4096:resync": {
+    "case_id": "57ad98527134c0e2",
+    "chunk_bytes": 4096,
+    "policy": "resync",
+    "seconds": 0.000302100001135841,
+    "alarms": [
+      {
+        "kind": "framing_corruption",
+        "start": 3168,
+        "end": 3344
+      },
+      {
+        "kind": "missing",
+        "start": 3344,
+        "end": 3345
+      }
+    ],
+    "recovered_frames": 63,
+    "score": {
+      "events": 1,
+      "detected_events": 1,
+      "full_case_match": true,
+      "intact_expected": 63,
+      "intact_recovered": 63,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "7df469a3d3e2c132c5311a533afd93a5b6a0b727f74590d32f99267ee948527e"
+  },
+  "57ad98527134c0e2:65536:strict": {
+    "case_id": "57ad98527134c0e2",
+    "chunk_bytes": 65536,
+    "policy": "strict",
+    "seconds": 9.159999899566174e-05,
+    "alarms": [
+      {
+        "kind": "framing_corruption",
+        "start": 3168,
+        "end": 3216
+      }
+    ],
+    "recovered_frames": 18,
+    "score": {
+      "events": 1,
+      "detected_events": 1,
+      "full_case_match": true,
+      "intact_expected": 63,
+      "intact_recovered": 18,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "da8c6c3fac7fdb44e3a45b21bc26f472cebb023864e7a7ca9cce28a189187b5c"
+  },
+  "57ad98527134c0e2:65536:resync": {
+    "case_id": "57ad98527134c0e2",
+    "chunk_bytes": 65536,
+    "policy": "resync",
+    "seconds": 0.00030020001577213407,
+    "alarms": [
+      {
+        "kind": "framing_corruption",
+        "start": 3168,
+        "end": 3344
+      },
+      {
+        "kind": "missing",
+        "start": 3344,
+        "end": 3345
+      }
+    ],
+    "recovered_frames": 63,
+    "score": {
+      "events": 1,
+      "detected_events": 1,
+      "full_case_match": true,
+      "intact_expected": 63,
+      "intact_recovered": 63,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "7df469a3d3e2c132c5311a533afd93a5b6a0b727f74590d32f99267ee948527e"
+  },
+  "0a16f5af2d8669ce:512:strict": {
+    "case_id": "0a16f5af2d8669ce",
+    "chunk_bytes": 512,
+    "policy": "strict",
+    "seconds": 0.0001855999871622771,
+    "alarms": [
+      {
+        "kind": "framing_corruption",
+        "start": 6160,
+        "end": 6208
+      }
+    ],
+    "recovered_frames": 35,
+    "score": {
+      "events": 1,
+      "detected_events": 1,
+      "full_case_match": true,
+      "intact_expected": 63,
+      "intact_recovered": 35,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "8ea97983594b0dad2a581935a62940b8afe8d312e8bbd78826ec5776f54a6157"
+  },
+  "0a16f5af2d8669ce:512:resync": {
+    "case_id": "0a16f5af2d8669ce",
+    "chunk_bytes": 512,
+    "policy": "resync",
+    "seconds": 0.00030929999775253236,
+    "alarms": [
+      {
+        "kind": "framing_corruption",
+        "start": 6160,
+        "end": 6336
+      },
+      {
+        "kind": "missing",
+        "start": 6336,
+        "end": 6337
+      }
+    ],
+    "recovered_frames": 63,
+    "score": {
+      "events": 1,
+      "detected_events": 1,
+      "full_case_match": true,
+      "intact_expected": 63,
+      "intact_recovered": 63,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "d20af8e0c8fa016a90631d347b04a22b37b77495bf2a4ef307fc620f94ab140a"
+  },
+  "0a16f5af2d8669ce:4096:strict": {
+    "case_id": "0a16f5af2d8669ce",
+    "chunk_bytes": 4096,
+    "policy": "strict",
+    "seconds": 0.00017829998978413641,
+    "alarms": [
+      {
+        "kind": "framing_corruption",
+        "start": 6160,
+        "end": 6208
+      }
+    ],
+    "recovered_frames": 35,
+    "score": {
+      "events": 1,
+      "detected_events": 1,
+      "full_case_match": true,
+      "intact_expected": 63,
+      "intact_recovered": 35,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "8ea97983594b0dad2a581935a62940b8afe8d312e8bbd78826ec5776f54a6157"
+  },
+  "0a16f5af2d8669ce:4096:resync": {
+    "case_id": "0a16f5af2d8669ce",
+    "chunk_bytes": 4096,
+    "policy": "resync",
+    "seconds": 0.0003012999950442463,
+    "alarms": [
+      {
+        "kind": "framing_corruption",
+        "start": 6160,
+        "end": 6336
+      },
+      {
+        "kind": "missing",
+        "start": 6336,
+        "end": 6337
+      }
+    ],
+    "recovered_frames": 63,
+    "score": {
+      "events": 1,
+      "detected_events": 1,
+      "full_case_match": true,
+      "intact_expected": 63,
+      "intact_recovered": 63,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "d20af8e0c8fa016a90631d347b04a22b37b77495bf2a4ef307fc620f94ab140a"
+  },
+  "0a16f5af2d8669ce:65536:strict": {
+    "case_id": "0a16f5af2d8669ce",
+    "chunk_bytes": 65536,
+    "policy": "strict",
+    "seconds": 0.00017090002074837685,
+    "alarms": [
+      {
+        "kind": "framing_corruption",
+        "start": 6160,
+        "end": 6208
+      }
+    ],
+    "recovered_frames": 35,
+    "score": {
+      "events": 1,
+      "detected_events": 1,
+      "full_case_match": true,
+      "intact_expected": 63,
+      "intact_recovered": 35,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "8ea97983594b0dad2a581935a62940b8afe8d312e8bbd78826ec5776f54a6157"
+  },
+  "0a16f5af2d8669ce:65536:resync": {
+    "case_id": "0a16f5af2d8669ce",
+    "chunk_bytes": 65536,
+    "policy": "resync",
+    "seconds": 0.00030100002186372876,
+    "alarms": [
+      {
+        "kind": "framing_corruption",
+        "start": 6160,
+        "end": 6336
+      },
+      {
+        "kind": "missing",
+        "start": 6336,
+        "end": 6337
+      }
+    ],
+    "recovered_frames": 63,
+    "score": {
+      "events": 1,
+      "detected_events": 1,
+      "full_case_match": true,
+      "intact_expected": 63,
+      "intact_recovered": 63,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "d20af8e0c8fa016a90631d347b04a22b37b77495bf2a4ef307fc620f94ab140a"
+  },
+  "20cff346963fdc17:512:strict": {
+    "case_id": "20cff346963fdc17",
+    "chunk_bytes": 512,
+    "policy": "strict",
+    "seconds": 0.00010910001583397388,
+    "alarms": [
+      {
+        "kind": "framing_corruption",
+        "start": 3344,
+        "end": 3392
+      }
+    ],
+    "recovered_frames": 19,
+    "score": {
+      "events": 1,
+      "detected_events": 1,
+      "full_case_match": true,
+      "intact_expected": 64,
+      "intact_recovered": 19,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "c3f1e76d948358e16cc28c7217bac9c156fcd701f5d3bd2079d1fd90729b6de7"
+  },
+  "20cff346963fdc17:512:resync": {
+    "case_id": "20cff346963fdc17",
+    "chunk_bytes": 512,
+    "policy": "resync",
+    "seconds": 0.00031109998235478997,
+    "alarms": [
+      {
+        "kind": "framing_corruption",
+        "start": 3344,
+        "end": 3353
+      }
+    ],
+    "recovered_frames": 64,
+    "score": {
+      "events": 1,
+      "detected_events": 1,
+      "full_case_match": true,
+      "intact_expected": 64,
+      "intact_recovered": 64,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "db5c7ae06a5b7df9380daaa244c98d662baaf17ee73a9ec3497b6b80ab00a7f8"
+  },
+  "20cff346963fdc17:4096:strict": {
+    "case_id": "20cff346963fdc17",
+    "chunk_bytes": 4096,
+    "policy": "strict",
+    "seconds": 9.820002014748752e-05,
+    "alarms": [
+      {
+        "kind": "framing_corruption",
+        "start": 3344,
+        "end": 3392
+      }
+    ],
+    "recovered_frames": 19,
+    "score": {
+      "events": 1,
+      "detected_events": 1,
+      "full_case_match": true,
+      "intact_expected": 64,
+      "intact_recovered": 19,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "c3f1e76d948358e16cc28c7217bac9c156fcd701f5d3bd2079d1fd90729b6de7"
+  },
+  "20cff346963fdc17:4096:resync": {
+    "case_id": "20cff346963fdc17",
+    "chunk_bytes": 4096,
+    "policy": "resync",
+    "seconds": 0.00030839999089948833,
+    "alarms": [
+      {
+        "kind": "framing_corruption",
+        "start": 3344,
+        "end": 3353
+      }
+    ],
+    "recovered_frames": 64,
+    "score": {
+      "events": 1,
+      "detected_events": 1,
+      "full_case_match": true,
+      "intact_expected": 64,
+      "intact_recovered": 64,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "db5c7ae06a5b7df9380daaa244c98d662baaf17ee73a9ec3497b6b80ab00a7f8"
+  },
+  "20cff346963fdc17:65536:strict": {
+    "case_id": "20cff346963fdc17",
+    "chunk_bytes": 65536,
+    "policy": "strict",
+    "seconds": 9.549999958835542e-05,
+    "alarms": [
+      {
+        "kind": "framing_corruption",
+        "start": 3344,
+        "end": 3392
+      }
+    ],
+    "recovered_frames": 19,
+    "score": {
+      "events": 1,
+      "detected_events": 1,
+      "full_case_match": true,
+      "intact_expected": 64,
+      "intact_recovered": 19,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "c3f1e76d948358e16cc28c7217bac9c156fcd701f5d3bd2079d1fd90729b6de7"
+  },
+  "20cff346963fdc17:65536:resync": {
+    "case_id": "20cff346963fdc17",
+    "chunk_bytes": 65536,
+    "policy": "resync",
+    "seconds": 0.0003012999950442463,
+    "alarms": [
+      {
+        "kind": "framing_corruption",
+        "start": 3344,
+        "end": 3353
+      }
+    ],
+    "recovered_frames": 64,
+    "score": {
+      "events": 1,
+      "detected_events": 1,
+      "full_case_match": true,
+      "intact_expected": 64,
+      "intact_recovered": 64,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "db5c7ae06a5b7df9380daaa244c98d662baaf17ee73a9ec3497b6b80ab00a7f8"
+  },
+  "33eb550560e0ac83:512:strict": {
+    "case_id": "33eb550560e0ac83",
+    "chunk_bytes": 512,
+    "policy": "strict",
+    "seconds": 0.00022340001305565238,
+    "alarms": [
+      {
+        "kind": "framing_corruption",
+        "start": 7568,
+        "end": 7616
+      }
+    ],
+    "recovered_frames": 43,
+    "score": {
+      "events": 1,
+      "detected_events": 0,
+      "full_case_match": false,
+      "intact_expected": 63,
+      "intact_recovered": 42,
+      "extra_recovered_records": 1
+    },
+    "recovered_sequence_sha256": "5267253d39a8017de6cf0f275869a38f2577088c398f4311b4a33dd1d23fd4ec"
+  },
+  "33eb550560e0ac83:512:resync": {
+    "case_id": "33eb550560e0ac83",
+    "chunk_bytes": 512,
+    "policy": "resync",
+    "seconds": 0.00030869999318383634,
+    "alarms": [
+      {
+        "kind": "framing_corruption",
+        "start": 7568,
+        "end": 7727
+      },
+      {
+        "kind": "missing",
+        "start": 7727,
+        "end": 7728
+      }
+    ],
+    "recovered_frames": 63,
+    "score": {
+      "events": 1,
+      "detected_events": 0,
+      "full_case_match": false,
+      "intact_expected": 63,
+      "intact_recovered": 62,
+      "extra_recovered_records": 1
+    },
+    "recovered_sequence_sha256": "0dc235cc2beeb5bb19e4342afb901bed7fee3705d84d98ebcd199cbb211de94f"
+  },
+  "33eb550560e0ac83:4096:strict": {
+    "case_id": "33eb550560e0ac83",
+    "chunk_bytes": 4096,
+    "policy": "strict",
+    "seconds": 0.00021230001584626734,
+    "alarms": [
+      {
+        "kind": "framing_corruption",
+        "start": 7568,
+        "end": 7616
+      }
+    ],
+    "recovered_frames": 43,
+    "score": {
+      "events": 1,
+      "detected_events": 0,
+      "full_case_match": false,
+      "intact_expected": 63,
+      "intact_recovered": 42,
+      "extra_recovered_records": 1
+    },
+    "recovered_sequence_sha256": "5267253d39a8017de6cf0f275869a38f2577088c398f4311b4a33dd1d23fd4ec"
+  },
+  "33eb550560e0ac83:4096:resync": {
+    "case_id": "33eb550560e0ac83",
+    "chunk_bytes": 4096,
+    "policy": "resync",
+    "seconds": 0.0003023000026587397,
+    "alarms": [
+      {
+        "kind": "framing_corruption",
+        "start": 7568,
+        "end": 7727
+      },
+      {
+        "kind": "missing",
+        "start": 7727,
+        "end": 7728
+      }
+    ],
+    "recovered_frames": 63,
+    "score": {
+      "events": 1,
+      "detected_events": 0,
+      "full_case_match": false,
+      "intact_expected": 63,
+      "intact_recovered": 62,
+      "extra_recovered_records": 1
+    },
+    "recovered_sequence_sha256": "0dc235cc2beeb5bb19e4342afb901bed7fee3705d84d98ebcd199cbb211de94f"
+  },
+  "33eb550560e0ac83:65536:strict": {
+    "case_id": "33eb550560e0ac83",
+    "chunk_bytes": 65536,
+    "policy": "strict",
+    "seconds": 0.00021299999207258224,
+    "alarms": [
+      {
+        "kind": "framing_corruption",
+        "start": 7568,
+        "end": 7616
+      }
+    ],
+    "recovered_frames": 43,
+    "score": {
+      "events": 1,
+      "detected_events": 0,
+      "full_case_match": false,
+      "intact_expected": 63,
+      "intact_recovered": 42,
+      "extra_recovered_records": 1
+    },
+    "recovered_sequence_sha256": "5267253d39a8017de6cf0f275869a38f2577088c398f4311b4a33dd1d23fd4ec"
+  },
+  "33eb550560e0ac83:65536:resync": {
+    "case_id": "33eb550560e0ac83",
+    "chunk_bytes": 65536,
+    "policy": "resync",
+    "seconds": 0.000298700004350394,
+    "alarms": [
+      {
+        "kind": "framing_corruption",
+        "start": 7568,
+        "end": 7727
+      },
+      {
+        "kind": "missing",
+        "start": 7727,
+        "end": 7728
+      }
+    ],
+    "recovered_frames": 63,
+    "score": {
+      "events": 1,
+      "detected_events": 0,
+      "full_case_match": false,
+      "intact_expected": 63,
+      "intact_recovered": 62,
+      "extra_recovered_records": 1
+    },
+    "recovered_sequence_sha256": "0dc235cc2beeb5bb19e4342afb901bed7fee3705d84d98ebcd199cbb211de94f"
+  },
+  "5dfd18c83ff00a0b:512:strict": {
+    "case_id": "5dfd18c83ff00a0b",
+    "chunk_bytes": 512,
+    "policy": "strict",
+    "seconds": 0.00021180001203902066,
+    "alarms": [
+      {
+        "kind": "framing_corruption",
+        "start": 7040,
+        "end": 7088
+      },
+      {
+        "kind": "duplicate",
+        "start": 4224,
+        "end": 4225
+      },
+      {
+        "kind": "missing",
+        "start": 1408,
+        "end": 1409
+      }
+    ],
+    "recovered_frames": 40,
+    "score": {
+      "events": 3,
+      "detected_events": 3,
+      "full_case_match": true,
+      "intact_expected": 63,
+      "intact_recovered": 40,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "855987ae13629c0e4be3f07663b441d462ed2f3f70cccdc61180d129d5d3816c"
+  },
+  "5dfd18c83ff00a0b:512:resync": {
+    "case_id": "5dfd18c83ff00a0b",
+    "chunk_bytes": 512,
+    "policy": "resync",
+    "seconds": 0.0003178000042680651,
+    "alarms": [
+      {
+        "kind": "framing_corruption",
+        "start": 7040,
+        "end": 7216
+      },
+      {
+        "kind": "duplicate",
+        "start": 4224,
+        "end": 4225
+      },
+      {
+        "kind": "missing",
+        "start": 1408,
+        "end": 1409
+      },
+      {
+        "kind": "missing",
+        "start": 7216,
+        "end": 7217
+      }
+    ],
+    "recovered_frames": 63,
+    "score": {
+      "events": 3,
+      "detected_events": 3,
+      "full_case_match": true,
+      "intact_expected": 63,
+      "intact_recovered": 63,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "50f8d9f9f6e3e7f10e1f67bf0a0f229581594db3ae86c750415261cb1c751282"
+  },
+  "5dfd18c83ff00a0b:4096:strict": {
+    "case_id": "5dfd18c83ff00a0b",
+    "chunk_bytes": 4096,
+    "policy": "strict",
+    "seconds": 0.00019970000721514225,
+    "alarms": [
+      {
+        "kind": "framing_corruption",
+        "start": 7040,
+        "end": 7088
+      },
+      {
+        "kind": "duplicate",
+        "start": 4224,
+        "end": 4225
+      },
+      {
+        "kind": "missing",
+        "start": 1408,
+        "end": 1409
+      }
+    ],
+    "recovered_frames": 40,
+    "score": {
+      "events": 3,
+      "detected_events": 3,
+      "full_case_match": true,
+      "intact_expected": 63,
+      "intact_recovered": 40,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "855987ae13629c0e4be3f07663b441d462ed2f3f70cccdc61180d129d5d3816c"
+  },
+  "5dfd18c83ff00a0b:4096:resync": {
+    "case_id": "5dfd18c83ff00a0b",
+    "chunk_bytes": 4096,
+    "policy": "resync",
+    "seconds": 0.000304899993352592,
+    "alarms": [
+      {
+        "kind": "framing_corruption",
+        "start": 7040,
+        "end": 7216
+      },
+      {
+        "kind": "duplicate",
+        "start": 4224,
+        "end": 4225
+      },
+      {
+        "kind": "missing",
+        "start": 1408,
+        "end": 1409
+      },
+      {
+        "kind": "missing",
+        "start": 7216,
+        "end": 7217
+      }
+    ],
+    "recovered_frames": 63,
+    "score": {
+      "events": 3,
+      "detected_events": 3,
+      "full_case_match": true,
+      "intact_expected": 63,
+      "intact_recovered": 63,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "50f8d9f9f6e3e7f10e1f67bf0a0f229581594db3ae86c750415261cb1c751282"
+  },
+  "5dfd18c83ff00a0b:65536:strict": {
+    "case_id": "5dfd18c83ff00a0b",
+    "chunk_bytes": 65536,
+    "policy": "strict",
+    "seconds": 0.00019530000281520188,
+    "alarms": [
+      {
+        "kind": "framing_corruption",
+        "start": 7040,
+        "end": 7088
+      },
+      {
+        "kind": "duplicate",
+        "start": 4224,
+        "end": 4225
+      },
+      {
+        "kind": "missing",
+        "start": 1408,
+        "end": 1409
+      }
+    ],
+    "recovered_frames": 40,
+    "score": {
+      "events": 3,
+      "detected_events": 3,
+      "full_case_match": true,
+      "intact_expected": 63,
+      "intact_recovered": 40,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "855987ae13629c0e4be3f07663b441d462ed2f3f70cccdc61180d129d5d3816c"
+  },
+  "5dfd18c83ff00a0b:65536:resync": {
+    "case_id": "5dfd18c83ff00a0b",
+    "chunk_bytes": 65536,
+    "policy": "resync",
+    "seconds": 0.00030980000155977905,
+    "alarms": [
+      {
+        "kind": "framing_corruption",
+        "start": 7040,
+        "end": 7216
+      },
+      {
+        "kind": "duplicate",
+        "start": 4224,
+        "end": 4225
+      },
+      {
+        "kind": "missing",
+        "start": 1408,
+        "end": 1409
+      },
+      {
+        "kind": "missing",
+        "start": 7216,
+        "end": 7217
+      }
+    ],
+    "recovered_frames": 63,
+    "score": {
+      "events": 3,
+      "detected_events": 3,
+      "full_case_match": true,
+      "intact_expected": 63,
+      "intact_recovered": 63,
+      "extra_recovered_records": 0
+    },
+    "recovered_sequence_sha256": "50f8d9f9f6e3e7f10e1f67bf0a0f229581594db3ae86c750415261cb1c751282"
+  }
+}

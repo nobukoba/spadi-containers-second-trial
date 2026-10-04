@@ -1,0 +1,49 @@
+{
+  "created_utc": "2026-10-04T20:41:35.489543+00:00",
+  "seed": 20261006,
+  "development": "One first-half 64-record window per source",
+  "evaluation": "Four non-overlapping second-half 64-record windows per source; 12 paired base windows, 96 interventions plus 12 untouched",
+  "patterns": [
+    "missing",
+    "duplicate",
+    "reorder",
+    "header_magic",
+    "header_length",
+    "garbage",
+    "payload_truncation",
+    "mixed"
+  ],
+  "source_hashes": {
+    "00": "b73c444a3c08db81ca655d8bb01f872a0743cad5d6ccc8a0326769b02131a3a0",
+    "01": "3272efa10a4875ecc37e7b5559acbb36e7fdf16c4469e8ef5bab93a4de48d810",
+    "02": "553faf9912022e80b7cc9e2cc6b41c1d19065b99dfc5307b50e54097738acd9b"
+  },
+  "chunk_bytes": [
+    512,
+    4096,
+    65536
+  ],
+  "parser_policies": [
+    "strict",
+    "resync"
+  ],
+  "scoring": "Intervention detected only by same-kind alarm overlapping labelled byte interval; all events required for full-case match. Recovery counts intact-record SHA256 multiplicities.",
+  "repeat_factors": [
+    1,
+    10,
+    100
+  ],
+  "timing_trials": 3,
+  "performance_chunk_bytes": 4096,
+  "performance": "Replay the same 8470 records with per-source/session reset; hash each recovered record and maintain a 64-entry duplicate cache. No API.",
+  "memory": "Separate tracemalloc runs at factors 1 and 100, bounded replay buffers; Python-traced allocations only, excludes preloaded corpus and process RSS.",
+  "limitations": [
+    "Same public run; no natural fault truth or independent run.",
+    "Repeated workload does not increase unique record or independent fault count.",
+    "Resynchronization uses development header constraints and next-header plausibility; not a payload decoder or authenticated framing proof.",
+    "All byte mutations and combinations are artificial; no actual detector burst tested.",
+    "FileSink envelope is inspected before replay; envelope corruption and network transport are untested.",
+    "Windows host performance only; AWS, network, disk and real-time DAQ throughput unmeasured.",
+    "No new AI calls or AI superiority measurement."
+  ]
+}

@@ -1,0 +1,745 @@
+{
+  "status": "COMPLETED",
+  "evaluation_unique_cases": 108,
+  "paired_base_windows": 12,
+  "evaluation_intervened_cases": 96,
+  "chunk_sizes_are_repeated_tests_not_independent_cases": true,
+  "recovery": {
+    "strict": {
+      "512": {
+        "untouched": {
+          "cases": 12,
+          "events": 0,
+          "detected_events": 0,
+          "fully_detected_cases": 0,
+          "alarm_cases": 0,
+          "alarms": 0,
+          "intact_expected": 768,
+          "intact_recovered": 768,
+          "extra_recovered_records": 0
+        },
+        "missing": {
+          "cases": 12,
+          "events": 12,
+          "detected_events": 12,
+          "fully_detected_cases": 12,
+          "alarm_cases": 12,
+          "alarms": 12,
+          "intact_expected": 756,
+          "intact_recovered": 756,
+          "extra_recovered_records": 0
+        },
+        "duplicate": {
+          "cases": 12,
+          "events": 12,
+          "detected_events": 12,
+          "fully_detected_cases": 12,
+          "alarm_cases": 12,
+          "alarms": 12,
+          "intact_expected": 780,
+          "intact_recovered": 780,
+          "extra_recovered_records": 0
+        },
+        "reorder": {
+          "cases": 12,
+          "events": 12,
+          "detected_events": 12,
+          "fully_detected_cases": 12,
+          "alarm_cases": 12,
+          "alarms": 12,
+          "intact_expected": 768,
+          "intact_recovered": 768,
+          "extra_recovered_records": 0
+        },
+        "header_magic": {
+          "cases": 12,
+          "events": 12,
+          "detected_events": 12,
+          "fully_detected_cases": 12,
+          "alarm_cases": 12,
+          "alarms": 12,
+          "intact_expected": 756,
+          "intact_recovered": 291,
+          "extra_recovered_records": 0
+        },
+        "header_length": {
+          "cases": 12,
+          "events": 12,
+          "detected_events": 12,
+          "fully_detected_cases": 12,
+          "alarm_cases": 12,
+          "alarms": 12,
+          "intact_expected": 756,
+          "intact_recovered": 343,
+          "extra_recovered_records": 0
+        },
+        "garbage": {
+          "cases": 12,
+          "events": 12,
+          "detected_events": 12,
+          "fully_detected_cases": 12,
+          "alarm_cases": 12,
+          "alarms": 12,
+          "intact_expected": 768,
+          "intact_recovered": 344,
+          "extra_recovered_records": 0
+        },
+        "payload_truncation": {
+          "cases": 12,
+          "events": 12,
+          "detected_events": 0,
+          "fully_detected_cases": 0,
+          "alarm_cases": 12,
+          "alarms": 12,
+          "intact_expected": 756,
+          "intact_recovered": 359,
+          "extra_recovered_records": 12
+        },
+        "mixed": {
+          "cases": 12,
+          "events": 36,
+          "detected_events": 36,
+          "fully_detected_cases": 12,
+          "alarm_cases": 12,
+          "alarms": 36,
+          "intact_expected": 756,
+          "intact_recovered": 480,
+          "extra_recovered_records": 0
+        }
+      },
+      "4096": {
+        "untouched": {
+          "cases": 12,
+          "events": 0,
+          "detected_events": 0,
+          "fully_detected_cases": 0,
+          "alarm_cases": 0,
+          "alarms": 0,
+          "intact_expected": 768,
+          "intact_recovered": 768,
+          "extra_recovered_records": 0
+        },
+        "missing": {
+          "cases": 12,
+          "events": 12,
+          "detected_events": 12,
+          "fully_detected_cases": 12,
+          "alarm_cases": 12,
+          "alarms": 12,
+          "intact_expected": 756,
+          "intact_recovered": 756,
+          "extra_recovered_records": 0
+        },
+        "duplicate": {
+          "cases": 12,
+          "events": 12,
+          "detected_events": 12,
+          "fully_detected_cases": 12,
+          "alarm_cases": 12,
+          "alarms": 12,
+          "intact_expected": 780,
+          "intact_recovered": 780,
+          "extra_recovered_records": 0
+        },
+        "reorder": {
+          "cases": 12,
+          "events": 12,
+          "detected_events": 12,
+          "fully_detected_cases": 12,
+          "alarm_cases": 12,
+          "alarms": 12,
+          "intact_expected": 768,
+          "intact_recovered": 768,
+          "extra_recovered_records": 0
+        },
+        "header_magic": {
+          "cases": 12,
+          "events": 12,
+          "detected_events": 12,
+          "fully_detected_cases": 12,
+          "alarm_cases": 12,
+          "alarms": 12,
+          "intact_expected": 756,
+          "intact_recovered": 291,
+          "extra_recovered_records": 0
+        },
+        "header_length": {
+          "cases": 12,
+          "events": 12,
+          "detected_events": 12,
+          "fully_detected_cases": 12,
+          "alarm_cases": 12,
+          "alarms": 12,
+          "intact_expected": 756,
+          "intact_recovered": 343,
+          "extra_recovered_records": 0
+        },
+        "garbage": {
+          "cases": 12,
+          "events": 12,
+          "detected_events": 12,
+          "fully_detected_cases": 12,
+          "alarm_cases": 12,
+          "alarms": 12,
+          "intact_expected": 768,
+          "intact_recovered": 344,
+          "extra_recovered_records": 0
+        },
+        "payload_truncation": {
+          "cases": 12,
+          "events": 12,
+          "detected_events": 0,
+          "fully_detected_cases": 0,
+          "alarm_cases": 12,
+          "alarms": 12,
+          "intact_expected": 756,
+          "intact_recovered": 359,
+          "extra_recovered_records": 12
+        },
+        "mixed": {
+          "cases": 12,
+          "events": 36,
+          "detected_events": 36,
+          "fully_detected_cases": 12,
+          "alarm_cases": 12,
+          "alarms": 36,
+          "intact_expected": 756,
+          "intact_recovered": 480,
+          "extra_recovered_records": 0
+        }
+      },
+      "65536": {
+        "untouched": {
+          "cases": 12,
+          "events": 0,
+          "detected_events": 0,
+          "fully_detected_cases": 0,
+          "alarm_cases": 0,
+          "alarms": 0,
+          "intact_expected": 768,
+          "intact_recovered": 768,
+          "extra_recovered_records": 0
+        },
+        "missing": {
+          "cases": 12,
+          "events": 12,
+          "detected_events": 12,
+          "fully_detected_cases": 12,
+          "alarm_cases": 12,
+          "alarms": 12,
+          "intact_expected": 756,
+          "intact_recovered": 756,
+          "extra_recovered_records": 0
+        },
+        "duplicate": {
+          "cases": 12,
+          "events": 12,
+          "detected_events": 12,
+          "fully_detected_cases": 12,
+          "alarm_cases": 12,
+          "alarms": 12,
+          "intact_expected": 780,
+          "intact_recovered": 780,
+          "extra_recovered_records": 0
+        },
+        "reorder": {
+          "cases": 12,
+          "events": 12,
+          "detected_events": 12,
+          "fully_detected_cases": 12,
+          "alarm_cases": 12,
+          "alarms": 12,
+          "intact_expected": 768,
+          "intact_recovered": 768,
+          "extra_recovered_records": 0
+        },
+        "header_magic": {
+          "cases": 12,
+          "events": 12,
+          "detected_events": 12,
+          "fully_detected_cases": 12,
+          "alarm_cases": 12,
+          "alarms": 12,
+          "intact_expected": 756,
+          "intact_recovered": 291,
+          "extra_recovered_records": 0
+        },
+        "header_length": {
+          "cases": 12,
+          "events": 12,
+          "detected_events": 12,
+          "fully_detected_cases": 12,
+          "alarm_cases": 12,
+          "alarms": 12,
+          "intact_expected": 756,
+          "intact_recovered": 343,
+          "extra_recovered_records": 0
+        },
+        "garbage": {
+          "cases": 12,
+          "events": 12,
+          "detected_events": 12,
+          "fully_detected_cases": 12,
+          "alarm_cases": 12,
+          "alarms": 12,
+          "intact_expected": 768,
+          "intact_recovered": 344,
+          "extra_recovered_records": 0
+        },
+        "payload_truncation": {
+          "cases": 12,
+          "events": 12,
+          "detected_events": 0,
+          "fully_detected_cases": 0,
+          "alarm_cases": 12,
+          "alarms": 12,
+          "intact_expected": 756,
+          "intact_recovered": 359,
+          "extra_recovered_records": 12
+        },
+        "mixed": {
+          "cases": 12,
+          "events": 36,
+          "detected_events": 36,
+          "fully_detected_cases": 12,
+          "alarm_cases": 12,
+          "alarms": 36,
+          "intact_expected": 756,
+          "intact_recovered": 480,
+          "extra_recovered_records": 0
+        }
+      }
+    },
+    "resync": {
+      "512": {
+        "untouched": {
+          "cases": 12,
+          "events": 0,
+          "detected_events": 0,
+          "fully_detected_cases": 0,
+          "alarm_cases": 0,
+          "alarms": 0,
+          "intact_expected": 768,
+          "intact_recovered": 768,
+          "extra_recovered_records": 0
+        },
+        "missing": {
+          "cases": 12,
+          "events": 12,
+          "detected_events": 12,
+          "fully_detected_cases": 12,
+          "alarm_cases": 12,
+          "alarms": 12,
+          "intact_expected": 756,
+          "intact_recovered": 756,
+          "extra_recovered_records": 0
+        },
+        "duplicate": {
+          "cases": 12,
+          "events": 12,
+          "detected_events": 12,
+          "fully_detected_cases": 12,
+          "alarm_cases": 12,
+          "alarms": 12,
+          "intact_expected": 780,
+          "intact_recovered": 780,
+          "extra_recovered_records": 0
+        },
+        "reorder": {
+          "cases": 12,
+          "events": 12,
+          "detected_events": 12,
+          "fully_detected_cases": 12,
+          "alarm_cases": 12,
+          "alarms": 12,
+          "intact_expected": 768,
+          "intact_recovered": 768,
+          "extra_recovered_records": 0
+        },
+        "header_magic": {
+          "cases": 12,
+          "events": 12,
+          "detected_events": 12,
+          "fully_detected_cases": 12,
+          "alarm_cases": 12,
+          "alarms": 24,
+          "intact_expected": 756,
+          "intact_recovered": 756,
+          "extra_recovered_records": 0
+        },
+        "header_length": {
+          "cases": 12,
+          "events": 12,
+          "detected_events": 12,
+          "fully_detected_cases": 12,
+          "alarm_cases": 12,
+          "alarms": 24,
+          "intact_expected": 756,
+          "intact_recovered": 756,
+          "extra_recovered_records": 0
+        },
+        "garbage": {
+          "cases": 12,
+          "events": 12,
+          "detected_events": 12,
+          "fully_detected_cases": 12,
+          "alarm_cases": 12,
+          "alarms": 12,
+          "intact_expected": 768,
+          "intact_recovered": 768,
+          "extra_recovered_records": 0
+        },
+        "payload_truncation": {
+          "cases": 12,
+          "events": 12,
+          "detected_events": 0,
+          "fully_detected_cases": 0,
+          "alarm_cases": 12,
+          "alarms": 24,
+          "intact_expected": 756,
+          "intact_recovered": 744,
+          "extra_recovered_records": 12
+        },
+        "mixed": {
+          "cases": 12,
+          "events": 36,
+          "detected_events": 36,
+          "fully_detected_cases": 12,
+          "alarm_cases": 12,
+          "alarms": 48,
+          "intact_expected": 756,
+          "intact_recovered": 756,
+          "extra_recovered_records": 0
+        }
+      },
+      "4096": {
+        "untouched": {
+          "cases": 12,
+          "events": 0,
+          "detected_events": 0,
+          "fully_detected_cases": 0,
+          "alarm_cases": 0,
+          "alarms": 0,
+          "intact_expected": 768,
+          "intact_recovered": 768,
+          "extra_recovered_records": 0
+        },
+        "missing": {
+          "cases": 12,
+          "events": 12,
+          "detected_events": 12,
+          "fully_detected_cases": 12,
+          "alarm_cases": 12,
+          "alarms": 12,
+          "intact_expected": 756,
+          "intact_recovered": 756,
+          "extra_recovered_records": 0
+        },
+        "duplicate": {
+          "cases": 12,
+          "events": 12,
+          "detected_events": 12,
+          "fully_detected_cases": 12,
+          "alarm_cases": 12,
+          "alarms": 12,
+          "intact_expected": 780,
+          "intact_recovered": 780,
+          "extra_recovered_records": 0
+        },
+        "reorder": {
+          "cases": 12,
+          "events": 12,
+          "detected_events": 12,
+          "fully_detected_cases": 12,
+          "alarm_cases": 12,
+          "alarms": 12,
+          "intact_expected": 768,
+          "intact_recovered": 768,
+          "extra_recovered_records": 0
+        },
+        "header_magic": {
+          "cases": 12,
+          "events": 12,
+          "detected_events": 12,
+          "fully_detected_cases": 12,
+          "alarm_cases": 12,
+          "alarms": 24,
+          "intact_expected": 756,
+          "intact_recovered": 756,
+          "extra_recovered_records": 0
+        },
+        "header_length": {
+          "cases": 12,
+          "events": 12,
+          "detected_events": 12,
+          "fully_detected_cases": 12,
+          "alarm_cases": 12,
+          "alarms": 24,
+          "intact_expected": 756,
+          "intact_recovered": 756,
+          "extra_recovered_records": 0
+        },
+        "garbage": {
+          "cases": 12,
+          "events": 12,
+          "detected_events": 12,
+          "fully_detected_cases": 12,
+          "alarm_cases": 12,
+          "alarms": 12,
+          "intact_expected": 768,
+          "intact_recovered": 768,
+          "extra_recovered_records": 0
+        },
+        "payload_truncation": {
+          "cases": 12,
+          "events": 12,
+          "detected_events": 0,
+          "fully_detected_cases": 0,
+          "alarm_cases": 12,
+          "alarms": 24,
+          "intact_expected": 756,
+          "intact_recovered": 744,
+          "extra_recovered_records": 12
+        },
+        "mixed": {
+          "cases": 12,
+          "events": 36,
+          "detected_events": 36,
+          "fully_detected_cases": 12,
+          "alarm_cases": 12,
+          "alarms": 48,
+          "intact_expected": 756,
+          "intact_recovered": 756,
+          "extra_recovered_records": 0
+        }
+      },
+      "65536": {
+        "untouched": {
+          "cases": 12,
+          "events": 0,
+          "detected_events": 0,
+          "fully_detected_cases": 0,
+          "alarm_cases": 0,
+          "alarms": 0,
+          "intact_expected": 768,
+          "intact_recovered": 768,
+          "extra_recovered_records": 0
+        },
+        "missing": {
+          "cases": 12,
+          "events": 12,
+          "detected_events": 12,
+          "fully_detected_cases": 12,
+          "alarm_cases": 12,
+          "alarms": 12,
+          "intact_expected": 756,
+          "intact_recovered": 756,
+          "extra_recovered_records": 0
+        },
+        "duplicate": {
+          "cases": 12,
+          "events": 12,
+          "detected_events": 12,
+          "fully_detected_cases": 12,
+          "alarm_cases": 12,
+          "alarms": 12,
+          "intact_expected": 780,
+          "intact_recovered": 780,
+          "extra_recovered_records": 0
+        },
+        "reorder": {
+          "cases": 12,
+          "events": 12,
+          "detected_events": 12,
+          "fully_detected_cases": 12,
+          "alarm_cases": 12,
+          "alarms": 12,
+          "intact_expected": 768,
+          "intact_recovered": 768,
+          "extra_recovered_records": 0
+        },
+        "header_magic": {
+          "cases": 12,
+          "events": 12,
+          "detected_events": 12,
+          "fully_detected_cases": 12,
+          "alarm_cases": 12,
+          "alarms": 24,
+          "intact_expected": 756,
+          "intact_recovered": 756,
+          "extra_recovered_records": 0
+        },
+        "header_length": {
+          "cases": 12,
+          "events": 12,
+          "detected_events": 12,
+          "fully_detected_cases": 12,
+          "alarm_cases": 12,
+          "alarms": 24,
+          "intact_expected": 756,
+          "intact_recovered": 756,
+          "extra_recovered_records": 0
+        },
+        "garbage": {
+          "cases": 12,
+          "events": 12,
+          "detected_events": 12,
+          "fully_detected_cases": 12,
+          "alarm_cases": 12,
+          "alarms": 12,
+          "intact_expected": 768,
+          "intact_recovered": 768,
+          "extra_recovered_records": 0
+        },
+        "payload_truncation": {
+          "cases": 12,
+          "events": 12,
+          "detected_events": 0,
+          "fully_detected_cases": 0,
+          "alarm_cases": 12,
+          "alarms": 24,
+          "intact_expected": 756,
+          "intact_recovered": 744,
+          "extra_recovered_records": 12
+        },
+        "mixed": {
+          "cases": 12,
+          "events": 36,
+          "detected_events": 36,
+          "fully_detected_cases": 12,
+          "alarm_cases": 12,
+          "alarms": 48,
+          "intact_expected": 756,
+          "intact_recovered": 756,
+          "extra_recovered_records": 0
+        }
+      }
+    }
+  },
+  "chunk_invariance": {
+    "strict": true,
+    "resync": true
+  },
+  "performance": {
+    "strict": {
+      "1": {
+        "frames_per_trial": 8470,
+        "seconds_median": 0.020373000006657094,
+        "seconds_min": 0.017115199996624142,
+        "seconds_max": 0.02085969998734072,
+        "frames_per_second_median": 415746.33079233975,
+        "mib_per_second_median": 95.81700153690453,
+        "candidate_alarms": [
+          0,
+          0,
+          0
+        ]
+      },
+      "10": {
+        "frames_per_trial": 84700,
+        "seconds_median": 0.1645573000132572,
+        "seconds_min": 0.1643028999969829,
+        "seconds_max": 0.16580449999310076,
+        "frames_per_second_median": 514714.327429876,
+        "mib_per_second_median": 118.62614255289517,
+        "candidate_alarms": [
+          0,
+          0,
+          0
+        ]
+      },
+      "100": {
+        "frames_per_trial": 847000,
+        "seconds_median": 1.5561501999909524,
+        "seconds_min": 1.5550775000010617,
+        "seconds_max": 1.5762383000110276,
+        "frames_per_second_median": 544291.9327484741,
+        "mib_per_second_median": 125.44288931496254,
+        "candidate_alarms": [
+          0,
+          0,
+          0
+        ]
+      }
+    },
+    "resync": {
+      "1": {
+        "frames_per_trial": 8470,
+        "seconds_median": 0.015492400008952245,
+        "seconds_min": 0.015477699984330684,
+        "seconds_max": 0.015598900004988536,
+        "frames_per_second_median": 546719.6815926281,
+        "mib_per_second_median": 126.00241226802912,
+        "candidate_alarms": [
+          0,
+          0,
+          0
+        ]
+      },
+      "10": {
+        "frames_per_trial": 84700,
+        "seconds_median": 0.15520890001789667,
+        "seconds_min": 0.15507599999546073,
+        "seconds_max": 0.15546870001708157,
+        "frames_per_second_median": 545716.128329197,
+        "mib_per_second_median": 125.7711234809428,
+        "candidate_alarms": [
+          0,
+          0,
+          0
+        ]
+      },
+      "100": {
+        "frames_per_trial": 847000,
+        "seconds_median": 1.5555931999988388,
+        "seconds_min": 1.5536455000110436,
+        "seconds_max": 1.5574373999843374,
+        "frames_per_second_median": 544486.8234192797,
+        "mib_per_second_median": 125.4878057419302,
+        "candidate_alarms": [
+          0,
+          0,
+          0
+        ]
+      }
+    }
+  },
+  "memory": [
+    {
+      "policy": "strict",
+      "repeat_factor": 1,
+      "python_traced_peak_bytes": 29908,
+      "frames": 8470
+    },
+    {
+      "policy": "strict",
+      "repeat_factor": 100,
+      "python_traced_peak_bytes": 29908,
+      "frames": 847000
+    },
+    {
+      "policy": "resync",
+      "repeat_factor": 1,
+      "python_traced_peak_bytes": 29908,
+      "frames": 8470
+    },
+    {
+      "policy": "resync",
+      "repeat_factor": 100,
+      "python_traced_peak_bytes": 29908,
+      "frames": 847000
+    }
+  ],
+  "api_calls": 0,
+  "api_tokens": 0,
+  "new_api_cost_usd": 0,
+  "limitations": [
+    "Same public run; no natural fault truth or independent run.",
+    "Repeated workload does not increase unique record or independent fault count.",
+    "Resynchronization uses development header constraints and next-header plausibility; not a payload decoder or authenticated framing proof.",
+    "All byte mutations and combinations are artificial; no actual detector burst tested.",
+    "FileSink envelope is inspected before replay; envelope corruption and network transport are untested.",
+    "Windows host performance only; AWS, network, disk and real-time DAQ throughput unmeasured.",
+    "No new AI calls or AI superiority measurement."
+  ]
+}
