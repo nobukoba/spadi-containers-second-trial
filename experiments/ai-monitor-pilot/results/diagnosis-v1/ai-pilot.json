@@ -1,0 +1,1554 @@
+{
+  "85c48e2e06e63ac4:data_only": {
+    "status": "invalid_output",
+    "raw_response": {
+      "id": "resp_094f6db76b3957ca016ac2b3b50a9487d095e41179fb984ace",
+      "object": "response",
+      "created_at": 1791144885,
+      "status": "completed",
+      "access_programs": null,
+      "background": false,
+      "billing": {
+        "payer": "developer"
+      },
+      "completed_at": 1791144886,
+      "error": null,
+      "frequency_penalty": 0.0,
+      "incomplete_details": null,
+      "instructions": "Assess the observed ID discontinuity using only the supplied record fields\nand optional synthetic configuration/log observations. Return a candidate, not a claim of\nverified physical causation. An ID step may be deliberate selection, queue discards,\nconnection interruption, or unexplained. Do not infer absence of a cause from absent logs.\nConflicting supporting evidence should yield unknown rather than a unique cause.\nEvidence references must be IDs of supplied observations. Checks are non-destructive:\ninspect_selection_config, inspect_queue_counters, inspect_connection_history,\ncollect_missing_context. Give one or more useful checks. No truth labels are supplied.\nOutput only the required JSON.",
+      "max_output_tokens": 600,
+      "max_tool_calls": null,
+      "model": "gpt-4.1-mini-2025-04-14",
+      "moderation": null,
+      "output": [
+        {
+          "id": "msg_094f6db76b3957ca016ac2b3b5d1b487d0a2a109dbd406869e",
+          "type": "message",
+          "status": "completed",
+          "content": [
+            {
+              "type": "output_text",
+              "annotations": [],
+              "logprobs": [],
+              "text": "{\"candidate\":\"configured_selection\",\"evidence_ids\":[\"7818312\",\"7818320\",\"7818328\",\"7818336\",\"7818344\",\"7818352\",\"7818360\",\"7818368\",\"7818376\",\"7818384\",\"7818392\",\"7818400\",\"7818408\",\"7818416\",\"7818424\",\"7818432\"],\"checks\":[\"inspect_selection_config\"]}"
+            }
+          ],
+          "role": "assistant"
+        }
+      ],
+      "parallel_tool_calls": true,
+      "presence_penalty": 0.0,
+      "previous_response_id": null,
+      "prompt_cache_key": null,
+      "prompt_cache_retention": "in_memory",
+      "reasoning": {
+        "context": null,
+        "effort": null,
+        "summary": null
+      },
+      "safety_identifier": null,
+      "service_tier": "default",
+      "store": false,
+      "temperature": 0.0,
+      "text": {
+        "format": {
+          "type": "json_schema",
+          "description": null,
+          "name": "diagnosis",
+          "schema": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "candidate": {
+                "type": "string",
+                "enum": [
+                  "configured_selection",
+                  "queue_drop",
+                  "connection_interruption",
+                  "unknown"
+                ]
+              },
+              "evidence_ids": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "checks": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "inspect_selection_config",
+                    "inspect_queue_counters",
+                    "inspect_connection_history",
+                    "collect_missing_context"
+                  ]
+                }
+              }
+            },
+            "required": [
+              "candidate",
+              "evidence_ids",
+              "checks"
+            ]
+          },
+          "strict": true
+        },
+        "verbosity": "medium"
+      },
+      "tool_choice": "auto",
+      "tool_usage": {
+        "image_gen": {
+          "input_tokens": 0,
+          "input_tokens_details": {
+            "image_tokens": 0,
+            "text_tokens": 0
+          },
+          "output_tokens": 0,
+          "output_tokens_details": {
+            "image_tokens": 0,
+            "text_tokens": 0
+          },
+          "total_tokens": 0
+        },
+        "web_search": {
+          "num_requests": 0
+        }
+      },
+      "tools": [],
+      "top_logprobs": 0,
+      "top_p": 1.0,
+      "truncation": "disabled",
+      "usage": {
+        "input_tokens": 339,
+        "input_tokens_details": {
+          "cache_write_tokens": 0,
+          "cached_tokens": 0
+        },
+        "output_tokens": 83,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 422
+      },
+      "user": null,
+      "metadata": {}
+    },
+    "usage": {
+      "input_tokens": 339,
+      "input_tokens_details": {
+        "cache_write_tokens": 0,
+        "cached_tokens": 0
+      },
+      "output_tokens": 83,
+      "output_tokens_details": {
+        "reasoning_tokens": 0
+      },
+      "total_tokens": 422
+    },
+    "seconds": 2.2049329000001308
+  },
+  "85c48e2e06e63ac4:with_context": {
+    "status": "ok",
+    "raw_response": {
+      "id": "resp_0be3e4779dc085f9016ac2b418359887d0913e6a223e48733b",
+      "object": "response",
+      "created_at": 1791144984,
+      "status": "completed",
+      "access_programs": null,
+      "background": false,
+      "billing": {
+        "payer": "developer"
+      },
+      "completed_at": 1791144985,
+      "error": null,
+      "frequency_penalty": 0.0,
+      "incomplete_details": null,
+      "instructions": "Assess the observed ID discontinuity using only the supplied record fields\nand optional synthetic configuration/log observations. Return a candidate, not a claim of\nverified physical causation. An ID step may be deliberate selection, queue discards,\nconnection interruption, or unexplained. Do not infer absence of a cause from absent logs.\nConflicting supporting evidence should yield unknown rather than a unique cause.\nEvidence references must be IDs of supplied observations. Checks are non-destructive:\ninspect_selection_config, inspect_queue_counters, inspect_connection_history,\ncollect_missing_context. Give one or more useful checks. No truth labels are supplied.\nOutput only the required JSON.",
+      "max_output_tokens": 600,
+      "max_tool_calls": null,
+      "model": "gpt-4.1-mini-2025-04-14",
+      "moderation": null,
+      "output": [
+        {
+          "id": "msg_0be3e4779dc085f9016ac2b4198b0087d0b149ab1b89ebe4f3",
+          "type": "message",
+          "status": "completed",
+          "content": [
+            {
+              "type": "output_text",
+              "annotations": [],
+              "logprobs": [],
+              "text": "{\"candidate\":\"configured_selection\",\"evidence_ids\":[\"E1\"],\"checks\":[\"inspect_selection_config\",\"inspect_queue_counters\"]}"
+            }
+          ],
+          "role": "assistant"
+        }
+      ],
+      "parallel_tool_calls": true,
+      "presence_penalty": 0.0,
+      "previous_response_id": null,
+      "prompt_cache_key": null,
+      "prompt_cache_retention": "in_memory",
+      "reasoning": {
+        "context": null,
+        "effort": null,
+        "summary": null
+      },
+      "safety_identifier": null,
+      "service_tier": "default",
+      "store": false,
+      "temperature": 0.0,
+      "text": {
+        "format": {
+          "type": "json_schema",
+          "description": null,
+          "name": "diagnosis",
+          "schema": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "candidate": {
+                "type": "string",
+                "enum": [
+                  "configured_selection",
+                  "queue_drop",
+                  "connection_interruption",
+                  "unknown"
+                ]
+              },
+              "evidence_ids": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "checks": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "inspect_selection_config",
+                    "inspect_queue_counters",
+                    "inspect_connection_history",
+                    "collect_missing_context"
+                  ]
+                }
+              }
+            },
+            "required": [
+              "candidate",
+              "evidence_ids",
+              "checks"
+            ]
+          },
+          "strict": true
+        },
+        "verbosity": "medium"
+      },
+      "tool_choice": "auto",
+      "tool_usage": {
+        "image_gen": {
+          "input_tokens": 0,
+          "input_tokens_details": {
+            "image_tokens": 0,
+            "text_tokens": 0
+          },
+          "output_tokens": 0,
+          "output_tokens_details": {
+            "image_tokens": 0,
+            "text_tokens": 0
+          },
+          "total_tokens": 0
+        },
+        "web_search": {
+          "num_requests": 0
+        }
+      },
+      "tools": [],
+      "top_logprobs": 0,
+      "top_p": 1.0,
+      "truncation": "disabled",
+      "usage": {
+        "input_tokens": 410,
+        "input_tokens_details": {
+          "cache_write_tokens": 0,
+          "cached_tokens": 0
+        },
+        "output_tokens": 27,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 437
+      },
+      "user": null,
+      "metadata": {}
+    },
+    "usage": {
+      "input_tokens": 410,
+      "input_tokens_details": {
+        "cache_write_tokens": 0,
+        "cached_tokens": 0
+      },
+      "output_tokens": 27,
+      "output_tokens_details": {
+        "reasoning_tokens": 0
+      },
+      "total_tokens": 437
+    },
+    "seconds": 2.359547300002305,
+    "prediction": {
+      "candidate": "configured_selection",
+      "evidence_ids": [
+        "E1"
+      ],
+      "checks": [
+        "inspect_selection_config",
+        "inspect_queue_counters"
+      ]
+    }
+  },
+  "841e59405e9944b6:data_only": {
+    "status": "invalid_output",
+    "raw_response": {
+      "id": "resp_0c0343a4a44586b5016ac2b41a1d8487d0ae3b97cfea5980b8",
+      "object": "response",
+      "created_at": 1791144986,
+      "status": "completed",
+      "access_programs": null,
+      "background": false,
+      "billing": {
+        "payer": "developer"
+      },
+      "completed_at": 1791144987,
+      "error": null,
+      "frequency_penalty": 0.0,
+      "incomplete_details": null,
+      "instructions": "Assess the observed ID discontinuity using only the supplied record fields\nand optional synthetic configuration/log observations. Return a candidate, not a claim of\nverified physical causation. An ID step may be deliberate selection, queue discards,\nconnection interruption, or unexplained. Do not infer absence of a cause from absent logs.\nConflicting supporting evidence should yield unknown rather than a unique cause.\nEvidence references must be IDs of supplied observations. Checks are non-destructive:\ninspect_selection_config, inspect_queue_counters, inspect_connection_history,\ncollect_missing_context. Give one or more useful checks. No truth labels are supplied.\nOutput only the required JSON.",
+      "max_output_tokens": 600,
+      "max_tool_calls": null,
+      "model": "gpt-4.1-mini-2025-04-14",
+      "moderation": null,
+      "output": [
+        {
+          "id": "msg_0c0343a4a44586b5016ac2b41ac87487d08fdc1590fde38e3e",
+          "type": "message",
+          "status": "completed",
+          "content": [
+            {
+              "type": "output_text",
+              "annotations": [],
+              "logprobs": [],
+              "text": "{\"candidate\":\"configured_selection\",\"evidence_ids\":[\"7818312\",\"7818320\",\"7818328\",\"7818336\",\"7818344\",\"7818352\",\"7818360\",\"7818368\",\"7818376\",\"7818384\",\"7818392\",\"7818400\",\"7818408\",\"7818416\",\"7818424\",\"7818432\"],\"checks\":[\"inspect_selection_config\"]}"
+            }
+          ],
+          "role": "assistant"
+        }
+      ],
+      "parallel_tool_calls": true,
+      "presence_penalty": 0.0,
+      "previous_response_id": null,
+      "prompt_cache_key": null,
+      "prompt_cache_retention": "in_memory",
+      "reasoning": {
+        "context": null,
+        "effort": null,
+        "summary": null
+      },
+      "safety_identifier": null,
+      "service_tier": "default",
+      "store": false,
+      "temperature": 0.0,
+      "text": {
+        "format": {
+          "type": "json_schema",
+          "description": null,
+          "name": "diagnosis",
+          "schema": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "candidate": {
+                "type": "string",
+                "enum": [
+                  "configured_selection",
+                  "queue_drop",
+                  "connection_interruption",
+                  "unknown"
+                ]
+              },
+              "evidence_ids": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "checks": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "inspect_selection_config",
+                    "inspect_queue_counters",
+                    "inspect_connection_history",
+                    "collect_missing_context"
+                  ]
+                }
+              }
+            },
+            "required": [
+              "candidate",
+              "evidence_ids",
+              "checks"
+            ]
+          },
+          "strict": true
+        },
+        "verbosity": "medium"
+      },
+      "tool_choice": "auto",
+      "tool_usage": {
+        "image_gen": {
+          "input_tokens": 0,
+          "input_tokens_details": {
+            "image_tokens": 0,
+            "text_tokens": 0
+          },
+          "output_tokens": 0,
+          "output_tokens_details": {
+            "image_tokens": 0,
+            "text_tokens": 0
+          },
+          "total_tokens": 0
+        },
+        "web_search": {
+          "num_requests": 0
+        }
+      },
+      "tools": [],
+      "top_logprobs": 0,
+      "top_p": 1.0,
+      "truncation": "disabled",
+      "usage": {
+        "input_tokens": 339,
+        "input_tokens_details": {
+          "cache_write_tokens": 0,
+          "cached_tokens": 0
+        },
+        "output_tokens": 83,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 422
+      },
+      "user": null,
+      "metadata": {}
+    },
+    "usage": {
+      "input_tokens": 339,
+      "input_tokens_details": {
+        "cache_write_tokens": 0,
+        "cached_tokens": 0
+      },
+      "output_tokens": 83,
+      "output_tokens_details": {
+        "reasoning_tokens": 0
+      },
+      "total_tokens": 422
+    },
+    "seconds": 1.4793943000258878
+  },
+  "841e59405e9944b6:with_context": {
+    "status": "ok",
+    "raw_response": {
+      "id": "resp_02a449568037ca6f016ac2b44fad4087d0b3536249eede8147",
+      "object": "response",
+      "created_at": 1791145039,
+      "status": "completed",
+      "access_programs": null,
+      "background": false,
+      "billing": {
+        "payer": "developer"
+      },
+      "completed_at": 1791145040,
+      "error": null,
+      "frequency_penalty": 0.0,
+      "incomplete_details": null,
+      "instructions": "Assess the observed ID discontinuity using only the supplied record fields\nand optional synthetic configuration/log observations. Return a candidate, not a claim of\nverified physical causation. An ID step may be deliberate selection, queue discards,\nconnection interruption, or unexplained. Do not infer absence of a cause from absent logs.\nConflicting supporting evidence should yield unknown rather than a unique cause.\nEvidence references must be IDs of supplied observations. Checks are non-destructive:\ninspect_selection_config, inspect_queue_counters, inspect_connection_history,\ncollect_missing_context. Give one or more useful checks. No truth labels are supplied.\nOutput only the required JSON.",
+      "max_output_tokens": 600,
+      "max_tool_calls": null,
+      "model": "gpt-4.1-mini-2025-04-14",
+      "moderation": null,
+      "output": [
+        {
+          "id": "msg_02a449568037ca6f016ac2b44fec4887d0892e6d54ac4282ac",
+          "type": "message",
+          "status": "completed",
+          "content": [
+            {
+              "type": "output_text",
+              "annotations": [],
+              "logprobs": [],
+              "text": "{\"candidate\":\"queue_drop\",\"evidence_ids\":[\"E0\"],\"checks\":[\"inspect_queue_counters\",\"inspect_selection_config\"]}"
+            }
+          ],
+          "role": "assistant"
+        }
+      ],
+      "parallel_tool_calls": true,
+      "presence_penalty": 0.0,
+      "previous_response_id": null,
+      "prompt_cache_key": null,
+      "prompt_cache_retention": "in_memory",
+      "reasoning": {
+        "context": null,
+        "effort": null,
+        "summary": null
+      },
+      "safety_identifier": null,
+      "service_tier": "default",
+      "store": false,
+      "temperature": 0.0,
+      "text": {
+        "format": {
+          "type": "json_schema",
+          "description": null,
+          "name": "diagnosis",
+          "schema": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "candidate": {
+                "type": "string",
+                "enum": [
+                  "configured_selection",
+                  "queue_drop",
+                  "connection_interruption",
+                  "unknown"
+                ]
+              },
+              "evidence_ids": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "checks": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "inspect_selection_config",
+                    "inspect_queue_counters",
+                    "inspect_connection_history",
+                    "collect_missing_context"
+                  ]
+                }
+              }
+            },
+            "required": [
+              "candidate",
+              "evidence_ids",
+              "checks"
+            ]
+          },
+          "strict": true
+        },
+        "verbosity": "medium"
+      },
+      "tool_choice": "auto",
+      "tool_usage": {
+        "image_gen": {
+          "input_tokens": 0,
+          "input_tokens_details": {
+            "image_tokens": 0,
+            "text_tokens": 0
+          },
+          "output_tokens": 0,
+          "output_tokens_details": {
+            "image_tokens": 0,
+            "text_tokens": 0
+          },
+          "total_tokens": 0
+        },
+        "web_search": {
+          "num_requests": 0
+        }
+      },
+      "tools": [],
+      "top_logprobs": 0,
+      "top_p": 1.0,
+      "truncation": "disabled",
+      "usage": {
+        "input_tokens": 420,
+        "input_tokens_details": {
+          "cache_write_tokens": 0,
+          "cached_tokens": 0
+        },
+        "output_tokens": 27,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 447
+      },
+      "user": null,
+      "metadata": {}
+    },
+    "usage": {
+      "input_tokens": 420,
+      "input_tokens_details": {
+        "cache_write_tokens": 0,
+        "cached_tokens": 0
+      },
+      "output_tokens": 27,
+      "output_tokens_details": {
+        "reasoning_tokens": 0
+      },
+      "total_tokens": 447
+    },
+    "seconds": 0.6992845000058878,
+    "prediction": {
+      "candidate": "queue_drop",
+      "evidence_ids": [
+        "E0"
+      ],
+      "checks": [
+        "inspect_queue_counters",
+        "inspect_selection_config"
+      ]
+    }
+  },
+  "d2a50596c59a2a19:data_only": {
+    "status": "invalid_output",
+    "raw_response": {
+      "id": "resp_01f935f795aba2a0016ac2b450533087d0b00ce90671ec7e36",
+      "object": "response",
+      "created_at": 1791145040,
+      "status": "completed",
+      "access_programs": null,
+      "background": false,
+      "billing": {
+        "payer": "developer"
+      },
+      "completed_at": 1791145041,
+      "error": null,
+      "frequency_penalty": 0.0,
+      "incomplete_details": null,
+      "instructions": "Assess the observed ID discontinuity using only the supplied record fields\nand optional synthetic configuration/log observations. Return a candidate, not a claim of\nverified physical causation. An ID step may be deliberate selection, queue discards,\nconnection interruption, or unexplained. Do not infer absence of a cause from absent logs.\nConflicting supporting evidence should yield unknown rather than a unique cause.\nEvidence references must be IDs of supplied observations. Checks are non-destructive:\ninspect_selection_config, inspect_queue_counters, inspect_connection_history,\ncollect_missing_context. Give one or more useful checks. No truth labels are supplied.\nOutput only the required JSON.",
+      "max_output_tokens": 600,
+      "max_tool_calls": null,
+      "model": "gpt-4.1-mini-2025-04-14",
+      "moderation": null,
+      "output": [
+        {
+          "id": "msg_01f935f795aba2a0016ac2b450af3887d08c5efb2eb291a96b",
+          "type": "message",
+          "status": "completed",
+          "content": [
+            {
+              "type": "output_text",
+              "annotations": [],
+              "logprobs": [],
+              "text": "{\"candidate\":\"configured_selection\",\"evidence_ids\":[\"7818312\",\"7818320\",\"7818328\",\"7818336\",\"7818344\",\"7818352\",\"7818360\",\"7818368\",\"7818376\",\"7818384\",\"7818392\",\"7818400\",\"7818408\",\"7818416\",\"7818424\",\"7818432\"],\"checks\":[\"inspect_selection_config\"]}"
+            }
+          ],
+          "role": "assistant"
+        }
+      ],
+      "parallel_tool_calls": true,
+      "presence_penalty": 0.0,
+      "previous_response_id": null,
+      "prompt_cache_key": null,
+      "prompt_cache_retention": "in_memory",
+      "reasoning": {
+        "context": null,
+        "effort": null,
+        "summary": null
+      },
+      "safety_identifier": null,
+      "service_tier": "default",
+      "store": false,
+      "temperature": 0.0,
+      "text": {
+        "format": {
+          "type": "json_schema",
+          "description": null,
+          "name": "diagnosis",
+          "schema": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "candidate": {
+                "type": "string",
+                "enum": [
+                  "configured_selection",
+                  "queue_drop",
+                  "connection_interruption",
+                  "unknown"
+                ]
+              },
+              "evidence_ids": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "checks": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "inspect_selection_config",
+                    "inspect_queue_counters",
+                    "inspect_connection_history",
+                    "collect_missing_context"
+                  ]
+                }
+              }
+            },
+            "required": [
+              "candidate",
+              "evidence_ids",
+              "checks"
+            ]
+          },
+          "strict": true
+        },
+        "verbosity": "medium"
+      },
+      "tool_choice": "auto",
+      "tool_usage": {
+        "image_gen": {
+          "input_tokens": 0,
+          "input_tokens_details": {
+            "image_tokens": 0,
+            "text_tokens": 0
+          },
+          "output_tokens": 0,
+          "output_tokens_details": {
+            "image_tokens": 0,
+            "text_tokens": 0
+          },
+          "total_tokens": 0
+        },
+        "web_search": {
+          "num_requests": 0
+        }
+      },
+      "tools": [],
+      "top_logprobs": 0,
+      "top_p": 1.0,
+      "truncation": "disabled",
+      "usage": {
+        "input_tokens": 339,
+        "input_tokens_details": {
+          "cache_write_tokens": 0,
+          "cached_tokens": 0
+        },
+        "output_tokens": 83,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 422
+      },
+      "user": null,
+      "metadata": {}
+    },
+    "usage": {
+      "input_tokens": 339,
+      "input_tokens_details": {
+        "cache_write_tokens": 0,
+        "cached_tokens": 0
+      },
+      "output_tokens": 83,
+      "output_tokens_details": {
+        "reasoning_tokens": 0
+      },
+      "total_tokens": 422
+    },
+    "seconds": 1.112207500002114
+  },
+  "d2a50596c59a2a19:with_context": {
+    "status": "ok",
+    "raw_response": {
+      "id": "resp_08705160faf78db9016ac2b452a25887d0926c2a801579889b",
+      "object": "response",
+      "created_at": 1791145042,
+      "status": "completed",
+      "access_programs": null,
+      "background": false,
+      "billing": {
+        "payer": "developer"
+      },
+      "completed_at": 1791145043,
+      "error": null,
+      "frequency_penalty": 0.0,
+      "incomplete_details": null,
+      "instructions": "Assess the observed ID discontinuity using only the supplied record fields\nand optional synthetic configuration/log observations. Return a candidate, not a claim of\nverified physical causation. An ID step may be deliberate selection, queue discards,\nconnection interruption, or unexplained. Do not infer absence of a cause from absent logs.\nConflicting supporting evidence should yield unknown rather than a unique cause.\nEvidence references must be IDs of supplied observations. Checks are non-destructive:\ninspect_selection_config, inspect_queue_counters, inspect_connection_history,\ncollect_missing_context. Give one or more useful checks. No truth labels are supplied.\nOutput only the required JSON.",
+      "max_output_tokens": 600,
+      "max_tool_calls": null,
+      "model": "gpt-4.1-mini-2025-04-14",
+      "moderation": null,
+      "output": [
+        {
+          "id": "msg_08705160faf78db9016ac2b453655087d09d9aef9f13113817",
+          "type": "message",
+          "status": "completed",
+          "content": [
+            {
+              "type": "output_text",
+              "annotations": [],
+              "logprobs": [],
+              "text": "{\"candidate\":\"connection_interruption\",\"evidence_ids\":[\"E1\",\"E2\"],\"checks\":[\"inspect_connection_history\",\"inspect_queue_counters\"]}"
+            }
+          ],
+          "role": "assistant"
+        }
+      ],
+      "parallel_tool_calls": true,
+      "presence_penalty": 0.0,
+      "previous_response_id": null,
+      "prompt_cache_key": null,
+      "prompt_cache_retention": "in_memory",
+      "reasoning": {
+        "context": null,
+        "effort": null,
+        "summary": null
+      },
+      "safety_identifier": null,
+      "service_tier": "default",
+      "store": false,
+      "temperature": 0.0,
+      "text": {
+        "format": {
+          "type": "json_schema",
+          "description": null,
+          "name": "diagnosis",
+          "schema": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "candidate": {
+                "type": "string",
+                "enum": [
+                  "configured_selection",
+                  "queue_drop",
+                  "connection_interruption",
+                  "unknown"
+                ]
+              },
+              "evidence_ids": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "checks": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "inspect_selection_config",
+                    "inspect_queue_counters",
+                    "inspect_connection_history",
+                    "collect_missing_context"
+                  ]
+                }
+              }
+            },
+            "required": [
+              "candidate",
+              "evidence_ids",
+              "checks"
+            ]
+          },
+          "strict": true
+        },
+        "verbosity": "medium"
+      },
+      "tool_choice": "auto",
+      "tool_usage": {
+        "image_gen": {
+          "input_tokens": 0,
+          "input_tokens_details": {
+            "image_tokens": 0,
+            "text_tokens": 0
+          },
+          "output_tokens": 0,
+          "output_tokens_details": {
+            "image_tokens": 0,
+            "text_tokens": 0
+          },
+          "total_tokens": 0
+        },
+        "web_search": {
+          "num_requests": 0
+        }
+      },
+      "tools": [],
+      "top_logprobs": 0,
+      "top_p": 1.0,
+      "truncation": "disabled",
+      "usage": {
+        "input_tokens": 410,
+        "input_tokens_details": {
+          "cache_write_tokens": 0,
+          "cached_tokens": 0
+        },
+        "output_tokens": 31,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 441
+      },
+      "user": null,
+      "metadata": {}
+    },
+    "usage": {
+      "input_tokens": 410,
+      "input_tokens_details": {
+        "cache_write_tokens": 0,
+        "cached_tokens": 0
+      },
+      "output_tokens": 31,
+      "output_tokens_details": {
+        "reasoning_tokens": 0
+      },
+      "total_tokens": 441
+    },
+    "seconds": 1.559184199984884,
+    "prediction": {
+      "candidate": "connection_interruption",
+      "evidence_ids": [
+        "E1",
+        "E2"
+      ],
+      "checks": [
+        "inspect_connection_history",
+        "inspect_queue_counters"
+      ]
+    }
+  },
+  "98965a069c522158:data_only": {
+    "status": "invalid_output",
+    "raw_response": {
+      "id": "resp_072488d9c665ac07016ac2b4541c7487d0887b70260f8e144f",
+      "object": "response",
+      "created_at": 1791145044,
+      "status": "completed",
+      "access_programs": null,
+      "background": false,
+      "billing": {
+        "payer": "developer"
+      },
+      "completed_at": 1791145045,
+      "error": null,
+      "frequency_penalty": 0.0,
+      "incomplete_details": null,
+      "instructions": "Assess the observed ID discontinuity using only the supplied record fields\nand optional synthetic configuration/log observations. Return a candidate, not a claim of\nverified physical causation. An ID step may be deliberate selection, queue discards,\nconnection interruption, or unexplained. Do not infer absence of a cause from absent logs.\nConflicting supporting evidence should yield unknown rather than a unique cause.\nEvidence references must be IDs of supplied observations. Checks are non-destructive:\ninspect_selection_config, inspect_queue_counters, inspect_connection_history,\ncollect_missing_context. Give one or more useful checks. No truth labels are supplied.\nOutput only the required JSON.",
+      "max_output_tokens": 600,
+      "max_tool_calls": null,
+      "model": "gpt-4.1-mini-2025-04-14",
+      "moderation": null,
+      "output": [
+        {
+          "id": "msg_072488d9c665ac07016ac2b4548c0887d0b6b7569de35ed828",
+          "type": "message",
+          "status": "completed",
+          "content": [
+            {
+              "type": "output_text",
+              "annotations": [],
+              "logprobs": [],
+              "text": "{\"candidate\":\"configured_selection\",\"evidence_ids\":[\"7818312\",\"7818320\",\"7818328\",\"7818336\",\"7818344\",\"7818352\",\"7818360\",\"7818368\",\"7818376\",\"7818384\",\"7818392\",\"7818400\",\"7818408\",\"7818416\",\"7818424\",\"7818432\"],\"checks\":[\"inspect_selection_config\"]}"
+            }
+          ],
+          "role": "assistant"
+        }
+      ],
+      "parallel_tool_calls": true,
+      "presence_penalty": 0.0,
+      "previous_response_id": null,
+      "prompt_cache_key": null,
+      "prompt_cache_retention": "in_memory",
+      "reasoning": {
+        "context": null,
+        "effort": null,
+        "summary": null
+      },
+      "safety_identifier": null,
+      "service_tier": "default",
+      "store": false,
+      "temperature": 0.0,
+      "text": {
+        "format": {
+          "type": "json_schema",
+          "description": null,
+          "name": "diagnosis",
+          "schema": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "candidate": {
+                "type": "string",
+                "enum": [
+                  "configured_selection",
+                  "queue_drop",
+                  "connection_interruption",
+                  "unknown"
+                ]
+              },
+              "evidence_ids": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "checks": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "inspect_selection_config",
+                    "inspect_queue_counters",
+                    "inspect_connection_history",
+                    "collect_missing_context"
+                  ]
+                }
+              }
+            },
+            "required": [
+              "candidate",
+              "evidence_ids",
+              "checks"
+            ]
+          },
+          "strict": true
+        },
+        "verbosity": "medium"
+      },
+      "tool_choice": "auto",
+      "tool_usage": {
+        "image_gen": {
+          "input_tokens": 0,
+          "input_tokens_details": {
+            "image_tokens": 0,
+            "text_tokens": 0
+          },
+          "output_tokens": 0,
+          "output_tokens_details": {
+            "image_tokens": 0,
+            "text_tokens": 0
+          },
+          "total_tokens": 0
+        },
+        "web_search": {
+          "num_requests": 0
+        }
+      },
+      "tools": [],
+      "top_logprobs": 0,
+      "top_p": 1.0,
+      "truncation": "disabled",
+      "usage": {
+        "input_tokens": 339,
+        "input_tokens_details": {
+          "cache_write_tokens": 0,
+          "cached_tokens": 0
+        },
+        "output_tokens": 83,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 422
+      },
+      "user": null,
+      "metadata": {}
+    },
+    "usage": {
+      "input_tokens": 339,
+      "input_tokens_details": {
+        "cache_write_tokens": 0,
+        "cached_tokens": 0
+      },
+      "output_tokens": 83,
+      "output_tokens_details": {
+        "reasoning_tokens": 0
+      },
+      "total_tokens": 422
+    },
+    "seconds": 1.2224259999929927
+  },
+  "98965a069c522158:with_context": {
+    "status": "ok",
+    "raw_response": {
+      "id": "resp_09ac3e92420b0ebe016ac2b456764887d08314f648569c73ac",
+      "object": "response",
+      "created_at": 1791145046,
+      "status": "completed",
+      "access_programs": null,
+      "background": false,
+      "billing": {
+        "payer": "developer"
+      },
+      "completed_at": 1791145046,
+      "error": null,
+      "frequency_penalty": 0.0,
+      "incomplete_details": null,
+      "instructions": "Assess the observed ID discontinuity using only the supplied record fields\nand optional synthetic configuration/log observations. Return a candidate, not a claim of\nverified physical causation. An ID step may be deliberate selection, queue discards,\nconnection interruption, or unexplained. Do not infer absence of a cause from absent logs.\nConflicting supporting evidence should yield unknown rather than a unique cause.\nEvidence references must be IDs of supplied observations. Checks are non-destructive:\ninspect_selection_config, inspect_queue_counters, inspect_connection_history,\ncollect_missing_context. Give one or more useful checks. No truth labels are supplied.\nOutput only the required JSON.",
+      "max_output_tokens": 600,
+      "max_tool_calls": null,
+      "model": "gpt-4.1-mini-2025-04-14",
+      "moderation": null,
+      "output": [
+        {
+          "id": "msg_09ac3e92420b0ebe016ac2b456bcb087d098ed3cfbbd13a190",
+          "type": "message",
+          "status": "completed",
+          "content": [
+            {
+              "type": "output_text",
+              "annotations": [],
+              "logprobs": [],
+              "text": "{\"candidate\":\"connection_interruption\",\"evidence_ids\":[\"E1\"],\"checks\":[\"inspect_connection_history\",\"inspect_queue_counters\"]}"
+            }
+          ],
+          "role": "assistant"
+        }
+      ],
+      "parallel_tool_calls": true,
+      "presence_penalty": 0.0,
+      "previous_response_id": null,
+      "prompt_cache_key": null,
+      "prompt_cache_retention": "in_memory",
+      "reasoning": {
+        "context": null,
+        "effort": null,
+        "summary": null
+      },
+      "safety_identifier": null,
+      "service_tier": "default",
+      "store": false,
+      "temperature": 0.0,
+      "text": {
+        "format": {
+          "type": "json_schema",
+          "description": null,
+          "name": "diagnosis",
+          "schema": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "candidate": {
+                "type": "string",
+                "enum": [
+                  "configured_selection",
+                  "queue_drop",
+                  "connection_interruption",
+                  "unknown"
+                ]
+              },
+              "evidence_ids": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "checks": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "inspect_selection_config",
+                    "inspect_queue_counters",
+                    "inspect_connection_history",
+                    "collect_missing_context"
+                  ]
+                }
+              }
+            },
+            "required": [
+              "candidate",
+              "evidence_ids",
+              "checks"
+            ]
+          },
+          "strict": true
+        },
+        "verbosity": "medium"
+      },
+      "tool_choice": "auto",
+      "tool_usage": {
+        "image_gen": {
+          "input_tokens": 0,
+          "input_tokens_details": {
+            "image_tokens": 0,
+            "text_tokens": 0
+          },
+          "output_tokens": 0,
+          "output_tokens_details": {
+            "image_tokens": 0,
+            "text_tokens": 0
+          },
+          "total_tokens": 0
+        },
+        "web_search": {
+          "num_requests": 0
+        }
+      },
+      "tools": [],
+      "top_logprobs": 0,
+      "top_p": 1.0,
+      "truncation": "disabled",
+      "usage": {
+        "input_tokens": 390,
+        "input_tokens_details": {
+          "cache_write_tokens": 0,
+          "cached_tokens": 0
+        },
+        "output_tokens": 28,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 418
+      },
+      "user": null,
+      "metadata": {}
+    },
+    "usage": {
+      "input_tokens": 390,
+      "input_tokens_details": {
+        "cache_write_tokens": 0,
+        "cached_tokens": 0
+      },
+      "output_tokens": 28,
+      "output_tokens_details": {
+        "reasoning_tokens": 0
+      },
+      "total_tokens": 418
+    },
+    "seconds": 0.7147257999749854,
+    "prediction": {
+      "candidate": "connection_interruption",
+      "evidence_ids": [
+        "E1"
+      ],
+      "checks": [
+        "inspect_connection_history",
+        "inspect_queue_counters"
+      ]
+    }
+  },
+  "f4f4eb57c0b74373:data_only": {
+    "status": "invalid_output",
+    "raw_response": {
+      "id": "resp_0f278c356b11e45b016ac2b45739ac87d08dd92dc4181a1765",
+      "object": "response",
+      "created_at": 1791145047,
+      "status": "completed",
+      "access_programs": null,
+      "background": false,
+      "billing": {
+        "payer": "developer"
+      },
+      "completed_at": 1791145048,
+      "error": null,
+      "frequency_penalty": 0.0,
+      "incomplete_details": null,
+      "instructions": "Assess the observed ID discontinuity using only the supplied record fields\nand optional synthetic configuration/log observations. Return a candidate, not a claim of\nverified physical causation. An ID step may be deliberate selection, queue discards,\nconnection interruption, or unexplained. Do not infer absence of a cause from absent logs.\nConflicting supporting evidence should yield unknown rather than a unique cause.\nEvidence references must be IDs of supplied observations. Checks are non-destructive:\ninspect_selection_config, inspect_queue_counters, inspect_connection_history,\ncollect_missing_context. Give one or more useful checks. No truth labels are supplied.\nOutput only the required JSON.",
+      "max_output_tokens": 600,
+      "max_tool_calls": null,
+      "model": "gpt-4.1-mini-2025-04-14",
+      "moderation": null,
+      "output": [
+        {
+          "id": "msg_0f278c356b11e45b016ac2b457dba487d0a5790dd350c2f2f5",
+          "type": "message",
+          "status": "completed",
+          "content": [
+            {
+              "type": "output_text",
+              "annotations": [],
+              "logprobs": [],
+              "text": "{\"candidate\":\"configured_selection\",\"evidence_ids\":[\"7818312\",\"7818320\",\"7818328\",\"7818336\",\"7818344\",\"7818352\",\"7818360\",\"7818368\",\"7818376\",\"7818384\",\"7818392\",\"7818400\",\"7818408\",\"7818416\",\"7818424\",\"7818432\"],\"checks\":[\"inspect_selection_config\"]}"
+            }
+          ],
+          "role": "assistant"
+        }
+      ],
+      "parallel_tool_calls": true,
+      "presence_penalty": 0.0,
+      "previous_response_id": null,
+      "prompt_cache_key": null,
+      "prompt_cache_retention": "in_memory",
+      "reasoning": {
+        "context": null,
+        "effort": null,
+        "summary": null
+      },
+      "safety_identifier": null,
+      "service_tier": "default",
+      "store": false,
+      "temperature": 0.0,
+      "text": {
+        "format": {
+          "type": "json_schema",
+          "description": null,
+          "name": "diagnosis",
+          "schema": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "candidate": {
+                "type": "string",
+                "enum": [
+                  "configured_selection",
+                  "queue_drop",
+                  "connection_interruption",
+                  "unknown"
+                ]
+              },
+              "evidence_ids": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "checks": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "inspect_selection_config",
+                    "inspect_queue_counters",
+                    "inspect_connection_history",
+                    "collect_missing_context"
+                  ]
+                }
+              }
+            },
+            "required": [
+              "candidate",
+              "evidence_ids",
+              "checks"
+            ]
+          },
+          "strict": true
+        },
+        "verbosity": "medium"
+      },
+      "tool_choice": "auto",
+      "tool_usage": {
+        "image_gen": {
+          "input_tokens": 0,
+          "input_tokens_details": {
+            "image_tokens": 0,
+            "text_tokens": 0
+          },
+          "output_tokens": 0,
+          "output_tokens_details": {
+            "image_tokens": 0,
+            "text_tokens": 0
+          },
+          "total_tokens": 0
+        },
+        "web_search": {
+          "num_requests": 0
+        }
+      },
+      "tools": [],
+      "top_logprobs": 0,
+      "top_p": 1.0,
+      "truncation": "disabled",
+      "usage": {
+        "input_tokens": 339,
+        "input_tokens_details": {
+          "cache_write_tokens": 0,
+          "cached_tokens": 0
+        },
+        "output_tokens": 83,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 422
+      },
+      "user": null,
+      "metadata": {}
+    },
+    "usage": {
+      "input_tokens": 339,
+      "input_tokens_details": {
+        "cache_write_tokens": 0,
+        "cached_tokens": 0
+      },
+      "output_tokens": 83,
+      "output_tokens_details": {
+        "reasoning_tokens": 0
+      },
+      "total_tokens": 422
+    },
+    "seconds": 1.4449499000038486
+  },
+  "f4f4eb57c0b74373:with_context": {
+    "status": "ok",
+    "raw_response": {
+      "id": "resp_09a09af0f0a4579a016ac2b459c31887d0939997e8cd3615ff",
+      "object": "response",
+      "created_at": 1791145049,
+      "status": "completed",
+      "access_programs": null,
+      "background": false,
+      "billing": {
+        "payer": "developer"
+      },
+      "completed_at": 1791145050,
+      "error": null,
+      "frequency_penalty": 0.0,
+      "incomplete_details": null,
+      "instructions": "Assess the observed ID discontinuity using only the supplied record fields\nand optional synthetic configuration/log observations. Return a candidate, not a claim of\nverified physical causation. An ID step may be deliberate selection, queue discards,\nconnection interruption, or unexplained. Do not infer absence of a cause from absent logs.\nConflicting supporting evidence should yield unknown rather than a unique cause.\nEvidence references must be IDs of supplied observations. Checks are non-destructive:\ninspect_selection_config, inspect_queue_counters, inspect_connection_history,\ncollect_missing_context. Give one or more useful checks. No truth labels are supplied.\nOutput only the required JSON.",
+      "max_output_tokens": 600,
+      "max_tool_calls": null,
+      "model": "gpt-4.1-mini-2025-04-14",
+      "moderation": null,
+      "output": [
+        {
+          "id": "msg_09a09af0f0a4579a016ac2b45a6ca087d0bd07a130796ab5b8",
+          "type": "message",
+          "status": "completed",
+          "content": [
+            {
+              "type": "output_text",
+              "annotations": [],
+              "logprobs": [],
+              "text": "{\"candidate\":\"queue_drop\",\"evidence_ids\":[\"E0\"],\"checks\":[\"inspect_queue_counters\",\"inspect_selection_config\",\"inspect_connection_history\"]}"
+            }
+          ],
+          "role": "assistant"
+        }
+      ],
+      "parallel_tool_calls": true,
+      "presence_penalty": 0.0,
+      "previous_response_id": null,
+      "prompt_cache_key": null,
+      "prompt_cache_retention": "in_memory",
+      "reasoning": {
+        "context": null,
+        "effort": null,
+        "summary": null
+      },
+      "safety_identifier": null,
+      "service_tier": "default",
+      "store": false,
+      "temperature": 0.0,
+      "text": {
+        "format": {
+          "type": "json_schema",
+          "description": null,
+          "name": "diagnosis",
+          "schema": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "candidate": {
+                "type": "string",
+                "enum": [
+                  "configured_selection",
+                  "queue_drop",
+                  "connection_interruption",
+                  "unknown"
+                ]
+              },
+              "evidence_ids": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "checks": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "inspect_selection_config",
+                    "inspect_queue_counters",
+                    "inspect_connection_history",
+                    "collect_missing_context"
+                  ]
+                }
+              }
+            },
+            "required": [
+              "candidate",
+              "evidence_ids",
+              "checks"
+            ]
+          },
+          "strict": true
+        },
+        "verbosity": "medium"
+      },
+      "tool_choice": "auto",
+      "tool_usage": {
+        "image_gen": {
+          "input_tokens": 0,
+          "input_tokens_details": {
+            "image_tokens": 0,
+            "text_tokens": 0
+          },
+          "output_tokens": 0,
+          "output_tokens_details": {
+            "image_tokens": 0,
+            "text_tokens": 0
+          },
+          "total_tokens": 0
+        },
+        "web_search": {
+          "num_requests": 0
+        }
+      },
+      "tools": [],
+      "top_logprobs": 0,
+      "top_p": 1.0,
+      "truncation": "disabled",
+      "usage": {
+        "input_tokens": 440,
+        "input_tokens_details": {
+          "cache_write_tokens": 0,
+          "cached_tokens": 0
+        },
+        "output_tokens": 31,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 471
+      },
+      "user": null,
+      "metadata": {}
+    },
+    "usage": {
+      "input_tokens": 440,
+      "input_tokens_details": {
+        "cache_write_tokens": 0,
+        "cached_tokens": 0
+      },
+      "output_tokens": 31,
+      "output_tokens_details": {
+        "reasoning_tokens": 0
+      },
+      "total_tokens": 471
+    },
+    "seconds": 1.1773740999924485,
+    "prediction": {
+      "candidate": "queue_drop",
+      "evidence_ids": [
+        "E0"
+      ],
+      "checks": [
+        "inspect_queue_counters",
+        "inspect_selection_config",
+        "inspect_connection_history"
+      ]
+    }
+  }
+}

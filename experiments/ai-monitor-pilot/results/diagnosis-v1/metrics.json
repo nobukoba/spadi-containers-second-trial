@@ -1,5 +1,5 @@
 {
-  "status": "AI_PENDING",
+  "status": "AI_PARTIAL_OR_COMPLETE",
   "methods": {
     "structure_only": {
       "planned": 40,
@@ -27,7 +27,7 @@
       "planned": 40,
       "valid": 0,
       "candidate_matches": 0,
-      "operational_match_fraction": null,
+      "operational_match_fraction": 0.0,
       "required_check_matches": 0,
       "unsupported_evidence_references": 0,
       "unknown_correct": 0,
@@ -36,11 +36,11 @@
     },
     "with_context": {
       "planned": 40,
-      "valid": 0,
-      "candidate_matches": 0,
-      "operational_match_fraction": null,
-      "required_check_matches": 0,
-      "unsupported_evidence_references": 0,
+      "valid": 40,
+      "candidate_matches": 23,
+      "operational_match_fraction": 0.575,
+      "required_check_matches": 24,
+      "unsupported_evidence_references": 20,
       "unknown_correct": 0,
       "unknown_planned": 16,
       "expert_usefulness": "NOT_EVALUATED"

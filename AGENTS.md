@@ -296,3 +296,16 @@ usefulness. Preserve sanitized successful/incomplete model response bodies so
 output-validation failures can be investigated; do not retain credentials,
 request headers or HTTP error bodies. Unknown API usage requires stopping.
 Unexecuted AI fractions must remain null, not zero.
+
+Environment variables set in an interactive PowerShell are inherited by its
+children, not by an already-running Codex process. For API experiments, launch
+an allowlisted local phase runner from that PowerShell rather than persisting
+the key in a file or user registry. Infrastructure/startup failures must be kept
+separate from saved API/model failures; repairing the host execution path must
+not change a frozen experimental protocol.
+
+The diagnosis-v1 validator accepts only synthetic context observation IDs as
+evidence references. Data-only cases therefore need an empty evidence-ID list;
+record timeframe IDs are rejected. Report this interface limitation alongside
+operational scores, and retain the rejected sanitized response for diagnosis.
+Do not relax the validator or rescore those responses after viewing evaluation.

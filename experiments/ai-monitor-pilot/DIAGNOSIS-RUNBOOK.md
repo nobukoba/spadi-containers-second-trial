@@ -1,6 +1,8 @@
 # Contextual diagnosis pilot (synthetic)
 
-The model calls are not yet executed. This experiment tests interpretation of
+The model calls were executed on 2026-10-05 (JST). See
+`results/diagnosis-v1/RESULTS-ja.md` and `execution-summary.json` for all 90
+attempts, failures, usage and limitations. This experiment tests interpretation of
 synthetic evidence, not verified natural-fault causality. The first simple
 context baseline matches all 40 synthetic cases. Matching that baseline is not
 AI superiority, and a with-context improvement over data-only shows value of
@@ -63,3 +65,50 @@ with defensive credential redaction; headers and HTTP error bodies are omitted.
 Report API usage, failures and limitations. Review artifacts before publishing.
 Do not claim AI benefit unless supported against the context-rule baseline.
 Do not change the AWS application or Submit based on unmeasured results.
+
+## Recorded execution and reruns
+
+The recorded development phase contains ten attempts: five valid with-context
+responses and five rejected data-only responses. Its reported usage was 3,765
+input and 559 output tokens; estimated cost USD 0.0024004. The projected
+80-call evaluation cost was USD 0.0192032, shown before evaluation.
+
+All 80 evaluation calls were then attempted once. The data-only condition had
+40 evidence-reference validation failures; with-context had 40 valid outputs,
+23 candidate matches and 24 required-check matches. Context rules matched
+40 candidates and 40 required checks. There was no demonstrated AI superiority.
+The candidate-matching fraction is an operational score that includes interface
+failures, not an isolated measure of model reasoning. Evidence IDs in this
+version are restricted to context observation IDs, so data-only outputs that
+reference timeframe IDs are rejected. This condition was not changed after
+viewing results. All successful/incomplete/rejected model responses and known
+usage were retained; no failed attempt was resent.
+
+Calling `pilot` or `evaluate` on these saved outputs skips all existing attempts
+and sends no new requests. To run the exact same frozen cases again, copy the
+following existing files to a new output directory, preserving their bytes:
+`inputs.json`, `labels.json`, `protocol.json`, `freeze.json`, `conventional.json`.
+Do not copy `ai-*.json` or `usage-*.json` into that new directory.
+
+```powershell
+$source = 'experiments/ai-monitor-pilot/results/diagnosis-v1'
+$out = '.local/diagnosis-repeat-01'
+New-Item -ItemType Directory -Path $out
+Copy-Item "$source/inputs.json", "$source/labels.json", "$source/protocol.json", "$source/freeze.json", "$source/conventional.json" -Destination $out
+python experiments/ai-monitor-pilot/diagnosis.py pilot --output $out --budget-usd 0.10
+Get-Content "$out/usage-pilot.json"
+# Inspect pilot outputs and cost projection before evaluation.
+python experiments/ai-monitor-pilot/diagnosis.py evaluate --output $out --budget-usd 0.50
+python experiments/ai-monitor-pilot/diagnosis.py report --output $out
+```
+
+If a model output fails validation with known usage, repeating the same phase
+command continues to unattempted calls only. Do not continue after unknown usage.
+The original protocol/prompt/model/scorer must remain unchanged. A revised
+experiment requires a new version and a fresh freeze before evaluation.
+
+In this execution, Windows Python 3.12.14 inherited the key from the user's
+PowerShell process environment through a local phase runner. The key was never
+persisted in the user registry or a file. The runner was closed after execution;
+remove the original shell's environment value with `Remove-Item Env:OPENAI_API_KEY`
+or close that PowerShell. No Docker or AWS submission was used.

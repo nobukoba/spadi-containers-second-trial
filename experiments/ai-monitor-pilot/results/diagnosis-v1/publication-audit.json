@@ -1,0 +1,9 @@
+{
+  "api_key_pattern_scan": "PASS",
+  "scanned_files": 13,
+  "sanitized_model_response_bodies_preserved": true,
+  "frozen_hashes_verified": true,
+  "windows_unit_tests_passed": 12,
+  "credentials_persisted": false,
+  "note": "Runner inherits process OPENAI_API_KEY; response sanitizer removes its exact value. Controller never reads the key."
+}

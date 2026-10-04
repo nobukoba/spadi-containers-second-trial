@@ -1,0 +1,118 @@
+{
+  "status": "ALL_90_CALLS_ATTEMPTED",
+  "source_commit": "9d6b704bdec19b0192bb7d3f3c85d8ec498c2760",
+  "protocol_changed": false,
+  "failed_attempts_retried": false,
+  "unknown_usage_calls": 0,
+  "pilot_calls": 10,
+  "evaluation_calls": 80,
+  "conditions": {
+    "data_only": {
+      "calls": 40,
+      "statuses": {
+        "invalid_output": 40
+      },
+      "failure_reasons": {
+        "evidence_id_outside_allowed_context": 40
+      },
+      "input_tokens": 13560,
+      "output_tokens": 3345,
+      "cached_input_tokens": 0,
+      "api_seconds": 44.5087971999892,
+      "estimated_cost_usd": 0.010775999999999999,
+      "scenarios": {
+        "selection": {
+          "planned": 8,
+          "valid": 0,
+          "candidate_matches": 0,
+          "required_check_matches": 0
+        },
+        "queue": {
+          "planned": 8,
+          "valid": 0,
+          "candidate_matches": 0,
+          "required_check_matches": 0
+        },
+        "connection": {
+          "planned": 8,
+          "valid": 0,
+          "candidate_matches": 0,
+          "required_check_matches": 0
+        },
+        "absent": {
+          "planned": 8,
+          "valid": 0,
+          "candidate_matches": 0,
+          "required_check_matches": 0
+        },
+        "conflict": {
+          "planned": 8,
+          "valid": 0,
+          "candidate_matches": 0,
+          "required_check_matches": 0
+        }
+      }
+    },
+    "with_context": {
+      "calls": 40,
+      "statuses": {
+        "ok": 40
+      },
+      "failure_reasons": {},
+      "input_tokens": 16560,
+      "output_tokens": 1145,
+      "cached_input_tokens": 0,
+      "api_seconds": 34.70580389999668,
+      "estimated_cost_usd": 0.008456,
+      "scenarios": {
+        "selection": {
+          "planned": 8,
+          "valid": 8,
+          "candidate_matches": 7,
+          "required_check_matches": 8
+        },
+        "queue": {
+          "planned": 8,
+          "valid": 8,
+          "candidate_matches": 8,
+          "required_check_matches": 8
+        },
+        "connection": {
+          "planned": 8,
+          "valid": 8,
+          "candidate_matches": 8,
+          "required_check_matches": 8
+        },
+        "absent": {
+          "planned": 8,
+          "valid": 8,
+          "candidate_matches": 0,
+          "required_check_matches": 0
+        },
+        "conflict": {
+          "planned": 8,
+          "valid": 8,
+          "candidate_matches": 0,
+          "required_check_matches": 0
+        }
+      }
+    }
+  },
+  "total_input_tokens": 33885,
+  "total_output_tokens": 5049,
+  "total_api_seconds": 93.18862759997137,
+  "total_estimated_cost_usd": 0.0216324,
+  "actual_models": {
+    "gpt-4.1-mini-2025-04-14": 90
+  },
+  "context_rule_measurement": {
+    "cases": 40,
+    "seconds": 6.680001388303936e-05,
+    "platform": "win32",
+    "python": "3.12.14",
+    "description": "Unchanged frozen rule function, one pass excluding preparation/scoring; not DAQ streaming throughput"
+  },
+  "aws_submit_performed": false,
+  "claim": "No AI benefit established beyond context rules; synthetic evidence interpretation only.",
+  "key_inheriting_worker_closed": true
+}

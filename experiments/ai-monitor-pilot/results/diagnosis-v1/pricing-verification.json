@@ -1,0 +1,11 @@
+{
+  "checked_date_jst": "2026-10-05",
+  "source": "https://developers.openai.com/api/docs/models/gpt-4.1-mini",
+  "model": "gpt-4.1-mini-2025-04-14",
+  "usd_per_million": {
+    "input": 0.4,
+    "cached_input": 0.1,
+    "output": 1.6
+  },
+  "frozen_prices_match_current_official_documentation": true
+}

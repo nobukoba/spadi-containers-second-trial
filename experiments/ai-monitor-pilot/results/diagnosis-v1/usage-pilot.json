@@ -1,0 +1,9 @@
+{
+  "calls": 10,
+  "input_tokens": 3765,
+  "output_tokens": 559,
+  "seconds": 13.974026499985484,
+  "estimated_cost_usd": 0.0024003999999999996,
+  "evaluation_cost_projection": 0.019203199999999997,
+  "invoice": false
+}
