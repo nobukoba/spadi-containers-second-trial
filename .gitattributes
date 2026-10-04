@@ -1,3 +1,5 @@
 # Frozen protocol hashes cover exact bytes; preserve them across OS checkouts.
 experiments/ai-monitor-pilot/benchmark.py -text whitespace=-blank-at-eol
 experiments/ai-monitor-pilot/results/quantitative-v1/*.json -text whitespace=cr-at-eol
+experiments/ai-monitor-pilot/diagnosis.py -text
+experiments/ai-monitor-pilot/results/diagnosis-v1/*.json -text

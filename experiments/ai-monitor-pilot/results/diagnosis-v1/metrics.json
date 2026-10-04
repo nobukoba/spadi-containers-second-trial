@@ -1,0 +1,50 @@
+{
+  "status": "AI_PENDING",
+  "methods": {
+    "structure_only": {
+      "planned": 40,
+      "valid": 40,
+      "candidate_matches": 16,
+      "operational_match_fraction": 0.4,
+      "required_check_matches": 16,
+      "unsupported_evidence_references": 0,
+      "unknown_correct": 16,
+      "unknown_planned": 16,
+      "expert_usefulness": "NOT_EVALUATED"
+    },
+    "context_rules": {
+      "planned": 40,
+      "valid": 40,
+      "candidate_matches": 40,
+      "operational_match_fraction": 1.0,
+      "required_check_matches": 40,
+      "unsupported_evidence_references": 0,
+      "unknown_correct": 16,
+      "unknown_planned": 16,
+      "expert_usefulness": "NOT_EVALUATED"
+    },
+    "data_only": {
+      "planned": 40,
+      "valid": 0,
+      "candidate_matches": 0,
+      "operational_match_fraction": null,
+      "required_check_matches": 0,
+      "unsupported_evidence_references": 0,
+      "unknown_correct": 0,
+      "unknown_planned": 16,
+      "expert_usefulness": "NOT_EVALUATED"
+    },
+    "with_context": {
+      "planned": 40,
+      "valid": 0,
+      "candidate_matches": 0,
+      "operational_match_fraction": null,
+      "required_check_matches": 0,
+      "unsupported_evidence_references": 0,
+      "unknown_correct": 0,
+      "unknown_planned": 16,
+      "expert_usefulness": "NOT_EVALUATED"
+    }
+  },
+  "claim": "Synthetic evidence interpretation only; no demonstrated natural-fault diagnosis."
+}

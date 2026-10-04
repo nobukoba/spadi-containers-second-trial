@@ -1,0 +1,2045 @@
+{
+  "85c48e2e06e63ac4": {
+    "phase": "pilot",
+    "input": {
+      "data": {
+        "observed_timeframe_ids": [
+          7818312,
+          7818320,
+          7818328,
+          7818336,
+          7818344,
+          7818352,
+          7818360,
+          7818368,
+          7818376,
+          7818384,
+          7818392,
+          7818400,
+          7818408,
+          7818416,
+          7818424,
+          7818432
+        ],
+        "reference_id_step": 4
+      },
+      "context": [
+        {
+          "component": "other_monitor",
+          "event": "disconnected",
+          "id": "E0"
+        },
+        {
+          "component": "output",
+          "selection_stride": 8,
+          "id": "E1"
+        },
+        {
+          "component": "output",
+          "queue_fraction": 0.2,
+          "discarded_delta": 0,
+          "id": "E2"
+        }
+      ],
+      "provenance": "synthetic_context_and_selected_record_ids"
+    }
+  },
+  "841e59405e9944b6": {
+    "phase": "pilot",
+    "input": {
+      "data": {
+        "observed_timeframe_ids": [
+          7818312,
+          7818320,
+          7818328,
+          7818336,
+          7818344,
+          7818352,
+          7818360,
+          7818368,
+          7818376,
+          7818384,
+          7818392,
+          7818400,
+          7818408,
+          7818416,
+          7818424,
+          7818432
+        ],
+        "reference_id_step": 4
+      },
+      "context": [
+        {
+          "component": "output",
+          "queue_fraction": 0.99,
+          "discarded_delta": 16,
+          "id": "E0"
+        },
+        {
+          "component": "other_monitor",
+          "event": "disconnected",
+          "id": "E1"
+        },
+        {
+          "component": "output",
+          "queue_fraction": 0.2,
+          "discarded_delta": 0,
+          "id": "E2"
+        }
+      ],
+      "provenance": "synthetic_context_and_selected_record_ids"
+    }
+  },
+  "d2a50596c59a2a19": {
+    "phase": "pilot",
+    "input": {
+      "data": {
+        "observed_timeframe_ids": [
+          7818312,
+          7818320,
+          7818328,
+          7818336,
+          7818344,
+          7818352,
+          7818360,
+          7818368,
+          7818376,
+          7818384,
+          7818392,
+          7818400,
+          7818408,
+          7818416,
+          7818424,
+          7818432
+        ],
+        "reference_id_step": 4
+      },
+      "context": [
+        {
+          "component": "output",
+          "queue_fraction": 0.2,
+          "discarded_delta": 0,
+          "id": "E0"
+        },
+        {
+          "component": "output",
+          "event": "disconnected",
+          "id": "E1"
+        },
+        {
+          "component": "other_monitor",
+          "event": "disconnected",
+          "id": "E2"
+        }
+      ],
+      "provenance": "synthetic_context_and_selected_record_ids"
+    }
+  },
+  "98965a069c522158": {
+    "phase": "pilot",
+    "input": {
+      "data": {
+        "observed_timeframe_ids": [
+          7818312,
+          7818320,
+          7818328,
+          7818336,
+          7818344,
+          7818352,
+          7818360,
+          7818368,
+          7818376,
+          7818384,
+          7818392,
+          7818400,
+          7818408,
+          7818416,
+          7818424,
+          7818432
+        ],
+        "reference_id_step": 4
+      },
+      "context": [
+        {
+          "component": "output",
+          "queue_fraction": 0.2,
+          "discarded_delta": 0,
+          "id": "E0"
+        },
+        {
+          "component": "other_monitor",
+          "event": "disconnected",
+          "id": "E1"
+        }
+      ],
+      "provenance": "synthetic_context_and_selected_record_ids"
+    }
+  },
+  "f4f4eb57c0b74373": {
+    "phase": "pilot",
+    "input": {
+      "data": {
+        "observed_timeframe_ids": [
+          7818312,
+          7818320,
+          7818328,
+          7818336,
+          7818344,
+          7818352,
+          7818360,
+          7818368,
+          7818376,
+          7818384,
+          7818392,
+          7818400,
+          7818408,
+          7818416,
+          7818424,
+          7818432
+        ],
+        "reference_id_step": 4
+      },
+      "context": [
+        {
+          "component": "output",
+          "queue_fraction": 0.99,
+          "discarded_delta": 16,
+          "id": "E0"
+        },
+        {
+          "component": "output",
+          "queue_fraction": 0.2,
+          "discarded_delta": 0,
+          "id": "E1"
+        },
+        {
+          "component": "output",
+          "selection_stride": 8,
+          "id": "E2"
+        },
+        {
+          "component": "other_monitor",
+          "event": "disconnected",
+          "id": "E3"
+        }
+      ],
+      "provenance": "synthetic_context_and_selected_record_ids"
+    }
+  },
+  "12eb4dab8f7f843e": {
+    "phase": "evaluation",
+    "input": {
+      "data": {
+        "observed_timeframe_ids": [
+          7823940,
+          7823948,
+          7823956,
+          7823964,
+          7823972,
+          7823980,
+          7823988,
+          7823996,
+          7824004,
+          7824012,
+          7824020,
+          7824028,
+          7824036,
+          7824044,
+          7824052,
+          7824060
+        ],
+        "reference_id_step": 4
+      },
+      "context": [
+        {
+          "component": "other_monitor",
+          "event": "disconnected",
+          "id": "E0"
+        },
+        {
+          "component": "output",
+          "queue_fraction": 0.2,
+          "discarded_delta": 0,
+          "id": "E1"
+        },
+        {
+          "component": "output",
+          "selection_stride": 8,
+          "id": "E2"
+        }
+      ],
+      "provenance": "synthetic_context_and_selected_record_ids"
+    }
+  },
+  "a487d882ba502898": {
+    "phase": "evaluation",
+    "input": {
+      "data": {
+        "observed_timeframe_ids": [
+          7823940,
+          7823948,
+          7823956,
+          7823964,
+          7823972,
+          7823980,
+          7823988,
+          7823996,
+          7824004,
+          7824012,
+          7824020,
+          7824028,
+          7824036,
+          7824044,
+          7824052,
+          7824060
+        ],
+        "reference_id_step": 4
+      },
+      "context": [
+        {
+          "component": "other_monitor",
+          "event": "disconnected",
+          "id": "E0"
+        },
+        {
+          "component": "output",
+          "queue_fraction": 0.2,
+          "discarded_delta": 0,
+          "id": "E1"
+        },
+        {
+          "component": "output",
+          "queue_fraction": 0.99,
+          "discarded_delta": 16,
+          "id": "E2"
+        }
+      ],
+      "provenance": "synthetic_context_and_selected_record_ids"
+    }
+  },
+  "583796123b5dbed6": {
+    "phase": "evaluation",
+    "input": {
+      "data": {
+        "observed_timeframe_ids": [
+          7823940,
+          7823948,
+          7823956,
+          7823964,
+          7823972,
+          7823980,
+          7823988,
+          7823996,
+          7824004,
+          7824012,
+          7824020,
+          7824028,
+          7824036,
+          7824044,
+          7824052,
+          7824060
+        ],
+        "reference_id_step": 4
+      },
+      "context": [
+        {
+          "component": "other_monitor",
+          "event": "disconnected",
+          "id": "E0"
+        },
+        {
+          "component": "output",
+          "queue_fraction": 0.2,
+          "discarded_delta": 0,
+          "id": "E1"
+        },
+        {
+          "component": "output",
+          "event": "disconnected",
+          "id": "E2"
+        }
+      ],
+      "provenance": "synthetic_context_and_selected_record_ids"
+    }
+  },
+  "d5857900a3e8c83c": {
+    "phase": "evaluation",
+    "input": {
+      "data": {
+        "observed_timeframe_ids": [
+          7823940,
+          7823948,
+          7823956,
+          7823964,
+          7823972,
+          7823980,
+          7823988,
+          7823996,
+          7824004,
+          7824012,
+          7824020,
+          7824028,
+          7824036,
+          7824044,
+          7824052,
+          7824060
+        ],
+        "reference_id_step": 4
+      },
+      "context": [
+        {
+          "component": "other_monitor",
+          "event": "disconnected",
+          "id": "E0"
+        },
+        {
+          "component": "output",
+          "queue_fraction": 0.2,
+          "discarded_delta": 0,
+          "id": "E1"
+        }
+      ],
+      "provenance": "synthetic_context_and_selected_record_ids"
+    }
+  },
+  "0cc1437489d52709": {
+    "phase": "evaluation",
+    "input": {
+      "data": {
+        "observed_timeframe_ids": [
+          7823940,
+          7823948,
+          7823956,
+          7823964,
+          7823972,
+          7823980,
+          7823988,
+          7823996,
+          7824004,
+          7824012,
+          7824020,
+          7824028,
+          7824036,
+          7824044,
+          7824052,
+          7824060
+        ],
+        "reference_id_step": 4
+      },
+      "context": [
+        {
+          "component": "output",
+          "queue_fraction": 0.99,
+          "discarded_delta": 16,
+          "id": "E0"
+        },
+        {
+          "component": "output",
+          "selection_stride": 8,
+          "id": "E1"
+        },
+        {
+          "component": "other_monitor",
+          "event": "disconnected",
+          "id": "E2"
+        },
+        {
+          "component": "output",
+          "queue_fraction": 0.2,
+          "discarded_delta": 0,
+          "id": "E3"
+        }
+      ],
+      "provenance": "synthetic_context_and_selected_record_ids"
+    }
+  },
+  "8a748afe4256cea8": {
+    "phase": "evaluation",
+    "input": {
+      "data": {
+        "observed_timeframe_ids": [
+          7828804,
+          7828812,
+          7828820,
+          7828828,
+          7828836,
+          7828844,
+          7828852,
+          7828860,
+          7828868,
+          7828876,
+          7828884,
+          7828892,
+          7828900,
+          7828908,
+          7828916,
+          7828924
+        ],
+        "reference_id_step": 4
+      },
+      "context": [
+        {
+          "component": "other_monitor",
+          "event": "disconnected",
+          "id": "E0"
+        },
+        {
+          "component": "output",
+          "selection_stride": 8,
+          "id": "E1"
+        },
+        {
+          "component": "output",
+          "queue_fraction": 0.2,
+          "discarded_delta": 0,
+          "id": "E2"
+        }
+      ],
+      "provenance": "synthetic_context_and_selected_record_ids"
+    }
+  },
+  "2ffb2188fe91f39a": {
+    "phase": "evaluation",
+    "input": {
+      "data": {
+        "observed_timeframe_ids": [
+          7828804,
+          7828812,
+          7828820,
+          7828828,
+          7828836,
+          7828844,
+          7828852,
+          7828860,
+          7828868,
+          7828876,
+          7828884,
+          7828892,
+          7828900,
+          7828908,
+          7828916,
+          7828924
+        ],
+        "reference_id_step": 4
+      },
+      "context": [
+        {
+          "component": "other_monitor",
+          "event": "disconnected",
+          "id": "E0"
+        },
+        {
+          "component": "output",
+          "queue_fraction": 0.99,
+          "discarded_delta": 16,
+          "id": "E1"
+        },
+        {
+          "component": "output",
+          "queue_fraction": 0.2,
+          "discarded_delta": 0,
+          "id": "E2"
+        }
+      ],
+      "provenance": "synthetic_context_and_selected_record_ids"
+    }
+  },
+  "4712aefc24281038": {
+    "phase": "evaluation",
+    "input": {
+      "data": {
+        "observed_timeframe_ids": [
+          7828804,
+          7828812,
+          7828820,
+          7828828,
+          7828836,
+          7828844,
+          7828852,
+          7828860,
+          7828868,
+          7828876,
+          7828884,
+          7828892,
+          7828900,
+          7828908,
+          7828916,
+          7828924
+        ],
+        "reference_id_step": 4
+      },
+      "context": [
+        {
+          "component": "other_monitor",
+          "event": "disconnected",
+          "id": "E0"
+        },
+        {
+          "component": "output",
+          "event": "disconnected",
+          "id": "E1"
+        },
+        {
+          "component": "output",
+          "queue_fraction": 0.2,
+          "discarded_delta": 0,
+          "id": "E2"
+        }
+      ],
+      "provenance": "synthetic_context_and_selected_record_ids"
+    }
+  },
+  "1b831d5018bacd9e": {
+    "phase": "evaluation",
+    "input": {
+      "data": {
+        "observed_timeframe_ids": [
+          7828804,
+          7828812,
+          7828820,
+          7828828,
+          7828836,
+          7828844,
+          7828852,
+          7828860,
+          7828868,
+          7828876,
+          7828884,
+          7828892,
+          7828900,
+          7828908,
+          7828916,
+          7828924
+        ],
+        "reference_id_step": 4
+      },
+      "context": [
+        {
+          "component": "other_monitor",
+          "event": "disconnected",
+          "id": "E0"
+        },
+        {
+          "component": "output",
+          "queue_fraction": 0.2,
+          "discarded_delta": 0,
+          "id": "E1"
+        }
+      ],
+      "provenance": "synthetic_context_and_selected_record_ids"
+    }
+  },
+  "65efdb218db2ebfa": {
+    "phase": "evaluation",
+    "input": {
+      "data": {
+        "observed_timeframe_ids": [
+          7828804,
+          7828812,
+          7828820,
+          7828828,
+          7828836,
+          7828844,
+          7828852,
+          7828860,
+          7828868,
+          7828876,
+          7828884,
+          7828892,
+          7828900,
+          7828908,
+          7828916,
+          7828924
+        ],
+        "reference_id_step": 4
+      },
+      "context": [
+        {
+          "component": "output",
+          "queue_fraction": 0.99,
+          "discarded_delta": 16,
+          "id": "E0"
+        },
+        {
+          "component": "output",
+          "selection_stride": 8,
+          "id": "E1"
+        },
+        {
+          "component": "other_monitor",
+          "event": "disconnected",
+          "id": "E2"
+        },
+        {
+          "component": "output",
+          "queue_fraction": 0.2,
+          "discarded_delta": 0,
+          "id": "E3"
+        }
+      ],
+      "provenance": "synthetic_context_and_selected_record_ids"
+    }
+  },
+  "f31d085420f6add1": {
+    "phase": "evaluation",
+    "input": {
+      "data": {
+        "observed_timeframe_ids": [
+          7826116,
+          7826124,
+          7826132,
+          7826140,
+          7826148,
+          7826156,
+          7826164,
+          7826172,
+          7826180,
+          7826188,
+          7826196,
+          7826204,
+          7826212,
+          7826220,
+          7826228,
+          7826236
+        ],
+        "reference_id_step": 4
+      },
+      "context": [
+        {
+          "component": "output",
+          "selection_stride": 8,
+          "id": "E0"
+        },
+        {
+          "component": "output",
+          "queue_fraction": 0.2,
+          "discarded_delta": 0,
+          "id": "E1"
+        },
+        {
+          "component": "other_monitor",
+          "event": "disconnected",
+          "id": "E2"
+        }
+      ],
+      "provenance": "synthetic_context_and_selected_record_ids"
+    }
+  },
+  "2f1979a3010d71f6": {
+    "phase": "evaluation",
+    "input": {
+      "data": {
+        "observed_timeframe_ids": [
+          7826116,
+          7826124,
+          7826132,
+          7826140,
+          7826148,
+          7826156,
+          7826164,
+          7826172,
+          7826180,
+          7826188,
+          7826196,
+          7826204,
+          7826212,
+          7826220,
+          7826228,
+          7826236
+        ],
+        "reference_id_step": 4
+      },
+      "context": [
+        {
+          "component": "other_monitor",
+          "event": "disconnected",
+          "id": "E0"
+        },
+        {
+          "component": "output",
+          "queue_fraction": 0.99,
+          "discarded_delta": 16,
+          "id": "E1"
+        },
+        {
+          "component": "output",
+          "queue_fraction": 0.2,
+          "discarded_delta": 0,
+          "id": "E2"
+        }
+      ],
+      "provenance": "synthetic_context_and_selected_record_ids"
+    }
+  },
+  "a6bdaf5b98e959fc": {
+    "phase": "evaluation",
+    "input": {
+      "data": {
+        "observed_timeframe_ids": [
+          7826116,
+          7826124,
+          7826132,
+          7826140,
+          7826148,
+          7826156,
+          7826164,
+          7826172,
+          7826180,
+          7826188,
+          7826196,
+          7826204,
+          7826212,
+          7826220,
+          7826228,
+          7826236
+        ],
+        "reference_id_step": 4
+      },
+      "context": [
+        {
+          "component": "output",
+          "queue_fraction": 0.2,
+          "discarded_delta": 0,
+          "id": "E0"
+        },
+        {
+          "component": "output",
+          "event": "disconnected",
+          "id": "E1"
+        },
+        {
+          "component": "other_monitor",
+          "event": "disconnected",
+          "id": "E2"
+        }
+      ],
+      "provenance": "synthetic_context_and_selected_record_ids"
+    }
+  },
+  "fb60704ff0f68ba9": {
+    "phase": "evaluation",
+    "input": {
+      "data": {
+        "observed_timeframe_ids": [
+          7826116,
+          7826124,
+          7826132,
+          7826140,
+          7826148,
+          7826156,
+          7826164,
+          7826172,
+          7826180,
+          7826188,
+          7826196,
+          7826204,
+          7826212,
+          7826220,
+          7826228,
+          7826236
+        ],
+        "reference_id_step": 4
+      },
+      "context": [
+        {
+          "component": "output",
+          "queue_fraction": 0.2,
+          "discarded_delta": 0,
+          "id": "E0"
+        },
+        {
+          "component": "other_monitor",
+          "event": "disconnected",
+          "id": "E1"
+        }
+      ],
+      "provenance": "synthetic_context_and_selected_record_ids"
+    }
+  },
+  "cb0e5f2b3a2859e7": {
+    "phase": "evaluation",
+    "input": {
+      "data": {
+        "observed_timeframe_ids": [
+          7826116,
+          7826124,
+          7826132,
+          7826140,
+          7826148,
+          7826156,
+          7826164,
+          7826172,
+          7826180,
+          7826188,
+          7826196,
+          7826204,
+          7826212,
+          7826220,
+          7826228,
+          7826236
+        ],
+        "reference_id_step": 4
+      },
+      "context": [
+        {
+          "component": "output",
+          "queue_fraction": 0.2,
+          "discarded_delta": 0,
+          "id": "E0"
+        },
+        {
+          "component": "other_monitor",
+          "event": "disconnected",
+          "id": "E1"
+        },
+        {
+          "component": "output",
+          "selection_stride": 8,
+          "id": "E2"
+        },
+        {
+          "component": "output",
+          "queue_fraction": 0.99,
+          "discarded_delta": 16,
+          "id": "E3"
+        }
+      ],
+      "provenance": "synthetic_context_and_selected_record_ids"
+    }
+  },
+  "1e86bdea3eaedbb4": {
+    "phase": "evaluation",
+    "input": {
+      "data": {
+        "observed_timeframe_ids": [
+          7824324,
+          7824332,
+          7824340,
+          7824348,
+          7824356,
+          7824364,
+          7824372,
+          7824380,
+          7824388,
+          7824396,
+          7824404,
+          7824412,
+          7824420,
+          7824428,
+          7824436,
+          7824444
+        ],
+        "reference_id_step": 4
+      },
+      "context": [
+        {
+          "component": "other_monitor",
+          "event": "disconnected",
+          "id": "E0"
+        },
+        {
+          "component": "output",
+          "selection_stride": 8,
+          "id": "E1"
+        },
+        {
+          "component": "output",
+          "queue_fraction": 0.2,
+          "discarded_delta": 0,
+          "id": "E2"
+        }
+      ],
+      "provenance": "synthetic_context_and_selected_record_ids"
+    }
+  },
+  "a9dc99a1459d8776": {
+    "phase": "evaluation",
+    "input": {
+      "data": {
+        "observed_timeframe_ids": [
+          7824324,
+          7824332,
+          7824340,
+          7824348,
+          7824356,
+          7824364,
+          7824372,
+          7824380,
+          7824388,
+          7824396,
+          7824404,
+          7824412,
+          7824420,
+          7824428,
+          7824436,
+          7824444
+        ],
+        "reference_id_step": 4
+      },
+      "context": [
+        {
+          "component": "output",
+          "queue_fraction": 0.99,
+          "discarded_delta": 16,
+          "id": "E0"
+        },
+        {
+          "component": "other_monitor",
+          "event": "disconnected",
+          "id": "E1"
+        },
+        {
+          "component": "output",
+          "queue_fraction": 0.2,
+          "discarded_delta": 0,
+          "id": "E2"
+        }
+      ],
+      "provenance": "synthetic_context_and_selected_record_ids"
+    }
+  },
+  "bcc3745d13eb5829": {
+    "phase": "evaluation",
+    "input": {
+      "data": {
+        "observed_timeframe_ids": [
+          7824324,
+          7824332,
+          7824340,
+          7824348,
+          7824356,
+          7824364,
+          7824372,
+          7824380,
+          7824388,
+          7824396,
+          7824404,
+          7824412,
+          7824420,
+          7824428,
+          7824436,
+          7824444
+        ],
+        "reference_id_step": 4
+      },
+      "context": [
+        {
+          "component": "output",
+          "event": "disconnected",
+          "id": "E0"
+        },
+        {
+          "component": "other_monitor",
+          "event": "disconnected",
+          "id": "E1"
+        },
+        {
+          "component": "output",
+          "queue_fraction": 0.2,
+          "discarded_delta": 0,
+          "id": "E2"
+        }
+      ],
+      "provenance": "synthetic_context_and_selected_record_ids"
+    }
+  },
+  "e3339dec3789d875": {
+    "phase": "evaluation",
+    "input": {
+      "data": {
+        "observed_timeframe_ids": [
+          7824324,
+          7824332,
+          7824340,
+          7824348,
+          7824356,
+          7824364,
+          7824372,
+          7824380,
+          7824388,
+          7824396,
+          7824404,
+          7824412,
+          7824420,
+          7824428,
+          7824436,
+          7824444
+        ],
+        "reference_id_step": 4
+      },
+      "context": [
+        {
+          "component": "output",
+          "queue_fraction": 0.2,
+          "discarded_delta": 0,
+          "id": "E0"
+        },
+        {
+          "component": "other_monitor",
+          "event": "disconnected",
+          "id": "E1"
+        }
+      ],
+      "provenance": "synthetic_context_and_selected_record_ids"
+    }
+  },
+  "3ad79af231644067": {
+    "phase": "evaluation",
+    "input": {
+      "data": {
+        "observed_timeframe_ids": [
+          7824324,
+          7824332,
+          7824340,
+          7824348,
+          7824356,
+          7824364,
+          7824372,
+          7824380,
+          7824388,
+          7824396,
+          7824404,
+          7824412,
+          7824420,
+          7824428,
+          7824436,
+          7824444
+        ],
+        "reference_id_step": 4
+      },
+      "context": [
+        {
+          "component": "output",
+          "selection_stride": 8,
+          "id": "E0"
+        },
+        {
+          "component": "output",
+          "queue_fraction": 0.99,
+          "discarded_delta": 16,
+          "id": "E1"
+        },
+        {
+          "component": "output",
+          "queue_fraction": 0.2,
+          "discarded_delta": 0,
+          "id": "E2"
+        },
+        {
+          "component": "other_monitor",
+          "event": "disconnected",
+          "id": "E3"
+        }
+      ],
+      "provenance": "synthetic_context_and_selected_record_ids"
+    }
+  },
+  "518121e99de6ce88": {
+    "phase": "evaluation",
+    "input": {
+      "data": {
+        "observed_timeframe_ids": [
+          7825016,
+          7825024,
+          7825032,
+          7825040,
+          7825048,
+          7825056,
+          7825064,
+          7825072,
+          7825080,
+          7825088,
+          7825096,
+          7825104,
+          7825112,
+          7825120,
+          7825128,
+          7825136
+        ],
+        "reference_id_step": 4
+      },
+      "context": [
+        {
+          "component": "output",
+          "selection_stride": 8,
+          "id": "E0"
+        },
+        {
+          "component": "output",
+          "queue_fraction": 0.2,
+          "discarded_delta": 0,
+          "id": "E1"
+        },
+        {
+          "component": "other_monitor",
+          "event": "disconnected",
+          "id": "E2"
+        }
+      ],
+      "provenance": "synthetic_context_and_selected_record_ids"
+    }
+  },
+  "4fcba44ad8152617": {
+    "phase": "evaluation",
+    "input": {
+      "data": {
+        "observed_timeframe_ids": [
+          7825016,
+          7825024,
+          7825032,
+          7825040,
+          7825048,
+          7825056,
+          7825064,
+          7825072,
+          7825080,
+          7825088,
+          7825096,
+          7825104,
+          7825112,
+          7825120,
+          7825128,
+          7825136
+        ],
+        "reference_id_step": 4
+      },
+      "context": [
+        {
+          "component": "output",
+          "queue_fraction": 0.2,
+          "discarded_delta": 0,
+          "id": "E0"
+        },
+        {
+          "component": "output",
+          "queue_fraction": 0.99,
+          "discarded_delta": 16,
+          "id": "E1"
+        },
+        {
+          "component": "other_monitor",
+          "event": "disconnected",
+          "id": "E2"
+        }
+      ],
+      "provenance": "synthetic_context_and_selected_record_ids"
+    }
+  },
+  "5234dbdef6f4e204": {
+    "phase": "evaluation",
+    "input": {
+      "data": {
+        "observed_timeframe_ids": [
+          7825016,
+          7825024,
+          7825032,
+          7825040,
+          7825048,
+          7825056,
+          7825064,
+          7825072,
+          7825080,
+          7825088,
+          7825096,
+          7825104,
+          7825112,
+          7825120,
+          7825128,
+          7825136
+        ],
+        "reference_id_step": 4
+      },
+      "context": [
+        {
+          "component": "other_monitor",
+          "event": "disconnected",
+          "id": "E0"
+        },
+        {
+          "component": "output",
+          "queue_fraction": 0.2,
+          "discarded_delta": 0,
+          "id": "E1"
+        },
+        {
+          "component": "output",
+          "event": "disconnected",
+          "id": "E2"
+        }
+      ],
+      "provenance": "synthetic_context_and_selected_record_ids"
+    }
+  },
+  "7d51576a37b950ae": {
+    "phase": "evaluation",
+    "input": {
+      "data": {
+        "observed_timeframe_ids": [
+          7825016,
+          7825024,
+          7825032,
+          7825040,
+          7825048,
+          7825056,
+          7825064,
+          7825072,
+          7825080,
+          7825088,
+          7825096,
+          7825104,
+          7825112,
+          7825120,
+          7825128,
+          7825136
+        ],
+        "reference_id_step": 4
+      },
+      "context": [
+        {
+          "component": "output",
+          "queue_fraction": 0.2,
+          "discarded_delta": 0,
+          "id": "E0"
+        },
+        {
+          "component": "other_monitor",
+          "event": "disconnected",
+          "id": "E1"
+        }
+      ],
+      "provenance": "synthetic_context_and_selected_record_ids"
+    }
+  },
+  "3bb38427e8370dc3": {
+    "phase": "evaluation",
+    "input": {
+      "data": {
+        "observed_timeframe_ids": [
+          7825016,
+          7825024,
+          7825032,
+          7825040,
+          7825048,
+          7825056,
+          7825064,
+          7825072,
+          7825080,
+          7825088,
+          7825096,
+          7825104,
+          7825112,
+          7825120,
+          7825128,
+          7825136
+        ],
+        "reference_id_step": 4
+      },
+      "context": [
+        {
+          "component": "output",
+          "queue_fraction": 0.99,
+          "discarded_delta": 16,
+          "id": "E0"
+        },
+        {
+          "component": "other_monitor",
+          "event": "disconnected",
+          "id": "E1"
+        },
+        {
+          "component": "output",
+          "selection_stride": 8,
+          "id": "E2"
+        },
+        {
+          "component": "output",
+          "queue_fraction": 0.2,
+          "discarded_delta": 0,
+          "id": "E3"
+        }
+      ],
+      "provenance": "synthetic_context_and_selected_record_ids"
+    }
+  },
+  "9bb43c8beb854d37": {
+    "phase": "evaluation",
+    "input": {
+      "data": {
+        "observed_timeframe_ids": [
+          7826168,
+          7826176,
+          7826184,
+          7826192,
+          7826200,
+          7826208,
+          7826216,
+          7826224,
+          7826232,
+          7826240,
+          7826248,
+          7826256,
+          7826264,
+          7826272,
+          7826280,
+          7826288
+        ],
+        "reference_id_step": 4
+      },
+      "context": [
+        {
+          "component": "other_monitor",
+          "event": "disconnected",
+          "id": "E0"
+        },
+        {
+          "component": "output",
+          "queue_fraction": 0.2,
+          "discarded_delta": 0,
+          "id": "E1"
+        },
+        {
+          "component": "output",
+          "selection_stride": 8,
+          "id": "E2"
+        }
+      ],
+      "provenance": "synthetic_context_and_selected_record_ids"
+    }
+  },
+  "031150f83a82443b": {
+    "phase": "evaluation",
+    "input": {
+      "data": {
+        "observed_timeframe_ids": [
+          7826168,
+          7826176,
+          7826184,
+          7826192,
+          7826200,
+          7826208,
+          7826216,
+          7826224,
+          7826232,
+          7826240,
+          7826248,
+          7826256,
+          7826264,
+          7826272,
+          7826280,
+          7826288
+        ],
+        "reference_id_step": 4
+      },
+      "context": [
+        {
+          "component": "other_monitor",
+          "event": "disconnected",
+          "id": "E0"
+        },
+        {
+          "component": "output",
+          "queue_fraction": 0.99,
+          "discarded_delta": 16,
+          "id": "E1"
+        },
+        {
+          "component": "output",
+          "queue_fraction": 0.2,
+          "discarded_delta": 0,
+          "id": "E2"
+        }
+      ],
+      "provenance": "synthetic_context_and_selected_record_ids"
+    }
+  },
+  "0fbf93bff58078b2": {
+    "phase": "evaluation",
+    "input": {
+      "data": {
+        "observed_timeframe_ids": [
+          7826168,
+          7826176,
+          7826184,
+          7826192,
+          7826200,
+          7826208,
+          7826216,
+          7826224,
+          7826232,
+          7826240,
+          7826248,
+          7826256,
+          7826264,
+          7826272,
+          7826280,
+          7826288
+        ],
+        "reference_id_step": 4
+      },
+      "context": [
+        {
+          "component": "other_monitor",
+          "event": "disconnected",
+          "id": "E0"
+        },
+        {
+          "component": "output",
+          "event": "disconnected",
+          "id": "E1"
+        },
+        {
+          "component": "output",
+          "queue_fraction": 0.2,
+          "discarded_delta": 0,
+          "id": "E2"
+        }
+      ],
+      "provenance": "synthetic_context_and_selected_record_ids"
+    }
+  },
+  "71d7cfc5fc56c55c": {
+    "phase": "evaluation",
+    "input": {
+      "data": {
+        "observed_timeframe_ids": [
+          7826168,
+          7826176,
+          7826184,
+          7826192,
+          7826200,
+          7826208,
+          7826216,
+          7826224,
+          7826232,
+          7826240,
+          7826248,
+          7826256,
+          7826264,
+          7826272,
+          7826280,
+          7826288
+        ],
+        "reference_id_step": 4
+      },
+      "context": [
+        {
+          "component": "output",
+          "queue_fraction": 0.2,
+          "discarded_delta": 0,
+          "id": "E0"
+        },
+        {
+          "component": "other_monitor",
+          "event": "disconnected",
+          "id": "E1"
+        }
+      ],
+      "provenance": "synthetic_context_and_selected_record_ids"
+    }
+  },
+  "af1fcbce337f5787": {
+    "phase": "evaluation",
+    "input": {
+      "data": {
+        "observed_timeframe_ids": [
+          7826168,
+          7826176,
+          7826184,
+          7826192,
+          7826200,
+          7826208,
+          7826216,
+          7826224,
+          7826232,
+          7826240,
+          7826248,
+          7826256,
+          7826264,
+          7826272,
+          7826280,
+          7826288
+        ],
+        "reference_id_step": 4
+      },
+      "context": [
+        {
+          "component": "output",
+          "selection_stride": 8,
+          "id": "E0"
+        },
+        {
+          "component": "output",
+          "queue_fraction": 0.2,
+          "discarded_delta": 0,
+          "id": "E1"
+        },
+        {
+          "component": "output",
+          "queue_fraction": 0.99,
+          "discarded_delta": 16,
+          "id": "E2"
+        },
+        {
+          "component": "other_monitor",
+          "event": "disconnected",
+          "id": "E3"
+        }
+      ],
+      "provenance": "synthetic_context_and_selected_record_ids"
+    }
+  },
+  "260085c9e31aa34e": {
+    "phase": "evaluation",
+    "input": {
+      "data": {
+        "observed_timeframe_ids": [
+          7828164,
+          7828172,
+          7828180,
+          7828188,
+          7828196,
+          7828204,
+          7828212,
+          7828220,
+          7828228,
+          7828236,
+          7828244,
+          7828252,
+          7828260,
+          7828268,
+          7828276,
+          7828284
+        ],
+        "reference_id_step": 4
+      },
+      "context": [
+        {
+          "component": "other_monitor",
+          "event": "disconnected",
+          "id": "E0"
+        },
+        {
+          "component": "output",
+          "queue_fraction": 0.2,
+          "discarded_delta": 0,
+          "id": "E1"
+        },
+        {
+          "component": "output",
+          "selection_stride": 8,
+          "id": "E2"
+        }
+      ],
+      "provenance": "synthetic_context_and_selected_record_ids"
+    }
+  },
+  "478bd640724126e5": {
+    "phase": "evaluation",
+    "input": {
+      "data": {
+        "observed_timeframe_ids": [
+          7828164,
+          7828172,
+          7828180,
+          7828188,
+          7828196,
+          7828204,
+          7828212,
+          7828220,
+          7828228,
+          7828236,
+          7828244,
+          7828252,
+          7828260,
+          7828268,
+          7828276,
+          7828284
+        ],
+        "reference_id_step": 4
+      },
+      "context": [
+        {
+          "component": "output",
+          "queue_fraction": 0.99,
+          "discarded_delta": 16,
+          "id": "E0"
+        },
+        {
+          "component": "output",
+          "queue_fraction": 0.2,
+          "discarded_delta": 0,
+          "id": "E1"
+        },
+        {
+          "component": "other_monitor",
+          "event": "disconnected",
+          "id": "E2"
+        }
+      ],
+      "provenance": "synthetic_context_and_selected_record_ids"
+    }
+  },
+  "5e0c42179dc34839": {
+    "phase": "evaluation",
+    "input": {
+      "data": {
+        "observed_timeframe_ids": [
+          7828164,
+          7828172,
+          7828180,
+          7828188,
+          7828196,
+          7828204,
+          7828212,
+          7828220,
+          7828228,
+          7828236,
+          7828244,
+          7828252,
+          7828260,
+          7828268,
+          7828276,
+          7828284
+        ],
+        "reference_id_step": 4
+      },
+      "context": [
+        {
+          "component": "output",
+          "event": "disconnected",
+          "id": "E0"
+        },
+        {
+          "component": "output",
+          "queue_fraction": 0.2,
+          "discarded_delta": 0,
+          "id": "E1"
+        },
+        {
+          "component": "other_monitor",
+          "event": "disconnected",
+          "id": "E2"
+        }
+      ],
+      "provenance": "synthetic_context_and_selected_record_ids"
+    }
+  },
+  "d0a4d7cc6e78a329": {
+    "phase": "evaluation",
+    "input": {
+      "data": {
+        "observed_timeframe_ids": [
+          7828164,
+          7828172,
+          7828180,
+          7828188,
+          7828196,
+          7828204,
+          7828212,
+          7828220,
+          7828228,
+          7828236,
+          7828244,
+          7828252,
+          7828260,
+          7828268,
+          7828276,
+          7828284
+        ],
+        "reference_id_step": 4
+      },
+      "context": [
+        {
+          "component": "output",
+          "queue_fraction": 0.2,
+          "discarded_delta": 0,
+          "id": "E0"
+        },
+        {
+          "component": "other_monitor",
+          "event": "disconnected",
+          "id": "E1"
+        }
+      ],
+      "provenance": "synthetic_context_and_selected_record_ids"
+    }
+  },
+  "b8f3ea80401d2940": {
+    "phase": "evaluation",
+    "input": {
+      "data": {
+        "observed_timeframe_ids": [
+          7828164,
+          7828172,
+          7828180,
+          7828188,
+          7828196,
+          7828204,
+          7828212,
+          7828220,
+          7828228,
+          7828236,
+          7828244,
+          7828252,
+          7828260,
+          7828268,
+          7828276,
+          7828284
+        ],
+        "reference_id_step": 4
+      },
+      "context": [
+        {
+          "component": "other_monitor",
+          "event": "disconnected",
+          "id": "E0"
+        },
+        {
+          "component": "output",
+          "queue_fraction": 0.99,
+          "discarded_delta": 16,
+          "id": "E1"
+        },
+        {
+          "component": "output",
+          "selection_stride": 8,
+          "id": "E2"
+        },
+        {
+          "component": "output",
+          "queue_fraction": 0.2,
+          "discarded_delta": 0,
+          "id": "E3"
+        }
+      ],
+      "provenance": "synthetic_context_and_selected_record_ids"
+    }
+  },
+  "328ebc6db1ad93cc": {
+    "phase": "evaluation",
+    "input": {
+      "data": {
+        "observed_timeframe_ids": [
+          7825860,
+          7825868,
+          7825876,
+          7825884,
+          7825892,
+          7825900,
+          7825908,
+          7825916,
+          7825924,
+          7825932,
+          7825940,
+          7825948,
+          7825956,
+          7825964,
+          7825972,
+          7825980
+        ],
+        "reference_id_step": 4
+      },
+      "context": [
+        {
+          "component": "output",
+          "queue_fraction": 0.2,
+          "discarded_delta": 0,
+          "id": "E0"
+        },
+        {
+          "component": "output",
+          "selection_stride": 8,
+          "id": "E1"
+        },
+        {
+          "component": "other_monitor",
+          "event": "disconnected",
+          "id": "E2"
+        }
+      ],
+      "provenance": "synthetic_context_and_selected_record_ids"
+    }
+  },
+  "3915f5a2358d8445": {
+    "phase": "evaluation",
+    "input": {
+      "data": {
+        "observed_timeframe_ids": [
+          7825860,
+          7825868,
+          7825876,
+          7825884,
+          7825892,
+          7825900,
+          7825908,
+          7825916,
+          7825924,
+          7825932,
+          7825940,
+          7825948,
+          7825956,
+          7825964,
+          7825972,
+          7825980
+        ],
+        "reference_id_step": 4
+      },
+      "context": [
+        {
+          "component": "other_monitor",
+          "event": "disconnected",
+          "id": "E0"
+        },
+        {
+          "component": "output",
+          "queue_fraction": 0.99,
+          "discarded_delta": 16,
+          "id": "E1"
+        },
+        {
+          "component": "output",
+          "queue_fraction": 0.2,
+          "discarded_delta": 0,
+          "id": "E2"
+        }
+      ],
+      "provenance": "synthetic_context_and_selected_record_ids"
+    }
+  },
+  "0ebf9a10fc7d9263": {
+    "phase": "evaluation",
+    "input": {
+      "data": {
+        "observed_timeframe_ids": [
+          7825860,
+          7825868,
+          7825876,
+          7825884,
+          7825892,
+          7825900,
+          7825908,
+          7825916,
+          7825924,
+          7825932,
+          7825940,
+          7825948,
+          7825956,
+          7825964,
+          7825972,
+          7825980
+        ],
+        "reference_id_step": 4
+      },
+      "context": [
+        {
+          "component": "other_monitor",
+          "event": "disconnected",
+          "id": "E0"
+        },
+        {
+          "component": "output",
+          "event": "disconnected",
+          "id": "E1"
+        },
+        {
+          "component": "output",
+          "queue_fraction": 0.2,
+          "discarded_delta": 0,
+          "id": "E2"
+        }
+      ],
+      "provenance": "synthetic_context_and_selected_record_ids"
+    }
+  },
+  "c057abaa9720a757": {
+    "phase": "evaluation",
+    "input": {
+      "data": {
+        "observed_timeframe_ids": [
+          7825860,
+          7825868,
+          7825876,
+          7825884,
+          7825892,
+          7825900,
+          7825908,
+          7825916,
+          7825924,
+          7825932,
+          7825940,
+          7825948,
+          7825956,
+          7825964,
+          7825972,
+          7825980
+        ],
+        "reference_id_step": 4
+      },
+      "context": [
+        {
+          "component": "output",
+          "queue_fraction": 0.2,
+          "discarded_delta": 0,
+          "id": "E0"
+        },
+        {
+          "component": "other_monitor",
+          "event": "disconnected",
+          "id": "E1"
+        }
+      ],
+      "provenance": "synthetic_context_and_selected_record_ids"
+    }
+  },
+  "75b9b3f950119c32": {
+    "phase": "evaluation",
+    "input": {
+      "data": {
+        "observed_timeframe_ids": [
+          7825860,
+          7825868,
+          7825876,
+          7825884,
+          7825892,
+          7825900,
+          7825908,
+          7825916,
+          7825924,
+          7825932,
+          7825940,
+          7825948,
+          7825956,
+          7825964,
+          7825972,
+          7825980
+        ],
+        "reference_id_step": 4
+      },
+      "context": [
+        {
+          "component": "output",
+          "queue_fraction": 0.99,
+          "discarded_delta": 16,
+          "id": "E0"
+        },
+        {
+          "component": "output",
+          "queue_fraction": 0.2,
+          "discarded_delta": 0,
+          "id": "E1"
+        },
+        {
+          "component": "output",
+          "selection_stride": 8,
+          "id": "E2"
+        },
+        {
+          "component": "other_monitor",
+          "event": "disconnected",
+          "id": "E3"
+        }
+      ],
+      "provenance": "synthetic_context_and_selected_record_ids"
+    }
+  }
+}

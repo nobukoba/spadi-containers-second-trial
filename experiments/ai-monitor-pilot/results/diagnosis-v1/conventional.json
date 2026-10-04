@@ -1,0 +1,803 @@
+{
+  "85c48e2e06e63ac4": {
+    "structure_only": {
+      "candidate": "unknown",
+      "evidence_ids": [],
+      "checks": [
+        "collect_missing_context"
+      ]
+    },
+    "context_rules": {
+      "candidate": "configured_selection",
+      "evidence_ids": [
+        "E1"
+      ],
+      "checks": [
+        "inspect_selection_config"
+      ]
+    }
+  },
+  "841e59405e9944b6": {
+    "structure_only": {
+      "candidate": "unknown",
+      "evidence_ids": [],
+      "checks": [
+        "collect_missing_context"
+      ]
+    },
+    "context_rules": {
+      "candidate": "queue_drop",
+      "evidence_ids": [
+        "E0"
+      ],
+      "checks": [
+        "inspect_queue_counters"
+      ]
+    }
+  },
+  "d2a50596c59a2a19": {
+    "structure_only": {
+      "candidate": "unknown",
+      "evidence_ids": [],
+      "checks": [
+        "collect_missing_context"
+      ]
+    },
+    "context_rules": {
+      "candidate": "connection_interruption",
+      "evidence_ids": [
+        "E1"
+      ],
+      "checks": [
+        "inspect_connection_history"
+      ]
+    }
+  },
+  "98965a069c522158": {
+    "structure_only": {
+      "candidate": "unknown",
+      "evidence_ids": [],
+      "checks": [
+        "collect_missing_context"
+      ]
+    },
+    "context_rules": {
+      "candidate": "unknown",
+      "evidence_ids": [],
+      "checks": [
+        "collect_missing_context"
+      ]
+    }
+  },
+  "f4f4eb57c0b74373": {
+    "structure_only": {
+      "candidate": "unknown",
+      "evidence_ids": [],
+      "checks": [
+        "collect_missing_context"
+      ]
+    },
+    "context_rules": {
+      "candidate": "unknown",
+      "evidence_ids": [
+        "E2",
+        "E0"
+      ],
+      "checks": [
+        "collect_missing_context"
+      ]
+    }
+  },
+  "12eb4dab8f7f843e": {
+    "structure_only": {
+      "candidate": "unknown",
+      "evidence_ids": [],
+      "checks": [
+        "collect_missing_context"
+      ]
+    },
+    "context_rules": {
+      "candidate": "configured_selection",
+      "evidence_ids": [
+        "E2"
+      ],
+      "checks": [
+        "inspect_selection_config"
+      ]
+    }
+  },
+  "a487d882ba502898": {
+    "structure_only": {
+      "candidate": "unknown",
+      "evidence_ids": [],
+      "checks": [
+        "collect_missing_context"
+      ]
+    },
+    "context_rules": {
+      "candidate": "queue_drop",
+      "evidence_ids": [
+        "E2"
+      ],
+      "checks": [
+        "inspect_queue_counters"
+      ]
+    }
+  },
+  "583796123b5dbed6": {
+    "structure_only": {
+      "candidate": "unknown",
+      "evidence_ids": [],
+      "checks": [
+        "collect_missing_context"
+      ]
+    },
+    "context_rules": {
+      "candidate": "connection_interruption",
+      "evidence_ids": [
+        "E2"
+      ],
+      "checks": [
+        "inspect_connection_history"
+      ]
+    }
+  },
+  "d5857900a3e8c83c": {
+    "structure_only": {
+      "candidate": "unknown",
+      "evidence_ids": [],
+      "checks": [
+        "collect_missing_context"
+      ]
+    },
+    "context_rules": {
+      "candidate": "unknown",
+      "evidence_ids": [],
+      "checks": [
+        "collect_missing_context"
+      ]
+    }
+  },
+  "0cc1437489d52709": {
+    "structure_only": {
+      "candidate": "unknown",
+      "evidence_ids": [],
+      "checks": [
+        "collect_missing_context"
+      ]
+    },
+    "context_rules": {
+      "candidate": "unknown",
+      "evidence_ids": [
+        "E1",
+        "E0"
+      ],
+      "checks": [
+        "collect_missing_context"
+      ]
+    }
+  },
+  "8a748afe4256cea8": {
+    "structure_only": {
+      "candidate": "unknown",
+      "evidence_ids": [],
+      "checks": [
+        "collect_missing_context"
+      ]
+    },
+    "context_rules": {
+      "candidate": "configured_selection",
+      "evidence_ids": [
+        "E1"
+      ],
+      "checks": [
+        "inspect_selection_config"
+      ]
+    }
+  },
+  "2ffb2188fe91f39a": {
+    "structure_only": {
+      "candidate": "unknown",
+      "evidence_ids": [],
+      "checks": [
+        "collect_missing_context"
+      ]
+    },
+    "context_rules": {
+      "candidate": "queue_drop",
+      "evidence_ids": [
+        "E1"
+      ],
+      "checks": [
+        "inspect_queue_counters"
+      ]
+    }
+  },
+  "4712aefc24281038": {
+    "structure_only": {
+      "candidate": "unknown",
+      "evidence_ids": [],
+      "checks": [
+        "collect_missing_context"
+      ]
+    },
+    "context_rules": {
+      "candidate": "connection_interruption",
+      "evidence_ids": [
+        "E1"
+      ],
+      "checks": [
+        "inspect_connection_history"
+      ]
+    }
+  },
+  "1b831d5018bacd9e": {
+    "structure_only": {
+      "candidate": "unknown",
+      "evidence_ids": [],
+      "checks": [
+        "collect_missing_context"
+      ]
+    },
+    "context_rules": {
+      "candidate": "unknown",
+      "evidence_ids": [],
+      "checks": [
+        "collect_missing_context"
+      ]
+    }
+  },
+  "65efdb218db2ebfa": {
+    "structure_only": {
+      "candidate": "unknown",
+      "evidence_ids": [],
+      "checks": [
+        "collect_missing_context"
+      ]
+    },
+    "context_rules": {
+      "candidate": "unknown",
+      "evidence_ids": [
+        "E1",
+        "E0"
+      ],
+      "checks": [
+        "collect_missing_context"
+      ]
+    }
+  },
+  "f31d085420f6add1": {
+    "structure_only": {
+      "candidate": "unknown",
+      "evidence_ids": [],
+      "checks": [
+        "collect_missing_context"
+      ]
+    },
+    "context_rules": {
+      "candidate": "configured_selection",
+      "evidence_ids": [
+        "E0"
+      ],
+      "checks": [
+        "inspect_selection_config"
+      ]
+    }
+  },
+  "2f1979a3010d71f6": {
+    "structure_only": {
+      "candidate": "unknown",
+      "evidence_ids": [],
+      "checks": [
+        "collect_missing_context"
+      ]
+    },
+    "context_rules": {
+      "candidate": "queue_drop",
+      "evidence_ids": [
+        "E1"
+      ],
+      "checks": [
+        "inspect_queue_counters"
+      ]
+    }
+  },
+  "a6bdaf5b98e959fc": {
+    "structure_only": {
+      "candidate": "unknown",
+      "evidence_ids": [],
+      "checks": [
+        "collect_missing_context"
+      ]
+    },
+    "context_rules": {
+      "candidate": "connection_interruption",
+      "evidence_ids": [
+        "E1"
+      ],
+      "checks": [
+        "inspect_connection_history"
+      ]
+    }
+  },
+  "fb60704ff0f68ba9": {
+    "structure_only": {
+      "candidate": "unknown",
+      "evidence_ids": [],
+      "checks": [
+        "collect_missing_context"
+      ]
+    },
+    "context_rules": {
+      "candidate": "unknown",
+      "evidence_ids": [],
+      "checks": [
+        "collect_missing_context"
+      ]
+    }
+  },
+  "cb0e5f2b3a2859e7": {
+    "structure_only": {
+      "candidate": "unknown",
+      "evidence_ids": [],
+      "checks": [
+        "collect_missing_context"
+      ]
+    },
+    "context_rules": {
+      "candidate": "unknown",
+      "evidence_ids": [
+        "E2",
+        "E3"
+      ],
+      "checks": [
+        "collect_missing_context"
+      ]
+    }
+  },
+  "1e86bdea3eaedbb4": {
+    "structure_only": {
+      "candidate": "unknown",
+      "evidence_ids": [],
+      "checks": [
+        "collect_missing_context"
+      ]
+    },
+    "context_rules": {
+      "candidate": "configured_selection",
+      "evidence_ids": [
+        "E1"
+      ],
+      "checks": [
+        "inspect_selection_config"
+      ]
+    }
+  },
+  "a9dc99a1459d8776": {
+    "structure_only": {
+      "candidate": "unknown",
+      "evidence_ids": [],
+      "checks": [
+        "collect_missing_context"
+      ]
+    },
+    "context_rules": {
+      "candidate": "queue_drop",
+      "evidence_ids": [
+        "E0"
+      ],
+      "checks": [
+        "inspect_queue_counters"
+      ]
+    }
+  },
+  "bcc3745d13eb5829": {
+    "structure_only": {
+      "candidate": "unknown",
+      "evidence_ids": [],
+      "checks": [
+        "collect_missing_context"
+      ]
+    },
+    "context_rules": {
+      "candidate": "connection_interruption",
+      "evidence_ids": [
+        "E0"
+      ],
+      "checks": [
+        "inspect_connection_history"
+      ]
+    }
+  },
+  "e3339dec3789d875": {
+    "structure_only": {
+      "candidate": "unknown",
+      "evidence_ids": [],
+      "checks": [
+        "collect_missing_context"
+      ]
+    },
+    "context_rules": {
+      "candidate": "unknown",
+      "evidence_ids": [],
+      "checks": [
+        "collect_missing_context"
+      ]
+    }
+  },
+  "3ad79af231644067": {
+    "structure_only": {
+      "candidate": "unknown",
+      "evidence_ids": [],
+      "checks": [
+        "collect_missing_context"
+      ]
+    },
+    "context_rules": {
+      "candidate": "unknown",
+      "evidence_ids": [
+        "E0",
+        "E1"
+      ],
+      "checks": [
+        "collect_missing_context"
+      ]
+    }
+  },
+  "518121e99de6ce88": {
+    "structure_only": {
+      "candidate": "unknown",
+      "evidence_ids": [],
+      "checks": [
+        "collect_missing_context"
+      ]
+    },
+    "context_rules": {
+      "candidate": "configured_selection",
+      "evidence_ids": [
+        "E0"
+      ],
+      "checks": [
+        "inspect_selection_config"
+      ]
+    }
+  },
+  "4fcba44ad8152617": {
+    "structure_only": {
+      "candidate": "unknown",
+      "evidence_ids": [],
+      "checks": [
+        "collect_missing_context"
+      ]
+    },
+    "context_rules": {
+      "candidate": "queue_drop",
+      "evidence_ids": [
+        "E1"
+      ],
+      "checks": [
+        "inspect_queue_counters"
+      ]
+    }
+  },
+  "5234dbdef6f4e204": {
+    "structure_only": {
+      "candidate": "unknown",
+      "evidence_ids": [],
+      "checks": [
+        "collect_missing_context"
+      ]
+    },
+    "context_rules": {
+      "candidate": "connection_interruption",
+      "evidence_ids": [
+        "E2"
+      ],
+      "checks": [
+        "inspect_connection_history"
+      ]
+    }
+  },
+  "7d51576a37b950ae": {
+    "structure_only": {
+      "candidate": "unknown",
+      "evidence_ids": [],
+      "checks": [
+        "collect_missing_context"
+      ]
+    },
+    "context_rules": {
+      "candidate": "unknown",
+      "evidence_ids": [],
+      "checks": [
+        "collect_missing_context"
+      ]
+    }
+  },
+  "3bb38427e8370dc3": {
+    "structure_only": {
+      "candidate": "unknown",
+      "evidence_ids": [],
+      "checks": [
+        "collect_missing_context"
+      ]
+    },
+    "context_rules": {
+      "candidate": "unknown",
+      "evidence_ids": [
+        "E2",
+        "E0"
+      ],
+      "checks": [
+        "collect_missing_context"
+      ]
+    }
+  },
+  "9bb43c8beb854d37": {
+    "structure_only": {
+      "candidate": "unknown",
+      "evidence_ids": [],
+      "checks": [
+        "collect_missing_context"
+      ]
+    },
+    "context_rules": {
+      "candidate": "configured_selection",
+      "evidence_ids": [
+        "E2"
+      ],
+      "checks": [
+        "inspect_selection_config"
+      ]
+    }
+  },
+  "031150f83a82443b": {
+    "structure_only": {
+      "candidate": "unknown",
+      "evidence_ids": [],
+      "checks": [
+        "collect_missing_context"
+      ]
+    },
+    "context_rules": {
+      "candidate": "queue_drop",
+      "evidence_ids": [
+        "E1"
+      ],
+      "checks": [
+        "inspect_queue_counters"
+      ]
+    }
+  },
+  "0fbf93bff58078b2": {
+    "structure_only": {
+      "candidate": "unknown",
+      "evidence_ids": [],
+      "checks": [
+        "collect_missing_context"
+      ]
+    },
+    "context_rules": {
+      "candidate": "connection_interruption",
+      "evidence_ids": [
+        "E1"
+      ],
+      "checks": [
+        "inspect_connection_history"
+      ]
+    }
+  },
+  "71d7cfc5fc56c55c": {
+    "structure_only": {
+      "candidate": "unknown",
+      "evidence_ids": [],
+      "checks": [
+        "collect_missing_context"
+      ]
+    },
+    "context_rules": {
+      "candidate": "unknown",
+      "evidence_ids": [],
+      "checks": [
+        "collect_missing_context"
+      ]
+    }
+  },
+  "af1fcbce337f5787": {
+    "structure_only": {
+      "candidate": "unknown",
+      "evidence_ids": [],
+      "checks": [
+        "collect_missing_context"
+      ]
+    },
+    "context_rules": {
+      "candidate": "unknown",
+      "evidence_ids": [
+        "E0",
+        "E2"
+      ],
+      "checks": [
+        "collect_missing_context"
+      ]
+    }
+  },
+  "260085c9e31aa34e": {
+    "structure_only": {
+      "candidate": "unknown",
+      "evidence_ids": [],
+      "checks": [
+        "collect_missing_context"
+      ]
+    },
+    "context_rules": {
+      "candidate": "configured_selection",
+      "evidence_ids": [
+        "E2"
+      ],
+      "checks": [
+        "inspect_selection_config"
+      ]
+    }
+  },
+  "478bd640724126e5": {
+    "structure_only": {
+      "candidate": "unknown",
+      "evidence_ids": [],
+      "checks": [
+        "collect_missing_context"
+      ]
+    },
+    "context_rules": {
+      "candidate": "queue_drop",
+      "evidence_ids": [
+        "E0"
+      ],
+      "checks": [
+        "inspect_queue_counters"
+      ]
+    }
+  },
+  "5e0c42179dc34839": {
+    "structure_only": {
+      "candidate": "unknown",
+      "evidence_ids": [],
+      "checks": [
+        "collect_missing_context"
+      ]
+    },
+    "context_rules": {
+      "candidate": "connection_interruption",
+      "evidence_ids": [
+        "E0"
+      ],
+      "checks": [
+        "inspect_connection_history"
+      ]
+    }
+  },
+  "d0a4d7cc6e78a329": {
+    "structure_only": {
+      "candidate": "unknown",
+      "evidence_ids": [],
+      "checks": [
+        "collect_missing_context"
+      ]
+    },
+    "context_rules": {
+      "candidate": "unknown",
+      "evidence_ids": [],
+      "checks": [
+        "collect_missing_context"
+      ]
+    }
+  },
+  "b8f3ea80401d2940": {
+    "structure_only": {
+      "candidate": "unknown",
+      "evidence_ids": [],
+      "checks": [
+        "collect_missing_context"
+      ]
+    },
+    "context_rules": {
+      "candidate": "unknown",
+      "evidence_ids": [
+        "E2",
+        "E1"
+      ],
+      "checks": [
+        "collect_missing_context"
+      ]
+    }
+  },
+  "328ebc6db1ad93cc": {
+    "structure_only": {
+      "candidate": "unknown",
+      "evidence_ids": [],
+      "checks": [
+        "collect_missing_context"
+      ]
+    },
+    "context_rules": {
+      "candidate": "configured_selection",
+      "evidence_ids": [
+        "E1"
+      ],
+      "checks": [
+        "inspect_selection_config"
+      ]
+    }
+  },
+  "3915f5a2358d8445": {
+    "structure_only": {
+      "candidate": "unknown",
+      "evidence_ids": [],
+      "checks": [
+        "collect_missing_context"
+      ]
+    },
+    "context_rules": {
+      "candidate": "queue_drop",
+      "evidence_ids": [
+        "E1"
+      ],
+      "checks": [
+        "inspect_queue_counters"
+      ]
+    }
+  },
+  "0ebf9a10fc7d9263": {
+    "structure_only": {
+      "candidate": "unknown",
+      "evidence_ids": [],
+      "checks": [
+        "collect_missing_context"
+      ]
+    },
+    "context_rules": {
+      "candidate": "connection_interruption",
+      "evidence_ids": [
+        "E1"
+      ],
+      "checks": [
+        "inspect_connection_history"
+      ]
+    }
+  },
+  "c057abaa9720a757": {
+    "structure_only": {
+      "candidate": "unknown",
+      "evidence_ids": [],
+      "checks": [
+        "collect_missing_context"
+      ]
+    },
+    "context_rules": {
+      "candidate": "unknown",
+      "evidence_ids": [],
+      "checks": [
+        "collect_missing_context"
+      ]
+    }
+  },
+  "75b9b3f950119c32": {
+    "structure_only": {
+      "candidate": "unknown",
+      "evidence_ids": [],
+      "checks": [
+        "collect_missing_context"
+      ]
+    },
+    "context_rules": {
+      "candidate": "unknown",
+      "evidence_ids": [
+        "E2",
+        "E0"
+      ],
+      "checks": [
+        "collect_missing_context"
+      ]
+    }
+  }
+}

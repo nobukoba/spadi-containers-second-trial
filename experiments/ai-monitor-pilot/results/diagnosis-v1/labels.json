@@ -1,0 +1,398 @@
+{
+  "85c48e2e06e63ac4": {
+    "candidate": "configured_selection",
+    "required_check": "inspect_selection_config",
+    "supported_evidence_ids": [
+      "E1"
+    ],
+    "scenario": "selection",
+    "paired_group": "pilot0"
+  },
+  "841e59405e9944b6": {
+    "candidate": "queue_drop",
+    "required_check": "inspect_queue_counters",
+    "supported_evidence_ids": [
+      "E0"
+    ],
+    "scenario": "queue",
+    "paired_group": "pilot0"
+  },
+  "d2a50596c59a2a19": {
+    "candidate": "connection_interruption",
+    "required_check": "inspect_connection_history",
+    "supported_evidence_ids": [
+      "E1"
+    ],
+    "scenario": "connection",
+    "paired_group": "pilot0"
+  },
+  "98965a069c522158": {
+    "candidate": "unknown",
+    "required_check": "collect_missing_context",
+    "supported_evidence_ids": [],
+    "scenario": "absent",
+    "paired_group": "pilot0"
+  },
+  "f4f4eb57c0b74373": {
+    "candidate": "unknown",
+    "required_check": "collect_missing_context",
+    "supported_evidence_ids": [
+      "E0",
+      "E2"
+    ],
+    "scenario": "conflict",
+    "paired_group": "pilot0"
+  },
+  "12eb4dab8f7f843e": {
+    "candidate": "configured_selection",
+    "required_check": "inspect_selection_config",
+    "supported_evidence_ids": [
+      "E2"
+    ],
+    "scenario": "selection",
+    "paired_group": "evaluation0"
+  },
+  "a487d882ba502898": {
+    "candidate": "queue_drop",
+    "required_check": "inspect_queue_counters",
+    "supported_evidence_ids": [
+      "E2"
+    ],
+    "scenario": "queue",
+    "paired_group": "evaluation0"
+  },
+  "583796123b5dbed6": {
+    "candidate": "connection_interruption",
+    "required_check": "inspect_connection_history",
+    "supported_evidence_ids": [
+      "E2"
+    ],
+    "scenario": "connection",
+    "paired_group": "evaluation0"
+  },
+  "d5857900a3e8c83c": {
+    "candidate": "unknown",
+    "required_check": "collect_missing_context",
+    "supported_evidence_ids": [],
+    "scenario": "absent",
+    "paired_group": "evaluation0"
+  },
+  "0cc1437489d52709": {
+    "candidate": "unknown",
+    "required_check": "collect_missing_context",
+    "supported_evidence_ids": [
+      "E0",
+      "E1"
+    ],
+    "scenario": "conflict",
+    "paired_group": "evaluation0"
+  },
+  "8a748afe4256cea8": {
+    "candidate": "configured_selection",
+    "required_check": "inspect_selection_config",
+    "supported_evidence_ids": [
+      "E1"
+    ],
+    "scenario": "selection",
+    "paired_group": "evaluation1"
+  },
+  "2ffb2188fe91f39a": {
+    "candidate": "queue_drop",
+    "required_check": "inspect_queue_counters",
+    "supported_evidence_ids": [
+      "E1"
+    ],
+    "scenario": "queue",
+    "paired_group": "evaluation1"
+  },
+  "4712aefc24281038": {
+    "candidate": "connection_interruption",
+    "required_check": "inspect_connection_history",
+    "supported_evidence_ids": [
+      "E1"
+    ],
+    "scenario": "connection",
+    "paired_group": "evaluation1"
+  },
+  "1b831d5018bacd9e": {
+    "candidate": "unknown",
+    "required_check": "collect_missing_context",
+    "supported_evidence_ids": [],
+    "scenario": "absent",
+    "paired_group": "evaluation1"
+  },
+  "65efdb218db2ebfa": {
+    "candidate": "unknown",
+    "required_check": "collect_missing_context",
+    "supported_evidence_ids": [
+      "E0",
+      "E1"
+    ],
+    "scenario": "conflict",
+    "paired_group": "evaluation1"
+  },
+  "f31d085420f6add1": {
+    "candidate": "configured_selection",
+    "required_check": "inspect_selection_config",
+    "supported_evidence_ids": [
+      "E0"
+    ],
+    "scenario": "selection",
+    "paired_group": "evaluation2"
+  },
+  "2f1979a3010d71f6": {
+    "candidate": "queue_drop",
+    "required_check": "inspect_queue_counters",
+    "supported_evidence_ids": [
+      "E1"
+    ],
+    "scenario": "queue",
+    "paired_group": "evaluation2"
+  },
+  "a6bdaf5b98e959fc": {
+    "candidate": "connection_interruption",
+    "required_check": "inspect_connection_history",
+    "supported_evidence_ids": [
+      "E1"
+    ],
+    "scenario": "connection",
+    "paired_group": "evaluation2"
+  },
+  "fb60704ff0f68ba9": {
+    "candidate": "unknown",
+    "required_check": "collect_missing_context",
+    "supported_evidence_ids": [],
+    "scenario": "absent",
+    "paired_group": "evaluation2"
+  },
+  "cb0e5f2b3a2859e7": {
+    "candidate": "unknown",
+    "required_check": "collect_missing_context",
+    "supported_evidence_ids": [
+      "E2",
+      "E3"
+    ],
+    "scenario": "conflict",
+    "paired_group": "evaluation2"
+  },
+  "1e86bdea3eaedbb4": {
+    "candidate": "configured_selection",
+    "required_check": "inspect_selection_config",
+    "supported_evidence_ids": [
+      "E1"
+    ],
+    "scenario": "selection",
+    "paired_group": "evaluation3"
+  },
+  "a9dc99a1459d8776": {
+    "candidate": "queue_drop",
+    "required_check": "inspect_queue_counters",
+    "supported_evidence_ids": [
+      "E0"
+    ],
+    "scenario": "queue",
+    "paired_group": "evaluation3"
+  },
+  "bcc3745d13eb5829": {
+    "candidate": "connection_interruption",
+    "required_check": "inspect_connection_history",
+    "supported_evidence_ids": [
+      "E0"
+    ],
+    "scenario": "connection",
+    "paired_group": "evaluation3"
+  },
+  "e3339dec3789d875": {
+    "candidate": "unknown",
+    "required_check": "collect_missing_context",
+    "supported_evidence_ids": [],
+    "scenario": "absent",
+    "paired_group": "evaluation3"
+  },
+  "3ad79af231644067": {
+    "candidate": "unknown",
+    "required_check": "collect_missing_context",
+    "supported_evidence_ids": [
+      "E0",
+      "E1"
+    ],
+    "scenario": "conflict",
+    "paired_group": "evaluation3"
+  },
+  "518121e99de6ce88": {
+    "candidate": "configured_selection",
+    "required_check": "inspect_selection_config",
+    "supported_evidence_ids": [
+      "E0"
+    ],
+    "scenario": "selection",
+    "paired_group": "evaluation4"
+  },
+  "4fcba44ad8152617": {
+    "candidate": "queue_drop",
+    "required_check": "inspect_queue_counters",
+    "supported_evidence_ids": [
+      "E1"
+    ],
+    "scenario": "queue",
+    "paired_group": "evaluation4"
+  },
+  "5234dbdef6f4e204": {
+    "candidate": "connection_interruption",
+    "required_check": "inspect_connection_history",
+    "supported_evidence_ids": [
+      "E2"
+    ],
+    "scenario": "connection",
+    "paired_group": "evaluation4"
+  },
+  "7d51576a37b950ae": {
+    "candidate": "unknown",
+    "required_check": "collect_missing_context",
+    "supported_evidence_ids": [],
+    "scenario": "absent",
+    "paired_group": "evaluation4"
+  },
+  "3bb38427e8370dc3": {
+    "candidate": "unknown",
+    "required_check": "collect_missing_context",
+    "supported_evidence_ids": [
+      "E0",
+      "E2"
+    ],
+    "scenario": "conflict",
+    "paired_group": "evaluation4"
+  },
+  "9bb43c8beb854d37": {
+    "candidate": "configured_selection",
+    "required_check": "inspect_selection_config",
+    "supported_evidence_ids": [
+      "E2"
+    ],
+    "scenario": "selection",
+    "paired_group": "evaluation5"
+  },
+  "031150f83a82443b": {
+    "candidate": "queue_drop",
+    "required_check": "inspect_queue_counters",
+    "supported_evidence_ids": [
+      "E1"
+    ],
+    "scenario": "queue",
+    "paired_group": "evaluation5"
+  },
+  "0fbf93bff58078b2": {
+    "candidate": "connection_interruption",
+    "required_check": "inspect_connection_history",
+    "supported_evidence_ids": [
+      "E1"
+    ],
+    "scenario": "connection",
+    "paired_group": "evaluation5"
+  },
+  "71d7cfc5fc56c55c": {
+    "candidate": "unknown",
+    "required_check": "collect_missing_context",
+    "supported_evidence_ids": [],
+    "scenario": "absent",
+    "paired_group": "evaluation5"
+  },
+  "af1fcbce337f5787": {
+    "candidate": "unknown",
+    "required_check": "collect_missing_context",
+    "supported_evidence_ids": [
+      "E0",
+      "E2"
+    ],
+    "scenario": "conflict",
+    "paired_group": "evaluation5"
+  },
+  "260085c9e31aa34e": {
+    "candidate": "configured_selection",
+    "required_check": "inspect_selection_config",
+    "supported_evidence_ids": [
+      "E2"
+    ],
+    "scenario": "selection",
+    "paired_group": "evaluation6"
+  },
+  "478bd640724126e5": {
+    "candidate": "queue_drop",
+    "required_check": "inspect_queue_counters",
+    "supported_evidence_ids": [
+      "E0"
+    ],
+    "scenario": "queue",
+    "paired_group": "evaluation6"
+  },
+  "5e0c42179dc34839": {
+    "candidate": "connection_interruption",
+    "required_check": "inspect_connection_history",
+    "supported_evidence_ids": [
+      "E0"
+    ],
+    "scenario": "connection",
+    "paired_group": "evaluation6"
+  },
+  "d0a4d7cc6e78a329": {
+    "candidate": "unknown",
+    "required_check": "collect_missing_context",
+    "supported_evidence_ids": [],
+    "scenario": "absent",
+    "paired_group": "evaluation6"
+  },
+  "b8f3ea80401d2940": {
+    "candidate": "unknown",
+    "required_check": "collect_missing_context",
+    "supported_evidence_ids": [
+      "E1",
+      "E2"
+    ],
+    "scenario": "conflict",
+    "paired_group": "evaluation6"
+  },
+  "328ebc6db1ad93cc": {
+    "candidate": "configured_selection",
+    "required_check": "inspect_selection_config",
+    "supported_evidence_ids": [
+      "E1"
+    ],
+    "scenario": "selection",
+    "paired_group": "evaluation7"
+  },
+  "3915f5a2358d8445": {
+    "candidate": "queue_drop",
+    "required_check": "inspect_queue_counters",
+    "supported_evidence_ids": [
+      "E1"
+    ],
+    "scenario": "queue",
+    "paired_group": "evaluation7"
+  },
+  "0ebf9a10fc7d9263": {
+    "candidate": "connection_interruption",
+    "required_check": "inspect_connection_history",
+    "supported_evidence_ids": [
+      "E1"
+    ],
+    "scenario": "connection",
+    "paired_group": "evaluation7"
+  },
+  "c057abaa9720a757": {
+    "candidate": "unknown",
+    "required_check": "collect_missing_context",
+    "supported_evidence_ids": [],
+    "scenario": "absent",
+    "paired_group": "evaluation7"
+  },
+  "75b9b3f950119c32": {
+    "candidate": "unknown",
+    "required_check": "collect_missing_context",
+    "supported_evidence_ids": [
+      "E0",
+      "E2"
+    ],
+    "scenario": "conflict",
+    "paired_group": "evaluation7"
+  }
+}

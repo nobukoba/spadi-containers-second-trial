@@ -286,3 +286,13 @@ hash-frozen implementation and JSON artifacts with .gitattributes; line-ending
 conversion during checkout otherwise invalidates the reproducibility hashes.
 PowerShell script execution may be disabled on a host; direct Python commands do
 not require changing that execution policy.
+
+Contextual diagnosis pilots must compare AI both with and without context against
+a deterministic context-aware baseline receiving the same evidence. Artificial
+configuration/logs must be marked synthetic; cause matching is not proof of
+natural causality. Improvement over data-only does not by itself establish AI
+benefit beyond rules. Predefined diagnostic-check matching is not expert-rated
+usefulness. Preserve sanitized successful/incomplete model response bodies so
+output-validation failures can be investigated; do not retain credentials,
+request headers or HTTP error bodies. Unknown API usage requires stopping.
+Unexecuted AI fractions must remain null, not zero.

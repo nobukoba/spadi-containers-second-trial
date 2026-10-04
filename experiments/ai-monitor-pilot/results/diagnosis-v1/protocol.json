@@ -1,0 +1,55 @@
+{
+  "model": "gpt-4.1-mini-2025-04-14",
+  "prompt": "Assess the observed ID discontinuity using only the supplied record fields\nand optional synthetic configuration/log observations. Return a candidate, not a claim of\nverified physical causation. An ID step may be deliberate selection, queue discards,\nconnection interruption, or unexplained. Do not infer absence of a cause from absent logs.\nConflicting supporting evidence should yield unknown rather than a unique cause.\nEvidence references must be IDs of supplied observations. Checks are non-destructive:\ninspect_selection_config, inspect_queue_counters, inspect_connection_history,\ncollect_missing_context. Give one or more useful checks. No truth labels are supplied.\nOutput only the required JSON.",
+  "schema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "candidate": {
+        "type": "string",
+        "enum": [
+          "configured_selection",
+          "queue_drop",
+          "connection_interruption",
+          "unknown"
+        ]
+      },
+      "evidence_ids": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "checks": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "enum": [
+            "inspect_selection_config",
+            "inspect_queue_counters",
+            "inspect_connection_history",
+            "collect_missing_context"
+          ]
+        }
+      }
+    },
+    "required": [
+      "candidate",
+      "evidence_ids",
+      "checks"
+    ]
+  },
+  "max_output_tokens": 600,
+  "limitations": [
+    "Synthetic configuration and logs, no natural cause truth.",
+    "Same-run paired windows, not independent faults.",
+    "Scenario construction favors explicit evidence matching; not a broad reasoning test.",
+    "Expert check usefulness requires separate blinded human assessment."
+  ],
+  "source_commit": "c5a78f93bed24ad0de67ec2c2e9875e7a95f8d17",
+  "prices": {
+    "input": 0.4,
+    "cached_input": 0.1,
+    "output": 1.6
+  }
+}
