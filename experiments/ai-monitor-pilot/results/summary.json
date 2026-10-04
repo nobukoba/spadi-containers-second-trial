@@ -1,0 +1,55 @@
+{
+  "status": "DATA_INSPECTION_ONLY",
+  "sources": [
+    {
+      "file": "../reference-eicrecon/example_rawdata/raris_ac_lgad_202603/00/run000020.dat",
+      "sha256": "b73c444a3c08db81ca655d8bb01f872a0743cad5d6ccc8a0326769b02131a3a0",
+      "bytes": 496048,
+      "trailing_bytes": 304,
+      "frames": 2815,
+      "development_frames": 1407,
+      "screen_frames": 1408,
+      "median_bytes": 176,
+      "max_bytes": 176,
+      "threshold_bytes": 528,
+      "byte_volume_flags": 0
+    },
+    {
+      "file": "../reference-eicrecon/example_rawdata/raris_ac_lgad_202603/01/run000020.dat",
+      "sha256": "3272efa10a4875ecc37e7b5559acbb36e7fdf16c4469e8ef5bab93a4de48d810",
+      "bytes": 1056632,
+      "trailing_bytes": 304,
+      "frames": 2840,
+      "development_frames": 1420,
+      "screen_frames": 1420,
+      "median_bytes": 368.0,
+      "max_bytes": 560,
+      "threshold_bytes": 1104.0,
+      "byte_volume_flags": 0
+    },
+    {
+      "file": "../reference-eicrecon/example_rawdata/raris_ac_lgad_202603/02/run000020.dat",
+      "sha256": "553faf9912022e80b7cc9e2cc6b41c1d19065b99dfc5307b50e54097738acd9b",
+      "bytes": 496048,
+      "trailing_bytes": 304,
+      "frames": 2815,
+      "development_frames": 1407,
+      "screen_frames": 1408,
+      "median_bytes": 176,
+      "max_bytes": 176,
+      "threshold_bytes": 528,
+      "byte_volume_flags": 0
+    }
+  ],
+  "total_frames": 8470,
+  "flagged_frames": 0,
+  "ground_truth_available": false,
+  "ai_evaluated": false,
+  "limitations": [
+    "Frame byte volume is not event rate.",
+    "Flags are candidates, not confirmed anomalies.",
+    "All files are from the same run; no independent held-out run.",
+    "No precision, recall or false-alarm rate can be computed.",
+    "No full streaming, container or API execution measured."
+  ]
+}
