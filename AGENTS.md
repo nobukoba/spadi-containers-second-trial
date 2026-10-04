@@ -64,7 +64,9 @@ Keep the two prefixes structurally parallel where practical:
 
 The local prefix takes precedence over the validated base in `PATH`, `LD_LIBRARY_PATH`, `CMAKE_PREFIX_PATH`, and `PKG_CONFIG_PATH`. The canonical environment entry point is `/opt/spadi/spadi-setup.sh`; interactive shell startup may source it, but scripts and CI must also be able to source it explicitly. Keep setup side-effect free: it sets environment variables but does not create directories. `spadi-prepare-local.sh` creates the writable local prefix and copies only missing source trees/helper scripts; it must never overwrite or delete existing user files. `spadi-env.sh` displays the effective search paths. Shell helper scripts use an explicit `.sh` suffix.
 
-SPADI's own build recipes should install libraries under `$PREFIX/lib`, not split SPADI libraries between `lib` and `lib64`. Existing Dockerfiles still mention `lib64` defensively; remove those references only after every component's actual install layout has been verified. OS libraries under `/usr/lib64` are unrelated to this SPADI prefix policy.
+SPADI's own build recipes should install libraries under `$PREFIX/lib`, not split SPADI libraries between `lib` and `lib64`. Keep `$SPADI_ROOT/lib64` and `$SPADI_LOCAL/lib64` in runtime search paths defensively for compatibility with dependencies and older builds; remove those references only after every component's actual install layout has been verified. OS libraries under `/usr/lib64` are unrelated to this SPADI prefix policy.
+
+NestDAQ runtime recipes use a single human-editable `config.sh` per recipe. Keep Redis/Valkey topology and parameter-application logic in shared helpers under `scripts/nestdaq/common` so recipe files do not duplicate host, port, process-count, or parameter boilerplate. Operation scripts use explicit names such as `run-start.sh`, `run-stop.sh`, `run-status.sh`, `run-attach.sh`, and `rawdata-download.sh`. Raw-data download helpers must show transfer progress and support resumable public downloads where practical. Runtime recipes copied into `SPADI_LOCAL` are user-owned configuration and must never be overwritten by prepare/update helpers.
 
 Provide developer helper scripts that can rebuild the source shipped in the devel image into `SPADI_LOCAL`. Build helpers use short natural names such as `<component>-build.sh`; do not call them `self-build`, `user-build`, or `local-build`. Put editable copies in `$SPADI_LOCAL/scripts` and put that directory on `PATH` so helpers can run from any working directory. Prefer one small script per operation/component instead of one argument-driven dispatcher. Also provide an explicit opt-in workflow for cloning latest upstream source into `$SPADI_LOCAL/src/<project>` and building it against the validated `SPADI_ROOT` base. The normal container build remains pinned and reproducible; a developer asking for `latest` is intentionally leaving that pinned baseline. Never make the image build itself silently clone latest/main.
 
@@ -85,11 +87,16 @@ All SPADI-related software uses the single installation prefix `/opt/spadi`.
 - Installed libraries: `/opt/spadi/lib` and `/opt/spadi/lib64`
 - Installed headers: `/opt/spadi/include`
 - Scripts: `/opt/spadi/scripts`
+- Component script trees: `/opt/spadi/scripts/nestdaq`, `/opt/spadi/scripts/fee`, and `/opt/spadi/scripts/artemis`
+- NestDAQ shared runtime helpers: `/opt/spadi/scripts/nestdaq/common`
+- NestDAQ experiment/replay recipes: `/opt/spadi/scripts/nestdaq/<recipe>`
 - Experiment configuration: `/opt/spadi/scripts/exp-config`
 - Container-provided scripts: `/opt/spadi/scripts`
 - User working directory: `/workspace`
 - User source checkouts: `$SPADI_LOCAL/src/<project>` (normally `/workspace/spadi/src/<project>`)
 - User-built installation prefix: `$SPADI_LOCAL` (normally `/workspace/spadi`)
+- User-editable runtime recipes: `$SPADI_LOCAL/scripts/<component>/...`
+- Raw data: `$SPADI_LOCAL/rawdata` (normally `/workspace/spadi/rawdata`)
 
 Do not use `/work`.
 

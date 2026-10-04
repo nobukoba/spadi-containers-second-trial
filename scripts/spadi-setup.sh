@@ -15,18 +15,21 @@ _spadi_prepend_path() {
     esac
 }
 
-_spadi_prepend_path PATH "${SPADI_ROOT}/bin"
-_spadi_prepend_path PATH "${SPADI_ROOT}/scripts"
-_spadi_prepend_path PATH "${SPADI_LOCAL}/bin"
-_spadi_prepend_path PATH "${SPADI_LOCAL}/scripts"
+for path in     "${SPADI_ROOT}/scripts/nestdaq/common"     "${SPADI_ROOT}/scripts/nestdaq"     "${SPADI_ROOT}/scripts/fee"     "${SPADI_ROOT}/scripts/artemis"     "${SPADI_ROOT}/scripts"     "${SPADI_ROOT}/bin"     "${SPADI_LOCAL}/scripts/nestdaq/common"     "${SPADI_LOCAL}/scripts/nestdaq"     "${SPADI_LOCAL}/scripts/fee"     "${SPADI_LOCAL}/scripts/artemis"     "${SPADI_LOCAL}/scripts"     "${SPADI_LOCAL}/bin"; do
+    _spadi_prepend_path PATH "$path"
+done
 
+_spadi_prepend_path LD_LIBRARY_PATH "${SPADI_ROOT}/lib64"
 _spadi_prepend_path LD_LIBRARY_PATH "${SPADI_ROOT}/lib"
+_spadi_prepend_path LD_LIBRARY_PATH "${SPADI_LOCAL}/lib64"
 _spadi_prepend_path LD_LIBRARY_PATH "${SPADI_LOCAL}/lib"
 
 _spadi_prepend_path CMAKE_PREFIX_PATH "${SPADI_ROOT}"
 _spadi_prepend_path CMAKE_PREFIX_PATH "${SPADI_LOCAL}"
 
+_spadi_prepend_path PKG_CONFIG_PATH "${SPADI_ROOT}/lib64/pkgconfig"
 _spadi_prepend_path PKG_CONFIG_PATH "${SPADI_ROOT}/lib/pkgconfig"
+_spadi_prepend_path PKG_CONFIG_PATH "${SPADI_LOCAL}/lib64/pkgconfig"
 _spadi_prepend_path PKG_CONFIG_PATH "${SPADI_LOCAL}/lib/pkgconfig"
 
 unset -f _spadi_prepend_path

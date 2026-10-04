@@ -140,11 +140,16 @@ The intended layout is:
 /opt/spadi/                    /workspace/spadi/
 ├── bin/                       ├── bin/
 ├── lib/                       ├── lib/
+├── lib64/                     ├── lib64/
 ├── include/                   ├── include/
 ├── share/                     ├── share/
 ├── scripts/                   ├── scripts/
+│   ├── nestdaq/               │   ├── nestdaq/
+│   ├── fee/                   │   ├── fee/
+│   └── artemis/               │   └── artemis/
 └── src/                       ├── src/
-                               └── build/
+                               ├── build/
+                               └── rawdata/
 ```
 
 Development images retain source trees under `/opt/spadi/src`; user images normally omit them and do not provide the development helpers.
@@ -163,6 +168,26 @@ spadi-prepare-local.sh
 `spadi-prepare-local.sh` creates the local directory structure and copies available source trees and editable build scripts from `/opt/spadi` into `/workspace/spadi`.
 
 It is safe to run repeatedly. Existing files and directories under `$SPADI_LOCAL` are kept and are never overwritten by the prepare script. Therefore edits made in `$SPADI_LOCAL/src` or `$SPADI_LOCAL/scripts` survive another prepare operation.
+
+### NestDAQ replay recipes
+
+The DAQ images provide editable NestDAQ recipes under `/opt/spadi/scripts/nestdaq`. After `spadi-prepare-local.sh`, the user copies live under `$SPADI_LOCAL/scripts/nestdaq`.
+
+For the RARiS AC-LGAD replay:
+
+```bash
+cd "$SPADI_LOCAL/scripts/nestdaq/raris-ac-lgad"
+./rawdata-download.sh
+./run-start.sh
+./run-status.sh
+./run-attach.sh
+# Ctrl-b d detaches from tmux
+./run-stop.sh
+```
+
+Edit only `config.sh` for normal changes such as process counts, raw-data paths, ports, and run parameters. Shared Redis/Valkey, topology, parameter, tmux, and download logic lives under `scripts/nestdaq/common`.
+
+Raw data is stored under `$SPADI_LOCAL/rawdata` (normally `/workspace/spadi/rawdata`) so it persists with the bound workspace. The downloader shows curl transfer progress and resumes partial files. The initial RARiS recipe uses the existing public reference data URLs; those manifest entries can be replaced with public Google Drive direct-download URLs once the shared-drive file IDs are finalized.
 
 The build directory is local scratch space. For example, to discard only the NestDAQ build tree before rebuilding:
 

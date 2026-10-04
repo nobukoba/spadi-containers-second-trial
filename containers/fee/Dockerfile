@@ -101,6 +101,7 @@ RUN printf '%s\n' \
 COPY scripts/spadi-version.sh /opt/spadi/scripts/spadi-version.sh
 COPY scripts/spadi-setup.sh /opt/spadi/spadi-setup.sh
 COPY scripts/smoke-test-fee.sh /opt/spadi/scripts/smoke-test-fee.sh
+COPY scripts/fee/ /opt/spadi/scripts/fee/
 RUN chmod 0755 /opt/spadi/spadi-setup.sh /opt/spadi/scripts/spadi-version.sh /opt/spadi/scripts/smoke-test-fee.sh
 
 RUN groupadd --gid 1000 spadi && useradd --uid 1000 --gid spadi --create-home --shell /bin/bash spadi

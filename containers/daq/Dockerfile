@@ -232,7 +232,9 @@ RUN printf '%s\n' \
 COPY scripts/spadi-version.sh /opt/spadi/scripts/spadi-version.sh
 COPY scripts/spadi-setup.sh /opt/spadi/spadi-setup.sh
 COPY scripts/smoke-test-daq.sh /opt/spadi/scripts/smoke-test-daq.sh
-RUN chmod 0755 /opt/spadi/spadi-setup.sh /opt/spadi/scripts/*.sh
+COPY scripts/nestdaq/ /opt/spadi/scripts/nestdaq/
+RUN find /opt/spadi/scripts/nestdaq -type f -name '*.sh' -exec chmod 0755 {} + && \
+    chmod 0755 /opt/spadi/spadi-setup.sh /opt/spadi/scripts/*.sh
 
 WORKDIR /workspace
 
