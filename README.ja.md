@@ -247,25 +247,25 @@ spadi-env.sh
 
 ### NestDAQ ベースライン
 
-The DAQ image uses an AlmaLinux 9 runtime. It follows the NestDAQ `v1.0.0` build-dependency baseline where appropriate, while the Redis-compatible runtime service is the AlmaLinux 9 `valkey` package. RedisTimeSeries remains a separately pinned module used for NestDAQ `TS.*` metrics commands; the container does not attempt to reproduce an old Linux distribution merely to run the historical Redis package version.
+DAQ イメージは AlmaLinux 9 runtime を使用します。適切な部分では NestDAQ `v1.0.0` のビルド依存関係を基準としつつ、Redis 互換の runtime service には AlmaLinux 9 の `valkey` パッケージを使用します。RedisTimeSeries は NestDAQ の `TS.*` metrics コマンドで使用する独立した固定バージョンのモジュールとして維持します。過去の Redis パッケージ版を動かすためだけに古い Linux distribution を再現することはしません。
 
-| Component | Version used here | NestDAQ v1.0.0 requirement/baseline |
+| コンポーネント | この環境でのバージョン | NestDAQ v1.0.0 の要件／基準 |
 |---|---:|---:|
-| NestDAQ | `v1.0.0` | official stable release |
-| nestdaq-user-impl | `47897e9` | latest tested upstream commit (2026-10-03) |
-| FairMQ | `v1.4.55` | `1.4.26` or later |
+| NestDAQ | `v1.0.0` | 公式 stable release |
+| nestdaq-user-impl | `47897e9` | 検証済み最新 upstream commit (2026-10-03) |
+| FairMQ | `v1.4.55` | `1.4.26` 以降 |
 | hiredis | `v1.0.0` | `1.0.0` |
-| redis-plus-plus | `1.3.15` | newer tested release; avoids the older redis-plus-plus setup associated with LockCatcher `SIGABRT` |
-| libzmq | `v4.3.5` | pinned container dependency |
+| redis-plus-plus | `1.3.15` | 検証済みの新しい release。LockCatcher `SIGABRT` に関連した古い redis-plus-plus 構成を回避 |
+| libzmq | `v4.3.5` | コンテナで固定した依存パッケージ |
 
-The `nestdaq-user-impl` pin above was updated after debugging the current NestDAQ user implementation on 2026-10-03. Rather than following the moving `main` branch, the container records the exact tested commit so the working setup can be reproduced later.
+上記の `nestdaq-user-impl` の固定値は、2026-10-03 に現在の NestDAQ user implementation をデバッグした後に更新しました。更新され続ける `main` branch を追従するのではなく、動作確認した正確な commit をコンテナに記録することで、後から同じ動作環境を再現できるようにしています。
 
-The redis-plus-plus difference above is intentional: NestDAQ v1.0.0 source includes `<sw/redis++/patterns/redlock.h>`, while its dependency table still reflects the older `recipes`-branch naming. The container now pins redis-plus-plus 1.3.15 because the older client setup triggered LockCatcher `SIGABRT` during current NestDAQ debugging. The image keeps redis-plus-plus and hiredis in the single `/opt/spadi` prefix to avoid mixing older libraries at runtime. `nestdaq-user-impl` is pinned to the exact tested 2026-10-03 commit rather than a moving `main` branch. The exact repository-wide pins are maintained in `versions/versions.env`. Moving branches such as `main` are not used as the normal container baseline. ARTEMIS upstream development occurs on `develop`; the container records and builds a specific tested `develop` commit via `ARTEMIS_REF`, so an upstream branch update does not silently change the image.
+上記の redis-plus-plus の違いは意図的なものです。NestDAQ v1.0.0 のソースは `<sw/redis++/patterns/redlock.h>` を include していますが、依存関係表には古い `recipes` branch の名称が残っています。現在の NestDAQ のデバッグでは古い client 構成で LockCatcher `SIGABRT` が発生したため、このコンテナでは redis-plus-plus 1.3.15 に固定しています。runtime で古いライブラリが混在しないよう、redis-plus-plus と hiredis は単一の `/opt/spadi` prefix に配置します。`nestdaq-user-impl` も変化する `main` branch ではなく、2026-10-03 に検証した正確な commit に固定しています。リポジトリ全体の正確な固定バージョンは `versions/versions.env` で管理します。`main` のように更新される branch は通常のコンテナ基準には使用しません。ARTEMIS の upstream 開発は `develop` で行われますが、コンテナでは `ARTEMIS_REF` により検証済みの特定 `develop` commit を記録してビルドするため、upstream branch の更新によってイメージが意図せず変化することはありません。
 
 ### コンテナメンテナ向け
 
-Building Docker/SIF images is intentionally separate from rebuilding SPADI software inside a devel image. Container implementation, CI, validation, publishing, and version-maintenance procedures are documented in [docs/container-maintainer-guide.md](docs/container-maintainer-guide.md).
+Docker/SIF イメージのビルドと、devel イメージ内での SPADI ソフトウェアの再ビルドは意図的に分離しています。コンテナ実装、CI、検証、公開、バージョン管理の手順は [docs/container-maintainer-guide.md](docs/container-maintainer-guide.md) に記載しています。
 
 ## 環境の分離
 
-SPADI runtime settings are defined by the container and should not depend on software environment variables inherited from the host. Published binaries target generic x86-64 rather than `-march=native`/AVX-specific runner hardware.
+SPADI の runtime 設定はコンテナ側で定義し、ホストから継承されるソフトウェア環境変数に依存しないようにします。公開バイナリは `-march=native` や特定 runner の AVX 命令セットではなく、汎用 x86-64 を対象とします。
