@@ -173,9 +173,9 @@ spadi-prepare-local.sh
 
 ### NestDAQ リプレイ用レシピ
 
-The DAQ images provide editable NestDAQ recipes under `/opt/spadi/scripts/nestdaq`. After `spadi-prepare-local.sh`, the user copies live under `$SPADI_LOCAL/scripts/nestdaq`.
+DAQ イメージには `/opt/spadi/scripts/nestdaq` 以下に編集可能な NestDAQ レシピが用意されています。`spadi-prepare-local.sh` 実行後は、そのコピーが `$SPADI_LOCAL/scripts/nestdaq` 以下に配置されます。
 
-For the RARiS AC-LGAD replay:
+RARiS AC-LGAD データをリプレイする場合：
 
 ```bash
 cd "$SPADI_LOCAL/scripts/nestdaq/raris-ac-lgad"
@@ -183,38 +183,38 @@ cd "$SPADI_LOCAL/scripts/nestdaq/raris-ac-lgad"
 ./run-start.sh
 ./run-status.sh
 ./run-attach.sh
-# Ctrl-b d detaches from tmux
+# Ctrl-b d で tmux から detach
 ./run-stop.sh
 ```
 
-Edit only `config.sh` for normal changes such as process counts, raw-data paths, ports, and run parameters. Shared Redis/Valkey, topology, parameter, tmux, and download logic lives under `scripts/nestdaq/common`.
+プロセス数、raw data のパス、ポート、run parameter など通常の設定変更は `config.sh` のみを編集します。共通の Redis/Valkey、topology、parameter、tmux、download 処理は `scripts/nestdaq/common` 以下にあります。
 
-Raw data is stored under `$SPADI_LOCAL/rawdata` (normally `/workspace/spadi/rawdata`) so it persists with the bound workspace. The downloader shows curl transfer progress and resumes partial files. The initial RARiS recipe uses the existing public reference data URLs; those manifest entries can be replaced with public Google Drive direct-download URLs once the shared-drive file IDs are finalized.
+Raw data は `$SPADI_LOCAL/rawdata`（通常は `/workspace/spadi/rawdata`）に保存されるため、bind した workspace とともに永続化されます。ダウンローダーは curl の転送進捗を表示し、途中までダウンロードしたファイルは再開できます。初期の RARiS レシピでは既存の公開参照データ URL を使用しています。共有 Drive のファイル ID が確定したら、manifest の該当項目を公開 Google Drive の直接ダウンロード URL に置き換えられます。
 
-The build directory is local scratch space. For example, to discard only the NestDAQ build tree before rebuilding:
+build ディレクトリはローカルの作業領域です。例えば再ビルド前に NestDAQ の build tree だけを削除する場合：
 
 ```bash
 rm -rf "$SPADI_LOCAL/build/nestdaq"
 ```
 
-This keeps the edited source under `$SPADI_LOCAL/src/nestdaq`.
+これにより、編集済みソース `$SPADI_LOCAL/src/nestdaq` はそのまま保持されます。
 
 ### 検索パスの優先順位
 
-`spadi-setup.sh` places the local installation before the validated installation. In particular, `$SPADI_LOCAL/bin` and `$SPADI_LOCAL/scripts` take precedence over their `$SPADI_ROOT` counterparts.
+`spadi-setup.sh` はローカルインストールを検証済みインストールより先に検索するよう設定します。特に `$SPADI_LOCAL/bin` と `$SPADI_LOCAL/scripts` は、それぞれ `$SPADI_ROOT` 側より優先されます。
 
-Edit the sources under `/workspace/spadi/src` (the host's `workspace/spadi/src`). Editable helper scripts live under `/workspace/spadi/scripts` and can be invoked from any directory once the environment is loaded.
+ソースは `/workspace/spadi/src`（ホスト側では `workspace/spadi/src`）以下を編集します。編集可能なヘルパースクリプトは `/workspace/spadi/scripts` にあり、環境を読み込んだ後はどのディレクトリからでも実行できます。
 
-For the NestDAQ development image used above, rebuild NestDAQ and then its user implementation:
+上記の NestDAQ development イメージでは、NestDAQ、続いて user implementation を次のように再ビルドします：
 
 ```bash
 nestdaq-build.sh
 nestdaq-user-impl-build.sh
 ```
 
-Other components have their own helpers. Run only the helpers for the components you want to rebuild:
+他のコンポーネントにもそれぞれビルド用ヘルパーがあります。再ビルドしたいコンポーネントのものだけを実行してください：
 
-| Build helper | Development images |
+| ビルド用ヘルパー | 対応する Development イメージ |
 |---|---|
 | `hul-common-lib-build.sh` | FEE, DAQ, FULL |
 | `amaneq-build.sh` | FEE, DAQ, FULL |
@@ -224,26 +224,26 @@ Other components have their own helpers. Run only the helpers for the components
 | `nestdaq-user-impl-build.sh` | DAQ, FULL |
 | `artemis-build.sh` | ARTEMIS, FULL |
 
-Each build uses the source under `$SPADI_LOCAL/src`, a separate build tree under `$SPADI_LOCAL/build`, and installs into `$SPADI_LOCAL`. The validated `/opt/spadi` installation is not modified.
+各ビルドでは `$SPADI_LOCAL/src` 以下のソースを使用し、独立した build tree を `$SPADI_LOCAL/build` 以下に作成して、`$SPADI_LOCAL` にインストールします。検証済みの `/opt/spadi` は変更されません。
 
-To deliberately try the latest upstream source, keep cloning separate from building. The clone helpers refuse to overwrite an existing source tree:
+意図的に upstream の最新版を試す場合も、clone と build は分離します。clone 用ヘルパーは既存のソースツリーを上書きしません：
 
 ```bash
-# Remove or rename the existing local source yourself first if you really
-# intend to replace it.
+# 本当に置き換える場合は、既存のローカルソースを先に自分で
+# 削除またはリネームしてください。
 nestdaq-clone-latest.sh
 nestdaq-build.sh
 ```
 
-The same pattern is available for FEE components (`hul-common-lib`, AMANEQ, openFPGALoader, and the SiTCP utility), `nestdaq-user-impl`, and ARTEMIS. There is no `--latest` mode hidden inside the build script.
+同じ方式を FEE コンポーネント（`hul-common-lib`、AMANEQ、openFPGALoader、SiTCP utility）、`nestdaq-user-impl`、ARTEMIS にも利用できます。build スクリプト内部に暗黙の `--latest` モードはありません。
 
-Use:
+次を実行すると：
 
 ```bash
 spadi-env.sh
 ```
 
-to inspect the effective paths.
+実際に有効になっているパスを確認できます。
 
 ### NestDAQ ベースライン
 
