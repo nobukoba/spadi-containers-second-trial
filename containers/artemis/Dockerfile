@@ -33,8 +33,8 @@ RUN dnf -y update && \
       git gcc gcc-c++ gcc-gfortran make cmake ninja-build pkgconf-pkg-config \
       which findutils diffutils patch tar gzip bzip2 xz unzip \
       wget ca-certificates python3 python3-pip rsync \
-      binutils file procps-ng tmux vim-minimal \
-      openssl-devel zlib-devel xz-devel bzip2-devel pcre2-devel shadow-utils \
+      binutils file procps-ng tmux vim-minimal emacs xterm \
+      openssl-devel zlib-devel xz-devel bzip2-devel lz4-devel libzstd-devel pcre2-devel shadow-utils \
       libX11-devel libXext-devel libXft-devel libXpm-devel libXrender-devel \
       libjpeg-turbo-devel libpng-devel freetype-devel giflib-devel \
       mesa-libGL-devel mesa-libGLU-devel \
@@ -181,8 +181,8 @@ RUN dnf -y update && \
     dnf -y install dnf-plugins-core && \
     dnf config-manager --set-enabled crb && \
     dnf -y install \
-      which findutils procps-ng tmux ca-certificates gcc-c++ shadow-utils \
-      openssl-libs zlib xz-libs bzip2-libs pcre2 \
+      which findutils procps-ng tmux vim-minimal emacs xterm ca-certificates gcc-c++ shadow-utils \
+      openssl-libs zlib xz-libs bzip2-libs lz4-libs libzstd pcre2 \
       libX11 libXext libXft libXpm libXrender \
       libjpeg-turbo libpng freetype giflib \
       mesa-libGL mesa-libGLU \
