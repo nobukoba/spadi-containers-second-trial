@@ -27,7 +27,7 @@ RUN dnf -y update && \
       gcc gcc-c++ make cmake git pkgconf-pkg-config \
       libftdi-devel libusbx-devel hidapi-devel libgpiod-devel systemd-devel zlib-devel \
       iproute iputils net-tools bind-utils traceroute tcpdump nmap-ncat \
-      curl-minimal wget procps-ng psmisc lsof which less vim-minimal findutils tar gzip \
+      curl-minimal wget procps-ng psmisc lsof which less vim-minimal emacs xterm findutils tar gzip \
       binutils file shadow-utils && \
     dnf clean all && rm -rf /var/cache/dnf
 
@@ -142,7 +142,7 @@ RUN dnf -y update && \
     dnf -y install epel-release && \
     dnf -y install \
       iproute iputils net-tools bind-utils traceroute tcpdump nmap-ncat \
-      curl-minimal wget procps-ng psmisc lsof which less vim-minimal findutils tar gzip \
+      curl-minimal wget procps-ng psmisc lsof which less vim-minimal emacs xterm findutils tar gzip \
       libftdi libusbx hidapi libgpiod systemd-libs zlib shadow-utils && \
     dnf clean all && rm -rf /var/cache/dnf
 
