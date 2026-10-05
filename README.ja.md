@@ -45,9 +45,9 @@ source /opt/spadi/spadi-setup.sh
 cd /workspace
 ```
 
-Use `--cleanenv` to avoid inheriting host software settings. The SIF remains read-only; files written under `/workspace` are saved in the host's `workspace` directory. Apptainer uses your host user identity, so the Docker-specific `LOCAL_UID` and `LOCAL_GID` options are not needed.
+ホスト側のソフトウェア環境設定を引き継がないように `--cleanenv` を使用します。SIF は読み取り専用のままで、`/workspace` に書き込んだファイルはホスト側の `workspace` ディレクトリに保存されます。Apptainer ではホストのユーザー ID がそのまま使われるため、Docker 用の `LOCAL_UID` と `LOCAL_GID` の指定は不要です。
 
-For another image, replace `spadi-devel-daq` in both the download URL and SIF filename with any name in the image table. For example, normal FEE operation uses:
+別のイメージを使用する場合は、ダウンロード URL と SIF ファイル名の `spadi-devel-daq` を上のイメージ表にある名前に置き換えてください。例えば通常の FEE 操作では次のようにします：
 
 ```bash
 curl -fL -O \
@@ -60,7 +60,7 @@ apptainer shell --cleanenv \
   spadi-user-fee.sif
 ```
 
-Then run the same environment setup commands inside that container.
+その後、コンテナ内で同じ環境設定コマンドを実行します。
 
 ## Docker
 
@@ -86,41 +86,41 @@ docker run --rm -it \
   ghcr.io/nobukoba/spadi-containers-second-trial/spadi-devel-daq:latest
 ```
 
-The images target `linux/amd64`, so the same commands can be used on both Apple Silicon macOS and amd64 Linux. On an amd64 Linux host, `--platform linux/amd64` is optional and may be omitted. `LOCAL_UID` and `LOCAL_GID` make the container's `spadi` user use the host user's numeric UID/GID, so files created in the bind-mounted `/workspace` remain owned by the host user. The container username remains `spadi` on both macOS and Linux.
+イメージは `linux/amd64` 向けなので、Apple Silicon macOS と amd64 Linux のどちらでも同じコマンドを使用できます。amd64 Linux ホストでは `--platform linux/amd64` は省略できます。`LOCAL_UID` と `LOCAL_GID` により、コンテナ内の `spadi` ユーザーはホストユーザーと同じ数値 UID/GID を使用するため、bind mount した `/workspace` 内に作成したファイルの所有者をホストユーザーのままにできます。macOS、Linux のどちらでもコンテナ内のユーザー名は `spadi` です。
 
-The bind-mounted `/workspace` is persistent. Files edited below `/workspace/spadi` remain after the container exits or is replaced.
+bind mount された `/workspace` は永続化されます。`/workspace/spadi` 以下で編集したファイルは、コンテナを終了または入れ替えても残ります。
 
-Inside the Docker container, load the environment and enter the workspace:
+Docker コンテナ内で SPADI 環境を読み込み、workspace に移動します：
 
 ```bash
 source /opt/spadi/spadi-setup.sh
 cd /workspace
 ```
 
-To use another image, replace `spadi-devel-daq` in both Docker commands with its name from the image table.
+別のイメージを使用する場合は、2つの Docker コマンド内の `spadi-devel-daq` をイメージ表にある名前に置き換えてください。
 
 ## コンテナの終了と再起動
 
-Run `exit` inside either container to return to the host. Repeat the corresponding shell/run command from the same host directory to reuse `workspace`. Download or pull again only when you want to update the image. Keep your work under `/workspace`; changes elsewhere in a disposable Docker container are not persistent.
+どちらのコンテナでも `exit` を実行するとホストに戻ります。同じホストディレクトリから対応する shell/run コマンドを再実行すれば、同じ `workspace` を再利用できます。イメージを更新したい場合だけ再度 download または pull してください。作業ファイルは `/workspace` 以下に置いてください。使い捨ての Docker コンテナ内でそれ以外の場所に加えた変更は永続化されません。
 
 ## イメージのバージョン
 
-Docker images are published at `ghcr.io/nobukoba/spadi-containers-second-trial/<image-name>` with `latest` and UTC build tags in `YYYYMMDD-HHMMutc` format. SIF files are available from [GitHub Releases](https://github.com/nobukoba/spadi-containers-second-trial/releases/tag/latest), with both stable filenames such as `spadi-devel-daq.sif` and timestamped filenames.
+Docker イメージは `ghcr.io/nobukoba/spadi-containers-second-trial/<image-name>` に公開され、`latest` と UTC ビルド時刻を表す `YYYYMMDD-HHMMutc` 形式のタグが付与されます。SIF ファイルは [GitHub Releases](https://github.com/nobukoba/spadi-containers-second-trial/releases/tag/latest) から取得でき、`spadi-devel-daq.sif` のような固定ファイル名とタイムスタンプ付きファイル名の両方を提供します。
 
-`latest` can change. For a repeatable environment, retain the selected timestamped SIF or record the Docker image digest. Pinned component revisions are listed in [versions/versions.env](versions/versions.env); the current repository manifest may differ from an older downloaded image.
+`latest` は更新される可能性があります。再現可能な環境が必要な場合は、選択したタイムスタンプ付き SIF を保存するか、Docker イメージの digest を記録してください。固定された各コンポーネントのリビジョンは [versions/versions.env](versions/versions.env) に記載されています。現在のリポジトリの manifest は、以前ダウンロードしたイメージとは異なる場合があります。
 
-Images containing the version reporter can identify themselves from inside the container:
+バージョン表示機能を含むイメージでは、コンテナ内から自身のバージョン情報を確認できます：
 
 ```bash
 source /opt/spadi/spadi-setup.sh
 /opt/spadi/scripts/spadi-version.sh
 ```
 
-The reporter reads `/opt/spadi/versions/container.env` and `/opt/spadi/versions/versions.env`. Older images published before this metadata was added may not contain these files or the reporter.
+このスクリプトは `/opt/spadi/versions/container.env` と `/opt/spadi/versions/versions.env` を読み込みます。このメタデータが追加される以前に公開された古いイメージには、これらのファイルやバージョン表示スクリプトが含まれていない場合があります。
 
 ## 開発者向け
 
-This section is for developers who **use a pre-built `spadi-devel-*` image to develop SPADI software**. Developers who modify Dockerfiles, GitHub Actions, SIF generation, or image publishing should instead read [Container Maintainer Guide](docs/container-maintainer-guide.md).
+この節は、**ビルド済みの `spadi-devel-*` イメージを使って SPADI ソフトウェアを開発する人**向けです。Dockerfile、GitHub Actions、SIF 生成、イメージ公開方法そのものを変更する場合は、[Container Maintainer Guide](docs/container-maintainer-guide.md) を参照してください。
 
 ### 検証済みインストールとローカル開発領域
 
@@ -154,22 +154,22 @@ SPADI_LOCAL=/workspace/spadi
                                └── rawdata/
 ```
 
-Development images retain source trees under `/opt/spadi/src`; user images normally omit them and do not provide the development helpers.
+Development イメージには `/opt/spadi/src` 以下にソースツリーが保持されます。User イメージでは通常これらを含めず、開発用ヘルパーも提供しません。
 
-`/opt/spadi` is the validated container baseline. Do not edit it for normal development. Source files, build trees, scripts, and locally installed software belong under `/workspace/spadi`.
+`/opt/spadi` は検証済みのコンテナ基準環境です。通常の開発ではここを直接編集しないでください。ソースファイル、ビルドツリー、スクリプト、ローカルにインストールするソフトウェアは `/workspace/spadi` 以下に置きます。
 
 ### 永続的な開発 workspace の準備
 
-Start a `spadi-devel-*` container using either method above. Run the following commands inside the container to load the environment and prepare the local area:
+上記いずれかの方法で `spadi-devel-*` コンテナを起動します。コンテナ内で次のコマンドを実行し、環境を読み込んでローカル開発領域を準備します：
 
 ```bash
 source /opt/spadi/spadi-setup.sh
 spadi-prepare-local.sh
 ```
 
-`spadi-prepare-local.sh` creates the local directory structure and copies available source trees and editable build scripts from `/opt/spadi` into `/workspace/spadi`.
+`spadi-prepare-local.sh` はローカルのディレクトリ構造を作成し、利用可能なソースツリーと編集可能なビルドスクリプトを `/opt/spadi` から `/workspace/spadi` にコピーします。
 
-It is safe to run repeatedly. Existing files and directories under `$SPADI_LOCAL` are kept and are never overwritten by the prepare script. Therefore edits made in `$SPADI_LOCAL/src` or `$SPADI_LOCAL/scripts` survive another prepare operation.
+何度実行しても安全です。`$SPADI_LOCAL` 以下に既に存在するファイルやディレクトリは保持され、prepare スクリプトによって上書きされません。そのため `$SPADI_LOCAL/src` や `$SPADI_LOCAL/scripts` に加えた変更は、再度 prepare を実行しても残ります。
 
 ### NestDAQ リプレイ用レシピ
 
