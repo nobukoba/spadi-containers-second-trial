@@ -98,14 +98,15 @@ RUN printf '%s\n' \
       "SPADI_GIT_COMMIT=${SPADI_GIT_COMMIT}" \
       "SPADI_IMAGE_TARGET=${SPADI_IMAGE_TARGET}" \
       > /opt/spadi/versions/container.env
-COPY scripts/spadi-version.sh /opt/spadi/scripts/spadi-version.sh
-COPY scripts/spadi-setup.sh /opt/spadi/spadi-setup.sh
-COPY scripts/smoke-test-fee.sh /opt/spadi/scripts/smoke-test-fee.sh
-COPY scripts/fee/ /opt/spadi/scripts/fee/
+COPY scripts/runtime/spadi-version.sh /opt/spadi/scripts/spadi-version.sh
+COPY scripts/runtime/spadi-setup.sh /opt/spadi/spadi-setup.sh
+COPY --chmod=0755 scripts/runtime/spadi-shell.sh /opt/spadi/spadi-shell.sh
+COPY scripts/tests/smoke-test-fee.sh /opt/spadi/scripts/smoke-test-fee.sh
+COPY scripts/fee/README.md /opt/spadi/scripts/fee/README.md
 RUN chmod 0755 /opt/spadi/spadi-setup.sh /opt/spadi/scripts/spadi-version.sh /opt/spadi/scripts/smoke-test-fee.sh
 
 RUN groupadd --gid 1000 spadi && useradd --uid 1000 --gid spadi --create-home --shell /bin/bash spadi
-COPY scripts/spadi-entrypoint.sh /usr/local/bin/spadi-entrypoint.sh
+COPY scripts/runtime/spadi-entrypoint.sh /usr/local/bin/spadi-entrypoint.sh
 RUN chmod 0755 /usr/local/bin/spadi-entrypoint.sh
 
 WORKDIR /workspace
@@ -113,15 +114,15 @@ ENTRYPOINT ["/usr/local/bin/spadi-entrypoint.sh"]
 
 FROM fee-build AS devel-fee
 RUN find /opt/spadi/src -type d -name build -prune -exec rm -rf '{}' + && rm -rf /opt/spadi/src/root-build
-COPY scripts/spadi-prepare-local.sh scripts/spadi-env.sh /opt/spadi/scripts/
-COPY scripts/hul-common-lib-build.sh scripts/amaneq-build.sh /opt/spadi/scripts/
-COPY scripts/openfpgaloader-build.sh scripts/sitcp-utility-build.sh /opt/spadi/scripts/
-COPY scripts/hul-common-lib-clone-latest.sh scripts/amaneq-clone-latest.sh /opt/spadi/scripts/
-COPY scripts/openfpgaloader-clone-latest.sh scripts/sitcp-utility-clone-latest.sh /opt/spadi/scripts/
+COPY scripts/development/spadi-prepare-local.sh scripts/development/spadi-env.sh /opt/spadi/scripts/
+COPY scripts/fee/hul-common-lib-build.sh scripts/fee/amaneq-build.sh /opt/spadi/scripts/
+COPY scripts/fee/openfpgaloader-build.sh scripts/fee/sitcp-utility-build.sh /opt/spadi/scripts/
+COPY scripts/fee/hul-common-lib-clone-latest.sh scripts/fee/amaneq-clone-latest.sh /opt/spadi/scripts/
+COPY scripts/fee/openfpgaloader-clone-latest.sh scripts/fee/sitcp-utility-clone-latest.sh /opt/spadi/scripts/
 RUN chmod 0755 /opt/spadi/scripts/*.sh
 
 ENV SPADI_IMAGE_KIND=devel
-CMD ["/bin/bash"]
+CMD ["/opt/spadi/spadi-shell.sh"]
 
 FROM fee-build AS fee-runtime-files
 
@@ -153,9 +154,9 @@ RUN mkdir -p /workspace && chmod 1777 /workspace && \
     ldconfig
 
 RUN groupadd --gid 1000 spadi && useradd --uid 1000 --gid spadi --create-home --shell /bin/bash spadi
-COPY scripts/spadi-entrypoint.sh /usr/local/bin/spadi-entrypoint.sh
+COPY scripts/runtime/spadi-entrypoint.sh /usr/local/bin/spadi-entrypoint.sh
 RUN chmod 0755 /usr/local/bin/spadi-entrypoint.sh
 
 WORKDIR /workspace
 ENTRYPOINT ["/usr/local/bin/spadi-entrypoint.sh"]
-CMD ["/bin/bash"]
+CMD ["/opt/spadi/spadi-shell.sh"]

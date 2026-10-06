@@ -6,6 +6,20 @@ Pre-built Docker/OCI and Apptainer SIF environments for SPADI FEE, NestDAQ, and 
 
 The images target `linux/amd64`. Use `spadi-user-*` for normal operation and `spadi-devel-*` when you want to edit and rebuild SPADI software inside the container.
 
+## Quick start
+
+On x86-64 Linux with Apptainer installed, download and start the NestDAQ development environment. On macOS, use Docker below.
+
+```bash
+curl -fL -O \
+  https://github.com/nobukoba/spadi-containers-second-trial/releases/download/latest/spadi-devel-daq.sif
+mkdir -p "$PWD/workspace"
+apptainer shell --bind "$PWD/workspace:/workspace" \
+  --shell /opt/spadi/spadi-shell.sh spadi-devel-daq.sif
+```
+
+The shell loads the SPADI environment and enters `/workspace` automatically. Files are saved in the host workspace. Use `exit` to leave; repeat the shell command from the same host directory to reopen it.
+
 ## Images
 
 | Purpose | User image | Development image |
@@ -16,51 +30,6 @@ The images target `linux/amd64`. Use `spadi-user-*` for normal operation and `sp
 | Everything | `spadi-user-full` | `spadi-devel-full` |
 
 `DAQ = FEE + NestDAQ`; `FULL = DAQ + ARTEMIS`.
-
-## Apptainer
-
-Use an x86-64 Linux host with Apptainer installed. The following example uses the NestDAQ development image. On macOS, use the Docker instructions below.
-
-Download the pre-built SIF on the host:
-
-```bash
-curl -fL -O \
-  https://github.com/nobukoba/spadi-containers-second-trial/releases/download/latest/spadi-devel-daq.sif
-```
-
-Create a persistent workspace and open a shell:
-
-```bash
-mkdir -p "$PWD/workspace"
-
-apptainer shell --cleanenv \
-  --bind "$PWD/workspace:/workspace" \
-  spadi-devel-daq.sif
-```
-
-Inside the container, load the SPADI environment and enter the workspace:
-
-```bash
-source /opt/spadi/spadi-setup.sh
-cd /workspace
-```
-
-Use `--cleanenv` to avoid inheriting host software settings. The SIF remains read-only; files written under `/workspace` are saved in the host's `workspace` directory. Apptainer uses your host user identity, so the Docker-specific `LOCAL_UID` and `LOCAL_GID` options are not needed.
-
-For another image, replace `spadi-devel-daq` in both the download URL and SIF filename with any name in the image table. For example, normal FEE operation uses:
-
-```bash
-curl -fL -O \
-  https://github.com/nobukoba/spadi-containers-second-trial/releases/download/latest/spadi-user-fee.sif
-
-mkdir -p "$PWD/workspace"
-
-apptainer shell --cleanenv \
-  --bind "$PWD/workspace:/workspace" \
-  spadi-user-fee.sif
-```
-
-Then run the same environment setup commands inside that container.
 
 ## Docker
 
@@ -90,18 +59,31 @@ The images target `linux/amd64`, so the same commands can be used on both Apple 
 
 The bind-mounted `/workspace` is persistent. Files edited below `/workspace/spadi` remain after the container exits or is replaced.
 
-Inside the Docker container, load the environment and enter the workspace:
-
-```bash
-source /opt/spadi/spadi-setup.sh
-cd /workspace
-```
+Docker also loads the SPADI environment and enters `/workspace` automatically.
 
 To use another image, replace `spadi-devel-daq` in both Docker commands with its name from the image table.
 
 ## Leave and reopen the container
 
 Run `exit` inside either container to return to the host. Repeat the corresponding shell/run command from the same host directory to reuse `workspace`. Download or pull again only when you want to update the image. Keep your work under `/workspace`; changes elsewhere in a disposable Docker container are not persistent.
+
+## Apptainer details
+
+Add `--cleanenv` to avoid inheriting host software environment settings:
+
+```bash
+apptainer shell --cleanenv --bind "$PWD/workspace:/workspace" \
+  --shell /opt/spadi/spadi-shell.sh spadi-devel-daq.sif
+```
+
+The `--shell` script sources `/opt/spadi/spadi-setup.sh` and enters `/workspace`. Keep `--shell`: plain `apptainer shell` skips Bash startup files. The SIF is read-only. Apptainer uses your host UID/GID, so `LOCAL_UID` and `LOCAL_GID` are unnecessary.
+
+For another image, replace `spadi-devel-daq` in the download URL and startup command with a name from the table. Automatic startup requires a newly built SIF containing this change. For an older SIF, use plain `apptainer shell` and run:
+
+```bash
+source /opt/spadi/spadi-setup.sh
+cd /workspace
+```
 
 ## Image versions
 
@@ -112,7 +94,6 @@ Docker images are published at `ghcr.io/nobukoba/spadi-containers-second-trial/<
 Images containing the version reporter can identify themselves from inside the container:
 
 ```bash
-source /opt/spadi/spadi-setup.sh
 /opt/spadi/scripts/spadi-version.sh
 ```
 
@@ -160,10 +141,9 @@ Development images retain source trees under `/opt/spadi/src`; user images norma
 
 ### Prepare a persistent development workspace
 
-Start a `spadi-devel-*` container using either method above. Run the following commands inside the container to load the environment and prepare the local area:
+Start a `spadi-devel-*` container using either method above. Run the following command inside the container to prepare the local area:
 
 ```bash
-source /opt/spadi/spadi-setup.sh
 spadi-prepare-local.sh
 ```
 

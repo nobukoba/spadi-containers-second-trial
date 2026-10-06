@@ -139,14 +139,15 @@ RUN printf '%s\n' \
       "SPADI_GIT_COMMIT=${SPADI_GIT_COMMIT}" \
       "SPADI_IMAGE_TARGET=${SPADI_IMAGE_TARGET}" \
       > /opt/spadi/versions/container.env
-COPY scripts/spadi-version.sh /opt/spadi/scripts/spadi-version.sh
-COPY scripts/spadi-setup.sh /opt/spadi/spadi-setup.sh
-COPY scripts/smoke-test-artemis.sh /opt/spadi/scripts/smoke-test-artemis.sh
-COPY scripts/artemis/ /opt/spadi/scripts/artemis/
+COPY scripts/runtime/spadi-version.sh /opt/spadi/scripts/spadi-version.sh
+COPY scripts/runtime/spadi-setup.sh /opt/spadi/spadi-setup.sh
+COPY --chmod=0755 scripts/runtime/spadi-shell.sh /opt/spadi/spadi-shell.sh
+COPY scripts/tests/smoke-test-artemis.sh /opt/spadi/scripts/smoke-test-artemis.sh
+COPY scripts/artemis/README.md /opt/spadi/scripts/artemis/README.md
 RUN chmod 0755 /opt/spadi/spadi-setup.sh /opt/spadi/scripts/*.sh
 
 RUN groupadd --gid 1000 spadi && useradd --uid 1000 --gid spadi --create-home --shell /bin/bash spadi
-COPY scripts/spadi-entrypoint.sh /usr/local/bin/spadi-entrypoint.sh
+COPY scripts/runtime/spadi-entrypoint.sh /usr/local/bin/spadi-entrypoint.sh
 RUN chmod 0755 /usr/local/bin/spadi-entrypoint.sh
 
 WORKDIR /workspace
@@ -154,11 +155,11 @@ ENTRYPOINT ["/usr/local/bin/spadi-entrypoint.sh"]
 
 FROM artemis-build AS devel-artemis
 RUN find /opt/spadi/src -type d -name build -prune -exec rm -rf '{}' + && rm -rf /opt/spadi/src/root-build
-COPY scripts/spadi-prepare-local.sh scripts/spadi-env.sh /opt/spadi/scripts/
-COPY scripts/artemis-build.sh scripts/artemis-clone-latest.sh /opt/spadi/scripts/
+COPY scripts/development/spadi-prepare-local.sh scripts/development/spadi-env.sh /opt/spadi/scripts/
+COPY scripts/artemis/artemis-build.sh scripts/artemis/artemis-clone-latest.sh /opt/spadi/scripts/
 RUN chmod 0755 /opt/spadi/scripts/*.sh
 ENV SPADI_IMAGE_KIND=devel
-CMD ["/bin/bash"]
+CMD ["/opt/spadi/spadi-shell.sh"]
 
 FROM artemis-build AS artemis-runtime-files
 # ROOT/Cling needs the installed headers, including ROOT.modulemap, at runtime.
@@ -196,9 +197,9 @@ RUN mkdir -p /workspace && chmod 1777 /workspace && \
     ldconfig
 
 RUN groupadd --gid 1000 spadi && useradd --uid 1000 --gid spadi --create-home --shell /bin/bash spadi
-COPY scripts/spadi-entrypoint.sh /usr/local/bin/spadi-entrypoint.sh
+COPY scripts/runtime/spadi-entrypoint.sh /usr/local/bin/spadi-entrypoint.sh
 RUN chmod 0755 /usr/local/bin/spadi-entrypoint.sh
 
 WORKDIR /workspace
 ENTRYPOINT ["/usr/local/bin/spadi-entrypoint.sh"]
-CMD ["/bin/bash"]
+CMD ["/opt/spadi/spadi-shell.sh"]

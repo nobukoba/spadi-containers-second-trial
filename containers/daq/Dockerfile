@@ -229,10 +229,13 @@ RUN printf '%s\n' \
       "SPADI_GIT_COMMIT=${SPADI_GIT_COMMIT}" \
       "SPADI_IMAGE_TARGET=${SPADI_IMAGE_TARGET}" \
       > /opt/spadi/versions/container.env
-COPY scripts/spadi-version.sh /opt/spadi/scripts/spadi-version.sh
-COPY scripts/spadi-setup.sh /opt/spadi/spadi-setup.sh
-COPY scripts/smoke-test-daq.sh /opt/spadi/scripts/smoke-test-daq.sh
-COPY scripts/nestdaq/ /opt/spadi/scripts/nestdaq/
+COPY scripts/runtime/spadi-version.sh /opt/spadi/scripts/spadi-version.sh
+COPY scripts/runtime/spadi-setup.sh /opt/spadi/spadi-setup.sh
+COPY --chmod=0755 scripts/runtime/spadi-shell.sh /opt/spadi/spadi-shell.sh
+COPY scripts/tests/smoke-test-daq.sh /opt/spadi/scripts/smoke-test-daq.sh
+COPY scripts/nestdaq/README.md /opt/spadi/scripts/nestdaq/README.md
+COPY scripts/nestdaq/common/ /opt/spadi/scripts/nestdaq/common/
+COPY scripts/nestdaq/raris-ac-lgad/ /opt/spadi/scripts/nestdaq/raris-ac-lgad/
 RUN find /opt/spadi/scripts/nestdaq -type f -name '*.sh' -exec chmod 0755 {} + && \
     chmod 0755 /opt/spadi/spadi-setup.sh /opt/spadi/scripts/*.sh
 
@@ -240,12 +243,12 @@ WORKDIR /workspace
 
 FROM daq-build AS devel-daq
 RUN find /opt/spadi/src -type d -name build -prune -exec rm -rf '{}' + && rm -rf /opt/spadi/src/root-build
-COPY scripts/spadi-prepare-local.sh scripts/spadi-env.sh /opt/spadi/scripts/
-COPY scripts/nestdaq-build.sh scripts/nestdaq-clone-latest.sh /opt/spadi/scripts/
-COPY scripts/nestdaq-user-impl-build.sh scripts/nestdaq-user-impl-clone-latest.sh /opt/spadi/scripts/
+COPY scripts/development/spadi-prepare-local.sh scripts/development/spadi-env.sh /opt/spadi/scripts/
+COPY scripts/nestdaq/nestdaq-build.sh scripts/nestdaq/nestdaq-clone-latest.sh /opt/spadi/scripts/
+COPY scripts/nestdaq/nestdaq-user-impl-build.sh scripts/nestdaq/nestdaq-user-impl-clone-latest.sh /opt/spadi/scripts/
 RUN chmod 0755 /opt/spadi/scripts/*.sh
 ENV SPADI_IMAGE_KIND=devel
-CMD ["/bin/bash"]
+CMD ["/opt/spadi/spadi-shell.sh"]
 
 FROM daq-build AS daq-runtime-files
 RUN rm -rf /opt/spadi/src && rm -rf /opt/spadi/include
@@ -272,4 +275,4 @@ RUN mkdir -p /workspace && chmod 1777 /workspace && \
     ldconfig
 
 WORKDIR /workspace
-CMD ["/bin/bash"]
+CMD ["/opt/spadi/spadi-shell.sh"]
