@@ -62,6 +62,52 @@ root-config --version
 command -v root
 root -b -q -e 'gSystem->Exit(0);'
 command -v artemis
+
+echo "=== ROOT compressed TTree I/O ==="
+cat > /workspace/root-compression-smoke.C <<'EOF'
+#include <ROOT/RCompressionSetting.hxx>
+#include <TFile.h>
+#include <TTree.h>
+#include <array>
+#include <cstdio>
+#include <memory>
+
+int root_compression_smoke() {
+  using ROOT::RCompressionSetting::EAlgorithm;
+  const std::array<EAlgorithm, 4> algorithms = {
+    EAlgorithm::kZLIB, EAlgorithm::kLZMA,
+    EAlgorithm::kLZ4, EAlgorithm::kZSTD
+  };
+  for (auto algorithm : algorithms) {
+    const int code = static_cast<int>(algorithm);
+    const TString path = TString::Format("/workspace/root-compression-%d.root", code);
+    {
+      TFile out(path, "RECREATE", "", ROOT::CompressionSettings(algorithm, 1));
+      if (out.IsZombie()) return 10 + code;
+      TTree tree("tree", "compression smoke test");
+      int value = 0;
+      tree.Branch("value", &value);
+      for (value = 0; value < 1000; ++value) tree.Fill();
+      tree.Write();
+      out.Close();
+    }
+    {
+      std::unique_ptr<TFile> in(TFile::Open(path, "READ"));
+      if (!in || in->IsZombie()) return 20 + code;
+      TTree *tree = nullptr;
+      in->GetObject("tree", tree);
+      if (!tree || tree->GetEntries() != 1000) return 30 + code;
+      int value = -1;
+      tree->SetBranchAddress("value", &value);
+      if (tree->GetEntry(999) <= 0 || value != 999) return 40 + code;
+    }
+    std::remove(path.Data());
+  }
+  return 0;
+}
+EOF
+root -b -q '/workspace/root-compression-smoke.C()'
+rm -f /workspace/root-compression-smoke.C
 test -r /opt/spadi/bin/thisroot.sh
 test -r /opt/spadi/bin/thisartemis.sh
 artemis --help >/tmp/artemis-help.txt 2>&1 || true
