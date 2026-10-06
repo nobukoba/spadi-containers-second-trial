@@ -100,11 +100,11 @@ RUN printf '%s\n' '/opt/spadi/lib' '/opt/spadi/lib64' > /etc/ld.so.conf.d/spadi.
 RUN find /opt/spadi/src -type d -name build -prune -exec rm -rf '{}' + && \
     rm -rf /opt/spadi/src/root-build
 
-COPY scripts/smoke-test-full.sh /opt/spadi/scripts/smoke-test-full.sh
+COPY scripts/tests/smoke-test-full.sh /opt/spadi/scripts/smoke-test-full.sh
 RUN chmod 0755 /opt/spadi/scripts/smoke-test-full.sh
 
 WORKDIR /workspace
-CMD ["/bin/bash"]
+CMD ["/opt/spadi/spadi-shell.sh"]
 
 FROM devel-full AS full-runtime-files
 # ROOT/Cling needs the installed headers, including ROOT.modulemap, at runtime.
@@ -142,4 +142,4 @@ RUN mkdir -p /workspace && chmod 1777 /workspace && \
     ldconfig
 
 WORKDIR /workspace
-CMD ["/bin/bash"]
+CMD ["/opt/spadi/spadi-shell.sh"]

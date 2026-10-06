@@ -6,7 +6,7 @@ script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 test_image="${ENTRYPOINT_TEST_IMAGE:-almalinux:9}"
 
 docker run --rm -i --platform linux/amd64 \
-  --mount "type=bind,src=${script_dir}/spadi-entrypoint.sh,dst=/test-entrypoint.sh,readonly" \
+  --mount "type=bind,src=${script_dir}/../runtime/spadi-entrypoint.sh,dst=/test-entrypoint.sh,readonly" \
   --entrypoint /bin/bash "$test_image" -s <<'CONTAINER_TEST'
 set -euo pipefail
 source /etc/os-release

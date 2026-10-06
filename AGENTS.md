@@ -76,7 +76,7 @@ Docker containers run interactive commands as the non-root user `spadi`. The Doc
 
 Do not replace this with Docker `--user` alone: the named `spadi` account and its HOME must remain valid for interactive development tools.
 
-`setpriv` preserves the environment by default. Its `--reset-env` option is a flag with no argument; `--reset-env=false` aborts startup before the requested command can run. Omit the flag when retaining SPADI paths while dropping privileges. Run `bash scripts/test-entrypoint.sh` to verify the real AlmaLinux 9 command, user/group remapping, environment preservation, workspace ownership, argument forwarding, and exit status before expensive SPADI builds. The workflow runs this host-side regression check before compilation for each independent target.
+`setpriv` preserves the environment by default. Its `--reset-env` option is a flag with no argument; `--reset-env=false` aborts startup before the requested command can run. Omit the flag when retaining SPADI paths while dropping privileges. Run `bash scripts/tests/test-entrypoint.sh` to verify the real AlmaLinux 9 command, user/group remapping, environment preservation, workspace ownership, argument forwarding, and exit status before expensive SPADI builds. The workflow runs this host-side regression check before compilation for each independent target.
 
 ## Paths
 
@@ -261,3 +261,16 @@ Use these existing implementations as references rather than guessing their beha
 - An exact ARTEMIS commit SHA is not a branch name. Clone the repository and then `git checkout "$ARTEMIS_REF"`; do not pass an arbitrary SHA to `git clone --branch`.
 - The same rule applies to `NESTDAQ_USER_IMPL_REF` when it is pinned to an exact commit: `git clone --branch <sha>` fails with exit 128 because a commit SHA is not a branch/tag. Initialize the checkout, fetch the exact SHA with depth 1, and detach at `FETCH_HEAD`.
 - Shared-library smoke tests must only run `ldd` on ELF executables. Executable scripts or other non-ELF files can make `ldd` return nonzero even when no dependency is missing, especially under `set -o pipefail`.
+
+## Startup and repository script layout
+
+Keep the README opening as a short executable Quick start. Explain `--cleanenv`
+in the later Apptainer details section. Interactive startup must load SPADI setup
+and enter `/workspace` automatically. Apptainer's default bash uses `--norc`, so
+use `--shell /opt/spadi/spadi-shell.sh` rather than relying on a user's bashrc.
+The shared wrapper must not perform Docker UID/GID remapping; Apptainer runs as
+the host identity. Keep setup itself side-effect free.
+
+Repository shell scripts belong under `scripts/runtime`, `scripts/development`,
+`scripts/tests`, or the component directories, not directly under `scripts`.
+Keep existing installed helper paths stable through explicit Docker COPY paths.

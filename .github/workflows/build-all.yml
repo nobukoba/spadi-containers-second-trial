@@ -72,7 +72,9 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Test Docker entrypoint before compiling SPADI
-        run: bash scripts/test-entrypoint.sh
+        run: |
+          bash scripts/tests/test-entrypoint.sh
+          bash scripts/tests/test-shell.sh
 
       - id: versions
         shell: bash
@@ -321,6 +323,16 @@ jobs:
             --bind "${sif_workspace}:/workspace" \
             "${{ steps.names.outputs.sif }}" \
             "/opt/spadi/scripts/smoke-test-${{ matrix.family }}.sh" "${{ matrix.kind }}"
+
+      - name: Verify Apptainer interactive startup
+        shell: bash
+        run: |
+          set -euo pipefail
+          sif_workspace="${RUNNER_TEMP}/spadi-workspace-${{ matrix.target }}"
+          # Exercise the documented shell route, including --cleanenv.
+          printf '%s\n' 'test "$PWD" = /workspace && test "${PATH%%:*}" = /workspace/spadi/bin && touch /workspace/shell-startup-check || exit 1' 'exit 0' | \
+            apptainer shell --cleanenv --bind "${sif_workspace}:/workspace" \
+              --shell /opt/spadi/spadi-shell.sh "${{ steps.names.outputs.sif }}"
 
       - name: Prepare short CI error tail
         if: failure()
