@@ -19,9 +19,9 @@ The images target `linux/amd64`. Use `spadi-user-*` for normal operation and `sp
 
 ## Quick start
 
-These examples use the NestDAQ development image.
+These examples use the NestDAQ development image (spadi-devel-daq).
 
-### Apptainer (64 bit Linux)
+### Apptainer (64 bit (x86_64) Linux)
 
 Install Apptainer on 64 bit Linux, then run the following commands.
 

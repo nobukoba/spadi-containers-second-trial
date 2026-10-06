@@ -19,9 +19,9 @@ SPADI Front End Electronics (FEE)、NestDAQ、ARTEMIS ソフトウェア用の�
 
 ## Quick start
 
-NestDAQ 開発イメージを使用する例です。
+NestDAQ 開発イメージ (spadi-devel-daq) を使用する例です。
 
-### Apptainer（64 bit Linux）
+### Apptainer（64 bit (x86_64) Linux）
 
 64 bit Linux に Apptainer をインストールしてから、以下のコマンドを実行してください。
 
