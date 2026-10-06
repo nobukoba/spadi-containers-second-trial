@@ -264,8 +264,9 @@ Use these existing implementations as references rather than guessing their beha
 
 ## Startup and repository script layout
 
-Keep the README opening as a short executable Quick start. Explain `--cleanenv`
-in the later Apptainer details section. Interactive startup must load SPADI setup
+Place a short executable Quick start immediately after Image types (イメージの種類).
+Include both Apptainer and Docker examples. Keep `--cleanenv` in the Apptainer
+Quick start command; explain it in the later Apptainer details section. Interactive startup must load SPADI setup
 and enter `/workspace` automatically. Apptainer's default bash uses `--norc`, so
 use `--shell /opt/spadi/spadi-shell.sh` rather than relying on a user's bashrc.
 The shared wrapper must not perform Docker UID/GID remapping; Apptainer runs as

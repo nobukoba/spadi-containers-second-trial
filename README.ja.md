@@ -6,21 +6,7 @@ SPADI FEE、NestDAQ、ARTEMIS ソフトウェア用のビルド済み Docker/OCI
 
 イメージは `linux/amd64` 向けです。通常利用には `spadi-user-*`、コンテナ内で SPADI ソフトウェアを編集・再ビルドする場合には `spadi-devel-*` を使用します。
 
-## Quick start
-
-x86-64 Linux に Apptainer がインストールされている場合の、NestDAQ 開発環境の起動例です。macOS では下の Docker 手順を使用してください。
-
-```bash
-curl -fL -O \
-  https://github.com/nobukoba/spadi-containers-second-trial/releases/download/latest/spadi-devel-daq.sif
-mkdir -p "$PWD/workspace"
-apptainer shell --bind "$PWD/workspace:/workspace" \
-  --shell /opt/spadi/spadi-shell.sh spadi-devel-daq.sif
-```
-
-SPADI 環境の読み込みと `/workspace` への移動は自動です。すぐに作業を始められます。ファイルはホストの `workspace` に保存されます。終了は `exit`、次回は同じ場所から起動コマンドを再実行します。
-
-## イメージ
+## イメージの種類
 
 | 用途 | User イメージ | Development イメージ |
 |---|---|---|
@@ -31,20 +17,26 @@ SPADI 環境の読み込みと `/workspace` への移動は自動です。すぐ
 
 `DAQ = FEE + NestDAQ`; `FULL = DAQ + ARTEMIS`.
 
-## Docker
+## Quick start
 
-NestDAQ development イメージを使用する例です：
+NestDAQ 開発イメージを使用する例です。
 
-イメージを pull します：
+### Apptainer（x86-64 Linux）
+
+```bash
+curl -fL -O \
+  https://github.com/nobukoba/spadi-containers-second-trial/releases/download/latest/spadi-devel-daq.sif
+mkdir -p "$PWD/workspace"
+apptainer shell --cleanenv --bind "$PWD/workspace:/workspace" \
+  --shell /opt/spadi/spadi-shell.sh spadi-devel-daq.sif
+```
+
+### Docker（macOS / Linux）
 
 ```bash
 docker pull --platform linux/amd64 \
   ghcr.io/nobukoba/spadi-containers-second-trial/spadi-devel-daq:latest
-```
 
-必要に応じて永続化する workspace を作成し、コンテナを起動します：
-
-```bash
 mkdir -p "$PWD/workspace"
 
 docker run --rm -it \
@@ -55,13 +47,7 @@ docker run --rm -it \
   ghcr.io/nobukoba/spadi-containers-second-trial/spadi-devel-daq:latest
 ```
 
-イメージは `linux/amd64` 向けなので、Apple Silicon macOS と amd64 Linux のどちらでも同じコマンドを使用できます。amd64 Linux ホストでは `--platform linux/amd64` は省略できます。`LOCAL_UID` と `LOCAL_GID` により、コンテナ内の `spadi` ユーザーはホストユーザーと同じ数値 UID/GID を使用するため、bind mount した `/workspace` 内に作成したファイルの所有者をホストユーザーのままにできます。macOS、Linux のどちらでもコンテナ内のユーザー名は `spadi` です。
-
-bind mount された `/workspace` は永続化されます。`/workspace/spadi` 以下で編集したファイルは、コンテナを終了または入れ替えても残ります。
-
-Docker でも SPADI 環境の読み込みと `/workspace` への移動は自動です。
-
-別のイメージを使用する場合は、2つの Docker コマンド内の `spadi-devel-daq` をイメージ表にある名前に置き換えてください。
+どちらも SPADI 環境の読み込みと `/workspace` への移動は自動です。作業ファイルはホストの `workspace` に保存されます。別のイメージを使用するには、URL とコマンドの `spadi-devel-daq` を上の表の名前に置き換えてください。
 
 ## コンテナの終了と再起動
 
@@ -69,7 +55,7 @@ Docker でも SPADI 環境の読み込みと `/workspace` への移動は自動�
 
 ## Apptainer の詳細
 
-ホストのソフトウェア環境変数の影響を避けたい場合は `--cleanenv` を付けます：
+Quick start の `--cleanenv` は、ホストのソフトウェア環境変数の影響を避けるために付けています：
 
 ```bash
 apptainer shell --cleanenv --bind "$PWD/workspace:/workspace" \
@@ -84,6 +70,14 @@ apptainer shell --cleanenv --bind "$PWD/workspace:/workspace" \
 source /opt/spadi/spadi-setup.sh
 cd /workspace
 ```
+
+## Docker の詳細
+
+イメージは `linux/amd64` 向けなので、Apple Silicon macOS と amd64 Linux のどちらでも同じコマンドを使用できます。amd64 Linux ホストでは `--platform linux/amd64` は省略できます。`LOCAL_UID` と `LOCAL_GID` により、コンテナ内の `spadi` ユーザーはホストユーザーと同じ数値 UID/GID を使用するため、bind mount した `/workspace` 内に作成したファイルの所有者をホストユーザーのままにできます。macOS、Linux のどちらでもコンテナ内のユーザー名は `spadi` です。
+
+bind mount された `/workspace` は永続化されます。`/workspace/spadi` 以下で編集したファイルは、コンテナを終了または入れ替えても残ります。
+
+Docker でも SPADI 環境の読み込みと `/workspace` への移動は自動です。
 
 ## イメージのバージョン
 

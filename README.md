@@ -6,21 +6,7 @@ Pre-built Docker/OCI and Apptainer SIF environments for SPADI FEE, NestDAQ, and 
 
 The images target `linux/amd64`. Use `spadi-user-*` for normal operation and `spadi-devel-*` when you want to edit and rebuild SPADI software inside the container.
 
-## Quick start
-
-On x86-64 Linux with Apptainer installed, download and start the NestDAQ development environment. On macOS, use Docker below.
-
-```bash
-curl -fL -O \
-  https://github.com/nobukoba/spadi-containers-second-trial/releases/download/latest/spadi-devel-daq.sif
-mkdir -p "$PWD/workspace"
-apptainer shell --bind "$PWD/workspace:/workspace" \
-  --shell /opt/spadi/spadi-shell.sh spadi-devel-daq.sif
-```
-
-The shell loads the SPADI environment and enters `/workspace` automatically. Files are saved in the host workspace. Use `exit` to leave; repeat the shell command from the same host directory to reopen it.
-
-## Images
+## Image types
 
 | Purpose | User image | Development image |
 |---|---|---|
@@ -31,20 +17,26 @@ The shell loads the SPADI environment and enters `/workspace` automatically. Fil
 
 `DAQ = FEE + NestDAQ`; `FULL = DAQ + ARTEMIS`.
 
-## Docker
+## Quick start
 
-For example, to use the NestDAQ development image:
+These examples use the NestDAQ development image.
 
-Pull the image:
+### Apptainer (x86-64 Linux)
+
+```bash
+curl -fL -O \
+  https://github.com/nobukoba/spadi-containers-second-trial/releases/download/latest/spadi-devel-daq.sif
+mkdir -p "$PWD/workspace"
+apptainer shell --cleanenv --bind "$PWD/workspace:/workspace" \
+  --shell /opt/spadi/spadi-shell.sh spadi-devel-daq.sif
+```
+
+### Docker (macOS / Linux)
 
 ```bash
 docker pull --platform linux/amd64 \
   ghcr.io/nobukoba/spadi-containers-second-trial/spadi-devel-daq:latest
-```
 
-Create the persistent workspace if needed and run the container:
-
-```bash
 mkdir -p "$PWD/workspace"
 
 docker run --rm -it \
@@ -55,13 +47,7 @@ docker run --rm -it \
   ghcr.io/nobukoba/spadi-containers-second-trial/spadi-devel-daq:latest
 ```
 
-The images target `linux/amd64`, so the same commands can be used on both Apple Silicon macOS and amd64 Linux. On an amd64 Linux host, `--platform linux/amd64` is optional and may be omitted. `LOCAL_UID` and `LOCAL_GID` make the container's `spadi` user use the host user's numeric UID/GID, so files created in the bind-mounted `/workspace` remain owned by the host user. The container username remains `spadi` on both macOS and Linux.
-
-The bind-mounted `/workspace` is persistent. Files edited below `/workspace/spadi` remain after the container exits or is replaced.
-
-Docker also loads the SPADI environment and enters `/workspace` automatically.
-
-To use another image, replace `spadi-devel-daq` in both Docker commands with its name from the image table.
+Both load the SPADI environment and enter `/workspace` automatically. Files are saved in the host workspace. For another image, replace `spadi-devel-daq` in the URLs and commands with a name from the table.
 
 ## Leave and reopen the container
 
@@ -69,7 +55,7 @@ Run `exit` inside either container to return to the host. Repeat the correspondi
 
 ## Apptainer details
 
-Add `--cleanenv` to avoid inheriting host software environment settings:
+The Quick start uses `--cleanenv` to avoid inheriting host software environment settings:
 
 ```bash
 apptainer shell --cleanenv --bind "$PWD/workspace:/workspace" \
@@ -84,6 +70,14 @@ For another image, replace `spadi-devel-daq` in the download URL and startup com
 source /opt/spadi/spadi-setup.sh
 cd /workspace
 ```
+
+## Docker details
+
+The images target `linux/amd64`, so the same commands can be used on both Apple Silicon macOS and amd64 Linux. On an amd64 Linux host, `--platform linux/amd64` is optional and may be omitted. `LOCAL_UID` and `LOCAL_GID` make the container's `spadi` user use the host user's numeric UID/GID, so files created in the bind-mounted `/workspace` remain owned by the host user. The container username remains `spadi` on both macOS and Linux.
+
+The bind-mounted `/workspace` is persistent. Files edited below `/workspace/spadi` remain after the container exits or is replaced.
+
+Docker also loads the SPADI environment and enters `/workspace` automatically.
 
 ## Image versions
 
