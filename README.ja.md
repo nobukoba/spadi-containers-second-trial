@@ -55,7 +55,7 @@ docker run --rm -it \
 
 ## Apptainer の詳細
 
-Quick start の `--cleanenv` は、ホストのソフトウェア環境変数の影響を避けるために付けています：
+Quick start の `--cleanenv` は、ホストのソフトウェア環境変数の影響を避けるために付けています。SPADI の実行環境はコンテナ側で定義し、ホストのソフトウェア設定に依存させません：
 
 ```bash
 apptainer shell --cleanenv --bind "$PWD/workspace:/workspace" \
@@ -234,7 +234,3 @@ DAQ イメージは AlmaLinux 9 runtime を使用します。適切な部分で�
 ### コンテナメンテナ向け
 
 Docker/SIF イメージのビルドと、devel イメージ内での SPADI ソフトウェアの再ビルドは意図的に分離しています。コンテナ実装、CI、検証、公開、バージョン管理の手順は [docs/container-maintainer-guide.md](docs/container-maintainer-guide.md) に記載しています。
-
-## 環境の分離
-
-SPADI の runtime 設定はコンテナ側で定義し、ホストから継承されるソフトウェア環境変数に依存しないようにします。公開バイナリは `-march=native` や特定 runner の AVX 命令セットではなく、汎用 x86-64 を対象とします。

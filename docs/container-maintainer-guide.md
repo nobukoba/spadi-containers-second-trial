@@ -114,3 +114,8 @@ spadi-containers-second-trial/
 ```
 
 Before changing implementation details, read `AGENTS.md`; it is the repository's persistent engineering knowledge base.
+
+### Published binary compatibility
+
+Build published binaries for generic x86-64. Do not use `-march=native` or
+runner-specific AVX instruction sets, which can make an image fail on another host.

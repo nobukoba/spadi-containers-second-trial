@@ -55,7 +55,7 @@ Run `exit` inside either container to return to the host. Repeat the correspondi
 
 ## Apptainer details
 
-The Quick start uses `--cleanenv` to avoid inheriting host software environment settings:
+The Quick start uses `--cleanenv` to avoid inheriting host software environment settings. SPADI runtime settings are defined inside the container so the environment does not depend on the host software configuration:
 
 ```bash
 apptainer shell --cleanenv --bind "$PWD/workspace:/workspace" \
@@ -234,7 +234,3 @@ The redis-plus-plus difference above is intentional: NestDAQ v1.0.0 source inclu
 ### Container maintainers
 
 Building Docker/SIF images is intentionally separate from rebuilding SPADI software inside a devel image. Container implementation, CI, validation, publishing, and version-maintenance procedures are documented in [docs/container-maintainer-guide.md](docs/container-maintainer-guide.md).
-
-## Environment isolation
-
-SPADI runtime settings are defined by the container and should not depend on software environment variables inherited from the host. Published binaries target generic x86-64 rather than `-march=native`/AVX-specific runner hardware.
