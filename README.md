@@ -2,7 +2,7 @@
 
 **Language: English | [日本語](README.ja.md)**
 
-Pre-built Docker / Open Container Initiative (OCI) and Apptainer SIF environments for SPADI Front End Electronics (FEE), NestDAQ, and ARTEMIS software.
+Pre-built Docker and Apptainer SIF environments for SPADI Front End Electronics (FEE), NestDAQ, and ARTEMIS software.
 
 The images target `linux/amd64`. Use `spadi-user-*` for normal operation and `spadi-devel-*` when you want to edit and rebuild SPADI software inside the container.
 
