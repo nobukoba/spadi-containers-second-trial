@@ -21,9 +21,9 @@ SPADI Front End Electronics (FEE)、NestDAQ、ARTEMIS ソフトウェア用の�
 
 NestDAQ 開発イメージを使用する例です。
 
-### Apptainer（x86-64 Linux）
+### Apptainer（64 bit Linux）
 
-x86-64 Linux に Apptainer をインストールしてから、以下のコマンドを実行してください。
+64 bit Linux に Apptainer をインストールしてから、以下のコマンドを実行してください。
 
 ```bash
 curl -fL -O \
@@ -51,7 +51,7 @@ docker run --rm -it \
   ghcr.io/nobukoba/spadi-containers-second-trial/spadi-devel-daq:latest
 ```
 
-どちらも SPADI 環境の読み込みと `/workspace` への移動は自動です。作業ファイルはホストの `workspace` に保存されます。別のイメージを使用するには、URL とコマンドの `spadi-devel-daq` を上の表の名前に置き換えてください。
+どちらも SPADI 環境の読み込みと、コンテナ内の作業ディレクトリ `/workspace` への移動は自動です。コンテナ内の `/workspace` はホストの `workspace` ディレクトリに接続されているため、ここに置いた作業ファイルはホスト側に保存されます。別のイメージを使用するには、URL とコマンドの `spadi-devel-daq` を上の表の名前に置き換えてください。
 
 ## コンテナの終了と再起動
 

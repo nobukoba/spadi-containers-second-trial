@@ -21,9 +21,9 @@ The images target `linux/amd64`. Use `spadi-user-*` for normal operation and `sp
 
 These examples use the NestDAQ development image.
 
-### Apptainer (x86-64 Linux)
+### Apptainer (64 bit Linux)
 
-Install Apptainer on x86-64 Linux, then run the following commands.
+Install Apptainer on 64 bit Linux, then run the following commands.
 
 ```bash
 curl -fL -O \
@@ -51,7 +51,7 @@ docker run --rm -it \
   ghcr.io/nobukoba/spadi-containers-second-trial/spadi-devel-daq:latest
 ```
 
-Both load the SPADI environment and enter `/workspace` automatically. Files are saved in the host workspace. For another image, replace `spadi-devel-daq` in the URLs and commands with a name from the table.
+Both load the SPADI environment and enter `/workspace`, the working directory inside the container, automatically. The container’s `/workspace` is mounted from the host’s `workspace` directory, so files saved there persist on the host. For another image, replace `spadi-devel-daq` in the URLs and commands with a name from the table.
 
 ## Leave and reopen the container
 
