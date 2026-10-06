@@ -2,7 +2,7 @@
 
 **Language: [English](README.md) | 日本語**
 
-SPADI FEE、NestDAQ、ARTEMIS ソフトウェア用のビルド済み Docker/OCI および Apptainer SIF 環境です。
+SPADI Front End Electronics (FEE)、NestDAQ、ARTEMIS ソフトウェア用のビルド済み Docker/OCI および Apptainer SIF 環境です。
 
 イメージは `linux/amd64` 向けです。通常利用には `spadi-user-*`、コンテナ内で SPADI ソフトウェアを編集・再ビルドする場合には `spadi-devel-*` を使用します。
 
