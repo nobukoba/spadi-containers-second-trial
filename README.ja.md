@@ -64,12 +64,7 @@ apptainer shell --cleanenv --bind "$PWD/workspace:/workspace" \
 
 `--shell` で指定した起動スクリプトが `/opt/spadi/spadi-setup.sh` を読み込み、`/workspace` に移動します。通常の `apptainer shell` は Bash の起動設定を読み込まないため、`--shell` を省略しないでください。SIF は読み取り専用で、Apptainer はホストユーザーの UID/GID を使用するため `LOCAL_UID` と `LOCAL_GID` は不要です。
 
-イメージを変えるには、ダウンロード URL と起動コマンドの `spadi-devel-daq` を上の表の名前に置き換えてください。自動起動には、この変更を含む新しい SIF が必要です。以前の SIF は通常の `apptainer shell` で起動し、以下を実行してください：
-
-```bash
-source /opt/spadi/spadi-setup.sh
-cd /workspace
-```
+イメージを変えるには、ダウンロード URL と起動コマンドの `spadi-devel-daq` を上の表の名前に置き換えてください。自動起動には、この変更を含む新しい SIF が必要です。
 
 ## Docker の詳細
 

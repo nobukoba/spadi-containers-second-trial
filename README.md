@@ -64,12 +64,7 @@ apptainer shell --cleanenv --bind "$PWD/workspace:/workspace" \
 
 The `--shell` script sources `/opt/spadi/spadi-setup.sh` and enters `/workspace`. Keep `--shell`: plain `apptainer shell` skips Bash startup files. The SIF is read-only. Apptainer uses your host UID/GID, so `LOCAL_UID` and `LOCAL_GID` are unnecessary.
 
-For another image, replace `spadi-devel-daq` in the download URL and startup command with a name from the table. Automatic startup requires a newly built SIF containing this change. For an older SIF, use plain `apptainer shell` and run:
-
-```bash
-source /opt/spadi/spadi-setup.sh
-cd /workspace
-```
+For another image, replace `spadi-devel-daq` in the download URL and startup command with a name from the table. Automatic startup requires a newly built SIF containing this change.
 
 ## Docker details
 
