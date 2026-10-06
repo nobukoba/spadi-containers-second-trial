@@ -23,6 +23,8 @@ NestDAQ 開発イメージを使用する例です。
 
 ### Apptainer（x86-64 Linux）
 
+x86-64 Linux に Apptainer をインストールしてから、以下のコマンドを実行してください。
+
 ```bash
 curl -fL -O \
   https://github.com/nobukoba/spadi-containers-second-trial/releases/download/latest/spadi-devel-daq.sif
@@ -32,6 +34,8 @@ apptainer shell --cleanenv --bind "$PWD/workspace:/workspace" \
 ```
 
 ### Docker（macOS / Linux）
+
+macOS または Linux に Docker をインストールし、起動してから、以下のコマンドを実行してください。
 
 ```bash
 docker pull --platform linux/amd64 \

@@ -23,6 +23,8 @@ These examples use the NestDAQ development image.
 
 ### Apptainer (x86-64 Linux)
 
+Install Apptainer on x86-64 Linux, then run the following commands.
+
 ```bash
 curl -fL -O \
   https://github.com/nobukoba/spadi-containers-second-trial/releases/download/latest/spadi-devel-daq.sif
@@ -32,6 +34,8 @@ apptainer shell --cleanenv --bind "$PWD/workspace:/workspace" \
 ```
 
 ### Docker (macOS / Linux)
+
+Install and start Docker on macOS or Linux, then run the following commands.
 
 ```bash
 docker pull --platform linux/amd64 \
