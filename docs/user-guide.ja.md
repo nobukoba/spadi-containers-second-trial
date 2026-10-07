@@ -59,6 +59,8 @@ AMANEQ ch102 → AmQStrTdcSampler-0 → STFBuilder-0
             → TimeFrameBuilder-0 → FileSink-0 → 00/run000001.dat
 ```
 
+AMANEQ の実機は1台です。Sampler、STFBuilder、TimeFrameBuilder、FileSink はコンテナ内で動く4つのソフトウェアプロセスです。
+
 Valkey、パラメータ、トポロジー、プラグイン、tmux のヘルパーは RARiS 再生と共通です。実機用には Sampler と STFBuilder を使用し、FileSink で TF/STF レコードを保存します。
 
 ### 端末でサービスを準備する
@@ -72,19 +74,19 @@ ping -c 3 192.168.10.16
 ./run-start.sh
 ```
 
-`run-start.sh` は FEE マスクの設定と読み戻し確認、Valkey、パラメータ、トポロジー、4プロセスの準備を行い、全台が **Idle** になるまで待ちます。この時点では読み出しを開始しません。以降の初期化・開始・停止・run 番号の変更はブラウザで操作します。
+`run-start.sh` は FEE マスクの設定と読み戻し確認、Valkey、パラメータ、トポロジー、4つのプロセスの準備を行い、すべてのプロセスが **Idle** になるまで待ちます。この時点では読み出しを開始しません。以降の初期化・開始・停止・run 番号の変更はブラウザで操作します。
 
 ### ブラウザで初期化する
 
 ホストのブラウザで **http://localhost:8081/daq-webctl.html** を開きます。WSL2 の場合も Windows 側のブラウザから開きます。
 
-1. **State Summary** に `AmQStrTdcSampler`、`STFBuilder`、`TimeFrameBuilder`、`FileSink` が1台ずつ表示され、すべて **Idle** であることを確認します。**Show details** で個々の状態も表示できます。
+1. **State Summary** に `AmQStrTdcSampler`、`STFBuilder`、`TimeFrameBuilder`、`FileSink` がそれぞれ1プロセスずつ表示され、すべて **Idle** であることを確認します。**Show details** で個々の状態も表示できます。
 2. **Wait Device Ready** と **Wait Ready** のチェックを外します。以下では各ボタンを押した後に状態を確認して進めます。
 3. **Auto increment at RUN-Stop** のチェックを外します。サービスを個別に Stop するため、チェックがあるとクリックのたびに run 番号が増えます。
 4. **RUN number** の **New value** に `1` を入力して **Send** を押し、**Next : 1** を確認します。保存済みの番号は使わないでください。
 5. **Select command target** のサービスとインスタンスを両方 **all** にします。
-6. **Init Device and Connection** を押し、全4台が **Device-Ready** になるまで待ちます。
-7. **Init Task** を押し、全4台が **Ready** になるまで待ちます。
+6. **Init Device and Connection** を押し、4つのプロセスすべてが **Device-Ready** になるまで待ちます。
+7. **Init Task** を押し、4つのプロセスすべてが **Ready** になるまで待ちます。
 
 ブラウザの再読み込み後も、上の3つのチェックを外してください。
 
@@ -99,15 +101,15 @@ ping -c 3 192.168.10.16
 | 3 | `STFBuilder` | **Run** → **Running** |
 | 4 | `AmQStrTdcSampler` | **Run** → **Running** |
 
-Sampler の Run で AMANEQ への TCP 接続が開き、読み出しが始まります。全4台の **Running** と **Error = 0** を確認してください。run 1 の保存先はホストの `workspace/spadi/rawdata/amaneq-lrtdc-1ch/00/run000001.dat` です。
+Sampler の Run で AMANEQ への TCP 接続が開き、読み出しが始まります。4つのプロセスすべての **Running** と **Error = 0** を確認してください。run 1 の保存先はホストの `workspace/spadi/rawdata/amaneq-lrtdc-1ch/00/run000001.dat` です。
 
 ### ブラウザで停止し、次の run を始める
 
 上流から `AmQStrTdcSampler` → `STFBuilder` → `TimeFrameBuilder` → `FileSink` の順にサービスを1つずつ選び、**Stop** を押します。それぞれ **Ready** になるまで待ち、次の Stop まで1秒程度空けます。最後に FileSink が **Ready** になれば、トレーラー書き込みとファイル close が完了しています。
 
-次の取得では **New value** に未使用の番号（例：`2`）を入力して **Send** を押します。サービスとインスタンスを **all** にし、**Reset Task** → 全台 **Device-Ready**、**Reset Device** → 全台 **Idle** の順に確認します。その後、初期化と開始の手順を繰り返します。run 番号は取得中に変更しないでください。
+次の取得では **New value** に未使用の番号（例：`2`）を入力して **Send** を押します。サービスとインスタンスを **all** にし、**Reset Task** → すべてのプロセス **Device-Ready**、**Reset Device** → すべてのプロセス **Idle** の順に確認します。その後、初期化と開始の手順を繰り返します。run 番号は取得中に変更しないでください。
 
-作業を終えるときはブラウザで全台を Stop した後、コンテナの端末で `./run-stop.sh` を実行してプロセスと tmux を終了します。調査には `./run-status.sh` と `./run-attach.sh` を使います。tmux は **Ctrl-b d** で離れられます。ブラウザを閉じるだけでは収集は停止しません。
+作業を終えるときはブラウザですべてのプロセスを Stop した後、コンテナの端末で `./run-stop.sh` を実行してプロセスと tmux を終了します。調査には `./run-status.sh` と `./run-attach.sh` を使います。tmux は **Ctrl-b d** で離れられます。ブラウザを閉じるだけでは収集は停止しません。
 
 ### 設定と保存データ
 
@@ -133,6 +135,16 @@ cd "$SPADI_LOCAL/scripts/nestdaq/raris-ac-lgad"
 3個の STFBFilePlayer と1個の TimeFrameBuilder を起動します。`http://localhost:8080/daq-webctl.html` で対象サービスを選択し、run 番号を設定して **Init Device and Connection → Init Task → Run** の順に状態を確認しながら進めます。デフォルト構成に FileSink はありません。TFB 出力 `tcp://127.0.0.1:5501` には利用する下流プロセスを接続してください。Web 制御で Stop / Reset を行ってから `./run-stop.sh` でセッションを終了します。通常の変更はこの設定の `config.sh` で行います。
 
 ## ディレクトリ構造
+
+以下の構造をすべて手作業で作る必要はありません。コンテナ内で実行するヘルパーが、次のタイミングで作成します。
+
+| 操作 | 作成されるもの |
+|---|---|
+| `spadi-prepare-runtime.sh` | `/workspace/spadi/scripts/` 以下にイメージ内のヘルパーと設定をコピーし、`/workspace/spadi/rawdata/` を作成 |
+| AMANEQ の `./run-start.sh` | 保存先の `rawdata/amaneq-lrtdc-1ch/00/` を作成。収集はまだ開始しない |
+| ブラウザで FileSink を **Run** | 指定した run のデータファイル（例：`00/run000001.dat`）を作成 |
+
+準備ヘルパーは既存ファイルを上書きしません。編集済みの `config.sh` も保持します。`/opt/spadi/` はイメージに含まれる領域です。デフォルトの `/workspace/spadi/` に作られたファイルは、ホスト側の `workspace/spadi/` に残ります。`SPADI_LOCAL` や `RAWDATA_DIR` を変更した場合は、その設定先を使います。
 
 ```text
 /opt/spadi/                           # イメージ内。SIF では読み取り専用

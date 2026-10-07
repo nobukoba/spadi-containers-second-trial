@@ -57,6 +57,8 @@ AMANEQ ch102 -> AmQStrTdcSampler-0 -> STFBuilder-0
             -> TimeFrameBuilder-0 -> FileSink-0 -> 00/run000001.dat
 ```
 
+There is one physical AMANEQ board. Sampler, STFBuilder, TimeFrameBuilder, and FileSink are four software processes inside the container.
+
 The recipe shares Valkey, parameter, topology, plugin, and tmux helpers with RARiS. Live acquisition uses a hardware sampler and STF builder and saves TF/STF records with FileSink.
 
 ### Prepare services in the terminal
@@ -70,7 +72,7 @@ ping -c 3 192.168.10.16
 ./run-start.sh
 ```
 
-`run-start.sh` applies and verifies the FEE masks, prepares Valkey, parameters, topology, and four processes, and waits for all devices to become **Idle**. Acquisition has not started. Initialize, Run, Stop, and change run numbers in the browser.
+`run-start.sh` applies and verifies the FEE masks, prepares Valkey, parameters, topology, and four processes, and waits for all processes to become **Idle**. Acquisition has not started. Initialize, Run, Stop, and change run numbers in the browser.
 
 ### Initialize in the browser
 
@@ -81,8 +83,8 @@ Open **http://localhost:8081/daq-webctl.html** in the host browser (the Windows 
 3. Uncheck **Auto increment at RUN-Stop**. Otherwise each individual Stop click increments the run number.
 4. Enter `1` in **RUN number → New value**, click **Send**, and check **Next : 1**. Choose an unused number.
 5. Under **Select command target**, select **all** for both services and instances.
-6. Click **Init Device and Connection**; wait until all four devices are **Device-Ready**.
-7. Click **Init Task**; wait until all four are **Ready**.
+6. Click **Init Device and Connection**; wait until all four processes are **Device-Ready**.
+7. Click **Init Task**; wait until all four processes are **Ready**.
 
 After reloading the browser, uncheck these three options again.
 
@@ -97,7 +99,7 @@ Deselect service **all** and select only the service in the table. Keep instance
 | 3 | `STFBuilder` | **Run** → **Running** |
 | 4 | `AmQStrTdcSampler` | **Run** → **Running** |
 
-Sampler Run opens the TCP connection to AMANEQ and starts acquisition. Check all four are **Running** with **Error = 0**. Run 1 is saved to the host's `workspace/spadi/rawdata/amaneq-lrtdc-1ch/00/run000001.dat`.
+Sampler Run opens the TCP connection to AMANEQ and starts acquisition. Check all four processes are **Running** with **Error = 0**. Run 1 is saved to the host's `workspace/spadi/rawdata/amaneq-lrtdc-1ch/00/run000001.dat`.
 
 ### Stop and start the next run in the browser
 
@@ -105,7 +107,7 @@ Select one service at a time in upstream order: `AmQStrTdcSampler` → `STFBuild
 
 For the next run, enter an unused **New value** (for example `2`) and click **Send**. Select **all** services and instances, click **Reset Task**, wait for all **Device-Ready**, then **Reset Device**, and wait for all **Idle**. Repeat initialization and startup. Do not change the run number during acquisition.
 
-When finished, Stop all devices in the browser, then run `./run-stop.sh` in the container terminal to exit processes and remove tmux. Use `./run-status.sh` and `./run-attach.sh` for diagnostics; **Ctrl-b d** detaches tmux. Closing the browser does not stop acquisition.
+When finished, Stop all processes in the browser, then run `./run-stop.sh` in the container terminal to exit processes and remove tmux. Use `./run-status.sh` and `./run-attach.sh` for diagnostics; **Ctrl-b d** detaches tmux. Closing the browser does not stop acquisition.
 
 ### Configuration and saved data
 
@@ -131,6 +133,16 @@ cd "$SPADI_LOCAL/scripts/nestdaq/raris-ac-lgad"
 This launches three STFBFilePlayer processes and one TimeFrameBuilder. Open `http://localhost:8080/daq-webctl.html`, select the services, set a run number, then use **Init Device and Connection → Init Task → Run**, checking states. The default replay topology has no FileSink: connect the desired consumer to TFB output `tcp://127.0.0.1:5501`. Stop/reset via web control before `./run-stop.sh` closes the session. Normal changes belong in its `config.sh`.
 
 ## Directory structure
+
+You do not need to create the whole tree manually. Run the helpers inside the container; directories and files appear at these stages.
+
+| Operation | What is created |
+|---|---|
+| `spadi-prepare-runtime.sh` | Copies installed helpers and configurations under `/workspace/spadi/scripts/`, and creates `/workspace/spadi/rawdata/` |
+| AMANEQ `./run-start.sh` | Creates the output directory `rawdata/amaneq-lrtdc-1ch/00/`; acquisition has not started |
+| FileSink **Run** in the browser | Creates the selected run's data file, for example `00/run000001.dat` |
+
+Preparation never overwrites existing files, including edited `config.sh` files. `/opt/spadi/` is provided by the image. With the default paths, files created under `/workspace/spadi/` persist in the host's `workspace/spadi/`. If you change `SPADI_LOCAL` or `RAWDATA_DIR`, the configured paths are used instead.
 
 ```text
 /opt/spadi/                           # image-provided; read-only in SIF
