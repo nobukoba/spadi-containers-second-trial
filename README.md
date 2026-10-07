@@ -21,9 +21,9 @@ The images target `linux/amd64`. Use `spadi-user-*` for normal operation and `sp
 
 These examples use the NestDAQ development image (spadi-devel-daq).
 
-### Apptainer (64 bit (x86_64) Linux)
+### Apptainer (64 bit Linux / Windows WSL2)
 
-Install Apptainer on 64 bit Linux, then run the following commands.
+Install Apptainer on 64 bit Linux (x86_64), including a Linux distribution running in Windows WSL2, then run the following commands in the Linux terminal.
 
 ```bash
 curl -fL -O \
@@ -91,6 +91,48 @@ Images containing the version reporter can identify themselves from inside the c
 ```
 
 The reporter reads `/opt/spadi/versions/container.env` and `/opt/spadi/versions/versions.env`. Older images published before this metadata was added may not contain these files or the reporter.
+
+## For Users
+
+Use the pre-built `spadi-user-*` images for running the installed software. FEE control is available in `spadi-user-fee`, `spadi-user-daq`, and `spadi-user-full`; NestDAQ is available in DAQ and FULL; ARTEMIS is available in ARTEMIS and FULL.
+
+### AMANEQ: read out one LR-TDC channel
+
+This first example uses standalone Str-LRTDC at `192.168.10.16`, with only channel **102** unmasked and all other inputs (0–127) masked. Download and start the FEE user image on Linux or inside Windows WSL2:
+
+```bash
+curl -fL -O \
+  https://github.com/nobukoba/spadi-containers-second-trial/releases/download/latest/spadi-user-fee.sif
+mkdir -p "$PWD/workspace"
+apptainer shell --cleanenv --bind "$PWD/workspace:/workspace" \
+  --shell /opt/spadi/spadi-shell.sh spadi-user-fee.sif
+```
+
+Inside the container, copy the runtime recipe into the persistent workspace without replacing an existing copy:
+
+```bash
+mkdir -p "$SPADI_LOCAL/scripts/fee"
+if [ ! -e "$SPADI_LOCAL/scripts/fee/amaneq-lrtdc-1ch" ]; then
+  cp -a /opt/spadi/scripts/fee/amaneq-lrtdc-1ch "$SPADI_LOCAL/scripts/fee/"
+fi
+cd "$SPADI_LOCAL/scripts/fee/amaneq-lrtdc-1ch"
+ping -c 3 192.168.10.16
+bash setup.sh
+```
+
+The script applies `ffffffff ffffffff ffffffff ffffffbf` to Main-U, Main-D, MZN-U, and MZN-D and verifies the values by reading them back. Channel 102 is bit 6 of MZN-D; a set bit masks an input. These are TDC masks; scaler counting and heartbeat delimiters remain active.
+
+For a short readout test, select standalone mode (DIP3 = 1), default IP (DIP1 = 0), and connect a signal to channel 102 on the lower DCRv2 mezzanine. The host must reach `192.168.10.16` via UDP 4660 and TCP 24. Then run:
+
+```bash
+mkdir -p "$SPADI_LOCAL/rawdata/amaneq-lrtdc-1ch/data"
+cd "$SPADI_LOCAL/rawdata/amaneq-lrtdc-1ch"
+test ! -e data/run1.dat && strdaq 192.168.10.16 1
+# Ctrl-C stops acquisition and saves data/run1.dat.
+ls -lh data/run1.dat
+```
+
+Use a new run number for each acquisition. The pinned `strdaq` holds data in memory until it stops, so keep this test short. See the [FEE recipe guide](scripts/fee/amaneq-lrtdc-1ch/README.md) for network setup, mask details, and readout limitations. The recipe requires an image built with these scripts; user images do not need `spadi-prepare-local.sh` or compilation.
 
 ## For Developers
 
