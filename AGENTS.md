@@ -36,7 +36,7 @@ Explicit new corrections from Nobuyuki Kobayashi should also be incorporated int
 
 Keep these two audiences distinct in documentation and terminology:
 
-1. **Container users developing SPADI software** use an already-built `spadi-devel-*` Docker/SIF image, edit source under `$SPADI_LOCAL`, and self-build software into `$SPADI_LOCAL`. This workflow belongs in docs/developer-guide.md and its Japanese counterpart; link both from the main READMEs.
+1. **Container users developing SPADI software** use an already-built `spadi-devel-*` Docker/SIF image, edit source under `$SPADI_LOCAL`, and self-build software into `$SPADI_LOCAL`. This workflow belongs in the four image-specific spadi-devel-* guides and their Japanese counterparts; docs/developer-guide.md is a navigation index. Link all eight image guides and both languages from the main READMEs.
 2. **Container maintainers** modify Dockerfiles, CI, image composition, SIF generation, publishing, and releases. Their documentation belongs in `docs/container-maintainer-guide.md`, not in the main README's normal development workflow.
 
 Do not instruct normal container users to build Docker or SIF images.
@@ -244,7 +244,7 @@ Use `latest` and UTC timestamp tags in `YYYYMMDD-HHMMutc` format, following the 
 
 ## README
 
-Keep separate docs/user-guide.md and docs/developer-guide.md pages, with matching .ja.md pages and links from the bilingual main READMEs. Runtime procedures belong in the user guide.
+Maintain separate image-specific user and devel guides, with matching .ja.md pages and links from the bilingual main READMEs. The legacy user-guide and developer-guide pages are navigation indexes. Runtime procedures belong in the relevant image guides.
 Apptainer quick-start headings should say `64 bit Linux / Windows WSL2`;
 state `64 bit Linux (x86_64)` in the installation sentence and run commands
 inside the WSL2 Linux terminal.
@@ -386,3 +386,11 @@ and the bind mount mapping to the persistent host workspace/spadi.
 Place the mapping to the official SPADI-A DAQ manual at the end of user guides
 as "Appendix: SPADI-A DAQ マニュアルとの対応" and its English counterpart,
 keeping directory layout and user operation instructions first.
+
+Use the LR-TDC-specific `${SPADI_ROOT}/StrLRTDC/bin/set_tdcmask` for AMANEQ LR mask settings, with IP and four mask arguments. Do not replace it with four generic write_register calls. HR installs a command with the same basename; select the LR path explicitly. Retain read_register verification and fail-closed handling of firmware readback defects.
+
+## Per-image bilingual documentation
+
+Maintain eight image-specific guides under docs/spadi-{user,devel}-{fee,daq,artemis,full}-guide.md and matching .ja.md files. Each guide must contain substantive procedures for its actual components, start with the relevant directory tree, and explain when those directories are created. Centralize shared startup, environment variables, workspace preparation, persistence, updates, networking, and image metadata in the bilingual main READMEs. Keep the relevant directory tree in every guide even when it repeats the common layout. User/developer landing pages are indexes; container-maintainer documentation remains separate. Preserve the complete browser/tmux DAQ procedures and put the SPADI-A DAQ manual mapping appendix last. Do not invent ARTEMIS steering or claim FileSink data is directly readable by ROOT.
+
+Guide-navigation tables must link only to the page language: English pages list English guides, and Japanese pages list Japanese guides. Do not duplicate English/Japanese guide columns; retain a single language-switch link at the page top. Place shared Docker network options within Docker startup/details, and keep browser workflow, URLs, and board-specific networking in the relevant DAQ/FULL guides rather than a disconnected README browser/network section.

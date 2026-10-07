@@ -35,7 +35,7 @@ def mock(tool, args):
             # Real NestDAQ allocates the index automatically per service.
             index = sum(k.startswith(service + ":") for k in state["states"])
             state["states"][f"{service}:{service}-{index}"] = "ERROR" if os.environ.get("MOCK_DEVICE_ERROR") == service else "IDLE"
-    elif tool == "write_register":
+    elif tool == "set_tdcmask":
         if os.environ.get("MOCK_MASK_ERROR"):
             result = "#E: RBCP timeout"
     elif tool == "read_register":
@@ -102,7 +102,7 @@ def main():
         commands.mkdir()
         env = dict(os.environ, SPADI_ROOT=str(base), SPADI_LOCAL=str(local), MOCK_STATE=str(tmp / "state.json"))
         env["PATH"] = str(commands) + ":" + str(local / "scripts/nestdaq/common") + ":" + env["PATH"]
-        for tool in ("tmux", "valkey-cli", "write_register", "read_register", "AmQStrTdcSampler", "STFBuilder", "TimeFrameBuilder", "FileSink", "daq-webctl"):
+        for tool in ("tmux", "valkey-cli", "set_tdcmask", "read_register", "AmQStrTdcSampler", "STFBuilder", "TimeFrameBuilder", "FileSink", "daq-webctl"):
             command = commands / tool
             command.write_text("#!/bin/bash\nexec python3 " + shlex.quote(str(Path(__file__).resolve())) + " --mock " + shlex.quote(tool) + ' "$@"\n')
             command.chmod(0o755)
@@ -141,8 +141,8 @@ def main():
         s = read()
         assert s["parameters"]["parameters:AmQStrTdcSampler-0"] == {"msiTcpIp": "192.168.10.17", "TdcType": "1", "enable-uds": "false"}
         assert s["parameters"]["parameters:FileSink-0"]["openmode"] == "create"
-        writes = [c[1:] for c in s["calls"] if c[0] == "write_register"]
-        assert len(writes) == 4 and all(c[0] == "192.168.10.17" for c in writes)
+        writes = [c[1:] for c in s["calls"] if c[0] == "set_tdcmask"]
+        assert writes == [["192.168.10.17", "ffffffff", "ffffffff", "ffffffff", "ffffffbf"]]
         publications = [json.loads(c[-1]) for c in s["calls"] if "publish" in c]
         starts = [p["services"][0] for p in publications if p["value"] == "RUN"]
         assert starts == ["FileSink", "TimeFrameBuilder", "STFBuilder", "AmQStrTdcSampler"]
@@ -168,7 +168,7 @@ def main():
         assert not s["session"] and "trailer" in Path(s["output"]).read_text()
         reset()
         run(recipe / "run-start.sh", expected=1)  # existing file refused
-        assert not any(c[0] in ("valkey-cli", "write_register", "read_register") for c in read()["calls"])
+        assert not any(c[0] in ("valkey-cli", "set_tdcmask", "read_register") for c in read()["calls"])
         Path(s["output"]).unlink()
         reset()
         run(recipe / "run-start.sh", expected=1, extra={"MOCK_MASK_ERROR": "1"})

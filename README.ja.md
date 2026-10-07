@@ -10,10 +10,10 @@ SPADI Front End Electronics (FEE)、NestDAQ、ARTEMIS ソフトウェア用の�
 
 | 用途 | User イメージ | Development イメージ |
 |---|---|---|
-| FEE 制御 | `spadi-user-fee` | `spadi-devel-fee` |
-| NestDAQ | `spadi-user-daq` | `spadi-devel-daq` |
-| ARTEMIS | `spadi-user-artemis` | `spadi-devel-artemis` |
-| 全部入り | `spadi-user-full` | `spadi-devel-full` |
+| FEE 制御 | [spadi-user-fee](docs/spadi-user-fee-guide.ja.md) | [spadi-devel-fee](docs/spadi-devel-fee-guide.ja.md) |
+| NestDAQ | [spadi-user-daq](docs/spadi-user-daq-guide.ja.md) | [spadi-devel-daq](docs/spadi-devel-daq-guide.ja.md) |
+| ARTEMIS | [spadi-user-artemis](docs/spadi-user-artemis-guide.ja.md) | [spadi-devel-artemis](docs/spadi-devel-artemis-guide.ja.md) |
+| 全部入り | [spadi-user-full](docs/spadi-user-full-guide.ja.md) | [spadi-devel-full](docs/spadi-devel-full-guide.ja.md) |
 
 `DAQ = FEE + NestDAQ`; `FULL = DAQ + ARTEMIS`.
 
@@ -78,6 +78,19 @@ bind mount された `/workspace` は永続化されます。`/workspace/spadi` 
 
 Docker でも SPADI 環境の読み込みと `/workspace` への移動は自動です。
 
+### DAQ / FULL で使用するネットワーク
+
+Linux の Docker で実機取得や既定の Web Controller を使う場合は、次の host network で起動します。FULL や devel を使う場合はイメージ名を該当する名前に変更します。
+
+```bash
+docker run --rm -it --platform linux/amd64 --network host \
+  -e LOCAL_UID="$(id -u)" -e LOCAL_GID="$(id -g)" \
+  -v "$PWD/workspace:/workspace" \
+  ghcr.io/nobukoba/spadi-containers-second-trial/spadi-user-daq:latest
+```
+
+macOS の一般 Docker 起動例は解析・ソフトウェア利用向けです。ブラウザ用ポートを publish する場合は、レシピの `WEBCTL_HOST=0.0.0.0` と起動時の `-p 127.0.0.1:8081:8081`（RARiS は8080）を組み合わせます。実機への到達性は別途確認してください。
+
 ## イメージのバージョン
 
 Docker イメージは `ghcr.io/nobukoba/spadi-containers-second-trial/<image-name>` に公開され、`latest` と UTC ビルド時刻を表す `YYYYMMDD-HHMMutc` 形式のタグが付与されます。SIF ファイルは [GitHub Releases](https://github.com/nobukoba/spadi-containers-second-trial/releases/tag/latest) から取得でき、`spadi-user-daq.sif` のような固定ファイル名とタイムスタンプ付きファイル名の両方を提供します。
@@ -92,8 +105,84 @@ Docker イメージは `ghcr.io/nobukoba/spadi-containers-second-trial/<image-na
 
 このスクリプトは `/opt/spadi/versions/container.env` と `/opt/spadi/versions/versions.env` を読み込みます。このメタデータが追加される以前に公開された古いイメージには、これらのファイルやバージョン表示スクリプトが含まれていない場合があります。
 
-## ガイド
+## 共通のディレクトリ構造
 
-- [ユーザー向けガイド](docs/user-guide.ja.md)：AMANEQ 1チャンネルの NestDAQ 読み出し、RARiS 再生、実行用ヘルパー、ディレクトリ構造。
-- [開発者向けガイド](docs/developer-guide.ja.md)：devel イメージ、ソース編集、ビルド用ヘルパー、ローカルインストール。
-- [Container Maintainer Guide](docs/container-maintainer-guide.md)：Dockerfile、CI、イメージ公開。
+```text
+/opt/spadi/                  # SPADI_ROOT: image-provided installation
+├── bin/
+├── lib/, lib64/
+├── include/, share/        # include: devel and ROOT/ARTEMIS images
+├── scripts/
+├── versions/
+└── src/                    # development images only
+
+/workspace/                 # bind-mounted host workspace/
+└── spadi/                   # SPADI_LOCAL
+    ├── scripts/
+    ├── rawdata/
+    ├── analysis/           # created by analysis procedures
+    ├── bin/, lib/, lib64/  # prepared in development workspaces
+    ├── include/, share/        # include: devel and ROOT/ARTEMIS images
+    ├── src/
+    └── build/
+```
+
+これは8イメージ共通の配置方針です。コンポーネントと作成段階によって存在するディレクトリは異なります。各イメージのガイドにも、そのイメージで使うディレクトリ構造を掲載しています。
+
+## 環境変数 SPADI_LOCAL について
+
+環境変数 `SPADI_LOCAL` は、ユーザーが編集する設定、ソース、ビルド結果、取得・解析データを置く作業領域のパスです。起動時に自動設定され、既定値は `/workspace/spadi` です。`SPADI_ROOT` はイメージが提供する `/opt/spadi` を指します。
+
+| Variable | Default |
+|---|---|
+| `SPADI_ROOT` | `/opt/spadi` |
+| `SPADI_LOCAL` | `/workspace/spadi` |
+
+```bash
+echo "$SPADI_ROOT"
+echo "$SPADI_LOCAL"
+```
+
+`$` はシェルに環境変数の値を展開させる記号です。`$SPADI_LOCAL/scripts` は既定値では `/workspace/spadi/scripts` になります。環境の設定だけではディレクトリは作成されません。起動コマンドの bind mount により、コンテナの `/workspace/spadi` は起動元のホストディレクトリの `workspace/spadi` に対応し、終了後も残ります。
+
+ローカルの `bin`、`lib`、`lib64`、CMake / pkg-config の検索パスはイメージ側より優先されます。通常の開発では `/opt/spadi` を編集せず、`$SPADI_LOCAL` 以下を使います。
+
+## 共通の準備と更新
+
+| 操作 | 作成されるもの |
+|---|---|
+| `コンテナ起動` | 環境変数の設定のみ。作業領域は未作成 |
+| `spadi-prepare-runtime.sh` | 利用可能なコンポーネントの scripts と rawdata。user / devel 共通 |
+| `spadi-prepare-local.sh` | ソース、build、ローカルインストール先、ヘルパー。devel のみ |
+| `AMANEQ run-start.sh` | rawdata/amaneq-lrtdc-1ch/00。デバイスは Idle 待機 |
+| `ブラウザの FileSink Run` | 00/run000001.dat などの run ファイル |
+| `ARTEMIS ガイドの mkdir / ROOT 例` | analysis ディレクトリ / ROOT 出力 |
+
+コンテナ内で、ランタイム用には以下を実行します。
+
+```bash
+spadi-prepare-runtime.sh
+```
+
+ソースを編集する devel イメージでは、以下を実行します。
+
+```bash
+spadi-prepare-local.sh
+```
+
+両ヘルパーとも既存ファイルを上書きしません。新しいイメージを取得しただけでは、作業領域にある古いヘルパーは更新されません。使用中のセッションを停止し、既存のスクリプトを別名で保存してから再準備し、変更を比較してください。編集済みの `config.sh` は保持します。特に NestDAQ の `common`、run ヘルパー、FEE の `setup.sh` を一緒に確認し、古い自動 Run の手順を混在させないでください。
+
+## イメージ別ガイド
+
+| イメージ | ガイド |
+|---|---|
+| `spadi-user-fee` | [ガイド](docs/spadi-user-fee-guide.ja.md) |
+| `spadi-devel-fee` | [ガイド](docs/spadi-devel-fee-guide.ja.md) |
+| `spadi-user-daq` | [ガイド](docs/spadi-user-daq-guide.ja.md) |
+| `spadi-devel-daq` | [ガイド](docs/spadi-devel-daq-guide.ja.md) |
+| `spadi-user-artemis` | [ガイド](docs/spadi-user-artemis-guide.ja.md) |
+| `spadi-devel-artemis` | [ガイド](docs/spadi-devel-artemis-guide.ja.md) |
+| `spadi-user-full` | [ガイド](docs/spadi-user-full-guide.ja.md) |
+| `spadi-devel-full` | [ガイド](docs/spadi-devel-full-guide.ja.md) |
+
+コンテナの実装・CI・公開は [コンテナ保守ガイド](docs/container-maintainer-guide.md)を参照してください。
