@@ -238,6 +238,21 @@ Use `latest` and UTC timestamp tags in `YYYYMMDD-HHMMutc` format, following the 
 
 ## README
 
+Keep a runtime-user section for `spadi-user-*` before the development workflow.
+Apptainer quick-start headings should say `64 bit Linux / Windows WSL2`;
+state `64 bit Linux (x86_64)` in the installation sentence and run commands
+inside the WSL2 Linux terminal.
+
+The AMANEQ single-channel runtime recipe uses zero-based LR-TDC channel 102
+at `192.168.10.16`. The four 32-bit masks are `ffffffff`, `ffffffff`,
+`ffffffff`, `ffffffbf`: channel 102 is MZN-D bit 6. Current Str-LRTDC
+has 128 inputs; the old extension input was deprecated in firmware v2.6,
+so do not write its obsolete register for this recipe. Verify register values
+by reading back: pinned hul-common-lib tools can report RBCP errors and still
+exit zero. The pinned `strdaq` stores data in memory until stopping and writes
+`data/run<run-number>.dat`; document it as a short standalone test, and do not
+describe its raw stream as NestDAQ STF/TF data.
+
 Before creating or revising `README.md`, read and follow `nobukoba/nobuyuki-kobayashi-instructions-for-ai`, especially `styles/nobuyuki-kobayashi-github-readme.md`.
 
 Organize the README around what a user actually needs to do. Keep download and run commands copy-pasteable, include concrete URLs and paths, document the container directory structure, and keep documentation consistent with the actual implementation.

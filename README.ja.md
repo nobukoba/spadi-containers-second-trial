@@ -21,9 +21,9 @@ SPADI Front End Electronics (FEE)、NestDAQ、ARTEMIS ソフトウェア用の�
 
 NestDAQ 開発イメージ (spadi-devel-daq) を使用する例です。
 
-### Apptainer（64 bit (x86_64) Linux）
+### Apptainer（64 bit Linux / Windows WSL2）
 
-64 bit Linux に Apptainer をインストールしてから、以下のコマンドを実行してください。
+64 bit Linux (x86_64) に Apptainer をインストールしてから、以下のコマンドを実行してください。Windows WSL2 の Linux ディストリビューションも利用できます。コマンドは Linux 側の端末で実行してください。
 
 ```bash
 curl -fL -O \
@@ -91,6 +91,52 @@ Docker イメージは `ghcr.io/nobukoba/spadi-containers-second-trial/<image-na
 ```
 
 このスクリプトは `/opt/spadi/versions/container.env` と `/opt/spadi/versions/versions.env` を読み込みます。このメタデータが追加される以前に公開された古いイメージには、これらのファイルやバージョン表示スクリプトが含まれていない場合があります。
+
+## ユーザー向け
+
+インストール済みソフトウェアを実行する場合は、ビルド済みの `spadi-user-*` を使用します。FEE 制御には `spadi-user-fee`、`spadi-user-daq`、`spadi-user-full` を使用できます。NestDAQ は DAQ / FULL、ARTEMIS は ARTEMIS / FULL に含まれます。
+
+### AMANEQ の LR-TDC を1チャンネルだけ読み出す
+
+まずはスタンドアロンの Str-LRTDC を使い、IP **192.168.10.16** の AMANEQ で **チャンネル102だけを unmask**、残りの入力（0〜127）をすべて mask する例です。Linux または Windows WSL2 の Linux 端末で FEE の user イメージを取得し、起動します：
+
+```bash
+curl -fL -O \
+  https://github.com/nobukoba/spadi-containers-second-trial/releases/download/latest/spadi-user-fee.sif
+mkdir -p "$PWD/workspace"
+apptainer shell --cleanenv --bind "$PWD/workspace:/workspace" \
+  --shell /opt/spadi/spadi-shell.sh spadi-user-fee.sif
+```
+
+コンテナ内で FEE 設定スクリプトを永続領域にコピーします。既存のコピーは上書きしません：
+
+```bash
+mkdir -p "$SPADI_LOCAL/scripts/fee"
+if [ ! -e "$SPADI_LOCAL/scripts/fee/amaneq-lrtdc-1ch" ]; then
+  cp -a /opt/spadi/scripts/fee/amaneq-lrtdc-1ch "$SPADI_LOCAL/scripts/fee/"
+fi
+cd "$SPADI_LOCAL/scripts/fee/amaneq-lrtdc-1ch"
+ping -c 3 192.168.10.16
+bash setup.sh
+```
+
+IP とマスク値は `config.sh` にまとめています。`setup.sh` は Main-U、Main-D、MZN-U、MZN-D に順に `ffffffff ffffffff ffffffff ffffffbf` を設定し、読み戻して一致を確認します。番号は0始まりで、102は MZN-D の bit 6（102 − 96）です。1が mask、0が unmask なので、最後の値だけ `0xffffffbf` にします。TDC 入力のマスクであり、スケーラーのカウントやハートビートデリミタは止まりません。
+
+1台で試す場合は DIP3 = 1（スタンドアロン）、DIP1 = 0（デフォルト IP）にして、下側 DCRv2 メザニンのチャンネル102へ信号を接続してください。ホストには同じネットワークのアドレス（例：`192.168.10.1/24`）を設定し、UDP 4660 と TCP 24 で接続できるようにします。WSL2 でも Linux 側から AMANEQ に到達できることを確認してください。
+
+マスクの確認に成功したら、短時間の読み出しを実行します：
+
+```bash
+mkdir -p "$SPADI_LOCAL/rawdata/amaneq-lrtdc-1ch/data"
+cd "$SPADI_LOCAL/rawdata/amaneq-lrtdc-1ch"
+test ! -e data/run1.dat && strdaq 192.168.10.16 1
+# Ctrl-C で停止し、End of DAQ を待ってから保存ファイルを確認します。
+ls -lh data/run1.dat
+```
+
+保存先はホスト側に残る `/workspace/spadi/rawdata/amaneq-lrtdc-1ch/data/run1.dat` です。次の取得では run 番号を変えてください。スタンドアロンでは TCP 接続でデータ送信が始まるので、`set_hbfstate` は不要です。現在固定している `strdaq` はメモリに蓄積し、停止時にファイルへ書く簡易試験用なので、短時間にとどめてください。継続的な取得には NestDAQ を使います。入力信号がなくてもデリミタが記録されるため、ファイルサイズだけでは102のヒットを確認できません。
+
+詳細は [FEE 設定・読み出しガイド](scripts/fee/amaneq-lrtdc-1ch/README.md) を参照してください。この手順には新しいスクリプトを含むイメージが必要です。user イメージでは開発用の `spadi-prepare-local.sh` やコンパイルは不要です。
 
 ## 開発者向け
 

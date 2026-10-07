@@ -103,6 +103,7 @@ COPY scripts/runtime/spadi-setup.sh /opt/spadi/spadi-setup.sh
 COPY --chmod=0755 scripts/runtime/spadi-shell.sh /opt/spadi/spadi-shell.sh
 COPY scripts/tests/smoke-test-fee.sh /opt/spadi/scripts/smoke-test-fee.sh
 COPY scripts/fee/README.md /opt/spadi/scripts/fee/README.md
+COPY --chmod=0755 scripts/fee/amaneq-lrtdc-1ch/ /opt/spadi/scripts/fee/amaneq-lrtdc-1ch/
 RUN chmod 0755 /opt/spadi/spadi-setup.sh /opt/spadi/scripts/spadi-version.sh /opt/spadi/scripts/smoke-test-fee.sh
 
 RUN groupadd --gid 1000 spadi && useradd --uid 1000 --gid spadi --create-home --shell /bin/bash spadi
