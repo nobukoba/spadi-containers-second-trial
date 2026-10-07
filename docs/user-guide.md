@@ -4,6 +4,70 @@
 
 Use `spadi-user-*` to run installed software. AMANEQ acquisition below requires **spadi-user-daq** or **spadi-user-full** for both FEE control and NestDAQ. For source editing and builds, read the [developer guide](developer-guide.md).
 
+## Directory structure
+
+```text
+/opt/spadi/                           # image-provided; read-only in SIF
+├── bin/                              # devices and FEE register tools
+├── lib/                              # libraries, plugins, RedisTimeSeries
+└── scripts/
+    ├── spadi-prepare-runtime.sh
+    ├── fee/amaneq-lrtdc-1ch/          # config.sh and setup.sh: masks
+    └── nestdaq/
+        ├── common/                   # shared service, parameter, topology, control helpers
+        ├── amaneq-lrtdc-1ch/
+        │   ├── config.sh
+        │   ├── fee-setup.sh
+        │   ├── run-start.sh
+        │   ├── run-stop.sh
+        │   ├── run-status.sh
+        │   ├── run-attach.sh
+        │   └── run-cleanup.sh
+        └── raris-ac-lgad/             # replay helpers and rawdata-download.sh
+
+/workspace/spadi/                     # SPADI_LOCAL; host workspace/spadi
+├── scripts/                          # editable copies of runtime recipes
+│   ├── fee/amaneq-lrtdc-1ch/
+│   └── nestdaq/{common,amaneq-lrtdc-1ch,raris-ac-lgad}/
+└── rawdata/
+    ├── amaneq-lrtdc-1ch/00/run000001.dat
+    └── raris_ac_lgad_202603/{00,01,02}/run000020.dat
+```
+
+## What SPADI_LOCAL means
+
+`SPADI_LOCAL` is an environment variable containing the path to the user's workspace for editable settings and acquired data. Container startup sets it automatically; its default is `/workspace/spadi`. This guide uses that default.
+
+| Variable | Purpose | Default |
+|---|---|---|
+| `$SPADI_ROOT` | Installation provided by the image | `/opt/spadi` |
+| `$SPADI_LOCAL` | User workspace for editing and saving | `/workspace/spadi` |
+
+The `$` tells the shell to substitute the variable's value. These commands therefore refer to the same directory:
+
+```bash
+cd "$SPADI_LOCAL/scripts/nestdaq/amaneq-lrtdc-1ch"
+cd /workspace/spadi/scripts/nestdaq/amaneq-lrtdc-1ch
+```
+
+Inside the container, use `echo "$SPADI_LOCAL"` to check its value. Environment setup alone creates no directories; the helpers below create the required directories and files.
+
+The startup command's `workspace:/workspace` mount maps container `/workspace/spadi/` to the host's `workspace/spadi/` under the directory where you ran the startup command. Settings and acquired data remain on the host after the container exits.
+
+You do not need to create the whole tree manually. Run the helpers inside the container; directories and files appear at these stages.
+
+| Operation | What is created |
+|---|---|
+| `spadi-prepare-runtime.sh` | Copies installed helpers and configurations under `/workspace/spadi/scripts/`, and creates `/workspace/spadi/rawdata/` |
+| AMANEQ `./run-start.sh` | Creates the output directory `rawdata/amaneq-lrtdc-1ch/00/`; acquisition has not started |
+| FileSink **Run** in the browser | Creates the selected run's data file, for example `00/run000001.dat` |
+
+Preparation never overwrites existing files, including edited `config.sh` files. `/opt/spadi/` is provided by the image. With the default paths, files created under `/workspace/spadi/` persist in the host's `workspace/spadi/`. If you change `SPADI_LOCAL` or `RAWDATA_DIR`, the configured paths are used instead.
+
+
+
+Repository recipes live under `scripts/fee` and `scripts/nestdaq`; the prepare helper is in `scripts/runtime/spadi-prepare-runtime.sh`. See the [official hardware guide](https://spadi-alliance.rcnp.osaka-u.ac.jp/ug-amaneq/firmware/strlrtdc/strlrtdc/) and [pinned revisions](../versions/versions.env).
+
 ## Relation to the SPADI-A DAQ manual
 
 This guide follows the official [DAQ execution](https://www.rcnp.osaka-u.ac.jp/~spadi/wiki/?SPADI-A%20DAQ%20マニュアル/ソフトウェア/DAQの実行方法), [NestDAQ script editing](https://www.rcnp.osaka-u.ac.jp/~spadi/wiki/?SPADI-A%20DAQ%20マニュアル/ソフトウェア/DAQの設定/NestDAQスクリプトの編集), and [FEE script editing](https://www.rcnp.osaka-u.ac.jp/~spadi/wiki/?SPADI-A%20DAQ%20マニュアル/ソフトウェア/DAQの設定/FEEスクリプトの編集) procedures: prepare services and FEE, check process counts and logs, then browser Init → Run → Stop → Reset → End. One tmux session manages terminals.
@@ -173,45 +237,3 @@ cd "$SPADI_LOCAL/scripts/nestdaq/raris-ac-lgad"
 ```
 
 This launches three STFBFilePlayer processes and one TimeFrameBuilder. Open `http://localhost:8080/daq-webctl.html`, select the services, set a run number, then use **Init Device and Connection → Init Task → Run**, checking states. The default replay topology has no FileSink: connect the desired consumer to TFB output `tcp://127.0.0.1:5501`. Use browser Stop → Reset Task → Reset Device, select all targets and End, then `./run-stop.sh` to close the tmux session. Normal changes belong in its `config.sh`.
-
-## Directory structure
-
-You do not need to create the whole tree manually. Run the helpers inside the container; directories and files appear at these stages.
-
-| Operation | What is created |
-|---|---|
-| `spadi-prepare-runtime.sh` | Copies installed helpers and configurations under `/workspace/spadi/scripts/`, and creates `/workspace/spadi/rawdata/` |
-| AMANEQ `./run-start.sh` | Creates the output directory `rawdata/amaneq-lrtdc-1ch/00/`; acquisition has not started |
-| FileSink **Run** in the browser | Creates the selected run's data file, for example `00/run000001.dat` |
-
-Preparation never overwrites existing files, including edited `config.sh` files. `/opt/spadi/` is provided by the image. With the default paths, files created under `/workspace/spadi/` persist in the host's `workspace/spadi/`. If you change `SPADI_LOCAL` or `RAWDATA_DIR`, the configured paths are used instead.
-
-```text
-/opt/spadi/                           # image-provided; read-only in SIF
-├── bin/                              # devices and FEE register tools
-├── lib/                              # libraries, plugins, RedisTimeSeries
-└── scripts/
-    ├── spadi-prepare-runtime.sh
-    ├── fee/amaneq-lrtdc-1ch/          # config.sh and setup.sh: masks
-    └── nestdaq/
-        ├── common/                   # shared service, parameter, topology, control helpers
-        ├── amaneq-lrtdc-1ch/
-        │   ├── config.sh
-        │   ├── fee-setup.sh
-        │   ├── run-start.sh
-        │   ├── run-stop.sh
-        │   ├── run-status.sh
-        │   ├── run-attach.sh
-        │   └── run-cleanup.sh
-        └── raris-ac-lgad/             # replay helpers and rawdata-download.sh
-
-/workspace/spadi/                     # SPADI_LOCAL; host workspace/spadi
-├── scripts/                          # editable copies of runtime recipes
-│   ├── fee/amaneq-lrtdc-1ch/
-│   └── nestdaq/{common,amaneq-lrtdc-1ch,raris-ac-lgad}/
-└── rawdata/
-    ├── amaneq-lrtdc-1ch/00/run000001.dat
-    └── raris_ac_lgad_202603/{00,01,02}/run000020.dat
-```
-
-Repository recipes live under `scripts/fee` and `scripts/nestdaq`; the prepare helper is in `scripts/runtime/spadi-prepare-runtime.sh`. See the [official hardware guide](https://spadi-alliance.rcnp.osaka-u.ac.jp/ug-amaneq/firmware/strlrtdc/strlrtdc/) and [pinned revisions](../versions/versions.env).

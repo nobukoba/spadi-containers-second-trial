@@ -369,3 +369,8 @@ Document directory creation stages: spadi-prepare-runtime.sh creates scripts/raw
 and preserves existing configs; live run-start.sh creates the FileSink output
 subdirectory; browser FileSink Run creates the data file. These are distinct
 stages, and the host bind-mounted workspace retains their results.
+
+Start user guides with the directory tree, then define SPADI_LOCAL/SPADI_ROOT
+before using variable-based commands. Explain the default /workspace/spadi,
+shell dollar expansion, automatic startup assignment versus directory creation,
+and the bind mount mapping to the persistent host workspace/spadi.
