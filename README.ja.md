@@ -78,6 +78,19 @@ bind mount された `/workspace` は永続化されます。`/workspace/spadi` 
 
 Docker でも SPADI 環境の読み込みと `/workspace` への移動は自動です。
 
+### DAQ / FULL で使用するネットワーク
+
+Linux の Docker で実機取得や既定の Web Controller を使う場合は、次の host network で起動します。FULL や devel を使う場合はイメージ名を該当する名前に変更します。
+
+```bash
+docker run --rm -it --platform linux/amd64 --network host \
+  -e LOCAL_UID="$(id -u)" -e LOCAL_GID="$(id -g)" \
+  -v "$PWD/workspace:/workspace" \
+  ghcr.io/nobukoba/spadi-containers-second-trial/spadi-user-daq:latest
+```
+
+macOS の一般 Docker 起動例は解析・ソフトウェア利用向けです。ブラウザ用ポートを publish する場合は、レシピの `WEBCTL_HOST=0.0.0.0` と起動時の `-p 127.0.0.1:8081:8081`（RARiS は8080）を組み合わせます。実機への到達性は別途確認してください。
+
 ## イメージのバージョン
 
 Docker イメージは `ghcr.io/nobukoba/spadi-containers-second-trial/<image-name>` に公開され、`latest` と UTC ビルド時刻を表す `YYYYMMDD-HHMMutc` 形式のタグが付与されます。SIF ファイルは [GitHub Releases](https://github.com/nobukoba/spadi-containers-second-trial/releases/tag/latest) から取得でき、`spadi-user-daq.sif` のような固定ファイル名とタイムスタンプ付きファイル名の両方を提供します。
@@ -159,34 +172,17 @@ spadi-prepare-local.sh
 
 両ヘルパーとも既存ファイルを上書きしません。新しいイメージを取得しただけでは、作業領域にある古いヘルパーは更新されません。使用中のセッションを停止し、既存のスクリプトを別名で保存してから再準備し、変更を比較してください。編集済みの `config.sh` は保持します。特に NestDAQ の `common`、run ヘルパー、FEE の `setup.sh` を一緒に確認し、古い自動 Run の手順を混在させないでください。
 
-## ブラウザ操作とネットワーク
-
-DAQ / FULL の AMANEQ 用 Web Controller は `http://localhost:8081/daq-webctl.html`、RARiS 再生は `http://localhost:8080/daq-webctl.html` です。WSL2 の Apptainer は Windows 側のブラウザから操作します。基板には UDP 4660 と TCP 24 で到達する必要があります。
-
-Linux の Docker で実機取得や既定の Web Controller を使う場合は、次の host network で起動します。FULL や devel を使う場合はイメージ名を該当する名前に変更します。
-
-```bash
-docker run --rm -it --platform linux/amd64 --network host \
-  -e LOCAL_UID="$(id -u)" -e LOCAL_GID="$(id -g)" \
-  -v "$PWD/workspace:/workspace" \
-  ghcr.io/nobukoba/spadi-containers-second-trial/spadi-user-daq:latest
-```
-
-macOS の一般 Docker 起動例は解析・ソフトウェア利用向けです。ブラウザ用ポートを publish する場合は、レシピの `WEBCTL_HOST=0.0.0.0` と起動時の `-p 127.0.0.1:8081:8081`（RARiS は8080）を組み合わせます。実機への到達性は別途確認してください。FEE / ARTEMIS 単体には DAQ の Web Controller はありません。
-
-端末とログは tmux を使い、xterm は不要です。DAQ の Init / Run / Stop / Reset / End はブラウザで行います。各ガイドの対象・順序を確認してください。
-
 ## イメージ別ガイド
 
-| Image | English | 日本語 |
-|---|---|---|
-| `spadi-user-fee` | [Guide](docs/spadi-user-fee-guide.md) | [ガイド](docs/spadi-user-fee-guide.ja.md) |
-| `spadi-devel-fee` | [Guide](docs/spadi-devel-fee-guide.md) | [ガイド](docs/spadi-devel-fee-guide.ja.md) |
-| `spadi-user-daq` | [Guide](docs/spadi-user-daq-guide.md) | [ガイド](docs/spadi-user-daq-guide.ja.md) |
-| `spadi-devel-daq` | [Guide](docs/spadi-devel-daq-guide.md) | [ガイド](docs/spadi-devel-daq-guide.ja.md) |
-| `spadi-user-artemis` | [Guide](docs/spadi-user-artemis-guide.md) | [ガイド](docs/spadi-user-artemis-guide.ja.md) |
-| `spadi-devel-artemis` | [Guide](docs/spadi-devel-artemis-guide.md) | [ガイド](docs/spadi-devel-artemis-guide.ja.md) |
-| `spadi-user-full` | [Guide](docs/spadi-user-full-guide.md) | [ガイド](docs/spadi-user-full-guide.ja.md) |
-| `spadi-devel-full` | [Guide](docs/spadi-devel-full-guide.md) | [ガイド](docs/spadi-devel-full-guide.ja.md) |
+| イメージ | ガイド |
+|---|---|
+| `spadi-user-fee` | [ガイド](docs/spadi-user-fee-guide.ja.md) |
+| `spadi-devel-fee` | [ガイド](docs/spadi-devel-fee-guide.ja.md) |
+| `spadi-user-daq` | [ガイド](docs/spadi-user-daq-guide.ja.md) |
+| `spadi-devel-daq` | [ガイド](docs/spadi-devel-daq-guide.ja.md) |
+| `spadi-user-artemis` | [ガイド](docs/spadi-user-artemis-guide.ja.md) |
+| `spadi-devel-artemis` | [ガイド](docs/spadi-devel-artemis-guide.ja.md) |
+| `spadi-user-full` | [ガイド](docs/spadi-user-full-guide.ja.md) |
+| `spadi-devel-full` | [ガイド](docs/spadi-devel-full-guide.ja.md) |
 
 コンテナの実装・CI・公開は [コンテナ保守ガイド](docs/container-maintainer-guide.md)を参照してください。

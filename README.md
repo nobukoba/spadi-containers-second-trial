@@ -78,6 +78,19 @@ The bind-mounted `/workspace` is persistent. Files edited below `/workspace/spad
 
 Docker also loads the SPADI environment and enters `/workspace` automatically.
 
+### Networking for DAQ / FULL
+
+For Linux Docker hardware acquisition or the default Web Controller, use host networking as follows. Replace the image name for FULL or devel variants.
+
+```bash
+docker run --rm -it --platform linux/amd64 --network host \
+  -e LOCAL_UID="$(id -u)" -e LOCAL_GID="$(id -g)" \
+  -v "$PWD/workspace:/workspace" \
+  ghcr.io/nobukoba/spadi-containers-second-trial/spadi-user-daq:latest
+```
+
+The general macOS Docker example is intended for analysis and software use. To publish browser control from bridge networking, combine recipe WEBCTL_HOST=0.0.0.0 with -p 127.0.0.1:8081:8081 (8080 for RARiS). Verify hardware reachability separately.
+
 ## Image versions
 
 Docker images are published at `ghcr.io/nobukoba/spadi-containers-second-trial/<image-name>` with `latest` and UTC build tags in `YYYYMMDD-HHMMutc` format. SIF files are available from [GitHub Releases](https://github.com/nobukoba/spadi-containers-second-trial/releases/tag/latest), with both stable filenames such as `spadi-user-daq.sif` and timestamped filenames.
@@ -159,34 +172,17 @@ spadi-prepare-local.sh
 
 Both helpers preserve existing files. Downloading a new image does not refresh old workspace helpers. Stop the relevant sessions, save old scripts under another name, prepare again, and compare changes. Keep edited config.sh files. Review NestDAQ common helpers, run helpers, and FEE setup.sh together; do not mix the browser-controlled procedure with an older helper that issues Run automatically.
 
-## Browser operation and networking
-
-The AMANEQ Web Controller in DAQ/FULL uses http://localhost:8081/daq-webctl.html; RARiS replay uses http://localhost:8080/daq-webctl.html. Access Apptainer in WSL2 from the Windows browser. Hardware control and acquisition require UDP 4660 and TCP 24 reachability.
-
-For Linux Docker hardware acquisition or the default Web Controller, use host networking as follows. Replace the image name for FULL or devel variants.
-
-```bash
-docker run --rm -it --platform linux/amd64 --network host \
-  -e LOCAL_UID="$(id -u)" -e LOCAL_GID="$(id -g)" \
-  -v "$PWD/workspace:/workspace" \
-  ghcr.io/nobukoba/spadi-containers-second-trial/spadi-user-daq:latest
-```
-
-The general macOS Docker example is intended for analysis and software use. To publish browser control from bridge networking, combine recipe WEBCTL_HOST=0.0.0.0 with -p 127.0.0.1:8081:8081 (8080 for RARiS). Verify hardware reachability separately. Standalone FEE and ARTEMIS images do not provide the DAQ Web Controller.
-
-Use tmux for terminals and logs; xterm is unnecessary. Perform DAQ Init / Run / Stop / Reset / End in the browser, following the selected image guide.
-
 ## Image guides
 
-| Image | English | 日本語 |
-|---|---|---|
-| `spadi-user-fee` | [Guide](docs/spadi-user-fee-guide.md) | [ガイド](docs/spadi-user-fee-guide.ja.md) |
-| `spadi-devel-fee` | [Guide](docs/spadi-devel-fee-guide.md) | [ガイド](docs/spadi-devel-fee-guide.ja.md) |
-| `spadi-user-daq` | [Guide](docs/spadi-user-daq-guide.md) | [ガイド](docs/spadi-user-daq-guide.ja.md) |
-| `spadi-devel-daq` | [Guide](docs/spadi-devel-daq-guide.md) | [ガイド](docs/spadi-devel-daq-guide.ja.md) |
-| `spadi-user-artemis` | [Guide](docs/spadi-user-artemis-guide.md) | [ガイド](docs/spadi-user-artemis-guide.ja.md) |
-| `spadi-devel-artemis` | [Guide](docs/spadi-devel-artemis-guide.md) | [ガイド](docs/spadi-devel-artemis-guide.ja.md) |
-| `spadi-user-full` | [Guide](docs/spadi-user-full-guide.md) | [ガイド](docs/spadi-user-full-guide.ja.md) |
-| `spadi-devel-full` | [Guide](docs/spadi-devel-full-guide.md) | [ガイド](docs/spadi-devel-full-guide.ja.md) |
+| Image | Guide |
+|---|---|
+| `spadi-user-fee` | [Guide](docs/spadi-user-fee-guide.md) |
+| `spadi-devel-fee` | [Guide](docs/spadi-devel-fee-guide.md) |
+| `spadi-user-daq` | [Guide](docs/spadi-user-daq-guide.md) |
+| `spadi-devel-daq` | [Guide](docs/spadi-devel-daq-guide.md) |
+| `spadi-user-artemis` | [Guide](docs/spadi-user-artemis-guide.md) |
+| `spadi-devel-artemis` | [Guide](docs/spadi-devel-artemis-guide.md) |
+| `spadi-user-full` | [Guide](docs/spadi-user-full-guide.md) |
+| `spadi-devel-full` | [Guide](docs/spadi-devel-full-guide.md) |
 
 For container implementation, CI, and publication, see the [container maintainer guide](docs/container-maintainer-guide.md).
