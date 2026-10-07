@@ -30,7 +30,7 @@ Explicit new corrections from Nobuyuki Kobayashi should also be incorporated int
 
 Keep these two audiences distinct in documentation and terminology:
 
-1. **Container users developing SPADI software** use an already-built `spadi-devel-*` Docker/SIF image, edit source under `$SPADI_LOCAL`, and self-build software into `$SPADI_LOCAL`. This is a normal user workflow and belongs in the main README.
+1. **Container users developing SPADI software** use an already-built `spadi-devel-*` Docker/SIF image, edit source under `$SPADI_LOCAL`, and self-build software into `$SPADI_LOCAL`. This workflow belongs in docs/developer-guide.md and its Japanese counterpart; link both from the main READMEs.
 2. **Container maintainers** modify Dockerfiles, CI, image composition, SIF generation, publishing, and releases. Their documentation belongs in `docs/container-maintainer-guide.md`, not in the main README's normal development workflow.
 
 Do not instruct normal container users to build Docker or SIF images.
@@ -238,7 +238,7 @@ Use `latest` and UTC timestamp tags in `YYYYMMDD-HHMMutc` format, following the 
 
 ## README
 
-Keep a runtime-user section for `spadi-user-*` before the development workflow.
+Keep separate docs/user-guide.md and docs/developer-guide.md pages, with matching .ja.md pages and links from the bilingual main READMEs. Runtime procedures belong in the user guide.
 Apptainer quick-start headings should say `64 bit Linux / Windows WSL2`;
 state `64 bit Linux (x86_64)` in the installation sentence and run commands
 inside the WSL2 Linux terminal.
@@ -249,9 +249,7 @@ at `192.168.10.16`. The four 32-bit masks are `ffffffff`, `ffffffff`,
 has 128 inputs; the old extension input was deprecated in firmware v2.6,
 so do not write its obsolete register for this recipe. Verify register values
 by reading back: pinned hul-common-lib tools can report RBCP errors and still
-exit zero. The pinned `strdaq` stores data in memory until stopping and writes
-`data/run<run-number>.dat`; document it as a short standalone test, and do not
-describe its raw stream as NestDAQ STF/TF data.
+exit zero. Use NestDAQ AmQStrTdcSampler -> STFBuilder -> TimeFrameBuilder -> FileSink for the one-channel workflow, sharing RARiS common helpers. A FEE-only image is insufficient for acquisition.
 
 Before creating or revising `README.md`, read and follow `nobukoba/nobuyuki-kobayashi-instructions-for-ai`, especially `styles/nobuyuki-kobayashi-github-readme.md`.
 
@@ -295,3 +293,37 @@ Keep component build and clone helpers in their respective repository directorie
 (`scripts/fee`, `scripts/nestdaq`, `scripts/artemis`). Reserve `development/` for
 shared workspace helpers. Copy only runtime recipes into user images; component
 build/clone helpers are explicitly installed by devel stages.
+
+## NestDAQ live recipe lessons
+
+Runtime preparation must be usable in user images without source/build helpers.
+Use spadi-prepare-runtime.sh for non-overwriting copies of component recipes.
+The live recipe uses a dedicated Valkey port/DB set, refuses to clear an active
+registry, and uses SOURCE_MODE=live; replay remains the default for RARiS.
+The pinned AmQStrTdcSampler reads case-sensitive msiTcpIp and TdcType parameters
+(type 1 for LR). It opens TCP in PreRun and closes it in PostRun. Use common
+state control to wait for initialization and start downstream before the source.
+Stop source-to-sink and wait for FileSink PostRun before terminating tmux.
+Pinned FileSink PostRun discards queued input, and builders may discard incomplete
+final frames: graceful shutdown is not proof of a lossless run boundary.
+
+Do not pass an explicit --id to the pinned NestDAQ v1.0.0 DaqServicePlugin:
+SetId only initializes fPresence->key inside its automatic service-index branch.
+Explicit IDs skip that initialization, undermining peer discovery. Let the plugin
+allocate IDs after clearing an inactive dedicated registry, then verify states.
+
+Keep shell scripts LF-terminated with .gitattributes: Windows CRLF or mixed endings break Bash control blocks in WSL2 and Linux containers.
+
+Set enable-uds=false in the live sampler, STFBuilder, TimeFrameBuilder, and
+FileSink parameter records. An endpoint hash field alone does not change the
+plugin-wide UDS switch. The pinned plugin otherwise concatenates an IPC address
+onto an explicit TCP address (for example tcp://127.0.0.1:5599ipc:...), and
+Sampler binding fails while downstream initialization waits indefinitely.
+FairMQ 1.4.55 publishes the registry state DEVICE READY with a space; normalize
+state names before comparing them in shell helpers.
+
+Pinned FileSink HandleMultipartData unconditionally looks up its dqm channel.
+For the live multipart recipe, define a PUB bind endpoint with
+waitForPeerConnection=false, even without monitor subscribers; otherwise the
+first TF throws and only the file header is saved. Check all devices again
+after the sampler starts, and fail stopping when a device has disappeared.

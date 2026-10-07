@@ -61,6 +61,15 @@ echo "=== DAQ commands and files ==="
 command -v daq-webctl
 command -v TimeFrameBuilder
 command -v STFBFilePlayer
+command -v AmQStrTdcSampler
+command -v STFBuilder
+command -v FileSink
+test -x /opt/spadi/scripts/spadi-prepare-runtime.sh
+for helper in config.sh fee-setup.sh run-start.sh run-stop.sh run-status.sh run-attach.sh; do
+  test -x "/opt/spadi/scripts/nestdaq/amaneq-lrtdc-1ch/$helper"
+  bash -n "/opt/spadi/scripts/nestdaq/amaneq-lrtdc-1ch/$helper"
+done
+test -r /opt/spadi/scripts/nestdaq/common/control-common.sh
 command -v valkey-server
 command -v valkey-cli
 command -v tmux
@@ -76,7 +85,7 @@ ldd /opt/spadi/bin/TimeFrameBuilder | grep -Eq 'libredis\+\+\.so.*=> /opt/spadi/
 ldd /opt/spadi/bin/TimeFrameBuilder | grep -Eq 'libhiredis\.so.*=> /opt/spadi/lib/'
 
 echo "=== Shared libraries ==="
-for exe in /opt/spadi/bin/daq-webctl /opt/spadi/bin/TimeFrameBuilder /opt/spadi/bin/STFBFilePlayer; do
+for exe in /opt/spadi/bin/daq-webctl /opt/spadi/bin/TimeFrameBuilder /opt/spadi/bin/STFBFilePlayer /opt/spadi/bin/AmQStrTdcSampler /opt/spadi/bin/STFBuilder /opt/spadi/bin/FileSink; do
   test -x "$exe"
   ldd "$exe" | (! grep -q 'not found')
 done

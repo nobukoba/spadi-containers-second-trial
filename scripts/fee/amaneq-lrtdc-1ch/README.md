@@ -27,19 +27,8 @@ bash setup.sh
 
 A set bit masks a channel. Channel 102 is MZN-D bit `102 - 96 = 6`, so `0xffffffff & ~(1 << 6) = 0xffffffbf`. All other TDC inputs are masked. Heartbeat delimiters still appear, and scaler counting is unaffected. This recipe targets the current 128-input firmware; it does not write the deprecated extension-input register.
 
-After successful verification, run the installed standalone streaming reader:
+After successful verification, use the NestDAQ recipe in `scripts/nestdaq/amaneq-lrtdc-1ch` for acquisition. It requires `spadi-user-daq` or `spadi-user-full` and connects AmQStrTdcSampler -> STFBuilder -> TimeFrameBuilder -> FileSink. The FEE-only image performs register control but does not contain NestDAQ.
 
-```bash
-mkdir -p "$SPADI_LOCAL/rawdata/amaneq-lrtdc-1ch/data"
-cd "$SPADI_LOCAL/rawdata/amaneq-lrtdc-1ch"
-# Use a new run number each time; strdaq overwrites an existing run file.
-test ! -e data/run1.dat && strdaq 192.168.10.16 1
-# Stop with Ctrl-C, wait for "End of DAQ", then inspect the saved file.
-ls -lh data/run1.dat
-```
+See the [user guide](../../../docs/user-guide.md) / [日本語](../../../docs/user-guide.ja.md) for startup, run helpers, storage, and directory structure. `setup.sh [AMANEQ-IP]` accepts an optional IP argument; the NestDAQ wrapper passes its config IP so control and acquisition use the same board.
 
-Standalone firmware starts sending on TCP connection; `set_hbfstate` is not needed in this mode. The pinned `strdaq` buffers data in memory and writes `data/run1.dat` when acquisition stops. Use it for a short test; sustained acquisition should use NestDAQ. File size alone does not establish that channel 102 produced hits, because delimiters are present even without input pulses. This is a raw SiTCP stream, not a NestDAQ STF/TF file.
-
-For Docker, use `--network host` on a Linux host for this hardware test, in addition to the workspace and UID/GID options in the main README.
-
-References: [official Str-LRTDC guide](https://spadi-alliance.rcnp.osaka-u.ac.jp/ug-amaneq/firmware/strlrtdc/strlrtdc/), [pinned channel register map](https://github.com/spadi-alliance/amaneq-soft/blob/86fef97ccc4e6488739e2d8b549a1c5bddd3542e/StrLRTDC/RegisterMap.hh), and [pinned standalone reader](https://github.com/spadi-alliance/hul-common-lib/blob/65476509aa401aad10148ec7c2d2a50ba7d2db3e/HulCore/DaqFuncs.cc).
+References: [official Str-LRTDC guide](https://spadi-alliance.rcnp.osaka-u.ac.jp/ug-amaneq/firmware/strlrtdc/strlrtdc/), [pinned channel map](https://github.com/spadi-alliance/amaneq-soft/blob/86fef97ccc4e6488739e2d8b549a1c5bddd3542e/StrLRTDC/RegisterMap.hh).

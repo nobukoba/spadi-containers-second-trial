@@ -2,6 +2,8 @@
 set -euo pipefail
 HERE="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 source "${HERE}/config.sh"
+[[ $# -le 1 ]] || { echo 'Usage: setup.sh [AMANEQ-IP]' >&2; exit 2; }
+AMANEQ_IP="${1:-$AMANEQ_IP}"
 
 command -v write_register >/dev/null
 command -v read_register >/dev/null

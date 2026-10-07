@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+CONFIG_NAME="amaneq-lrtdc-1ch"
+SOURCE_MODE="live"
+TMUX_SESSION="nestdaq-amaneq-lrtdc-1ch"
+TMUX_SOCKET="spadi"
+
+# One AMANEQ board -> one STF builder -> one TF builder -> one FileSink.
+AMANEQ_IP="192.168.10.16"
+TDC_TYPE=1
+TF_BUILDERS=1
+MAX_HBF=4
+TFB_DECIMATION_FACTOR=0
+TFB_DISCARD_OUTPUT=false
+TFB_ENABLE_UDS=false
+FILE_SINKS=1
+SPADI_WORKSPACE="${SPADI_LOCAL:-/workspace/spadi}"
+RAWDATA_DIR="${SPADI_WORKSPACE}/rawdata/amaneq-lrtdc-1ch"
+RUN_NUMBER=1
+CONTROL_TIMEOUT=30
+
+# Separate from the default RARiS replay ports and Redis/Valkey service.
+SAMPLER_OUTPUT_HOST="127.0.0.1"
+SAMPLER_OUTPUT_PORT=5599
+STF_TO_TFB_HOST="127.0.0.1"
+STF_TO_TFB_PORT=5600
+TFB_OUTPUT_HOST="127.0.0.1"
+TFB_OUTPUT_PORT=5601
+# Optional monitor subscribers; PUB works without subscribers.
+FILE_SINK_DQM_PORT=5602
+VALKEY_HOST="127.0.0.1"
+VALKEY_PORT=6380
+DAQSERVICE_DB=0
+METRICS_DB=1
+PARAMETER_DB=2
+WEBCTL_HOST="127.0.0.1"
+WEBCTL_PORT=8081
+NESTDAQ_HOST_IP="127.0.0.1"
+NESTDAQ_SEVERITY="info"
