@@ -2,6 +2,12 @@
 
 This repository provides unified SPADI container images. Keep the implementation practical, reproducible, and easy for humans to understand and maintain.
 
+## Mandatory English for GitHub communication
+
+All GitHub-facing communication authored by AI agents or developers MUST be written in English. This is a mandatory repository rule, not a preference. It applies to pull request titles and descriptions, issue titles and descriptions, conversation comments, review comments and replies, commit messages, and release notes. Do not write these in Japanese, even when the user requests the work in Japanese or the change concerns Japanese documentation. Check the language before creating or updating any GitHub content.
+
+Japanese documentation pages and Japanese replies to the user in chat remain supported. Preserve literal filenames, identifiers, and necessary quotations from Japanese documentation when explaining them in English. Only an explicit user instruction overriding this rule permits an exception.
+
 ## Working method and knowledge capture
 
 Treat `AGENTS.md` as the persistent engineering knowledge base for this repository, not only as a static style guide.
