@@ -327,3 +327,11 @@ For the live multipart recipe, define a PUB bind endpoint with
 waitForPeerConnection=false, even without monitor subscribers; otherwise the
 first TF throws and only the file header is saved. Check all devices again
 after the sampler starts, and fail stopping when a device has disappeared.
+
+Runtime user guides must assume browser-based DAQ operation. AMANEQ run-start.sh
+prepares FEE/Valkey/topology and waits for IDLE only; it must not issue Run.
+Document browser target selection, run-number Send, and downstream-first Run /
+upstream-first Stop. Disable Auto increment at RUN-Stop when stopping services
+individually: the pinned page increments the run number on every Stop click.
+Turn off Wait Device Ready / Wait Ready for explicit step-by-step transitions.
+run-stop.sh remains cleanup after browser Stop or an emergency fallback.

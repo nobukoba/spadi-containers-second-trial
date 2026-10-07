@@ -61,27 +61,63 @@ AMANEQ ch102 → AmQStrTdcSampler-0 → STFBuilder-0
 
 Valkey、パラメータ、トポロジー、プラグイン、tmux のヘルパーは RARiS 再生と共通です。実機用には Sampler と STFBuilder を使用し、FileSink で TF/STF レコードを保存します。
 
+### 端末でサービスを準備する
+
+コンテナ内で：
+
 ```bash
 cd "$SPADI_LOCAL/scripts/nestdaq/amaneq-lrtdc-1ch"
 cat config.sh
 ping -c 3 192.168.10.16
 ./run-start.sh
-./run-status.sh
-./run-attach.sh
-# Ctrl-b d で離れます。収集は続きます。
-./run-stop.sh
-ls -lh "$SPADI_LOCAL/rawdata/amaneq-lrtdc-1ch/00/run000001.dat"
 ```
 
-`run-start.sh` は FEE のマスク設定と読み戻し確認、RedisTimeSeries 付き Valkey の起動、パラメータとトポロジーの登録、4プロセスの起動を行います。DeviceReady → Ready → Running の遷移を待ち、下流を先に動かしてから Sampler が TCP 接続します。ブラウザで改めて Run を押す必要はありません。`run-status.sh` は各デバイスの実際の状態を表示し、`run-attach.sh` で sampler、STF0、TFB0、sink0 のログを確認できます。
+`run-start.sh` は FEE マスクの設定と読み戻し確認、Valkey、パラメータ、トポロジー、4プロセスの準備を行い、全台が **Idle** になるまで待ちます。この時点では読み出しを開始しません。以降の初期化・開始・停止・run 番号の変更はブラウザで操作します。
+
+### ブラウザで初期化する
+
+ホストのブラウザで **http://localhost:8081/daq-webctl.html** を開きます。WSL2 の場合も Windows 側のブラウザから開きます。
+
+1. **State Summary** に `AmQStrTdcSampler`、`STFBuilder`、`TimeFrameBuilder`、`FileSink` が1台ずつ表示され、すべて **Idle** であることを確認します。**Show details** で個々の状態も表示できます。
+2. **Wait Device Ready** と **Wait Ready** のチェックを外します。以下では各ボタンを押した後に状態を確認して進めます。
+3. **Auto increment at RUN-Stop** のチェックを外します。サービスを個別に Stop するため、チェックがあるとクリックのたびに run 番号が増えます。
+4. **RUN number** の **New value** に `1` を入力して **Send** を押し、**Next : 1** を確認します。保存済みの番号は使わないでください。
+5. **Select command target** のサービスとインスタンスを両方 **all** にします。
+6. **Init Device and Connection** を押し、全4台が **Device-Ready** になるまで待ちます。
+7. **Init Task** を押し、全4台が **Ready** になるまで待ちます。
+
+ブラウザの再読み込み後も、上の3つのチェックを外してください。
+
+### ブラウザで読み出しを開始する
+
+サービス選択では **all を解除**し、表のサービスだけを選びます。インスタンスは **all** のままにします。下流から順に **Run** を押し、選んだデバイスが **Running** になってから次へ進みます。
+
+| 順番 | 選ぶサービス | 操作 |
+|---|---|---|
+| 1 | `FileSink` | **Run** → **Running** |
+| 2 | `TimeFrameBuilder` | **Run** → **Running** |
+| 3 | `STFBuilder` | **Run** → **Running** |
+| 4 | `AmQStrTdcSampler` | **Run** → **Running** |
+
+Sampler の Run で AMANEQ への TCP 接続が開き、読み出しが始まります。全4台の **Running** と **Error = 0** を確認してください。run 1 の保存先はホストの `workspace/spadi/rawdata/amaneq-lrtdc-1ch/00/run000001.dat` です。
+
+### ブラウザで停止し、次の run を始める
+
+上流から `AmQStrTdcSampler` → `STFBuilder` → `TimeFrameBuilder` → `FileSink` の順にサービスを1つずつ選び、**Stop** を押します。それぞれ **Ready** になるまで待ち、次の Stop まで1秒程度空けます。最後に FileSink が **Ready** になれば、トレーラー書き込みとファイル close が完了しています。
+
+次の取得では **New value** に未使用の番号（例：`2`）を入力して **Send** を押します。サービスとインスタンスを **all** にし、**Reset Task** → 全台 **Device-Ready**、**Reset Device** → 全台 **Idle** の順に確認します。その後、初期化と開始の手順を繰り返します。run 番号は取得中に変更しないでください。
+
+作業を終えるときはブラウザで全台を Stop した後、コンテナの端末で `./run-stop.sh` を実行してプロセスと tmux を終了します。調査には `./run-status.sh` と `./run-attach.sh` を使います。tmux は **Ctrl-b d** で離れられます。ブラウザを閉じるだけでは収集は停止しません。
+
+### 設定と保存データ
 
 FEE の Main-U、Main-D、MZN-U、MZN-D のマスクは `ffffffff ffffffff ffffffff ffffffbf` です。102は MZN-D の bit 6 で、1が mask、0が unmask です。他の0〜127入力はすべて mask します。停止中に設定だけを行う場合は `./fee-setup.sh` を実行してください。
 
-IP、run 番号、保存先、ポートは NestDAQ 側の `config.sh` で編集します。ここにある `AMANEQ_IP` が FEE ヘルパーにも渡されます。マスク値は `scripts/fee/amaneq-lrtdc-1ch/config.sh` にあります。次の取得では `RUN_NUMBER` を新しい番号に変更してください。既存の出力ファイルがあれば開始を拒否し、FileSink も `openmode=create` を使用します。稼働中のセッションの設定は変更しないでください。
+IP、最初の run 番号、保存先、ポートは NestDAQ 側の `config.sh` で編集します。ここにある `AMANEQ_IP` が FEE ヘルパーにも渡されます。マスク値は `scripts/fee/amaneq-lrtdc-1ch/config.sh` にあります。起動後の run 番号はブラウザで設定します。準備時には `RUN_NUMBER` の既存出力を拒否し、ブラウザからの Run でも FileSink の `openmode=create` が上書きを防ぎます。番号重複による FileSink の異常があれば収集を進めず、ログを確認してください。稼働中のセッションの設定は変更しないでください。
 
 デフォルトは Valkey `127.0.0.1:6380`（DB0: 登録情報、DB1: メトリクス、DB2: パラメータ）、Web 状態表示 `http://localhost:8081/daq-webctl.html`、データ転送ポート5599〜5601、任意の DQM モニター用 PUB ポート5602です。モニターが接続していなくても、FileSink に DQM チャンネルの定義が必要です。RARiS のデフォルトとは分けています。この設定専用の Valkey DB を使い、他の稼働中の設定と共用しないでください。停止後も Valkey は再利用のため残します。
 
-停止には `run-stop.sh` を使ってください。上流から止めて下流の処理時間を確保し、FileSink の PostRun、トレーラー書き込み、ファイル close を待ってからデバイスと tmux を終了します。エラーやタイムアウト時は調査用に tmux を残します。固定版 upstream は最後の不完全なフレームや FileSink の PostRun に残った入力を破棄する場合があり、run 境界での無損失は保証しません。ログとデリミタのフラグを確認してください。入力がなくてもハートビートデリミタが記録されるため、ファイルの増加だけでは102のヒットを確認できません。保存ファイルは FileSink のヘッダー・トレーラーと TF/STF レコードを含み、以前の `strdaq` の生ストリームとは形式が異なります。
+通常の収集停止は上記のブラウザ操作で行います。`run-stop.sh` は作業終了時の後片付けと、ブラウザが使えない場合の停止に使用します。上流から止めて下流の処理時間を確保し、FileSink の PostRun、トレーラー書き込み、ファイル close を待ってからデバイスと tmux を終了します。エラーやタイムアウト時は調査用に tmux を残します。固定版 upstream は最後の不完全なフレームや FileSink の PostRun に残った入力を破棄する場合があり、run 境界での無損失は保証しません。ログとデリミタのフラグを確認してください。入力がなくてもハートビートデリミタが記録されるため、ファイルの増加だけでは102のヒットを確認できません。保存ファイルは FileSink のヘッダー・トレーラーと TF/STF レコードを含み、以前の `strdaq` の生ストリームとは形式が異なります。
 
 ## RARiS AC-LGAD のファイル再生
 

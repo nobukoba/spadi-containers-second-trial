@@ -34,7 +34,7 @@ def mock(tool, args):
             service = tokens[tokens.index("start-device.sh") + 1]
             # Real NestDAQ allocates the index automatically per service.
             index = sum(k.startswith(service + ":") for k in state["states"])
-            state["states"][f"{service}:{service}-{index}"] = "IDLE"
+            state["states"][f"{service}:{service}-{index}"] = "ERROR" if os.environ.get("MOCK_DEVICE_ERROR") == service else "IDLE"
     elif tool == "write_register":
         if os.environ.get("MOCK_MASK_ERROR"):
             result = "#E: RBCP timeout"
@@ -127,6 +127,18 @@ def main():
         assert not (local / "src").exists()
         run(recipe / "run-start.sh")
         s = read()
+        assert all(v == "IDLE" for v in s["states"].values())
+        assert not any("publish" in c for c in s["calls"])
+        assert not (local / "rawdata/amaneq-lrtdc-1ch/00/run000001.dat").exists()
+        # Emulate the browser's selected targets and daqctl messages.
+        control = tmp / "browser-controls.sh"
+        control.write_text('source "$SPADI_LOCAL/scripts/nestdaq/common/control-common.sh"\nnestdaq_load_config "$SPADI_LOCAL/scripts/nestdaq/amaneq-lrtdc-1ch/config.sh"\nnestdaq_change_state "$@"\n')
+        devices = ["AmQStrTdcSampler", "STFBuilder", "TimeFrameBuilder", "FileSink"]
+        run(control, "CONNECT", *devices)
+        run(control, "INIT TASK", *devices)
+        for device in reversed(devices):
+            run(control, "RUN", device)
+        s = read()
         assert s["parameters"]["parameters:AmQStrTdcSampler-0"] == {"msiTcpIp": "192.168.10.17", "TdcType": "1", "enable-uds": "false"}
         assert s["parameters"]["parameters:FileSink-0"]["openmode"] == "create"
         writes = [c[1:] for c in s["calls"] if c[0] == "write_register"]
@@ -138,6 +150,9 @@ def main():
         assert s["parameters"]["daq_service:topology:endpoint:FileSink:dqm"]["type"] == "pub"
         assert "RUNNING" in run(recipe / "run-status.sh").stdout
         run(recipe / "fee-setup.sh", expected=1)
+        # The browser stops upstream first. Cleanup must not send duplicate STOP.
+        for device in devices:
+            run(control, "STOP", device)
         run(recipe / "run-stop.sh")
         s = read()
         stops = [json.loads(c[-1])["services"][0] for c in s["calls"] if "publish" in c and json.loads(c[-1])["value"] == "STOP"]
@@ -169,7 +184,7 @@ def main():
             for target in re.findall(r"\]\(([^)]+)\)", page.read_text()):
                 if not target.startswith(("http", "#")):
                     assert (page.parent / target.split("#")[0]).exists(), (page, target)
-        print("PASS: live topology, parameter names, IP override, start/stop ordering, output protection, error retention, non-overwriting preparation, replay compatibility, guide links")
+        print("PASS: live topology, parameter names, IP override, browser-ready startup, browser start/stop ordering, output protection, error retention, non-overwriting preparation, replay compatibility, guide links")
 
 
 if __name__ == "__main__":

@@ -27,24 +27,6 @@ devices=(AmQStrTdcSampler STFBuilder TimeFrameBuilder FileSink)
 nestdaq_wait_state IDLE "${devices[@]}"
 # Allow the state-control subscribers to attach after device registration.
 sleep 1
-nestdaq_change_state CONNECT "${devices[@]}"
-nestdaq_wait_state DEVICEREADY "${devices[@]}"
-nestdaq_change_state 'INIT TASK' "${devices[@]}"
-nestdaq_wait_state READY "${devices[@]}"
-# Start consumers before opening the SiTCP connection at the source.
-for device in FileSink TimeFrameBuilder STFBuilder AmQStrTdcSampler; do
-    nestdaq_change_state RUN "$device"
-    nestdaq_wait_state RUNNING "$device"
-    if [[ "$device" == FileSink && ! -e "$output" ]]; then
-        echo "FileSink did not create $output; tmux retained for inspection." >&2
-        exit 1
-    fi
-done
-# Check all devices after initial source messages.
-sleep 1
-for device in "${devices[@]}"; do
-    state="$(nestdaq_state "$device")"
-    [[ "${state^^}" == RUNNING ]] || { echo "$device is not RUNNING (${state:-missing}); tmux retained for inspection." >&2; exit 1; }
-done
-echo "NestDAQ RUNNING (run $RUN_NUMBER). Output: $output"
-echo "Web status: http://localhost:${WEBCTL_PORT}/daq-webctl.html"
+echo "NestDAQ prepared: all four devices are IDLE; acquisition has not started."
+echo "Open http://localhost:${WEBCTL_PORT}/daq-webctl.html to initialize, Run, and Stop."
+echo "Initial run number: $RUN_NUMBER. Choose later run numbers in the browser."
