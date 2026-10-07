@@ -5,7 +5,7 @@ ROOT="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/../.." && pwd)"
 temporary="$(mktemp -d)"
 trap 'rm -rf "$temporary"' EXIT
 export MASK_TEST_LOG="${temporary}/calls"
-cat > "${temporary}/write_register" <<'EOF'
+cat > "${temporary}/set_tdcmask" <<'EOF'
 #!/usr/bin/env bash
 printf '%s\n' "$*" >> "$MASK_TEST_LOG"
 if [[ "${MASK_TEST_MODE:-}" == write-error ]]; then echo '#E: RBCP timeout'; fi
@@ -20,16 +20,13 @@ case "${MASK_TEST_MODE:-}" in
 esac
 printf '#D: Read register: 0 (0x%s)\n' "$value"
 EOF
-chmod +x "${temporary}/write_register" "${temporary}/read_register"
+chmod +x "${temporary}/set_tdcmask" "${temporary}/read_register"
 export PATH="${temporary}:$PATH"
 recipe="${ROOT}/scripts/fee/amaneq-lrtdc-1ch"
 bash -n "${recipe}/config.sh" "${recipe}/setup.sh"
 bash "${recipe}/setup.sh"
 cat > "${temporary}/expected" <<'EOF'
-192.168.10.16 10000000 ffffffff 4
-192.168.10.16 10100000 ffffffff 4
-192.168.10.16 10200000 ffffffff 4
-192.168.10.16 10300000 ffffffbf 4
+192.168.10.16 ffffffff ffffffff ffffffff ffffffbf
 EOF
 diff -u "${temporary}/expected" "$MASK_TEST_LOG"
 source "${recipe}/config.sh"
@@ -46,4 +43,4 @@ for mode in write-error read-error mismatch; do
     fi
     [[ "$(wc -l < "$MASK_TEST_LOG")" -eq 1 ]]
 done
-echo 'PASS: only channel 102 unmasked; all error cases stop before later writes.'
+echo 'PASS: only channel 102 unmasked; all error cases stop acquisition preparation.'

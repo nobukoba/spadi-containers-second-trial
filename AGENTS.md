@@ -386,3 +386,5 @@ and the bind mount mapping to the persistent host workspace/spadi.
 Place the mapping to the official SPADI-A DAQ manual at the end of user guides
 as "Appendix: SPADI-A DAQ マニュアルとの対応" and its English counterpart,
 keeping directory layout and user operation instructions first.
+
+Use the LR-TDC-specific `${SPADI_ROOT}/StrLRTDC/bin/set_tdcmask` for AMANEQ LR mask settings, with IP and four mask arguments. Do not replace it with four generic write_register calls. HR installs a command with the same basename; select the LR path explicitly. Retain read_register verification and fail-closed handling of firmware readback defects.
