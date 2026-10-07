@@ -374,3 +374,7 @@ Start user guides with the directory tree, then define SPADI_LOCAL/SPADI_ROOT
 before using variable-based commands. Explain the default /workspace/spadi,
 shell dollar expansion, automatic startup assignment versus directory creation,
 and the bind mount mapping to the persistent host workspace/spadi.
+
+Place the mapping to the official SPADI-A DAQ manual at the end of user guides
+as "Appendix: SPADI-A DAQ マニュアルとの対応" and its English counterpart,
+keeping directory layout and user operation instructions first.
