@@ -5,16 +5,15 @@ source "${HERE}/config-common.sh"; config="${1:-${NESTDAQ_CONFIG:-}}"; nestdaq_l
 : "${TMUX_SESSION:?}"; : "${TF_BUILDERS:?}"; : "${WEBCTL_HOST:=0.0.0.0}"; : "${WEBCTL_PORT:=8080}"
 TMUX=(tmux -L "${TMUX_SOCKET}")
 "${TMUX[@]}" has-session -t "${TMUX_SESSION}" 2>/dev/null && { echo "tmux session already exists: ${TMUX_SESSION}" >&2; exit 1; }
-"${TMUX[@]}" new-session -d -s "${TMUX_SESSION}" -n control "exec bash"
-"${TMUX[@]}" set-window-option -g -t "${TMUX_SESSION}" remain-on-exit on
+workdir="$(cd -- "$(dirname -- "$config")" && pwd)"
+"${TMUX[@]}" new-session -c "$workdir" -d -s "${TMUX_SESSION}" -n control "exec bash"
 "${TMUX[@]}" set-option -t "${TMUX_SESSION}" allow-rename off
-"${TMUX[@]}" bind-key x kill-pane
-"${TMUX[@]}" new-window -t "${TMUX_SESSION}" -n webctl "exec daq-webctl --http-uri http://${WEBCTL_HOST}:${WEBCTL_PORT} --redis-uri tcp://${VALKEY_HOST}:${VALKEY_PORT}/${DAQSERVICE_DB}"
+"${TMUX[@]}" new-window -c "$workdir" -t "${TMUX_SESSION}" -n webctl "keep-device-window.sh webctl daq-webctl --http-uri http://${WEBCTL_HOST}:${WEBCTL_PORT} --redis-uri tcp://${VALKEY_HOST}:${VALKEY_PORT}/${DAQSERVICE_DB}"
 launch_device() {
   local device="$1" index="$2" window="$3" command
   # Quote paths for tmux's shell, including workspaces containing spaces.
   printf -v command 'NESTDAQ_CONFIG=%q keep-device-window.sh %q start-device.sh %q --startup-state idle' "$config" "${device}-${index}" "$device"
-  "${TMUX[@]}" new-window -t "${TMUX_SESSION}" -n "$window" "$command"
+  "${TMUX[@]}" new-window -c "$workdir" -t "${TMUX_SESSION}" -n "$window" "$command"
 }
 case "${SOURCE_MODE:-replay}" in
   replay)

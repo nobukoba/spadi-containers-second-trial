@@ -65,7 +65,7 @@ command -v AmQStrTdcSampler
 command -v STFBuilder
 command -v FileSink
 test -x /opt/spadi/scripts/spadi-prepare-runtime.sh
-for helper in config.sh fee-setup.sh run-start.sh run-stop.sh run-status.sh run-attach.sh; do
+for helper in config.sh fee-setup.sh run-start.sh run-stop.sh run-status.sh run-attach.sh run-cleanup.sh; do
   test -x "/opt/spadi/scripts/nestdaq/amaneq-lrtdc-1ch/$helper"
   bash -n "/opt/spadi/scripts/nestdaq/amaneq-lrtdc-1ch/$helper"
 done

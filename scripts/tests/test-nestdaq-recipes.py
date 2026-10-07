@@ -66,7 +66,7 @@ def mock(tool, args):
             assert message["command"] == "change_state"
             assert message["instances"] == ["all"]
             transition = message["value"]
-            target = {"CONNECT": "DEVICE READY", "INIT TASK": "READY", "RUN": "RUNNING", "STOP": "READY", "quit": "EXITING"}[transition]
+            target = {"CONNECT": "DEVICE READY", "INIT TASK": "READY", "RUN": "RUNNING", "STOP": "READY", "quit": "EXITING", "END": "EXITING"}[transition]
             # Match the names in pinned FairMQ 1.4.55 States.cxx.
             for service in message["services"]:
                 key = f"{service}:{service}-0"
@@ -150,11 +150,19 @@ def main():
         assert s["parameters"]["daq_service:topology:endpoint:FileSink:dqm"]["type"] == "pub"
         assert "RUNNING" in run(recipe / "run-status.sh").stdout
         run(recipe / "fee-setup.sh", expected=1)
+        run(recipe / "run-cleanup.sh", expected=1)  # cannot kill running devices
+        assert read()["session"]
+        launches = [c[-1] for c in read()["calls"] if c[0] == "tmux" and "new-window" in c]
+        assert not any("xterm" in c for c in launches)
+        assert all("-c" in c for c in read()["calls"] if c[0] == "tmux" and "new-window" in c)
         # The browser stops upstream first. Cleanup must not send duplicate STOP.
         for device in devices:
             run(control, "STOP", device)
-        run(recipe / "run-stop.sh")
+        # End is the manual's normal browser shutdown. Cleanup only removes tmux.
+        run(control, "END", *devices)
+        run(recipe / "run-cleanup.sh")
         s = read()
+        assert not any("publish" in c and json.loads(c[-1])["value"] == "quit" for c in s["calls"])
         stops = [json.loads(c[-1])["services"][0] for c in s["calls"] if "publish" in c and json.loads(c[-1])["value"] == "STOP"]
         assert stops == ["AmQStrTdcSampler", "STFBuilder", "TimeFrameBuilder", "FileSink"]
         assert not s["session"] and "trailer" in Path(s["output"]).read_text()

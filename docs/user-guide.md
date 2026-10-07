@@ -4,6 +4,21 @@
 
 Use `spadi-user-*` to run installed software. AMANEQ acquisition below requires **spadi-user-daq** or **spadi-user-full** for both FEE control and NestDAQ. For source editing and builds, read the [developer guide](developer-guide.md).
 
+## Relation to the SPADI-A DAQ manual
+
+This guide follows the official [DAQ execution](https://www.rcnp.osaka-u.ac.jp/~spadi/wiki/?SPADI-A%20DAQ%20マニュアル/ソフトウェア/DAQの実行方法), [NestDAQ script editing](https://www.rcnp.osaka-u.ac.jp/~spadi/wiki/?SPADI-A%20DAQ%20マニュアル/ソフトウェア/DAQの設定/NestDAQスクリプトの編集), and [FEE script editing](https://www.rcnp.osaka-u.ac.jp/~spadi/wiki/?SPADI-A%20DAQ%20マニュアル/ソフトウェア/DAQの設定/FEEスクリプトの編集) procedures: prepare services and FEE, check process counts and logs, then browser Init → Run → Stop → Reset → End. One tmux session manages terminals.
+
+| Role in the official manual | Container equivalent |
+|---|---|
+| `init.sh`: Redis and Web Controller | `common/start-valkey.sh` and the `webctl` window in `common/tmux-start.sh` |
+| `fee_scripts/config_modules.sh`: FEE settings | AMANEQ `fee-setup.sh` and FEE `setup.sh` (input masks for this standalone LR example) |
+| `mq-param.sh`, `topology.sh` | `common/apply-parameters.sh`, `common/apply-topology.sh` |
+| `tf.sh`, `run-stf-tf.sh`, `start_device.sh` | AMANEQ `run-start.sh`, `common/tmux-start.sh`, `common/start-device.sh` |
+| Per-xterm log inspection | `run-attach.sh` and named windows in one tmux session |
+| Cleanup after browser **End** | AMANEQ `run-cleanup.sh`, affecting this session only |
+
+`run-start.sh` coordinates preparation; the common helpers need not be run separately. Historical HR mezzanine initialization, MIKUMARI-primary operations, and deprecated extension masks are not copied into this standalone LR recipe. The pinned sampler uses `TdcType=1` for LR.
+
 ## Start the container
 
 ### Apptainer (64 bit Linux / Windows WSL2)
@@ -46,7 +61,7 @@ spadi-prepare-runtime.sh
 
 This copies available runtime recipes to `$SPADI_LOCAL/scripts` without overwriting existing files, and creates `$SPADI_LOCAL/rawdata`. No source checkout, compilation, or `spadi-prepare-local.sh` is required.
 
-When updating an existing workspace, stop its sessions, rename the old `scripts/nestdaq/common` directory, then run the helper again to obtain the new common scripts. Compare and reapply any local changes. Update an old FEE `amaneq-lrtdc-1ch/setup.sh` to the version accepting an optional IP argument too. Keep your edited recipe `config.sh` files.
+When updating an existing workspace, stop its sessions, rename the old `scripts/nestdaq/common` directory, then run the helper again to obtain the new common scripts. Compare and reapply any local changes. Update an old FEE `amaneq-lrtdc-1ch/setup.sh` to the version accepting an optional IP argument too. Refresh the AMANEQ recipe run helpers too, including run-cleanup.sh; otherwise an older run-start.sh may still start acquisition automatically. Keep your edited recipe `config.sh` files.
 
 ## AMANEQ: channel 102 with NestDAQ
 
@@ -107,7 +122,7 @@ Select one service at a time in upstream order: `AmQStrTdcSampler` → `STFBuild
 
 For the next run, enter an unused **New value** (for example `2`) and click **Send**. Select **all** services and instances, click **Reset Task**, wait for all **Device-Ready**, then **Reset Device**, and wait for all **Idle**. Repeat initialization and startup. Do not change the run number during acquisition.
 
-When finished, Stop all processes in the browser, then run `./run-stop.sh` in the container terminal to exit processes and remove tmux. Use `./run-status.sh` and `./run-attach.sh` for diagnostics; **Ctrl-b d** detaches tmux. Closing the browser does not stop acquisition.
+When finished, Stop all processes in the browser, select **all** services and instances, and click **End**. Check that processes are **Exiting** or have disappeared, then run `./run-cleanup.sh` in the tmux `control` window to close this session. Cleanup refuses while any process is still active. Closing the browser does not stop acquisition.
 
 ### Configuration and saved data
 
@@ -117,7 +132,34 @@ Edit NestDAQ `config.sh` for `AMANEQ_IP`, initial `RUN_NUMBER`, `RAWDATA_DIR`, a
 
 Defaults: Valkey `127.0.0.1:6380` (DB0 registry, DB1 metrics, DB2 parameters), web status `http://localhost:8081/daq-webctl.html`, and data ports 5599–5601, and optional DQM PUB port 5602. FileSink needs this DQM channel even without a monitor subscriber. These differ from RARiS defaults. This recipe owns its Valkey DBs; do not share them with another running setup. Valkey remains after stopping for reuse.
 
-Stop acquisition in the browser as described above. Use `run-stop.sh` for final cleanup or when the browser is unavailable. It stops the source first, allows downstream processing, waits for FileSink's PostRun/trailer/close, then exits devices and tmux. On errors/timeouts tmux is retained for inspection. The pinned upstream may discard a final incomplete frame and queued FileSink PostRun input; this procedure does not guarantee a lossless run boundary. Review logs and delimiter flags. Heartbeat delimiters appear without hits, so file growth alone does not establish channel 102 activity. The output contains FileSink header/trailer and TF/STF records, rather than the previous `strdaq` stream.
+Stop acquisition in the browser as described above. Use `run-stop.sh` to stop and exit when the browser is unavailable. After normal browser End, use `run-cleanup.sh`. The emergency stop helper stops the source first, allows downstream processing, waits for FileSink's PostRun/trailer/close, then exits devices and tmux. On errors/timeouts tmux is retained for inspection. The pinned upstream may discard a final incomplete frame and queued FileSink PostRun input; this procedure does not guarantee a lossless run boundary. Review logs and delimiter flags. Heartbeat delimiters appear without hits, so file growth alone does not establish channel 102 activity. The output contains FileSink header/trailer and TF/STF records, rather than the previous `strdaq` stream.
+
+## Terminal and log operations in tmux
+
+After preparing AMANEQ services, run `./run-attach.sh` inside the container. RARiS provides the same helper in its recipe directory.
+
+| Window | Purpose |
+|---|---|
+| `control` | Shell for configuration, `./run-status.sh`, and `./run-cleanup.sh` after End |
+| `webctl` | Web Controller log |
+| `sampler` | AMANEQ sampler log |
+| `STF0` | STFBuilder log |
+| `TFB0` | TimeFrameBuilder log |
+| `sink0` | FileSink log |
+
+Press and release **Ctrl-b**, then press:
+
+| Key | Action |
+|---|---|
+| `w` | Choose a window from the list |
+| `n` / `p` | Next / previous window |
+| `0` | Open `control` |
+| `[` | Scroll log history (arrows / PageUp; `q` returns) |
+| `d` | Detach; acquisition and Web Controller continue |
+
+During initialization and acquisition, check one instance per service in **State Summary / Show details**, and inspect each tmux log for errors. Windows remain after a process exits, so window count alone is not proof of healthy acquisition; inspect exit status and logs. If the browser is unavailable, run `./run-stop.sh` from `control`.
+
+Valkey is a managed background service. From `control`, inspect its default log with `tail -n 50 /tmp/spadi-valkey-6380.log` (the filename follows the configured port). Terminal operations need no xterm, `DISPLAY`, or X11 forwarding. Valkey remains available after stopping for reuse.
 
 ## RARiS AC-LGAD replay
 
@@ -130,7 +172,7 @@ cd "$SPADI_LOCAL/scripts/nestdaq/raris-ac-lgad"
 # Ctrl-b d detaches.
 ```
 
-This launches three STFBFilePlayer processes and one TimeFrameBuilder. Open `http://localhost:8080/daq-webctl.html`, select the services, set a run number, then use **Init Device and Connection → Init Task → Run**, checking states. The default replay topology has no FileSink: connect the desired consumer to TFB output `tcp://127.0.0.1:5501`. Stop/reset via web control before `./run-stop.sh` closes the session. Normal changes belong in its `config.sh`.
+This launches three STFBFilePlayer processes and one TimeFrameBuilder. Open `http://localhost:8080/daq-webctl.html`, select the services, set a run number, then use **Init Device and Connection → Init Task → Run**, checking states. The default replay topology has no FileSink: connect the desired consumer to TFB output `tcp://127.0.0.1:5501`. Use browser Stop → Reset Task → Reset Device, select all targets and End, then `./run-stop.sh` to close the tmux session. Normal changes belong in its `config.sh`.
 
 ## Directory structure
 
@@ -159,7 +201,8 @@ Preparation never overwrites existing files, including edited `config.sh` files.
         │   ├── run-start.sh
         │   ├── run-stop.sh
         │   ├── run-status.sh
-        │   └── run-attach.sh
+        │   ├── run-attach.sh
+        │   └── run-cleanup.sh
         └── raris-ac-lgad/             # replay helpers and rawdata-download.sh
 
 /workspace/spadi/                     # SPADI_LOCAL; host workspace/spadi

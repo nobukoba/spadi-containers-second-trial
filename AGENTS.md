@@ -334,4 +334,38 @@ Document browser target selection, run-number Send, and downstream-first Run /
 upstream-first Stop. Disable Auto increment at RUN-Stop when stopping services
 individually: the pinned page increments the run number on every Stop click.
 Turn off Wait Device Ready / Wait Ready for explicit step-by-step transitions.
-run-stop.sh remains cleanup after browser Stop or an emergency fallback.
+Normal shutdown uses browser Stop and End followed by run-cleanup.sh.
+run-stop.sh is the fallback when browser control is unavailable.
+
+## SPADI-A DAQ manual and tmux operation
+
+Before changing DAQ user procedures, read this file and the official manual:
+https://www.rcnp.osaka-u.ac.jp/~spadi/wiki/?SPADI-A%20DAQ%20%E3%83%9E%E3%83%8B%E3%83%A5%E3%82%A2%E3%83%AB
+Read Software / DAQ execution, NestDAQ script editing, FEE script editing,
+and the replayer tutorial. Follow service/FEE preparation, parameter and
+topology registration, process-count/log checks, then browser Init Device
+and Connection -> Init Task -> Run, Stop -> Reset Task -> Reset Device,
+and End. Use the pinned controller's actual state labels (Device Ready,
+Ready, Running), correcting outdated labels in prose rather than copying them.
+Keep init.sh, mq-param.sh, topology.sh, start_device.sh, and tf.sh responsibilities
+recognizable through a documented mapping to shared container helpers.
+
+Replace xterm wrappers with one named tmux session per recipe, a webctl window,
+a control shell, and one named window per DAQ process. No xterm, X11, or DISPLAY
+is required. Document attach, window navigation, scrollback, detach, log and
+process-count checks, and final browser End / recipe-only cleanup. Do not change
+global tmux key bindings or use killall/pkill to stop other experiments.
+Valkey is the managed background service; its log can be inspected from control.
+
+Manual examples are historical: LR TdcType=6 is dated June 2024, while the pinned
+AmQStrTdcSampler accepts LR=1. Check exact upstream code before copying values.
+The deprecated LR extension-mask register must not be restored from old samples.
+Document only the FEE initialization required by the selected standalone LR mode;
+do not copy HR mezzanine initialization or MIKUMARI-primary operations blindly.
+Use "four software processes" for the single-board pipeline, never "four boards".
+Capture reusable corrections and runtime findings here in the same change.
+
+Document directory creation stages: spadi-prepare-runtime.sh creates scripts/rawdata
+and preserves existing configs; live run-start.sh creates the FileSink output
+subdirectory; browser FileSink Run creates the data file. These are distinct
+stages, and the host bind-mounted workspace retains their results.

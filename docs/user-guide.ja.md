@@ -4,6 +4,21 @@
 
 インストール済みソフトウェアの利用には `spadi-user-*` を使います。以下の AMANEQ の例には FEE 制御と NestDAQ の両方が必要なので、**spadi-user-daq** または **spadi-user-full** を選んでください。ソース編集・ビルドは[開発者向けガイド](developer-guide.ja.md)に分けています。
 
+## SPADI-A DAQ マニュアルとの対応
+
+[公式マニュアルの DAQ の実行方法](https://www.rcnp.osaka-u.ac.jp/~spadi/wiki/?SPADI-A%20DAQ%20マニュアル/ソフトウェア/DAQの実行方法)、[NestDAQ スクリプトの編集](https://www.rcnp.osaka-u.ac.jp/~spadi/wiki/?SPADI-A%20DAQ%20マニュアル/ソフトウェア/DAQの設定/NestDAQスクリプトの編集)、[FEE スクリプトの編集](https://www.rcnp.osaka-u.ac.jp/~spadi/wiki/?SPADI-A%20DAQ%20マニュアル/ソフトウェア/DAQの設定/FEEスクリプトの編集)を基にしています。サービスと FEE の準備、プロセス数とログの確認、ブラウザでの Init → Run → Stop → Reset → End の流れを踏襲します。端末は1つの tmux セッションで管理します。
+
+| 公式マニュアルの役割 | このコンテナでの対応 |
+|---|---|
+| `init.sh`：Redis と Web Controller | `common/start-valkey.sh` と `common/tmux-start.sh` の `webctl` ウィンドウ |
+| `fee_scripts/config_modules.sh`：FEE 設定 | AMANEQ の `fee-setup.sh` と FEE 側 `setup.sh`（このスタンドアロン LR 例では入力マスクを設定） |
+| `mq-param.sh`、`topology.sh` | `common/apply-parameters.sh`、`common/apply-topology.sh` |
+| `tf.sh`、`run-stf-tf.sh`、`start_device.sh` | AMANEQ の `run-start.sh`、`common/tmux-start.sh`、`common/start-device.sh` |
+| 各 xterm のログ確認 | `run-attach.sh` で同じ tmux セッションの各ウィンドウを確認 |
+| Web の **End** 後の後片付け | AMANEQ の `run-cleanup.sh`（対象セッションのみ終了） |
+
+`run-start.sh` が必要な準備をまとめて行うため、共通ヘルパーを個別に実行する必要はありません。古い例の HR メザニン初期化、MIKUMARI Primary 操作、廃止済みの拡張マスクはこの LR スタンドアロン設定にコピーしません。固定版 Sampler の LR 型指定は `TdcType=1` です。
+
 ## コンテナの起動
 
 ### Apptainer（64 bit Linux / Windows WSL2）
@@ -46,7 +61,7 @@ spadi-prepare-runtime.sh
 
 イメージに含まれる実行設定を `$SPADI_LOCAL/scripts` にコピーし、`$SPADI_LOCAL/rawdata` を作ります。既存ファイルは上書きしません。ソースの取得、コンパイル、`spadi-prepare-local.sh` は不要です。
 
-以前の作業領域を更新する場合は、使用中のセッションを止め、古い `scripts/nestdaq/common` を別名に退避してから準備ヘルパーを実行してください。新しい共通スクリプトを取得した後、退避したファイルと比較して必要な変更を反映します。FEE 側の古い `amaneq-lrtdc-1ch/setup.sh` も、IP 引数を受け取る新しい版に更新してください。編集済みの各 `config.sh` は保持します。
+以前の作業領域を更新する場合は、使用中のセッションを止め、古い `scripts/nestdaq/common` を別名に退避してから準備ヘルパーを実行してください。新しい共通スクリプトを取得した後、退避したファイルと比較して必要な変更を反映します。FEE 側の古い `amaneq-lrtdc-1ch/setup.sh` も、IP 引数を受け取る新しい版に更新してください。AMANEQ 側の run ヘルパーも `run-cleanup.sh` を含む新しい版に更新してください。古い `run-start.sh` を残すと、収集を自動開始する場合があります。編集済みの各 `config.sh` は保持します。
 
 ## AMANEQ の LR-TDC を NestDAQ で1チャンネル読み出す
 
@@ -109,7 +124,7 @@ Sampler の Run で AMANEQ への TCP 接続が開き、読み出しが始まり
 
 次の取得では **New value** に未使用の番号（例：`2`）を入力して **Send** を押します。サービスとインスタンスを **all** にし、**Reset Task** → すべてのプロセス **Device-Ready**、**Reset Device** → すべてのプロセス **Idle** の順に確認します。その後、初期化と開始の手順を繰り返します。run 番号は取得中に変更しないでください。
 
-作業を終えるときはブラウザですべてのプロセスを Stop した後、コンテナの端末で `./run-stop.sh` を実行してプロセスと tmux を終了します。調査には `./run-status.sh` と `./run-attach.sh` を使います。tmux は **Ctrl-b d** で離れられます。ブラウザを閉じるだけでは収集は停止しません。
+作業を終えるときはブラウザですべてのプロセスを Stop し、サービスとインスタンスを **all** にして **End** を押します。プロセスが **Exiting** または一覧から消えたことを確認し、tmux の `control` ウィンドウで `./run-cleanup.sh` を実行して対象セッションを閉じます。このヘルパーは稼働中のプロセスが残っている場合は終了を拒否します。ブラウザを閉じるだけでは収集は停止しません。
 
 ### 設定と保存データ
 
@@ -119,7 +134,34 @@ IP、最初の run 番号、保存先、ポートは NestDAQ 側の `config.sh` 
 
 デフォルトは Valkey `127.0.0.1:6380`（DB0: 登録情報、DB1: メトリクス、DB2: パラメータ）、Web 状態表示 `http://localhost:8081/daq-webctl.html`、データ転送ポート5599〜5601、任意の DQM モニター用 PUB ポート5602です。モニターが接続していなくても、FileSink に DQM チャンネルの定義が必要です。RARiS のデフォルトとは分けています。この設定専用の Valkey DB を使い、他の稼働中の設定と共用しないでください。停止後も Valkey は再利用のため残します。
 
-通常の収集停止は上記のブラウザ操作で行います。`run-stop.sh` は作業終了時の後片付けと、ブラウザが使えない場合の停止に使用します。上流から止めて下流の処理時間を確保し、FileSink の PostRun、トレーラー書き込み、ファイル close を待ってからデバイスと tmux を終了します。エラーやタイムアウト時は調査用に tmux を残します。固定版 upstream は最後の不完全なフレームや FileSink の PostRun に残った入力を破棄する場合があり、run 境界での無損失は保証しません。ログとデリミタのフラグを確認してください。入力がなくてもハートビートデリミタが記録されるため、ファイルの増加だけでは102のヒットを確認できません。保存ファイルは FileSink のヘッダー・トレーラーと TF/STF レコードを含み、以前の `strdaq` の生ストリームとは形式が異なります。
+通常の収集停止は上記のブラウザ操作で行います。`run-stop.sh` はブラウザが使えない場合の停止・終了に使用します。通常の End 後には `run-cleanup.sh` を使います。上流から止めて下流の処理時間を確保し、FileSink の PostRun、トレーラー書き込み、ファイル close を待ってからデバイスと tmux を終了します。エラーやタイムアウト時は調査用に tmux を残します。固定版 upstream は最後の不完全なフレームや FileSink の PostRun に残った入力を破棄する場合があり、run 境界での無損失は保証しません。ログとデリミタのフラグを確認してください。入力がなくてもハートビートデリミタが記録されるため、ファイルの増加だけでは102のヒットを確認できません。保存ファイルは FileSink のヘッダー・トレーラーと TF/STF レコードを含み、以前の `strdaq` の生ストリームとは形式が異なります。
+
+## tmux だけで端末とログを操作する
+
+AMANEQ の準備後、コンテナ内で `./run-attach.sh` を実行します。RARiS も、その設定ディレクトリの同名ヘルパーで接続できます。
+
+| ウィンドウ | 用途 |
+|---|---|
+| `control` | 設定確認、`./run-status.sh`、End 後の `./run-cleanup.sh` を実行するシェル |
+| `webctl` | DAQ Web Controller のログ |
+| `sampler` | AMANEQ Sampler のログ |
+| `STF0` | STFBuilder のログ |
+| `TFB0` | TimeFrameBuilder のログ |
+| `sink0` | FileSink のログ |
+
+**Ctrl-b** を押して離してから、次のキーを押します。
+
+| キー | 操作 |
+|---|---|
+| `w` | ウィンドウ一覧から選択 |
+| `n` / `p` | 次 / 前のウィンドウ |
+| `0` | `control` に移動 |
+| `[` | 過去のログをスクロール（矢印キー / PageUp、`q` で戻る） |
+| `d` | セッションから離れる。収集と Web Controller は継続 |
+
+初期化時と収集中に、Web の **State Summary / Show details** で各プロセスが1つずつあることと、tmux の各ログにエラーがないことを確認します。終了後もウィンドウを残すため、ウィンドウ数だけで正常動作を判断せず、終了コードとログを確認してください。ブラウザが使えない場合は `control` で `./run-stop.sh` を実行できます。
+
+Valkey は共通ヘルパーが管理するバックグラウンドサービスです。デフォルトのログは `control` で `tail -n 50 /tmp/spadi-valkey-6380.log` として確認できます（ポート変更時はファイル名も変わります）。ログ確認・端末操作に xterm、`DISPLAY`、X11 転送は不要です。停止後も Valkey は再利用のため残します。
 
 ## RARiS AC-LGAD のファイル再生
 
@@ -132,7 +174,7 @@ cd "$SPADI_LOCAL/scripts/nestdaq/raris-ac-lgad"
 # Ctrl-b d で離れます。
 ```
 
-3個の STFBFilePlayer と1個の TimeFrameBuilder を起動します。`http://localhost:8080/daq-webctl.html` で対象サービスを選択し、run 番号を設定して **Init Device and Connection → Init Task → Run** の順に状態を確認しながら進めます。デフォルト構成に FileSink はありません。TFB 出力 `tcp://127.0.0.1:5501` には利用する下流プロセスを接続してください。Web 制御で Stop / Reset を行ってから `./run-stop.sh` でセッションを終了します。通常の変更はこの設定の `config.sh` で行います。
+3個の STFBFilePlayer と1個の TimeFrameBuilder を起動します。`http://localhost:8080/daq-webctl.html` で対象サービスを選択し、run 番号を設定して **Init Device and Connection → Init Task → Run** の順に状態を確認しながら進めます。デフォルト構成に FileSink はありません。TFB 出力 `tcp://127.0.0.1:5501` には利用する下流プロセスを接続してください。Web 制御で Stop → Reset Task → Reset Device を行い、対象を all にして End でプロセスを終了してから、`./run-stop.sh` で tmux セッションを閉じます。通常の変更はこの設定の `config.sh` で行います。
 
 ## ディレクトリ構造
 
@@ -161,7 +203,8 @@ cd "$SPADI_LOCAL/scripts/nestdaq/raris-ac-lgad"
         │   ├── run-start.sh
         │   ├── run-stop.sh
         │   ├── run-status.sh
-        │   └── run-attach.sh
+        │   ├── run-attach.sh
+        │   └── run-cleanup.sh
         └── raris-ac-lgad/             # 再生ヘルパー、rawdata-download.sh
 
 /workspace/spadi/                     # SPADI_LOCAL。ホストの workspace/spadi
