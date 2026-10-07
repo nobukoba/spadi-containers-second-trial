@@ -10,10 +10,10 @@ The images target `linux/amd64`. Use `spadi-user-*` for normal operation and `sp
 
 | Purpose | User image | Development image |
 |---|---|---|
-| FEE control | `spadi-user-fee` | `spadi-devel-fee` |
-| NestDAQ | `spadi-user-daq` | `spadi-devel-daq` |
-| ARTEMIS | `spadi-user-artemis` | `spadi-devel-artemis` |
-| Everything | `spadi-user-full` | `spadi-devel-full` |
+| FEE control | [spadi-user-fee](docs/spadi-user-fee-guide.md) | [spadi-devel-fee](docs/spadi-devel-fee-guide.md) |
+| NestDAQ | [spadi-user-daq](docs/spadi-user-daq-guide.md) | [spadi-devel-daq](docs/spadi-devel-daq-guide.md) |
+| ARTEMIS | [spadi-user-artemis](docs/spadi-user-artemis-guide.md) | [spadi-devel-artemis](docs/spadi-devel-artemis-guide.md) |
+| Everything | [spadi-user-full](docs/spadi-user-full-guide.md) | [spadi-devel-full](docs/spadi-devel-full-guide.md) |
 
 `DAQ = FEE + NestDAQ`; `FULL = DAQ + ARTEMIS`.
 
@@ -92,8 +92,101 @@ Images containing the version reporter can identify themselves from inside the c
 
 The reporter reads `/opt/spadi/versions/container.env` and `/opt/spadi/versions/versions.env`. Older images published before this metadata was added may not contain these files or the reporter.
 
-## Guides
+## Common directory structure
 
-- [User guide](docs/user-guide.md): installed software, AMANEQ single-channel NestDAQ acquisition, RARiS replay, runtime helpers, and directory structure.
-- [Developer guide](docs/developer-guide.md): pre-built devel images, editable source trees, build helpers, and the local installation prefix.
-- [Container Maintainer Guide](docs/container-maintainer-guide.md): Dockerfiles, CI, and image publication.
+```text
+/opt/spadi/                  # SPADI_ROOT: image-provided installation
+├── bin/
+├── lib/, lib64/
+├── include/, share/        # include: devel and ROOT/ARTEMIS images
+├── scripts/
+├── versions/
+└── src/                    # development images only
+
+/workspace/                 # bind-mounted host workspace/
+└── spadi/                   # SPADI_LOCAL
+    ├── scripts/
+    ├── rawdata/
+    ├── analysis/           # created by analysis procedures
+    ├── bin/, lib/, lib64/  # prepared in development workspaces
+    ├── include/, share/        # include: devel and ROOT/ARTEMIS images
+    ├── src/
+    └── build/
+```
+
+This is the layout policy shared by all eight images. Available components and preparation stages determine which directories exist. Each image guide also shows its own relevant directory layout.
+
+## About the SPADI_LOCAL environment variable
+
+SPADI_LOCAL is an environment variable containing the path for editable configuration, sources, local builds, and acquired or analyzed data. Startup sets it automatically; its default is /workspace/spadi. SPADI_ROOT identifies the image-provided /opt/spadi installation.
+
+| Variable | Default |
+|---|---|
+| `SPADI_ROOT` | `/opt/spadi` |
+| `SPADI_LOCAL` | `/workspace/spadi` |
+
+```bash
+echo "$SPADI_ROOT"
+echo "$SPADI_LOCAL"
+```
+
+The shell expands $ to the variable value: $SPADI_LOCAL/scripts defaults to /workspace/spadi/scripts. Setting the environment does not create directories. The bind mount maps container /workspace/spadi to workspace/spadi in the host launch directory; those files persist after exit.
+
+Local bin, lib, lib64, CMake, and pkg-config paths precede the image installation. Use $SPADI_LOCAL for normal development rather than modifying /opt/spadi.
+
+## Common preparation and updates
+
+| Operation | Result |
+|---|---|
+| `Container startup` | Environment only; no local tree |
+| `spadi-prepare-runtime.sh` | Available component scripts and rawdata directory; all image kinds |
+| `spadi-prepare-local.sh` | Sources, build directories, local installation directories, and helpers; devel images only |
+| `AMANEQ run-start.sh` | rawdata/amaneq-lrtdc-1ch/00 directory; devices wait in Idle |
+| `Browser FileSink Run` | Selected run file, such as 00/run000001.dat |
+| `ARTEMIS guide mkdir / ROOT example` | analysis directories / example ROOT output |
+
+Inside a container, prepare runtime recipes with:
+
+```bash
+spadi-prepare-runtime.sh
+```
+
+In a devel image, prepare source editing and builds with:
+
+```bash
+spadi-prepare-local.sh
+```
+
+Both helpers preserve existing files. Downloading a new image does not refresh old workspace helpers. Stop the relevant sessions, save old scripts under another name, prepare again, and compare changes. Keep edited config.sh files. Review NestDAQ common helpers, run helpers, and FEE setup.sh together; do not mix the browser-controlled procedure with an older helper that issues Run automatically.
+
+## Browser operation and networking
+
+The AMANEQ Web Controller in DAQ/FULL uses http://localhost:8081/daq-webctl.html; RARiS replay uses http://localhost:8080/daq-webctl.html. Access Apptainer in WSL2 from the Windows browser. Hardware control and acquisition require UDP 4660 and TCP 24 reachability.
+
+For Linux Docker hardware acquisition or the default Web Controller, use host networking as follows. Replace the image name for FULL or devel variants.
+
+```bash
+docker run --rm -it --platform linux/amd64 --network host \
+  -e LOCAL_UID="$(id -u)" -e LOCAL_GID="$(id -g)" \
+  -v "$PWD/workspace:/workspace" \
+  ghcr.io/nobukoba/spadi-containers-second-trial/spadi-user-daq:latest
+```
+
+The general macOS Docker example is intended for analysis and software use. To publish browser control from bridge networking, combine recipe WEBCTL_HOST=0.0.0.0 with -p 127.0.0.1:8081:8081 (8080 for RARiS). Verify hardware reachability separately. Standalone FEE and ARTEMIS images do not provide the DAQ Web Controller.
+
+Use tmux for terminals and logs; xterm is unnecessary. Perform DAQ Init / Run / Stop / Reset / End in the browser, following the selected image guide.
+
+## Image guides
+
+| Image | English | 日本語 |
+|---|---|---|
+| `spadi-user-fee` | [Guide](docs/spadi-user-fee-guide.md) | [ガイド](docs/spadi-user-fee-guide.ja.md) |
+| `spadi-devel-fee` | [Guide](docs/spadi-devel-fee-guide.md) | [ガイド](docs/spadi-devel-fee-guide.ja.md) |
+| `spadi-user-daq` | [Guide](docs/spadi-user-daq-guide.md) | [ガイド](docs/spadi-user-daq-guide.ja.md) |
+| `spadi-devel-daq` | [Guide](docs/spadi-devel-daq-guide.md) | [ガイド](docs/spadi-devel-daq-guide.ja.md) |
+| `spadi-user-artemis` | [Guide](docs/spadi-user-artemis-guide.md) | [ガイド](docs/spadi-user-artemis-guide.ja.md) |
+| `spadi-devel-artemis` | [Guide](docs/spadi-devel-artemis-guide.md) | [ガイド](docs/spadi-devel-artemis-guide.ja.md) |
+| `spadi-user-full` | [Guide](docs/spadi-user-full-guide.md) | [ガイド](docs/spadi-user-full-guide.ja.md) |
+| `spadi-devel-full` | [Guide](docs/spadi-devel-full-guide.md) | [ガイド](docs/spadi-devel-full-guide.ja.md) |
+
+For container implementation, CI, and publication, see the [container maintainer guide](docs/container-maintainer-guide.md).

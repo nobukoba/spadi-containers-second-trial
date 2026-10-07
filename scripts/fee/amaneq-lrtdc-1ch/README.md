@@ -2,7 +2,7 @@
 
 Use `spadi-user-fee`, `spadi-user-daq`, or `spadi-user-full`. This recipe uses the installed FEE tools; it does not require source code or development helpers.
 
-This is a short standalone readout test with the 1-Gbps Str-LRTDC firmware, board IP `192.168.10.16`, and zero-based channel 102. Connect that input on the lower DCRv2 mezzanine. Select standalone operation with DIP3 = 1 and the default IP with DIP1 = 0. The host needs an address such as `192.168.10.1/24` on the board's Ethernet network. Allow UDP 4660 (RBCP) and TCP 24 (SiTCP). In Windows WSL2, confirm that the Linux environment can reach the board through the Windows network interface.
+This is the FEE mask-configuration step for standalone NestDAQ acquisition with the 1-Gbps Str-LRTDC firmware, board IP `192.168.10.16`, and zero-based channel 102. Connect that input on the lower DCRv2 mezzanine. Select standalone operation with DIP3 = 1 and the default IP with DIP1 = 0. The host needs an address such as `192.168.10.1/24` on the board's Ethernet network. Allow UDP 4660 (RBCP) and TCP 24 (SiTCP). In Windows WSL2, confirm that the Linux environment can reach the board through the Windows network interface.
 
 Inside the container, copy the recipe once into the persistent workspace. User images do not provide `spadi-prepare-local.sh`:
 
@@ -16,7 +16,7 @@ ping -c 3 192.168.10.16
 bash setup.sh
 ```
 
-`config.sh` contains the board IP and four channel masks. `setup.sh` writes and reads back each mask, stopping if it detects a communication error or a mismatched value. Stop acquisition before changing masks, and apply them again after a board reset.
+`config.sh` contains the board IP and four channel masks. `setup.sh` uses `/opt/spadi/StrLRTDC/bin/set_tdcmask` to write all four masks, then reads back each mask, stopping if it detects a communication error or a mismatched value. Stop acquisition before changing masks, and apply them again after a board reset.
 
 | Bank | Channels | Register | Mask |
 |---|---|---|---|
@@ -29,6 +29,6 @@ A set bit masks a channel. Channel 102 is MZN-D bit `102 - 96 = 6`, so `0xffffff
 
 After successful verification, use the NestDAQ recipe in `scripts/nestdaq/amaneq-lrtdc-1ch` for acquisition. It requires `spadi-user-daq` or `spadi-user-full` and connects AmQStrTdcSampler -> STFBuilder -> TimeFrameBuilder -> FileSink. The FEE-only image performs register control but does not contain NestDAQ.
 
-See the [user guide](../../../docs/user-guide.md) / [日本語](../../../docs/user-guide.ja.md) for startup, run helpers, storage, and directory structure. `setup.sh [AMANEQ-IP]` accepts an optional IP argument; the NestDAQ wrapper passes its config IP so control and acquisition use the same board.
+See the [FEE guide](../../../docs/spadi-user-fee-guide.md) / [日本語](../../../docs/spadi-user-fee-guide.ja.md) for startup, run helpers, storage, and directory structure. `setup.sh [AMANEQ-IP]` accepts an optional IP argument; the NestDAQ wrapper passes its config IP so control and acquisition use the same board.
 
 References: [official Str-LRTDC guide](https://spadi-alliance.rcnp.osaka-u.ac.jp/ug-amaneq/firmware/strlrtdc/strlrtdc/), [pinned channel map](https://github.com/spadi-alliance/amaneq-soft/blob/86fef97ccc4e6488739e2d8b549a1c5bddd3542e/StrLRTDC/RegisterMap.hh).
