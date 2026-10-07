@@ -302,6 +302,8 @@ build/clone helpers are explicitly installed by devel stages.
 
 ## NestDAQ live recipe lessons
 
+Do not equate MZN-D mask readback failure with failed unmasking. The official StrLrTdc firmware's pinned strtdc-src revision 71c188a74c93a7d06cb9e803d50360b05495e730 has a duplicated kTdcMaskMznU condition in the local-bus Read branch where kTdcMaskMznD is required; the Write branch correctly handles MZN-D. Hardware identifying as 0x60c4020a acknowledges a channel-102 byte write but reads back 0xff. This is consistent with the firmware readback defect, but does not independently prove the internal mask value. Keep the fail-closed helper check until a corrected firmware or independent acquisition verification establishes the setting. HUL 32-bit registers use four byte transactions at offsets i << 16, not consecutive byte addresses; decode firmware version with that layout.
+
 Runtime preparation must be usable in user images without source/build helpers.
 Use spadi-prepare-runtime.sh for non-overwriting copies of component recipes.
 The live recipe uses a dedicated Valkey port/DB set, refuses to clear an active
