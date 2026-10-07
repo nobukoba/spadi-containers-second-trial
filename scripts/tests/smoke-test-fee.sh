@@ -4,6 +4,9 @@ set -euo pipefail
 
 # Version metadata must be self-describing in Docker and SIF images.
 test -x /opt/spadi/scripts/spadi-version.sh
+test -x /opt/spadi/scripts/spadi-prepare-runtime.sh
+test -x /opt/spadi/scripts/fee/amaneq-lrtdc-1ch/setup.sh
+bash -n /opt/spadi/scripts/fee/amaneq-lrtdc-1ch/setup.sh
 test -r /opt/spadi/versions/versions.env
 test -r /opt/spadi/versions/container.env
 version_output="$(/opt/spadi/scripts/spadi-version.sh)"

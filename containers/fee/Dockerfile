@@ -99,6 +99,7 @@ RUN printf '%s\n' \
       "SPADI_IMAGE_TARGET=${SPADI_IMAGE_TARGET}" \
       > /opt/spadi/versions/container.env
 COPY scripts/runtime/spadi-version.sh /opt/spadi/scripts/spadi-version.sh
+COPY --chmod=0755 scripts/runtime/spadi-prepare-runtime.sh /opt/spadi/scripts/spadi-prepare-runtime.sh
 COPY scripts/runtime/spadi-setup.sh /opt/spadi/spadi-setup.sh
 COPY --chmod=0755 scripts/runtime/spadi-shell.sh /opt/spadi/spadi-shell.sh
 COPY scripts/tests/smoke-test-fee.sh /opt/spadi/scripts/smoke-test-fee.sh

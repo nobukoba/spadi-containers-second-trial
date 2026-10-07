@@ -236,6 +236,7 @@ COPY scripts/tests/smoke-test-daq.sh /opt/spadi/scripts/smoke-test-daq.sh
 COPY scripts/nestdaq/README.md /opt/spadi/scripts/nestdaq/README.md
 COPY scripts/nestdaq/common/ /opt/spadi/scripts/nestdaq/common/
 COPY scripts/nestdaq/raris-ac-lgad/ /opt/spadi/scripts/nestdaq/raris-ac-lgad/
+COPY scripts/nestdaq/amaneq-lrtdc-1ch/ /opt/spadi/scripts/nestdaq/amaneq-lrtdc-1ch/
 RUN find /opt/spadi/scripts/nestdaq -type f -name '*.sh' -exec chmod 0755 {} + && \
     chmod 0755 /opt/spadi/spadi-setup.sh /opt/spadi/scripts/*.sh
 

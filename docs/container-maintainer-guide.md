@@ -2,7 +2,7 @@
 
 This page is for developers who maintain the SPADI container images themselves.
 
-It is intentionally separate from the workflow for researchers and software developers who use a pre-built `spadi-devel-*` Docker/SIF image to edit and self-build SPADI software. That user-side development workflow belongs in the main README.
+It is intentionally separate from the workflow for researchers and software developers who use a pre-built `spadi-devel-*` Docker/SIF image to edit and self-build SPADI software. That user-side development workflow is described in [the developer guide](developer-guide.md).
 
 ## Scope
 
