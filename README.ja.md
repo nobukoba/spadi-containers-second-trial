@@ -80,10 +80,10 @@ Docker でも SPADI 環境の読み込みと `/workspace` への移動は自動�
 
 ### DAQ / FULL で使用するネットワーク
 
-DAQ / FULL は Docker のコンテナ内ネットワーク（bridge）で起動します。実機接続や Web Controller に必要な通信はポート公開とネットワーク経路を別途設定してください。FULL や devel を使う場合はイメージ名を該当する名前に変更します。
+DAQ / FULL は Docker のホストと共有するネットワーク（host）で起動します。実機接続や Web Controller に必要な通信はポート公開とネットワーク経路を別途設定してください。FULL や devel を使う場合はイメージ名を該当する名前に変更します。
 
 ```bash
-docker run --rm -it --platform linux/amd64 --network bridge \
+docker run --rm -it --platform linux/amd64 --network host \
   -e LOCAL_UID="$(id -u)" -e LOCAL_GID="$(id -g)" \
   -v "$PWD/workspace:/workspace" \
   ghcr.io/nobukoba/spadi-containers-second-trial/spadi-user-daq:latest
