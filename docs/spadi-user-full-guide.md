@@ -68,7 +68,7 @@ docker pull --platform linux/amd64 \
 
 ## Start this image
 
-Run the following on the host. DAQ / FULL Docker containers use their own bridge network. Check device routing separately for hardware access.
+Run the following on the host. DAQ / FULL Docker containers use the host network. Check device routing separately for hardware access.
 
 ### Apptainer
 
@@ -84,7 +84,7 @@ apptainer shell --cleanenv --bind "$PWD/workspace:/workspace" \
 mkdir -p "$PWD/workspace"
 docker run --rm -it \
   --platform linux/amd64 \
-  --network bridge \
+  --network host \
   -e LOCAL_UID="$(id -u)" -e LOCAL_GID="$(id -g)" \
   -v "$PWD/workspace:/workspace" \
   ghcr.io/nobukoba/spadi-containers-second-trial/spadi-user-full:latest
