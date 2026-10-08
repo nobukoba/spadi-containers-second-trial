@@ -148,7 +148,7 @@ Stop acquisition in the browser as described above. Use `run-stop.sh` to stop an
 Use the LR-TDC `set_tdcmask` command to set all four banks while acquisition is stopped. `fee-setup.sh` uses this command and verifies the masks with `read_register`.
 
 ```bash
-/opt/spadi/StrLRTDC/bin/set_tdcmask 192.168.10.16 ffffffff ffffffff ffffffff ffffffbf
+/opt/spadi/bin/StrLRTDC/set_tdcmask 192.168.10.16 ffffffff ffffffff ffffffff ffffffbf
 ```
 
 ## Terminal and log operations in tmux
