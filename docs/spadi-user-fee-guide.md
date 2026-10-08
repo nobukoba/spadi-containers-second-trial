@@ -81,7 +81,7 @@ get_version 192.168.10.16
 `cat config.sh` only displays the settings; edit them with a text editor such as `vim config.sh`. The helper calls the LR-specific set_tdcmask once for all four banks, then verifies them with read_register. The direct commands are:
 
 ```bash
-/opt/spadi/StrLRTDC/bin/set_tdcmask \
+/opt/spadi/bin/StrLRTDC/set_tdcmask \
   192.168.10.16 ffffffff ffffffff ffffffff ffffffbf
 read_register 192.168.10.16 10300000 4
 ```
