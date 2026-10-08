@@ -421,3 +421,10 @@ explicitly in each final image stage, including FULL, rather than deriving it
 from the host identity or prerequisite image metadata. Apptainer retains the
 host UID/GID even though the display name is `spadi`. Noninteractive commands
 must keep argument forwarding and exit status and must not load interactive aliases.
+
+Apptainer shell CI pipes commands without a TTY. Bash does not infer interactive
+mode from the `shell` operation: without `-i`, the dedicated rc file is skipped
+and PS1 is unset. The shared wrapper must explicitly select `-i` when invoked
+without arguments, while preserving explicit arguments such as `-c` unchanged.
+Keep a piped-stdin/no-argument regression test and assert the Bash interactive
+flag before checking the prompt; a terminal-only test misses this failure.

@@ -1,5 +1,6 @@
 # Source inside the interactive shell under test (Docker or Apptainer).
 set -euo pipefail
+[[ $- == *i* ]]
 test "$PWD" = /workspace
 expected='\[\e[01;32m\]spadi@${SPADI_PROMPT_NAME}\[\e[0m\]:\[\e[01;34m\]\w\[\e[0m\]$ '
 test "$PS1" = "$expected"

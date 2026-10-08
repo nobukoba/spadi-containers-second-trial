@@ -34,6 +34,13 @@ for identity in 0:0 12345:12346; do
       '
   done
 done
+# Reproduce Apptainer shell with piped stdin and no wrapper arguments.
+printf '%s\n' 'source /tests/check-shell-prompt.sh' 'exit 0' | \
+  docker run --rm -i --platform linux/amd64 --user 12345:12346 \
+    --mount "type=bind,src=${script_dir}/../runtime,dst=/opt/spadi,readonly" \
+    --mount "type=bind,src=${script_dir},dst=/tests,readonly" \
+    --tmpfs /workspace:mode=1777 --env SPADI_PROMPT_NAME=user-daq \
+    --entrypoint /bin/bash almalinux:9 /opt/spadi/spadi-shell.sh
 status=0
 docker run --rm --platform linux/amd64 \
   --mount "type=bind,src=${script_dir}/../runtime,dst=/opt/spadi,readonly" \
