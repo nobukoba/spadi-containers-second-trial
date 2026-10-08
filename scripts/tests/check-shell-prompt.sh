@@ -2,7 +2,8 @@
 set -euo pipefail
 [[ $- == *i* ]]
 test "$PWD" = /workspace
-expected='\[\e[01;32m\]spadi@${SPADI_PROMPT_NAME}\[\e[0m\]:\[\e[01;34m\]\w\[\e[0m\]$ '
+test "$_spadi_runtime" = "${SPADI_TEST_RUNTIME:-Docker}"
+expected='\[\e[0m\][${_spadi_runtime}] \[\e[01;32m\]spadi@${SPADI_PROMPT_NAME}\[\e[0m\]:\[\e[01;34m\]\w\[\e[0m\]$ '
 test "$PS1" = "$expected"
 test "$(alias ls)" = "alias ls='ls --color=auto'"
 test -z "${PROMPT_COMMAND:-}"

@@ -428,3 +428,11 @@ and PS1 is unset. The shared wrapper must explicitly select `-i` when invoked
 without arguments, while preserving explicit arguments such as `-c` unchanged.
 Keep a piped-stdin/no-argument regression test and assert the Bash interactive
 flag before checking the prompt; a terminal-only test misses this failure.
+
+Prefix the prompt with `[Apptainer]` or `[Docker]` in the default terminal
+color, retaining the green username/image, blue working directory, default
+colon and dollar sign, and no Git branch. Detect Apptainer from its runtime-set
+`APPTAINER_CONTAINER` (available with `--cleanenv`), not `/.dockerenv`: a SIF
+converted from Docker can retain Docker filesystem markers. The default for
+these Docker/SIF images is Docker. CI must assert the expected runtime label
+independently in both the real Docker and clean-environment Apptainer routes.

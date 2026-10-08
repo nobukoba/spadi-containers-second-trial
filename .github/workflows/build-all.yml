@@ -339,7 +339,7 @@ jobs:
           set -euo pipefail
           sif_workspace="${RUNNER_TEMP}/spadi-workspace-${{ matrix.target }}"
           # Exercise the documented shell route, including --cleanenv.
-          printf '%s\n' 'test "$SPADI_PROMPT_NAME" = "${{ matrix.target }}" || exit 1' 'source /tests/check-shell-prompt.sh' 'exit 0' | \
+          printf '%s\n' 'test "$SPADI_PROMPT_NAME" = "${{ matrix.target }}" || exit 1' 'SPADI_TEST_RUNTIME=Apptainer; source /tests/check-shell-prompt.sh' 'exit 0' | \
             apptainer shell --cleanenv --bind "${sif_workspace}:/workspace" \
               --bind "${GITHUB_WORKSPACE}/scripts/tests:/tests:ro" \
               --shell /opt/spadi/spadi-shell.sh "${{ steps.names.outputs.sif }}"
