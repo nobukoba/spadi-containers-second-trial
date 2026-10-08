@@ -28,9 +28,31 @@ FEE の基板制御・マスク設定を行うイメージです。
 
 `/opt/spadi` はイメージが提供し、`/workspace/spadi` はホストに保存される作業領域です。 `spadi-prepare-runtime.sh` が scripts と rawdata を作成します。user イメージには `/opt/spadi/src` はありません。
 
-## 環境変数 SPADI_LOCAL について
-
 環境変数 `SPADI_LOCAL` の既定値は `/workspace/spadi`、`SPADI_ROOT` は `/opt/spadi` です。起動時に設定されます。環境変数の設定だけではディレクトリは作られません。ホストの `workspace/spadi` と対応します。詳細は [README の共通手順](../README.ja.md)を参照してください。
+
+## イメージをダウンロードする
+
+以下はコンテナの外で、ホストの端末から実行します。利用する方式に合わせて、Apptainer または Docker のどちらかを選んでください。
+
+### Apptainer
+
+64 bit Linux (x86_64) または Windows WSL2 の Linux 端末で、Apptainer をインストールしてから、このイメージの SIF をダウンロードします。
+
+```bash
+curl -fL -O \
+  https://github.com/nobukoba/spadi-containers-second-trial/releases/download/latest/spadi-user-fee.sif
+```
+
+### Docker
+
+macOS または Linux の端末で、Docker を起動してから、このイメージをダウンロードします。Apple Silicon の場合も `--platform linux/amd64` を指定します。
+
+```bash
+docker pull --platform linux/amd64 \
+  ghcr.io/nobukoba/spadi-containers-second-trial/spadi-user-fee:latest
+```
+
+`latest` は更新されます。再現性が必要な場合は、[GitHub Releases](https://github.com/nobukoba/spadi-containers-second-trial/releases/tag/latest) のタイムスタンプ付き SIF を保存するか、Docker イメージの digest を記録してください。起動方法と永続化の設定は [README の Quick start](../README.ja.md#quick-start) を参照してください。
 
 ## このイメージを起動する
 

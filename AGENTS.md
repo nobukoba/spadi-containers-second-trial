@@ -398,3 +398,5 @@ Guide-navigation tables must link only to the page language: English pages list 
 ## ROOT compression smoke-test compatibility
 
 For pinned ROOT v6-32-06, include `Compression.h`: `ROOT/RCompressionSetting.hxx` does not exist. `ROOT::RCompressionSetting::EAlgorithm` is a struct containing the `EValues` enum, so compression algorithm arrays must store `EAlgorithm::EValues`. Keep ARTEMIS and FULL smoke macros consistent and validate compressed TTree write/read with ZLIB, LZMA, LZ4, and ZSTD in the actual runtime image. A smoke-test compilation failure after a successful image build is not a reason to change pinned dependency versions.
+
+Keep each image guide self-contained for downloads: include its exact SIF release URL and Docker pull command (with `--platform linux/amd64`) in both languages, even though the README repeats them. Place the SPADI_LOCAL/SPADI_ROOT environment explanation inside the directory-structure section, rather than under a separate top-level heading. Download commands run on the host; image-specific runtime commands run inside the container.
