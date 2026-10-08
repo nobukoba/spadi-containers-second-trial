@@ -4,7 +4,7 @@
 
 Pre-built Docker and Apptainer SIF environments for SPADI Front End Electronics (FEE), NestDAQ, and ARTEMIS software.
 
-The images target `linux/amd64`. Use `spadi-user-*` for normal operation and `spadi-devel-*` when you want to edit and rebuild SPADI software inside the container.
+Use `spadi-user-*` for normal operation and `spadi-devel-*` when you want to edit and rebuild SPADI software inside the container.
 
 ## Image types
 
@@ -21,7 +21,7 @@ The images target `linux/amd64`. Use `spadi-user-*` for normal operation and `sp
 
 These examples use the NestDAQ user image (spadi-user-daq).
 
-### Apptainer (64 bit Linux / Windows WSL2)
+### Apptainer (Linux / Windows WSL2)
 
 Install Apptainer on 64 bit Linux (x86_64), including a Linux distribution running in Windows WSL2, then run the following commands in the Linux terminal.
 
@@ -83,7 +83,7 @@ Docker also loads the SPADI environment and enters `/workspace` automatically.
 For Linux Docker hardware acquisition or the default Web Controller, use host networking as follows. Replace the image name for FULL or devel variants.
 
 ```bash
-docker run --rm -it --platform linux/amd64 --network host \
+docker run --rm -it --platform linux/amd64 --network bridge \
   -e LOCAL_UID="$(id -u)" -e LOCAL_GID="$(id -g)" \
   -v "$PWD/workspace:/workspace" \
   ghcr.io/nobukoba/spadi-containers-second-trial/spadi-user-daq:latest
