@@ -14,7 +14,7 @@ FEE と NestDAQ によるブラウザ操作の取得・再生を行うイメー�
 ├── share/
 ├── versions/
 ├── scripts/
-│   ├── spadi-prepare-runtime.sh
+│   ├── spadi-prepare-local.sh
 │   ├── fee/
 │   └── nestdaq/
 ├── StrLRTDC/bin/set_tdcmask
@@ -33,7 +33,7 @@ FEE と NestDAQ によるブラウザ操作の取得・再生を行うイメー�
     └── raris_ac_lgad_202603/{00,01,02}/run000020.dat
 ```
 
-`/opt/spadi` はイメージが提供し、`/workspace/spadi` はホストに保存される作業領域です。 `spadi-prepare-runtime.sh` が scripts と rawdata を作成します。user イメージには `/opt/spadi/src` はありません。 AMANEQ の run-start.sh が出力サブディレクトリを作り、ブラウザの FileSink Run がデータファイルを作ります。RARiS のファイルは rawdata-download.sh が取得します。
+`/opt/spadi` はイメージが提供し、`/workspace/spadi` はホストに保存される作業領域です。 `spadi-prepare-local.sh` が scripts と rawdata を作成します。user イメージには `/opt/spadi/src` はありません。 AMANEQ の run-start.sh が出力サブディレクトリを作り、ブラウザの FileSink Run がデータファイルを作ります。RARiS のファイルは rawdata-download.sh が取得します。
 
 環境変数 `SPADI_LOCAL` の既定値は `/workspace/spadi`、`SPADI_ROOT` は `/opt/spadi` です。起動時に設定されます。環境変数の設定だけではディレクトリは作られません。ホストの `workspace/spadi` と対応します。詳細は [README の共通手順](../README.ja.md)を参照してください。
 
@@ -74,7 +74,7 @@ DAQ / FULL は `--network host` でホストのネットワークを共有しま
 このイメージに含まれるランタイム用スクリプトをコピーします。 既存の設定やソースは上書きしません。準備ヘルパーの共通仕様と更新方法は [README](../README.ja.md) を参照してください。
 
 ```bash
-spadi-prepare-runtime.sh
+spadi-prepare-local.sh
 ```
 
 ## AMANEQ の LR-TDC を NestDAQ で1チャンネル読み出す
