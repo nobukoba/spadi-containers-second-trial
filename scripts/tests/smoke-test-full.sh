@@ -65,7 +65,7 @@ command -v artemis
 
 echo "=== ROOT compressed TTree I/O ==="
 cat > /workspace/root-compression-smoke.C <<'EOF'
-#include <ROOT/RCompressionSetting.hxx>
+#include <Compression.h>
 #include <TFile.h>
 #include <TTree.h>
 #include <array>
@@ -73,8 +73,8 @@ cat > /workspace/root-compression-smoke.C <<'EOF'
 #include <memory>
 
 int root_compression_smoke() {
-  using ROOT::RCompressionSetting::EAlgorithm;
-  const std::array<EAlgorithm, 4> algorithms = {
+  using EAlgorithm = ROOT::RCompressionSetting::EAlgorithm;
+  const std::array<EAlgorithm::EValues, 4> algorithms = {
     EAlgorithm::kZLIB, EAlgorithm::kLZMA,
     EAlgorithm::kLZ4, EAlgorithm::kZSTD
   };
