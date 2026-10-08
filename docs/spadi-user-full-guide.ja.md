@@ -280,6 +280,39 @@ artemis
 
 NestDAQ FileSink の `.dat` は TF/STF を含む形式です。ROOT に直接開かせるのではなく、対応する入力 processor とデコーダ、steering が必要です。このリポジトリには AMANEQ 1チャンネル用の完成した ARTEMIS steering はありません。[ARTEMIS 公式 README](https://github.com/artemis-dev/artemis/tree/develop)も参照してください。
 
+## Appendix: 含まれるソフトウェア
+
+以下はイメージに含まれる主要ソフトウェアです。固定バージョン・リビジョンの定義は [versions.env](../versions/versions.env) にあります。使用中のイメージの情報は、コンテナ内の `/opt/spadi/scripts/spadi-version.sh` と `/opt/spadi/versions/versions.env` で確認できます。ローカルで再ビルドしたソフトウェアはこの一覧の固定版とは別です。
+
+| ソフトウェア | 用途 | 固定版・リビジョン |
+|---|---|---|
+| [hul-common-lib](https://github.com/spadi-alliance/hul-common-lib) | RBCP 基板制御：get_version、read_register、write_register | [`65476509aa40`](https://github.com/spadi-alliance/hul-common-lib/tree/65476509aa401aad10148ec7c2d2a50ba7d2db3e) |
+| [amaneq-soft](https://github.com/spadi-alliance/amaneq-soft) | AMANEQ LR/HR 用ツール（bin/StrLRTDC、bin/StrHRTDC） | [`86fef97ccc4e`](https://github.com/spadi-alliance/amaneq-soft/tree/86fef97ccc4e6488739e2d8b549a1c5bddd3542e) |
+| [openFPGALoader](https://github.com/trabucayre/openFPGALoader) | 対応インターフェースによる FPGA SRAM・フラッシュ書き込み | [`24e46d13bb8f`](https://github.com/trabucayre/openFPGALoader/tree/24e46d13bb8f2bc9371e9ca8443ece2fafc4b20d) |
+| [SiTCP IP / MPC utilities](https://github.com/nobukoba/sitcp-sitcpxg-mpc-mpcx-ip-utility-first-trial) | SiTCP/SiTCP-XG IP、MPC/MPCX ライセンス設定 | [`4bc47b6f5ac7`](https://github.com/nobukoba/sitcp-sitcpxg-mpc-mpcx-ip-utility-first-trial/tree/4bc47b6f5ac791acfbd88c73dd987b7625074273) |
+| [NestDAQ](https://github.com/spadi-alliance/nestdaq) | DAQ フレームワーク、Web Controller | [`v1.0.0`](https://github.com/spadi-alliance/nestdaq/tree/v1.0.0) |
+| [nestdaq-user-impl](https://github.com/spadi-alliance/nestdaq-user-impl) | Sampler、Builder、FileSink | [`47897e9bdc4d`](https://github.com/spadi-alliance/nestdaq-user-impl/tree/47897e9bdc4dac2f429909b3fa8bf05ab93115d0) |
+| [UHBook](https://github.com/spadi-alliance/uhbook) | DAQ ヒストグラム支援 | [`e979eb28fb64`](https://github.com/spadi-alliance/uhbook/tree/e979eb28fb64de2eb216ebec31f73a6696d257ec) |
+| [exp-config](https://github.com/spadi-alliance/exp-config) | 実験設定・スクリプト | [`0ac32181304f`](https://github.com/spadi-alliance/exp-config/tree/0ac32181304f92e608d4bdd1bb0aa087300e82f7) |
+| [FairLogger](https://github.com/FairRootGroup/FairLogger) | ログライブラリ | [`5aee7970fbfc`](https://github.com/FairRootGroup/FairLogger/tree/5aee7970fbfc66c2f0f1668ea15671b43166df68) |
+| [FairMQ](https://github.com/FairRootGroup/FairMQ) | メッセージ通信による DAQ デバイス | [`v1.4.55`](https://github.com/FairRootGroup/FairMQ/tree/v1.4.55) |
+| [fmt](https://github.com/fmtlib/fmt) | 文字列整形ライブラリ | [`10.2.1`](https://github.com/fmtlib/fmt/tree/10.2.1) |
+| [RedisTimeSeries](https://github.com/RedisTimeSeries/RedisTimeSeries) | 時系列データベースモジュール | [`v1.10.24`](https://github.com/RedisTimeSeries/RedisTimeSeries/tree/v1.10.24) |
+| [ROOT](https://github.com/root-project/root) | 解析、ヒストグラム、TTree、Cling | [`v6-32-06`](https://github.com/root-project/root/tree/v6-32-06) |
+| [ARTEMIS](https://github.com/artemis-dev/artemis) | 原子核実験用解析フレームワーク | [`c74e24adf90a`](https://github.com/artemis-dev/artemis/tree/c74e24adf90a83227fa3e5c38dc255ddc4aeb785) |
+| [yaml-cpp](https://github.com/jbeder/yaml-cpp) | YAML 設定の読み込み | [`0.8.0`](https://github.com/jbeder/yaml-cpp/tree/0.8.0) |
+| [ZeroMQ](https://github.com/zeromq/libzmq) | メッセージ通信ライブラリ | [`v4.3.5`](https://github.com/zeromq/libzmq/tree/v4.3.5) |
+| [hiredis](https://github.com/redis/hiredis) | Redis/Valkey C クライアント | [`v1.0.0`](https://github.com/redis/hiredis/tree/v1.0.0) |
+| [redis-plus-plus](https://github.com/sewenew/redis-plus-plus) | Redis/Valkey C++ クライアント | [`1.3.15`](https://github.com/sewenew/redis-plus-plus/tree/1.3.15) |
+
+OS は AlmaLinux 9 です。ネットワーク調査ツール（iproute、iputils、net-tools、bind-utils、traceroute、tcpdump、nmap-ncat）、curl / wget、vim / emacs なども含みます。OS パッケージは AlmaLinux のパッケージ版で、上表のソース固定版とは管理方法が異なります。
+
+DAQ サービス用に Valkey と tmux を含みます。DAQ では ROOT を必要とする TriggerView は無効、FULL では有効です。
+
+ROOT は TMVA、X11 / OpenGL、SQLite、SSL を有効にし、PyROOT、RooFit、Web GUI は無効にしています。ARTEMIS の GET は無効、ZeroMQ / Redis 対応は有効です。OpenMPI と圧縮ライブラリも含みます。
+
+user は実行用です。ソースとローカル開発用ビルドヘルパーは含みません。 ROOT / Cling の実行に必要な C++ コンパイラとヘッダーは含みます。
+
 ## Appendix: SPADI-A DAQ マニュアルとの対応
 
 [公式マニュアルの DAQ の実行方法](https://www.rcnp.osaka-u.ac.jp/~spadi/wiki/?SPADI-A%20DAQ%20マニュアル/ソフトウェア/DAQの実行方法)、[NestDAQ スクリプトの編集](https://www.rcnp.osaka-u.ac.jp/~spadi/wiki/?SPADI-A%20DAQ%20マニュアル/ソフトウェア/DAQの設定/NestDAQスクリプトの編集)、[FEE スクリプトの編集](https://www.rcnp.osaka-u.ac.jp/~spadi/wiki/?SPADI-A%20DAQ%20マニュアル/ソフトウェア/DAQの設定/FEEスクリプトの編集)を基にしています。サービスと FEE の準備、プロセス数とログの確認、ブラウザでの Init → Run → Stop → Reset → End の流れを踏襲します。端末は1つの tmux セッションで管理します。

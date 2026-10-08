@@ -292,3 +292,36 @@ This guide follows the official [DAQ execution](https://www.rcnp.osaka-u.ac.jp/~
 | Cleanup after browser **End** | AMANEQ `run-cleanup.sh`, affecting this session only |
 
 `run-start.sh` coordinates preparation; the common helpers need not be run separately. Historical HR mezzanine initialization, MIKUMARI-primary operations, and deprecated extension masks are not copied into this standalone LR recipe. The pinned sampler uses `TdcType=1` for LR.
+
+## Appendix: Included software
+
+These are the main included software components. Pins are defined in [versions.env](../versions/versions.env). Inspect `/opt/spadi/scripts/spadi-version.sh` and `/opt/spadi/versions/versions.env` inside your image for its actual build metadata. Locally rebuilt software may differ from this baseline.
+
+| Software | Purpose | Pinned version / revision |
+|---|---|---|
+| [hul-common-lib](https://github.com/spadi-alliance/hul-common-lib) | RBCP board control: get_version, read_register, write_register | [`65476509aa40`](https://github.com/spadi-alliance/hul-common-lib/tree/65476509aa401aad10148ec7c2d2a50ba7d2db3e) |
+| [amaneq-soft](https://github.com/spadi-alliance/amaneq-soft) | AMANEQ LR/HR utilities in bin/StrLRTDC and bin/StrHRTDC | [`86fef97ccc4e`](https://github.com/spadi-alliance/amaneq-soft/tree/86fef97ccc4e6488739e2d8b549a1c5bddd3542e) |
+| [openFPGALoader](https://github.com/trabucayre/openFPGALoader) | FPGA SRAM/flash programming over supported interfaces | [`24e46d13bb8f`](https://github.com/trabucayre/openFPGALoader/tree/24e46d13bb8f2bc9371e9ca8443ece2fafc4b20d) |
+| [SiTCP IP / MPC utilities](https://github.com/nobukoba/sitcp-sitcpxg-mpc-mpcx-ip-utility-first-trial) | SiTCP/SiTCP-XG IP and MPC/MPCX license configuration | [`4bc47b6f5ac7`](https://github.com/nobukoba/sitcp-sitcpxg-mpc-mpcx-ip-utility-first-trial/tree/4bc47b6f5ac791acfbd88c73dd987b7625074273) |
+| [NestDAQ](https://github.com/spadi-alliance/nestdaq) | DAQ framework and Web Controller | [`v1.0.0`](https://github.com/spadi-alliance/nestdaq/tree/v1.0.0) |
+| [nestdaq-user-impl](https://github.com/spadi-alliance/nestdaq-user-impl) | Samplers, builders and FileSink | [`47897e9bdc4d`](https://github.com/spadi-alliance/nestdaq-user-impl/tree/47897e9bdc4dac2f429909b3fa8bf05ab93115d0) |
+| [UHBook](https://github.com/spadi-alliance/uhbook) | DAQ histogram support | [`e979eb28fb64`](https://github.com/spadi-alliance/uhbook/tree/e979eb28fb64de2eb216ebec31f73a6696d257ec) |
+| [exp-config](https://github.com/spadi-alliance/exp-config) | Experiment configuration and scripts | [`0ac32181304f`](https://github.com/spadi-alliance/exp-config/tree/0ac32181304f92e608d4bdd1bb0aa087300e82f7) |
+| [FairLogger](https://github.com/FairRootGroup/FairLogger) | Logging library | [`5aee7970fbfc`](https://github.com/FairRootGroup/FairLogger/tree/5aee7970fbfc66c2f0f1668ea15671b43166df68) |
+| [FairMQ](https://github.com/FairRootGroup/FairMQ) | Message-based DAQ devices | [`v1.4.55`](https://github.com/FairRootGroup/FairMQ/tree/v1.4.55) |
+| [fmt](https://github.com/fmtlib/fmt) | Text formatting library | [`10.2.1`](https://github.com/fmtlib/fmt/tree/10.2.1) |
+| [RedisTimeSeries](https://github.com/RedisTimeSeries/RedisTimeSeries) | Time-series database module | [`v1.10.24`](https://github.com/RedisTimeSeries/RedisTimeSeries/tree/v1.10.24) |
+| [ROOT](https://github.com/root-project/root) | Analysis, histograms, TTree and Cling | [`v6-32-06`](https://github.com/root-project/root/tree/v6-32-06) |
+| [ARTEMIS](https://github.com/artemis-dev/artemis) | Nuclear-physics analysis framework | [`c74e24adf90a`](https://github.com/artemis-dev/artemis/tree/c74e24adf90a83227fa3e5c38dc255ddc4aeb785) |
+| [yaml-cpp](https://github.com/jbeder/yaml-cpp) | YAML configuration parser | [`0.8.0`](https://github.com/jbeder/yaml-cpp/tree/0.8.0) |
+| [ZeroMQ](https://github.com/zeromq/libzmq) | Messaging library | [`v4.3.5`](https://github.com/zeromq/libzmq/tree/v4.3.5) |
+| [hiredis](https://github.com/redis/hiredis) | Redis/Valkey C client | [`v1.0.0`](https://github.com/redis/hiredis/tree/v1.0.0) |
+| [redis-plus-plus](https://github.com/sewenew/redis-plus-plus) | Redis/Valkey C++ client | [`1.3.15`](https://github.com/sewenew/redis-plus-plus/tree/1.3.15) |
+
+The OS is AlmaLinux 9. Network tools (iproute, iputils, net-tools, bind-utils, traceroute, tcpdump, nmap-ncat), curl / wget, and vim / emacs are also included. OS packages use AlmaLinux package versions rather than the source pins above.
+
+Valkey and tmux are included for DAQ services. ROOT-dependent TriggerView is disabled in DAQ and enabled in FULL.
+
+ROOT enables TMVA, X11 / OpenGL, SQLite, and SSL; PyROOT, RooFit, and Web GUI are disabled. ARTEMIS disables GET and enables ZeroMQ / Redis support. OpenMPI and compression libraries are also included.
+
+user provides runtime software without source trees or local-development build helpers. A C++ compiler and headers are retained for ROOT / Cling runtime use.

@@ -104,3 +104,22 @@ artemis
 使用する実験の steering、processor、較正ファイル、マクロを `$SPADI_LOCAL/analysis` 以下の作業ディレクトリへ配置し、そこから ARTEMIS を起動します。入力データは `$SPADI_LOCAL/rawdata`、出力の ROOT ファイルは解析作業ディレクトリの `output` に置くとホストに保存されます。実験側のライブラリ読み込みや解析実行コマンドは、その実験の手順に従ってください。
 
 NestDAQ FileSink の `.dat` は TF/STF を含む形式です。ROOT に直接開かせるのではなく、対応する入力 processor とデコーダ、steering が必要です。このリポジトリには AMANEQ 1チャンネル用の完成した ARTEMIS steering はありません。[ARTEMIS 公式 README](https://github.com/artemis-dev/artemis/tree/develop)も参照してください。
+
+## Appendix: 含まれるソフトウェア
+
+以下はイメージに含まれる主要ソフトウェアです。固定バージョン・リビジョンの定義は [versions.env](../versions/versions.env) にあります。使用中のイメージの情報は、コンテナ内の `/opt/spadi/scripts/spadi-version.sh` と `/opt/spadi/versions/versions.env` で確認できます。ローカルで再ビルドしたソフトウェアはこの一覧の固定版とは別です。
+
+| ソフトウェア | 用途 | 固定版・リビジョン |
+|---|---|---|
+| [ROOT](https://github.com/root-project/root) | 解析、ヒストグラム、TTree、Cling | [`v6-32-06`](https://github.com/root-project/root/tree/v6-32-06) |
+| [ARTEMIS](https://github.com/artemis-dev/artemis) | 原子核実験用解析フレームワーク | [`c74e24adf90a`](https://github.com/artemis-dev/artemis/tree/c74e24adf90a83227fa3e5c38dc255ddc4aeb785) |
+| [yaml-cpp](https://github.com/jbeder/yaml-cpp) | YAML 設定の読み込み | [`0.8.0`](https://github.com/jbeder/yaml-cpp/tree/0.8.0) |
+| [ZeroMQ](https://github.com/zeromq/libzmq) | メッセージ通信ライブラリ | [`v4.3.5`](https://github.com/zeromq/libzmq/tree/v4.3.5) |
+| [hiredis](https://github.com/redis/hiredis) | Redis/Valkey C クライアント | [`v1.0.0`](https://github.com/redis/hiredis/tree/v1.0.0) |
+| [redis-plus-plus](https://github.com/sewenew/redis-plus-plus) | Redis/Valkey C++ クライアント | [`1.3.15`](https://github.com/sewenew/redis-plus-plus/tree/1.3.15) |
+
+OS は AlmaLinux 9 です。tmux、vim / emacs、基本的なファイル・プロセス操作ツールも含みます。OS パッケージは AlmaLinux のパッケージ版で、上表のソース固定版とは管理方法が異なります。
+
+ROOT は TMVA、X11 / OpenGL、SQLite、SSL を有効にし、PyROOT、RooFit、Web GUI は無効にしています。ARTEMIS の GET は無効、ZeroMQ / Redis 対応は有効です。OpenMPI と圧縮ライブラリも含みます。
+
+user は実行用です。ソースとローカル開発用ビルドヘルパーは含みません。 ROOT / Cling の実行に必要な C++ コンパイラとヘッダーは含みます。

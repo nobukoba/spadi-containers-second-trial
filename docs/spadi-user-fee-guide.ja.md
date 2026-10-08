@@ -2,13 +2,17 @@
 
 **Language: [English](spadi-user-fee-guide.md) | 日本語**
 
-FEE の基板制御・マスク設定を行うイメージです。
+FEE の基板制御、SiTCP ネットワーク設定、FPGA 書き込みを行うイメージです。
 
 ## ディレクトリ構造
 
 ```text
 /opt/spadi/                         # SPADI_ROOT
 ├── bin/
+│   ├── get_version / read_register / write_register
+│   ├── openFPGALoader
+│   ├── sitcp-sitcpxg-ip-{reader,writer}
+│   ├── mpc-mpcx-ip-{reader,writer,command}
 │   ├── StrLRTDC/set_tdcmask
 │   └── StrHRTDC/
 ├── lib/
@@ -67,6 +71,67 @@ docker run --rm -it \
 spadi-prepare-local.sh
 ```
 
+## SiTCP / SiTCP-XG のネットワーク設定
+
+以下はコンテナ内で実行します。基板の現在の IP を指定して RBCP（UDP 4660）で通信します。ホストの Ethernet 設定と基板への経路を先に確認し、DAQ を停止してください。通常の Apptainer 起動はホストのネットワークを共有します。Linux の Docker で同じ経路を使う場合は、起動例の `docker run` に `--network host` を追加します。環境ごとの条件は [README](../README.ja.md) を参照してください。
+
+### 現在の設定を読む
+
+```bash
+sitcp-sitcpxg-ip-reader 192.168.10.16
+mpc-mpcx-ip-reader 192.168.10.16
+```
+
+前者は SiTCP / SiTCP-XG の MAC・IP、後者は MPC / MPCX の EEPROM 設定を表示します。対象の実装に対応するコマンドを選びます。
+
+### EEPROM の IP を変更する
+
+以下は現在の IP が `192.168.10.16`、保存する新しい IP が `192.168.10.17` の例です。
+
+```bash
+sitcp-sitcpxg-ip-writer 192.168.10.16 192.168.10.17
+```
+
+既定では EEPROM を更新します。現在動作中の IP の切り替えと、リセット後に EEPROM の IP が使われるかは基板の実装・DIP 設定に依存します。書き込み直後に新 IP に切り替わったと決めつけず、基板の手順に従って再起動・設定確認を行ってください。
+
+### MPC / MPCX のライセンスファイルを書き込む
+
+対象基板用に取得したファイルをホストの `workspace` に置きます。以下の `board.mpcx` は利用者が用意するファイル名の例です。
+
+```bash
+mpc-mpcx-ip-writer 192.168.10.16 /workspace/board.mpcx
+mpc-mpcx-ip-reader 192.168.10.16
+```
+
+ライセンスファイルはイメージに含まれません。通常のファイル書き込みと IP の変更は別操作です。追加オプション、MPC ファイル、現在の IP を変更する操作については `mpc-mpcx-ip-command --help` と [収録リビジョンのユーティリティ README](https://github.com/nobukoba/sitcp-sitcpxg-mpc-mpcx-ip-utility-first-trial/blob/4bc47b6f5ac791acfbd88c73dd987b7625074273/README.md) を参照してください。
+
+## openFPGALoader で FPGA を書き込む
+
+対象 FPGA に適合するビットストリームと対応 JTAG ケーブルを用意します。以下は Digilent HS3 の例です。基板やケーブルが異なる場合は、対応一覧から実際の名前を選んでください。
+
+### USB ケーブルをコンテナから使えるようにする
+
+Linux ホストで USB デバイスへのアクセス権を設定し、ケーブルを接続します。通常の Apptainer 起動ではホストの `/dev` を利用します。Docker では USB デバイスを明示的に渡す必要があります。ホストの `lsusb` で Bus / Device 番号を確認し、起動例の `docker run` に、例えば `--device=/dev/bus/usb/001/002` を追加してください。番号は再接続で変わることがあります。ホスト側の権限設定は [公式インストール手順](https://trabucayre.github.io/openFPGALoader/guide/install.html) を参照してください。WSL2 では先に USB を Linux 側に接続する必要があります。macOS の Docker 起動例だけではホストの USB JTAG ケーブルは使えません。
+
+### ケーブルと FPGA を確認する
+
+```bash
+openFPGALoader --version
+openFPGALoader --list-cables
+openFPGALoader --list-boards
+openFPGALoader -c digilent_hs3 --detect
+```
+
+### SRAM にビットストリームをロードする
+
+ホストの `workspace/firmware.bit` に対象基板のファイルを置き、コンテナ内で実行します。
+
+```bash
+openFPGALoader -c digilent_hs3 /workspace/firmware.bit
+```
+
+SRAM へのロードは揮発性で、電源断で失われます。フラッシュへの保存は別操作の `-f` です。対応基板名（`-b`）、FPGA 型番、フラッシュ構成を確認してから使用してください。基板ごとに必要な指定が異なるため、上の SRAM コマンドに無条件で `-f` を足さないでください。詳細は [公式の基本操作](https://trabucayre.github.io/openFPGALoader/guide/first-steps.html) を参照してください。
+
 ## AMANEQ LR-TDC の102チャンネルを設定する
 
 1-Gbps Str-LRTDC の AMANEQ 1台を `192.168.10.16` に接続します。DIP1 = 0（デフォルト IP）、DIP3 = 1（スタンドアロン）にし、下側 DCRv2 メザニンの0始まりのチャンネル102を使います。ホスト側 Ethernet は `192.168.10.1/24` などにし、UDP 4660 が到達することを確認します。WSL2 でも Linux 側の経路を確認してください。取得中のプログラムを止めてから設定します。
@@ -99,14 +164,21 @@ read_register 192.168.10.16 10300000 4
 
 実機 FW ID `0x60c4`、バージョン `2.10`（16進表記 `2.A`）で、MZN-D への書き込みは正常応答でも読み戻しが `0xffffffff` となる症状を確認しています。[公式 HDL](https://github.com/AMANEQ-official/strtdc-src/blob/71c188a74c93a7d06cb9e803d50360b05495e730/lrtdc-impl/strLrTdc.vhd#L685) は MZN-D の Read 分岐で誤って MZN-U を判定しています。書き込み失敗と断定できませんが、内部マスクも独立には確認できません。ヘルパーは `Mask verification failed at 10300000` で停止します。これを成功と扱わず、修正ファームウェアまたは独立した実データ検証で設定を確認してください。実機の NestDAQ 取得は未検証です。
 
-## FEE ツールと取得用イメージ
+## データ取得へ進む
 
-`get_version`、`read_register`、`write_register` は基板制御、`openFPGALoader` は FPGA 書き込み、SiTCP の IP ユーティリティはネットワーク設定に使用します。LR 用と HR 用の `set_tdcmask` は同名なので、上記の LR 用フルパスを使用してください。
+FEE イメージには NestDAQ / Web Controller がありません。ブラウザで取得する場合は [spadi-user-daq ガイド](spadi-user-daq-guide.ja.md)または [spadi-user-full ガイド](spadi-user-full-guide.ja.md)へ進みます。基板の設定操作だけでは取得データファイルは作られません。
 
-```bash
-openFPGALoader --version
-command -v mpc-mpcx-ip-reader
-command -v sitcp-sitcpxg-ip-reader
-```
+## Appendix: 含まれるソフトウェア
 
-FPGA 書き込みには対象基板に適合するビットストリームと JTAG 接続が必要です。このレシピはファームウェアの更新や IP の変更を自動実行しません。FEE イメージには NestDAQ / Web Controller がありません。ブラウザで取得する場合は [spadi-user-daq ガイド](spadi-user-daq-guide.ja.md)または [spadi-user-full ガイド](spadi-user-full-guide.ja.md)へ進みます。設定操作だけではデータファイルは作られません。
+以下はイメージに含まれる主要ソフトウェアです。固定バージョン・リビジョンの定義は [versions.env](../versions/versions.env) にあります。使用中のイメージの情報は、コンテナ内の `/opt/spadi/scripts/spadi-version.sh` と `/opt/spadi/versions/versions.env` で確認できます。ローカルで再ビルドしたソフトウェアはこの一覧の固定版とは別です。
+
+| ソフトウェア | 用途 | 固定版・リビジョン |
+|---|---|---|
+| [hul-common-lib](https://github.com/spadi-alliance/hul-common-lib) | RBCP 基板制御：get_version、read_register、write_register | [`65476509aa40`](https://github.com/spadi-alliance/hul-common-lib/tree/65476509aa401aad10148ec7c2d2a50ba7d2db3e) |
+| [amaneq-soft](https://github.com/spadi-alliance/amaneq-soft) | AMANEQ LR/HR 用ツール（bin/StrLRTDC、bin/StrHRTDC） | [`86fef97ccc4e`](https://github.com/spadi-alliance/amaneq-soft/tree/86fef97ccc4e6488739e2d8b549a1c5bddd3542e) |
+| [openFPGALoader](https://github.com/trabucayre/openFPGALoader) | 対応インターフェースによる FPGA SRAM・フラッシュ書き込み | [`24e46d13bb8f`](https://github.com/trabucayre/openFPGALoader/tree/24e46d13bb8f2bc9371e9ca8443ece2fafc4b20d) |
+| [SiTCP IP / MPC utilities](https://github.com/nobukoba/sitcp-sitcpxg-mpc-mpcx-ip-utility-first-trial) | SiTCP/SiTCP-XG IP、MPC/MPCX ライセンス設定 | [`4bc47b6f5ac7`](https://github.com/nobukoba/sitcp-sitcpxg-mpc-mpcx-ip-utility-first-trial/tree/4bc47b6f5ac791acfbd88c73dd987b7625074273) |
+
+OS は AlmaLinux 9 です。ネットワーク調査ツール（iproute、iputils、net-tools、bind-utils、traceroute、tcpdump、nmap-ncat）、curl / wget、vim / emacs なども含みます。OS パッケージは AlmaLinux のパッケージ版で、上表のソース固定版とは管理方法が異なります。
+
+user は実行用です。ソースとローカル開発用ビルドヘルパーは含みません。
