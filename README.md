@@ -83,7 +83,7 @@ Docker also loads the SPADI environment and enters `/workspace` automatically.
 For Linux Docker hardware acquisition or the default Web Controller, use host networking as follows. Replace the image name for FULL or devel variants.
 
 ```bash
-docker run --rm -it --platform linux/amd64 --network bridge \
+docker run --rm -it --platform linux/amd64 --network host \
   -e LOCAL_UID="$(id -u)" -e LOCAL_GID="$(id -g)" \
   -v "$PWD/workspace:/workspace" \
   ghcr.io/nobukoba/spadi-containers-second-trial/spadi-user-daq:latest
