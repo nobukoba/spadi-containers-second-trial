@@ -14,7 +14,7 @@ This image provides FEE and NestDAQ acquisition and replay with browser control.
 ├── share/
 ├── versions/
 ├── scripts/
-│   ├── spadi-prepare-runtime.sh
+│   ├── spadi-prepare-local.sh
 │   ├── fee/
 │   └── nestdaq/
 ├── StrLRTDC/bin/set_tdcmask
@@ -33,7 +33,7 @@ This image provides FEE and NestDAQ acquisition and replay with browser control.
     └── raris_ac_lgad_202603/{00,01,02}/run000020.dat
 ```
 
-/opt/spadi is supplied by the image; /workspace/spadi is the persistent host workspace. spadi-prepare-runtime.sh creates scripts and rawdata. User images do not provide /opt/spadi/src. AMANEQ run-start.sh creates the output subdirectory; browser FileSink Run creates the data file. rawdata-download.sh downloads RARiS input files.
+/opt/spadi is supplied by the image; /workspace/spadi is the persistent host workspace. spadi-prepare-local.sh creates scripts and rawdata. User images do not provide /opt/spadi/src. AMANEQ run-start.sh creates the output subdirectory; browser FileSink Run creates the data file. rawdata-download.sh downloads RARiS input files.
 
 The SPADI_LOCAL environment variable defaults to `/workspace/spadi`; SPADI_ROOT defaults to `/opt/spadi`. Startup sets both variables but does not create directories. The local area maps to the host directory `workspace/spadi`. See the [common README procedures](../README.md) for the full explanation.
 
@@ -74,7 +74,7 @@ Files under `workspace` persist on the host. Download or pull again when updatin
 Copy the runtime scripts available in this image. Existing configuration and source files are preserved. See the [README](../README.md) for common preparation and update procedures.
 
 ```bash
-spadi-prepare-runtime.sh
+spadi-prepare-local.sh
 ```
 
 ## AMANEQ: channel 102 with NestDAQ
