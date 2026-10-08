@@ -174,7 +174,7 @@ ping -c 3 192.168.10.16
 ./run-start.sh
 ```
 
-`run-start.sh` は FEE マスクの設定と読み戻し確認、Valkey、パラメータ、トポロジー、4つのプロセスの準備を行い、すべてのプロセスが **Idle** になるまで待ちます。この時点では読み出しを開始しません。以降の初期化・開始・停止・run 番号の変更はブラウザで操作します。
+`run-start.sh` は FEE の `fee-setup.sh` と DAQ の `initialize.sh` を順に呼び出し、Valkey、パラメータ、トポロジー、4つのプロセスの準備を行い、すべてのプロセスが **Idle** になるまで待ちます。この時点では読み出しを開始しません。以降の初期化・開始・停止・run 番号の変更はブラウザで操作します。
 
 ### ブラウザで初期化する
 
@@ -215,7 +215,7 @@ IP、最初の run 番号、保存先、ポートは NestDAQ 側の `config.sh` 
 マスク設定には LR-TDC 用の `set_tdcmask` を使用します。`fee-setup.sh` もこのコマンドで4バンクを一括設定し、`read_register` で読み戻します。取得を停止してから実行してください。
 
 ```bash
-/opt/spadi/StrLRTDC/bin/set_tdcmask 192.168.10.16 ffffffff ffffffff ffffffff ffffffbf
+/opt/spadi/bin/StrLRTDC/set_tdcmask 192.168.10.16 ffffffff ffffffff ffffffff ffffffbf
 ```
 
 ## tmux だけで端末とログを操作する
