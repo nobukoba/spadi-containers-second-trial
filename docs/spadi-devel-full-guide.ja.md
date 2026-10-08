@@ -201,6 +201,23 @@ Valkey、パラメータ、トポロジー、初期 run 番号、Web Controller 
 
 `run-start.sh` は上の2つを順に実行する代替手段です。個別に実行した後には重ねて実行しないでください。
 
+### 起動した tmux にアタッチする
+
+`initialize.sh` が正常に終了したら、コンテナ内の同じ設定ディレクトリで実行します。
+
+```bash
+./run-attach.sh
+```
+
+別のディレクトリに移動していた場合は、次のように戻ってから実行します。
+
+```bash
+cd "$SPADI_LOCAL/scripts/nestdaq/amaneq-lrtdc-1ch"
+./run-attach.sh
+```
+
+このヘルパーは `config.sh` の `TMUX_SOCKET` と `TMUX_SESSION` を使い、`initialize.sh` が起動したセッションに接続します。`Ctrl-b` を押して離してから `w` でウィンドウを選択し、`control` や各プロセスのログを確認できます。`Ctrl-b` を押して離してから `d` でデタッチします。デタッチしても DAQ プロセスと Web Controller は動き続けます。再アタッチには、もう一度 `./run-attach.sh` を実行します。`initialize.sh` を再実行する必要はありません。
+
 ### ブラウザで初期化する
 
 ホストのブラウザで **http://localhost:8081/daq-webctl.html** を開きます。WSL2 の場合も Windows 側のブラウザから開きます。

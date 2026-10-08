@@ -199,6 +199,23 @@ This prepares Valkey, parameters, topology, the initial run number, the Web Cont
 
 `run-start.sh` is an alternative that runs these two commands in order. Do not run it again after executing them separately.
 
+### Attach to the tmux session
+
+After `initialize.sh` finishes successfully, run this inside the container from the same configuration directory.
+
+```bash
+./run-attach.sh
+```
+
+If you have moved to another directory, return before attaching:
+
+```bash
+cd "$SPADI_LOCAL/scripts/nestdaq/amaneq-lrtdc-1ch"
+./run-attach.sh
+```
+
+The helper reads `TMUX_SOCKET` and `TMUX_SESSION` from `config.sh` and attaches to the session started by `initialize.sh`. Press `Ctrl-b`, release it, then press `w` to select the `control` window or a process log. Press `Ctrl-b`, release it, then press `d` to detach. DAQ processes and the Web Controller keep running while detached. Run `./run-attach.sh` again to reattach; do not rerun `initialize.sh`.
+
 ### Initialize in the browser
 
 Open **http://localhost:8081/daq-webctl.html** in the host browser (the Windows browser for WSL2).
