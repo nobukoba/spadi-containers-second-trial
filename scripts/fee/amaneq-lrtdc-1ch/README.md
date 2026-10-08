@@ -16,7 +16,7 @@ ping -c 3 192.168.10.16
 bash setup.sh
 ```
 
-`config.sh` contains the board IP and four channel masks. `setup.sh` uses `/opt/spadi/StrLRTDC/bin/set_tdcmask` to write all four masks, then reads back each mask, stopping if it detects a communication error or a mismatched value. Stop acquisition before changing masks, and apply them again after a board reset.
+`config.sh` contains the board IP and four channel masks. `setup.sh` uses `/opt/spadi/bin/StrLRTDC/set_tdcmask` to write all four masks, then reads back each mask, stopping if it detects a communication error or a mismatched value. Stop acquisition before changing masks, and apply them again after a board reset.
 
 | Bank | Channels | Register | Mask |
 |---|---|---|---|
