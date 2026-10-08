@@ -124,7 +124,7 @@ spadi-env.sh
 ls -l "$SPADI_LOCAL/bin/StrLRTDC/set_tdcmask"
 ```
 
-ローカルの `bin` と `lib` はイメージ側より先に検索されます。LR 用マスクヘルパーは、LR と HR の混同を避けるためイメージ側のフルパスを選びます。再ビルドした LR コマンドを個別に確認する場合は `$SPADI_LOCAL/bin/StrLRTDC/set_tdcmask` を明示してください。版情報レポーターはイメージの版を表示し、ローカルの改変内容は記録しません。ソースのコミットとビルドログも保存してください。
+ローカルの `bin` と `lib` はイメージ側より先に検索されます。再ビルドした LR コマンドを個別に確認する場合は `$SPADI_LOCAL/bin/StrLRTDC/set_tdcmask` を明示してください。版情報レポーターはイメージの版を表示し、ローカルの改変内容は記録しません。ソースのコミットとビルドログも保存してください。
 
 Dockerfile、CI、SIF の生成・公開を変更する場合は [コンテナ保守ガイド](container-maintainer-guide.md)を参照してください。
 
@@ -190,37 +190,27 @@ openFPGALoader -c digilent_hs3 /workspace/firmware.bit
 
 SRAM へのロードは揮発性で、電源断で失われます。フラッシュへの保存は別操作の `-f` です。対応基板名（`-b`）、FPGA 型番、フラッシュ構成を確認してから使用してください。基板ごとに必要な指定が異なるため、上の SRAM コマンドに無条件で `-f` を足さないでください。詳細は [公式の基本操作](https://trabucayre.github.io/openFPGALoader/guide/first-steps.html) を参照してください。
 
-## AMANEQ LR-TDC の102チャンネルを設定する
+## hul-common-lib と amaneq-soft による基板制御
 
-1-Gbps Str-LRTDC の AMANEQ 1台を `192.168.10.16` に接続します。DIP1 = 0（デフォルト IP）、DIP3 = 1（スタンドアロン）にし、下側 DCRv2 メザニンの0始まりのチャンネル102を使います。ホスト側 Ethernet は `192.168.10.1/24` などにし、UDP 4660 が到達することを確認します。WSL2 でも Linux 側の経路を確認してください。取得中のプログラムを止めてから設定します。
+### hul-common-lib：バージョン確認とレジスタ操作
+
+[hul-common-lib](https://github.com/spadi-alliance/hul-common-lib) は、RBCP による基板制御の共通ライブラリとコマンドを提供します。`get_version` はファームウェア情報の確認、`read_register` はレジスタの読み取り、`write_register` は書き込みに使います。
+
+まず、基板の IP とネットワーク経路を確認して、コンテナ内でバージョンを読み取ります。以下の IP は例なので、接続先に合わせて変更してください。
 
 ```bash
-cd "$SPADI_LOCAL/scripts/fee/amaneq-lrtdc-1ch"
-cat config.sh
 get_version 192.168.10.16
-./setup.sh
 ```
 
-`cat config.sh` は設定ファイルを表示するだけです。編集は `vim config.sh` などで行います。ヘルパーは LR 用 `set_tdcmask` で4バンクを一括設定し、`read_register` で照合します。直接実行する場合は以下です。
+レジスタ操作では対象ファームウェアのレジスタマップでアドレス・サイズ・値を確認します。書き込み後は読み戻しも確認してください。コマンドの引数とライブラリの使い方は [上流の README](https://github.com/spadi-alliance/hul-common-lib#readme) を参照してください。
 
-```bash
-/opt/spadi/bin/StrLRTDC/set_tdcmask \
-  192.168.10.16 ffffffff ffffffff ffffffff ffffffbf
-read_register 192.168.10.16 10300000 4
-```
+### amaneq-soft：ファームウェア別の設定ツール
 
-| Bank | Channels | Mask |
-|---|---|---|
-| Main-U | 0–31 | `ffffffff` |
-| Main-D | 32–63 | `ffffffff` |
-| MZN-U | 64–95 | `ffffffff` |
-| MZN-D | 96–127 | `ffffffbf` |
+[amaneq-soft](https://github.com/spadi-alliance/amaneq-soft) は AMANEQ のファームウェアに対応した制御・設定ツールを提供します。収録する LR-TDC 用ツールは `$SPADI_ROOT/bin/StrLRTDC/`、HR-TDC 用は `$SPADI_ROOT/bin/StrHRTDC/` にあります。
 
-1 のビットがマスクです。102 は MZN-D の bit 6 なので、このビットだけ 0 にします。正常なら MZN-D の読み戻しは `0xffffffbf` です。IP は `config.sh` の `AMANEQ_IP` で変更します。リセット後は設定を再適用します。
+例えば `set_tdcmask` は TDC チャンネルのマスクを設定するツールです。LR 用と HR 用には同名のコマンドがあるため、対象ファームウェアのフルパスを選びます。LR 用は `$SPADI_ROOT/bin/StrLRTDC/set_tdcmask` で、IP と4バンクのマスク値を指定します。設定値と操作手順は [上流の README・ソース](https://github.com/spadi-alliance/amaneq-soft#readme) で確認してください。設定を変更する際は DAQ を停止します。
 
-### MZN-D の読み戻しに関する制約
-
-実機 FW ID `0x60c4`、バージョン `2.10`（16進表記 `2.A`）で、MZN-D への書き込みは正常応答でも読み戻しが `0xffffffff` となる症状を確認しています。[公式 HDL](https://github.com/AMANEQ-official/strtdc-src/blob/71c188a74c93a7d06cb9e803d50360b05495e730/lrtdc-impl/strLrTdc.vhd#L685) は MZN-D の Read 分岐で誤って MZN-U を判定しています。書き込み失敗と断定できませんが、内部マスクも独立には確認できません。ヘルパーは `Mask verification failed at 10300000` で停止します。これを成功と扱わず、修正ファームウェアまたは独立した実データ検証で設定を確認してください。実機の NestDAQ 取得は未検証です。
+特定のチャンネルを使う取得手順は、[DAQ ガイド](spadi-user-daq-guide.ja.md)または [FULL ガイド](spadi-user-full-guide.ja.md)を参照してください。
 
 ## データ取得へ進む
 

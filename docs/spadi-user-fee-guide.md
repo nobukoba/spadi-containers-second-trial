@@ -133,37 +133,27 @@ openFPGALoader -c digilent_hs3 /workspace/firmware.bit
 
 SRAM loading is volatile and is lost at power-off. Flash programming is a separate operation using `-f`. Check the supported board name (`-b`), FPGA part, and flash configuration before using it; required arguments vary by board. Do not unconditionally append `-f` to the SRAM example. See the [official basic operations](https://trabucayre.github.io/openFPGALoader/guide/first-steps.html) for details.
 
-## Configure AMANEQ LR-TDC channel 102
+## Board control with hul-common-lib and amaneq-soft
 
-Connect one 1-Gbps Str-LRTDC AMANEQ at `192.168.10.16`. Set DIP1 = 0 (default IP) and DIP3 = 1 (standalone). Use zero-based channel 102 on the lower DCRv2 mezzanine. Give the host Ethernet interface an address such as `192.168.10.1/24` and verify UDP 4660 access, including Linux routing in WSL2. Stop any acquisition program before changing the masks.
+### hul-common-lib: firmware information and register access
+
+[hul-common-lib](https://github.com/spadi-alliance/hul-common-lib) provides the common RBCP board-control library and utilities. Use `get_version` to inspect firmware information, `read_register` to read registers, and `write_register` to write them.
+
+Start by checking the board IP and network route, then read its firmware information inside the container. Replace this example IP with your board's address.
 
 ```bash
-cd "$SPADI_LOCAL/scripts/fee/amaneq-lrtdc-1ch"
-cat config.sh
 get_version 192.168.10.16
-./setup.sh
 ```
 
-`cat config.sh` only displays the settings; edit them with a text editor such as `vim config.sh`. The helper calls the LR-specific set_tdcmask once for all four banks, then verifies them with read_register. The direct commands are:
+For register operations, consult the target firmware's register map for addresses, sizes, and values, and verify writes by reading back. See the [upstream README](https://github.com/spadi-alliance/hul-common-lib#readme) for command arguments and library usage.
 
-```bash
-/opt/spadi/bin/StrLRTDC/set_tdcmask \
-  192.168.10.16 ffffffff ffffffff ffffffff ffffffbf
-read_register 192.168.10.16 10300000 4
-```
+### amaneq-soft: firmware-specific configuration tools
 
-| Bank | Channels | Mask |
-|---|---|---|
-| Main-U | 0–31 | `ffffffff` |
-| Main-D | 32–63 | `ffffffff` |
-| MZN-U | 64–95 | `ffffffff` |
-| MZN-D | 96–127 | `ffffffbf` |
+[amaneq-soft](https://github.com/spadi-alliance/amaneq-soft) provides AMANEQ control and configuration tools for its firmware variants. Included LR-TDC tools are under `$SPADI_ROOT/bin/StrLRTDC/`; HR-TDC tools are under `$SPADI_ROOT/bin/StrHRTDC/`.
 
-A set bit masks a channel. Channel 102 is MZN-D bit 6, the only cleared bit. Correct readback would be `0xffffffbf`. Change AMANEQ_IP in config.sh for another board address, and reapply the settings after a reset.
+For example, `set_tdcmask` configures TDC channel masks. LR and HR commands share this basename, so select the full path matching the firmware. The LR command is `$SPADI_ROOT/bin/StrLRTDC/set_tdcmask` and accepts the IP and four bank-mask values. Consult the [upstream README and source](https://github.com/spadi-alliance/amaneq-soft#readme) for settings and procedures. Stop DAQ before changing configuration.
 
-### MZN-D readback limitation
-
-A board reporting FW ID `0x60c4`, version `2.10` (hexadecimal `2.A`), acknowledged the MZN-D write but returned `0xffffffff` on readback. The [official HDL](https://github.com/AMANEQ-official/strtdc-src/blob/71c188a74c93a7d06cb9e803d50360b05495e730/lrtdc-impl/strLrTdc.vhd#L685) incorrectly tests MZN-U in the MZN-D Read branch. This does not establish a failed write or independently verify the internal mask. The helper stops with `Mask verification failed at 10300000`. Do not treat that as success; confirm the setting with corrected firmware or independent hardware-data validation. NestDAQ acquisition from this hardware remains unverified.
+For acquisition using a specific channel, follow the [DAQ guide](spadi-user-daq-guide.md) or [FULL guide](spadi-user-full-guide.md).
 
 ## Proceed to data acquisition
 
