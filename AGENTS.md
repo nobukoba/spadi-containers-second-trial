@@ -387,7 +387,7 @@ Place the mapping to the official SPADI-A DAQ manual at the end of user guides
 as "Appendix: SPADI-A DAQ マニュアルとの対応" and its English counterpart,
 keeping directory layout and user operation instructions first.
 
-Use the LR-TDC-specific `${SPADI_ROOT}/StrLRTDC/bin/set_tdcmask` for AMANEQ LR mask settings, with IP and four mask arguments. Do not replace it with four generic write_register calls. HR installs a command with the same basename; select the LR path explicitly. Retain read_register verification and fail-closed handling of firmware readback defects.
+Use the LR-TDC-specific `${SPADI_ROOT}/bin/StrLRTDC/set_tdcmask` for AMANEQ LR mask settings, with IP and four mask arguments. Do not replace it with four generic write_register calls. HR installs a command with the same basename; select the LR path explicitly. Retain read_register verification and fail-closed handling of firmware readback defects.
 
 ## Per-image bilingual documentation
 
@@ -404,3 +404,7 @@ Keep each image guide self-contained for downloads: include its exact SIF releas
 ## Unified local preparation and startup documentation
 
 All eight image variants expose `spadi-prepare-local.sh` as the single user-facing workspace preparation command. User images copy only runtime recipes and rawdata directories; devel images additionally copy source trees, build helpers, and local build/install directories. Never overwrite existing user files. Keep the download and startup commands together under separate Apptainer and Docker subsections in each image guide, in English and Japanese. DAQ and FULL Docker examples must retain `--network host`; do not replace it with bridge networking or suggest `-p` for host networking. Version metadata and CI checks remain required, but do not instruct users to run version checks immediately after entering the container.
+
+## TDC utility layout and DAQ initialization separation
+
+Install LR-TDC executables under `/opt/spadi/bin/StrLRTDC/` and HR-TDC executables under `/opt/spadi/bin/StrHRTDC/`, keeping identically named commands separate. Retain compatibility links for legacy paths where practical. The AMANEQ live NestDAQ recipe separates `fee-setup.sh` (FEE configuration) from `initialize.sh` (Valkey, parameters, topology, process initialization); `run-start.sh` calls them in order. DAQ initialization alone must not change FEE registers or masks. Keep smoke tests and both language guides aligned with this layout.
