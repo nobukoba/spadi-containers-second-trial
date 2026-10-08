@@ -9,6 +9,8 @@ This image provides FEE board control and mask configuration. This guide also co
 ```text
 /opt/spadi/                         # SPADI_ROOT
 ├── bin/
+│   ├── StrLRTDC/set_tdcmask
+│   └── StrHRTDC/
 ├── lib/
 ├── lib64/
 ├── include/
@@ -20,8 +22,6 @@ This image provides FEE board control and mask configuration. This guide also co
 │   ├── spadi-env.sh
 │   ├── *-build.sh / *-clone-latest.sh
 │   └── fee/
-├── StrLRTDC/bin/set_tdcmask
-├── StrHRTDC/bin/
 └── src/
     ├── hul-common-lib/
     ├── amaneq-soft/
@@ -118,10 +118,10 @@ Normal preparation copies the sources pinned in the image. Latest upstream sourc
 
 ```bash
 spadi-env.sh
-ls -l "$SPADI_LOCAL/StrLRTDC/bin/set_tdcmask"
+ls -l "$SPADI_LOCAL/bin/StrLRTDC/set_tdcmask"
 ```
 
-Local bin and lib paths precede the image installation. The mask helper explicitly selects the image LR executable to avoid confusing LR and HR. To test a rebuilt LR command separately, use $SPADI_LOCAL/StrLRTDC/bin/set_tdcmask explicitly. The version reporter describes the image, not your local modifications; record source commits and build logs too.
+Local bin and lib paths precede the image installation. The mask helper explicitly selects the image LR executable to avoid confusing LR and HR. To test a rebuilt LR command separately, use $SPADI_LOCAL/bin/StrLRTDC/set_tdcmask explicitly. The version reporter describes the image, not your local modifications; record source commits and build logs too.
 
 For Dockerfile, CI, SIF creation, and publication changes, see the [container maintainer guide](container-maintainer-guide.md).
 
@@ -139,7 +139,7 @@ get_version 192.168.10.16
 `cat config.sh` only displays the settings; edit them with a text editor such as `vim config.sh`. The helper calls the LR-specific set_tdcmask once for all four banks, then verifies them with read_register. The direct commands are:
 
 ```bash
-/opt/spadi/StrLRTDC/bin/set_tdcmask \
+/opt/spadi/bin/StrLRTDC/set_tdcmask \
   192.168.10.16 ffffffff ffffffff ffffffff ffffffbf
 read_register 192.168.10.16 10300000 4
 ```

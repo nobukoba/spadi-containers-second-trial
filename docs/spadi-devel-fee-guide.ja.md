@@ -9,6 +9,8 @@ FEE の基板制御・マスク設定を行うイメージです。 ソース編
 ```text
 /opt/spadi/                         # SPADI_ROOT
 ├── bin/
+│   ├── StrLRTDC/set_tdcmask
+│   └── StrHRTDC/
 ├── lib/
 ├── lib64/
 ├── include/
@@ -20,8 +22,6 @@ FEE の基板制御・マスク設定を行うイメージです。 ソース編
 │   ├── spadi-env.sh
 │   ├── *-build.sh / *-clone-latest.sh
 │   └── fee/
-├── StrLRTDC/bin/set_tdcmask
-├── StrHRTDC/bin/
 └── src/
     ├── hul-common-lib/
     ├── amaneq-soft/
@@ -118,10 +118,10 @@ amaneq-build.sh
 
 ```bash
 spadi-env.sh
-ls -l "$SPADI_LOCAL/StrLRTDC/bin/set_tdcmask"
+ls -l "$SPADI_LOCAL/bin/StrLRTDC/set_tdcmask"
 ```
 
-ローカルの `bin` と `lib` はイメージ側より先に検索されます。LR 用マスクヘルパーは、LR と HR の混同を避けるためイメージ側のフルパスを選びます。再ビルドした LR コマンドを個別に確認する場合は `$SPADI_LOCAL/StrLRTDC/bin/set_tdcmask` を明示してください。版情報レポーターはイメージの版を表示し、ローカルの改変内容は記録しません。ソースのコミットとビルドログも保存してください。
+ローカルの `bin` と `lib` はイメージ側より先に検索されます。LR 用マスクヘルパーは、LR と HR の混同を避けるためイメージ側のフルパスを選びます。再ビルドした LR コマンドを個別に確認する場合は `$SPADI_LOCAL/bin/StrLRTDC/set_tdcmask` を明示してください。版情報レポーターはイメージの版を表示し、ローカルの改変内容は記録しません。ソースのコミットとビルドログも保存してください。
 
 Dockerfile、CI、SIF の生成・公開を変更する場合は [コンテナ保守ガイド](container-maintainer-guide.md)を参照してください。
 
@@ -139,7 +139,7 @@ get_version 192.168.10.16
 `cat config.sh` は設定ファイルを表示するだけです。編集は `vim config.sh` などで行います。ヘルパーは LR 用 `set_tdcmask` で4バンクを一括設定し、`read_register` で照合します。直接実行する場合は以下です。
 
 ```bash
-/opt/spadi/StrLRTDC/bin/set_tdcmask \
+/opt/spadi/bin/StrLRTDC/set_tdcmask \
   192.168.10.16 ffffffff ffffffff ffffffff ffffffbf
 read_register 192.168.10.16 10300000 4
 ```

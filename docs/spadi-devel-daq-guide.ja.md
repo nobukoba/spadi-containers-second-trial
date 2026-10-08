@@ -9,6 +9,8 @@ FEE と NestDAQ によるブラウザ操作の取得・再生を行うイメー�
 ```text
 /opt/spadi/                         # SPADI_ROOT
 ├── bin/
+│   ├── StrLRTDC/set_tdcmask
+│   └── StrHRTDC/
 ├── lib/
 ├── lib64/
 ├── include/
@@ -21,8 +23,6 @@ FEE と NestDAQ によるブラウザ操作の取得・再生を行うイメー�
 │   ├── *-build.sh / *-clone-latest.sh
 │   ├── fee/
 │   └── nestdaq/
-├── StrLRTDC/bin/set_tdcmask
-├── StrHRTDC/bin/
 ├── scripts/exp-config/
 └── src/
     ├── hul-common-lib/
@@ -131,14 +131,14 @@ nestdaq-build.sh
 
 ```bash
 spadi-env.sh
-ls -l "$SPADI_LOCAL/StrLRTDC/bin/set_tdcmask"
+ls -l "$SPADI_LOCAL/bin/StrLRTDC/set_tdcmask"
 command -v AmQStrTdcSampler
 command -v STFBuilder
 command -v TimeFrameBuilder
 command -v FileSink
 ```
 
-ローカルの `bin` と `lib` はイメージ側より先に検索されます。LR 用マスクヘルパーは、LR と HR の混同を避けるためイメージ側のフルパスを選びます。再ビルドした LR コマンドを個別に確認する場合は `$SPADI_LOCAL/StrLRTDC/bin/set_tdcmask` を明示してください。版情報レポーターはイメージの版を表示し、ローカルの改変内容は記録しません。ソースのコミットとビルドログも保存してください。
+ローカルの `bin` と `lib` はイメージ側より先に検索されます。LR 用マスクヘルパーは、LR と HR の混同を避けるためイメージ側のフルパスを選びます。再ビルドした LR コマンドを個別に確認する場合は `$SPADI_LOCAL/bin/StrLRTDC/set_tdcmask` を明示してください。版情報レポーターはイメージの版を表示し、ローカルの改変内容は記録しません。ソースのコミットとビルドログも保存してください。
 
 Dockerfile、CI、SIF の生成・公開を変更する場合は [コンテナ保守ガイド](container-maintainer-guide.md)を参照してください。
 

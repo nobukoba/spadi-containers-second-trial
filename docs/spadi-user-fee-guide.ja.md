@@ -9,6 +9,8 @@ FEE の基板制御・マスク設定を行うイメージです。
 ```text
 /opt/spadi/                         # SPADI_ROOT
 ├── bin/
+│   ├── StrLRTDC/set_tdcmask
+│   └── StrHRTDC/
 ├── lib/
 ├── lib64/
 ├── share/
@@ -16,8 +18,6 @@ FEE の基板制御・マスク設定を行うイメージです。
 ├── scripts/
 │   ├── spadi-prepare-local.sh
 │   └── fee/
-├── StrLRTDC/bin/set_tdcmask
-└── StrHRTDC/bin/
 
 /workspace/spadi/                   # SPADI_LOCAL → host workspace/spadi
 ├── scripts/

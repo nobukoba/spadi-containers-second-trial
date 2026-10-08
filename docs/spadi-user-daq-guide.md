@@ -9,6 +9,8 @@ This image provides FEE and NestDAQ acquisition and replay with browser control.
 ```text
 /opt/spadi/                         # SPADI_ROOT
 ├── bin/
+│   ├── StrLRTDC/set_tdcmask
+│   └── StrHRTDC/
 ├── lib/
 ├── lib64/
 ├── share/
@@ -17,8 +19,6 @@ This image provides FEE and NestDAQ acquisition and replay with browser control.
 │   ├── spadi-prepare-local.sh
 │   ├── fee/
 │   └── nestdaq/
-├── StrLRTDC/bin/set_tdcmask
-└── StrHRTDC/bin/
 
 /workspace/spadi/                   # SPADI_LOCAL → host workspace/spadi
 ├── scripts/

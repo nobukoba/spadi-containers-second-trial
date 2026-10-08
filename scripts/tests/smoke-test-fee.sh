@@ -77,6 +77,13 @@ command -v sitcp-sitcpxg-ip-reader
 
 test -x /opt/spadi/bin/StrLRTDC/set_tdcmask
 test -x /opt/spadi/bin/StrHRTDC/set_tdcmask
+for firmware in StrLRTDC StrHRTDC; do
+  legacy="/opt/spadi/${firmware}/bin"
+  if [[ -e "$legacy" || -L "$legacy" ]]; then
+    echo "ERROR: legacy TDC executable path exists: $legacy" >&2
+    exit 1
+  fi
+done
 test -x /opt/spadi/bin/get_version
 test -x /opt/spadi/bin/StrHRTDC/get_version_hrtdc
 find /opt/spadi -name HulCoreConfig.cmake -print -quit | grep -q .
@@ -103,7 +110,7 @@ while IFS= read -r exe; do
       exit 1
     fi
   fi
-done < <(find /opt/spadi/bin /opt/spadi/StrHRTDC/bin -maxdepth 1 -type f -perm -111 2>/dev/null)
+done < <(find /opt/spadi/bin -maxdepth 2 -type f -perm -111 2>/dev/null)
 
 if [[ "$kind" == "user" ]]; then
   echo "=== User image policy ==="

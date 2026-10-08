@@ -9,6 +9,8 @@ FEE、NestDAQ、ROOT、ARTEMIS を使う取得と解析を行うイメージで�
 ```text
 /opt/spadi/                         # SPADI_ROOT
 ├── bin/
+│   ├── StrLRTDC/set_tdcmask
+│   └── StrHRTDC/
 ├── lib/
 ├── lib64/
 ├── include/
@@ -19,8 +21,6 @@ FEE、NestDAQ、ROOT、ARTEMIS を使う取得と解析を行うイメージで�
 │   ├── fee/
 │   ├── nestdaq/
 │   └── artemis/
-├── StrLRTDC/bin/set_tdcmask
-├── StrHRTDC/bin/
 └── scripts/exp-config/
 
 /workspace/spadi/                   # SPADI_LOCAL → host workspace/spadi
@@ -164,7 +164,7 @@ IP、最初の run 番号、保存先、ポートは NestDAQ 側の `config.sh` 
 マスク設定には LR-TDC 用の `set_tdcmask` を使用します。`fee-setup.sh` もこのコマンドで4バンクを一括設定し、`read_register` で読み戻します。取得を停止してから実行してください。
 
 ```bash
-/opt/spadi/StrLRTDC/bin/set_tdcmask 192.168.10.16 ffffffff ffffffff ffffffff ffffffbf
+/opt/spadi/bin/StrLRTDC/set_tdcmask 192.168.10.16 ffffffff ffffffff ffffffff ffffffbf
 ```
 
 ## tmux だけで端末とログを操作する

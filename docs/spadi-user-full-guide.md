@@ -9,6 +9,8 @@ This image provides Acquisition and analysis using FEE, NestDAQ, ROOT, and ARTEM
 ```text
 /opt/spadi/                         # SPADI_ROOT
 ├── bin/
+│   ├── StrLRTDC/set_tdcmask
+│   └── StrHRTDC/
 ├── lib/
 ├── lib64/
 ├── include/
@@ -19,8 +21,6 @@ This image provides Acquisition and analysis using FEE, NestDAQ, ROOT, and ARTEM
 │   ├── fee/
 │   ├── nestdaq/
 │   └── artemis/
-├── StrLRTDC/bin/set_tdcmask
-├── StrHRTDC/bin/
 └── scripts/exp-config/
 
 /workspace/spadi/                   # SPADI_LOCAL → host workspace/spadi
@@ -162,7 +162,7 @@ Stop acquisition in the browser as described above. Use `run-stop.sh` to stop an
 Use the LR-TDC `set_tdcmask` command to set all four banks while acquisition is stopped. `fee-setup.sh` uses this command and verifies the masks with `read_register`.
 
 ```bash
-/opt/spadi/StrLRTDC/bin/set_tdcmask 192.168.10.16 ffffffff ffffffff ffffffff ffffffbf
+/opt/spadi/bin/StrLRTDC/set_tdcmask 192.168.10.16 ffffffff ffffffff ffffffff ffffffbf
 ```
 
 ## Terminal and log operations in tmux

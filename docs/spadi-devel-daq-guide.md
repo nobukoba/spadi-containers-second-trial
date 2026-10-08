@@ -9,6 +9,8 @@ This image provides FEE and NestDAQ acquisition and replay with browser control.
 ```text
 /opt/spadi/                         # SPADI_ROOT
 ├── bin/
+│   ├── StrLRTDC/set_tdcmask
+│   └── StrHRTDC/
 ├── lib/
 ├── lib64/
 ├── include/
@@ -21,8 +23,6 @@ This image provides FEE and NestDAQ acquisition and replay with browser control.
 │   ├── *-build.sh / *-clone-latest.sh
 │   ├── fee/
 │   └── nestdaq/
-├── StrLRTDC/bin/set_tdcmask
-├── StrHRTDC/bin/
 ├── scripts/exp-config/
 └── src/
     ├── hul-common-lib/
@@ -131,14 +131,14 @@ Normal preparation copies the sources pinned in the image. Latest upstream sourc
 
 ```bash
 spadi-env.sh
-ls -l "$SPADI_LOCAL/StrLRTDC/bin/set_tdcmask"
+ls -l "$SPADI_LOCAL/bin/StrLRTDC/set_tdcmask"
 command -v AmQStrTdcSampler
 command -v STFBuilder
 command -v TimeFrameBuilder
 command -v FileSink
 ```
 
-Local bin and lib paths precede the image installation. The mask helper explicitly selects the image LR executable to avoid confusing LR and HR. To test a rebuilt LR command separately, use $SPADI_LOCAL/StrLRTDC/bin/set_tdcmask explicitly. The version reporter describes the image, not your local modifications; record source commits and build logs too.
+Local bin and lib paths precede the image installation. The mask helper explicitly selects the image LR executable to avoid confusing LR and HR. To test a rebuilt LR command separately, use $SPADI_LOCAL/bin/StrLRTDC/set_tdcmask explicitly. The version reporter describes the image, not your local modifications; record source commits and build logs too.
 
 For Dockerfile, CI, SIF creation, and publication changes, see the [container maintainer guide](container-maintainer-guide.md).
 

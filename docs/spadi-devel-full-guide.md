@@ -9,6 +9,8 @@ This image provides Acquisition and analysis using FEE, NestDAQ, ROOT, and ARTEM
 ```text
 /opt/spadi/                         # SPADI_ROOT
 ├── bin/
+│   ├── StrLRTDC/set_tdcmask
+│   └── StrHRTDC/
 ├── lib/
 ├── lib64/
 ├── include/
@@ -22,8 +24,6 @@ This image provides Acquisition and analysis using FEE, NestDAQ, ROOT, and ARTEM
 │   ├── fee/
 │   ├── nestdaq/
 │   └── artemis/
-├── StrLRTDC/bin/set_tdcmask
-├── StrHRTDC/bin/
 ├── scripts/exp-config/
 └── src/
     ├── hul-common-lib/
@@ -138,7 +138,7 @@ Normal preparation copies the sources pinned in the image. Latest upstream sourc
 
 ```bash
 spadi-env.sh
-ls -l "$SPADI_LOCAL/StrLRTDC/bin/set_tdcmask"
+ls -l "$SPADI_LOCAL/bin/StrLRTDC/set_tdcmask"
 command -v AmQStrTdcSampler
 command -v STFBuilder
 command -v TimeFrameBuilder
@@ -146,7 +146,7 @@ command -v FileSink
 command -v artemis
 ```
 
-Local bin and lib paths precede the image installation. The mask helper explicitly selects the image LR executable to avoid confusing LR and HR. To test a rebuilt LR command separately, use $SPADI_LOCAL/StrLRTDC/bin/set_tdcmask explicitly. The version reporter describes the image, not your local modifications; record source commits and build logs too.
+Local bin and lib paths precede the image installation. The mask helper explicitly selects the image LR executable to avoid confusing LR and HR. To test a rebuilt LR command separately, use $SPADI_LOCAL/bin/StrLRTDC/set_tdcmask explicitly. The version reporter describes the image, not your local modifications; record source commits and build logs too.
 
 For Dockerfile, CI, SIF creation, and publication changes, see the [container maintainer guide](container-maintainer-guide.md).
 
@@ -230,7 +230,7 @@ Stop acquisition in the browser as described above. Use `run-stop.sh` to stop an
 Use the LR-TDC `set_tdcmask` command to set all four banks while acquisition is stopped. `fee-setup.sh` uses this command and verifies the masks with `read_register`.
 
 ```bash
-/opt/spadi/StrLRTDC/bin/set_tdcmask 192.168.10.16 ffffffff ffffffff ffffffff ffffffbf
+/opt/spadi/bin/StrLRTDC/set_tdcmask 192.168.10.16 ffffffff ffffffff ffffffff ffffffbf
 ```
 
 ## Terminal and log operations in tmux

@@ -9,6 +9,8 @@ This image provides FEE board control and mask configuration.
 ```text
 /opt/spadi/                         # SPADI_ROOT
 ├── bin/
+│   ├── StrLRTDC/set_tdcmask
+│   └── StrHRTDC/
 ├── lib/
 ├── lib64/
 ├── share/
@@ -16,8 +18,6 @@ This image provides FEE board control and mask configuration.
 ├── scripts/
 │   ├── spadi-prepare-local.sh
 │   └── fee/
-├── StrLRTDC/bin/set_tdcmask
-└── StrHRTDC/bin/
 
 /workspace/spadi/                   # SPADI_LOCAL → host workspace/spadi
 ├── scripts/

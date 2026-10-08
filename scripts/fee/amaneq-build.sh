@@ -6,6 +6,9 @@ set -euo pipefail
 src="${SPADI_LOCAL}/src/amaneq-soft"
 build="${SPADI_LOCAL}/build/amaneq-soft"
 [[ -d "$src" ]] || { echo "Missing $src. Run spadi-prepare-local.sh first." >&2; exit 1; }
+# Keep the local executable layout identical to the container installation.
+sed -i 's|${CMAKE_INSTALL_PREFIX}/${FW_NAME}/bin|${CMAKE_INSTALL_PREFIX}/bin/${FW_NAME}|g' \
+  "$src/StrLRTDC/CMakeLists.txt" "$src/StrHRTDC/CMakeLists.txt"
 cmake -S "$src" -B "$build" -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX="${SPADI_LOCAL}" -DCMAKE_INSTALL_LIBDIR=lib -DCMAKE_PREFIX_PATH="${SPADI_LOCAL};${SPADI_ROOT}" -DCMAKE_C_FLAGS_RELEASE="-O2 -DNDEBUG -march=x86-64 -mtune=generic" -DCMAKE_CXX_FLAGS_RELEASE="-O2 -DNDEBUG -march=x86-64 -mtune=generic"
 cmake --build "$build" -j"${NPROC}"
 cmake --install "$build"

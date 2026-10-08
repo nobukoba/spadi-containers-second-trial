@@ -59,6 +59,8 @@ RUN git clone https://github.com/spadi-alliance/hul-common-lib.git hul-common-li
 RUN git clone https://github.com/spadi-alliance/amaneq-soft.git amaneq-soft && \
     cd amaneq-soft && \
     git checkout "${AMANEQ_SOFT_REF}" && \
+    sed -i 's|${CMAKE_INSTALL_PREFIX}/${FW_NAME}/bin|${CMAKE_INSTALL_PREFIX}/bin/${FW_NAME}|g' \
+      StrLRTDC/CMakeLists.txt StrHRTDC/CMakeLists.txt && \
     cmake -S . -B build \
       -DCMAKE_BUILD_TYPE=Release \
       -DCMAKE_INSTALL_PREFIX=/opt/spadi \
@@ -67,16 +69,6 @@ RUN git clone https://github.com/spadi-alliance/amaneq-soft.git amaneq-soft && \
       -DCMAKE_CXX_FLAGS_RELEASE="-O2 -DNDEBUG -march=x86-64 -mtune=generic" && \
     cmake --build build -j"${NPROC}" && \
     cmake --install build
-
-# Keep LR and HR tools in separate directories to avoid same-name collisions.
-RUN mkdir -p /opt/spadi/bin/StrLRTDC /opt/spadi/bin/StrHRTDC && \
-    for kind in StrLRTDC StrHRTDC; do \
-      if [ -d "/opt/spadi/$kind/bin" ]; then \
-        cp -a "/opt/spadi/$kind/bin/." "/opt/spadi/bin/$kind/"; \
-        rm -rf "/opt/spadi/$kind/bin"; \
-        ln -s "/opt/spadi/bin/$kind" "/opt/spadi/$kind/bin"; \
-      fi; \
-    done
 
 RUN git clone https://github.com/trabucayre/openFPGALoader.git openFPGALoader && \
     cd openFPGALoader && \
