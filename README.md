@@ -147,23 +147,27 @@ The shell expands $ to the variable value: $SPADI_LOCAL/scripts defaults to /wor
 
 Local bin, lib, lib64, CMake, and pkg-config paths precede the image installation. Use $SPADI_LOCAL for normal development rather than modifying /opt/spadi.
 
-## Common preparation and updates
+## Prepare the workspace
 
-| Operation | Image kind | Result |
-|---|---|---|
-| Container startup | user / devel | Sets the environment; does not create the local workspace |
-| `spadi-prepare-local.sh` | user | Prepares runtime scripts and data directories |
-| `spadi-prepare-local.sh` | devel | Additionally prepares sources, build and installation directories, and development helpers |
-
-Inside either a user or devel container, run:
+After entering either a user or devel container, run:
 
 ```bash
 spadi-prepare-local.sh
 ```
 
-The prepared content depends on the components included in the image and its user / devel kind. Existing files are not overwritten.
+The command creates `scripts` and `rawdata` under `$SPADI_LOCAL` (default: `/workspace/spadi`) and copies the scripts for components included in the image into `scripts`.
 
-Downloading a new image does not refresh old workspace helpers. Stop the relevant sessions, save old scripts under another name, prepare again, and compare changes. Keep edited `config.sh` files. See the image guides below for component-specific operations and updates.
+In devel images, it additionally copies sources into `src`, creates `build`, `bin`, `lib`, `lib64`, `include`, and `share`, and copies build and latest-source clone helpers into `scripts`. It does not build software.
+
+Existing files and source directories are not overwritten. Running the command again adds only missing content.
+
+## Update the image and workspace
+
+To update an image, download the SIF again or pull the Docker image on the host, then start a container with the new image. Configuration, sources, and data saved in the host `workspace` remain.
+
+Updating the image and updating scripts or sources already copied into the workspace are separate operations. Running `spadi-prepare-local.sh` in the new image does not replace existing copies. If an update is needed, stop the affected processes, back up edited files, compare the new files under `$SPADI_ROOT` with the copies under `$SPADI_LOCAL`, and apply the required changes.
+
+See the image guides below for component-specific operations.
 
 ## Image guides
 
