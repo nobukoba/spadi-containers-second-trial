@@ -268,6 +268,15 @@ jobs:
             "${{ steps.names.outputs.image }}:${{ steps.tag.outputs.tag }}" \
             "/opt/spadi/scripts/smoke-test-${{ matrix.family }}.sh" "${{ matrix.kind }}"
 
+      - name: Verify Docker interactive prompt
+        shell: bash
+        run: |
+          docker run --rm --platform linux/amd64 \
+            --mount "type=bind,src=${GITHUB_WORKSPACE}/scripts/tests,dst=/tests,readonly" \
+            "${{ steps.names.outputs.image }}:${{ steps.tag.outputs.tag }}" \
+            /opt/spadi/spadi-shell.sh -ic \
+            'test "$SPADI_PROMPT_NAME" = "${{ matrix.target }}" || exit 1; source /tests/check-shell-prompt.sh'
+
       - uses: eWaterCycle/setup-apptainer@v2
         with:
           apptainer-version: 1.4.2
@@ -330,8 +339,9 @@ jobs:
           set -euo pipefail
           sif_workspace="${RUNNER_TEMP}/spadi-workspace-${{ matrix.target }}"
           # Exercise the documented shell route, including --cleanenv.
-          printf '%s\n' 'test "$PWD" = /workspace && test "${PATH%%:*}" = /workspace/spadi/bin && touch /workspace/shell-startup-check || exit 1' 'exit 0' | \
+          printf '%s\n' 'test "$SPADI_PROMPT_NAME" = "${{ matrix.target }}" || exit 1' 'source /tests/check-shell-prompt.sh' 'exit 0' | \
             apptainer shell --cleanenv --bind "${sif_workspace}:/workspace" \
+              --bind "${GITHUB_WORKSPACE}/scripts/tests:/tests:ro" \
               --shell /opt/spadi/spadi-shell.sh "${{ steps.names.outputs.sif }}"
 
       - name: Prepare short CI error tail

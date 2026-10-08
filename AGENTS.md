@@ -408,3 +408,16 @@ All eight image variants expose `spadi-prepare-local.sh` as the single user-faci
 ## TDC utility layout and DAQ initialization separation
 
 Install LR-TDC executables under `/opt/spadi/bin/StrLRTDC/` and HR-TDC executables under `/opt/spadi/bin/StrHRTDC/`, keeping identically named commands separate. Do not create compatibility symbolic links or legacy executable directories. Apply the same bin/<firmware> layout to local AMANEQ rebuilds and verify it in Docker and SIF smoke tests. The AMANEQ live NestDAQ recipe separates `fee-setup.sh` (FEE configuration) from `initialize.sh` (Valkey, parameters, topology, process initialization); `run-start.sh` calls them in order. DAQ initialization alone must not change FEE registers or masks. Keep smoke tests and both language guides aligned with this layout.
+
+## Shared interactive Bash prompt
+
+Docker and Apptainer use `/opt/spadi/spadi-shell.sh` with `--noprofile`
+and the container-owned `/opt/spadi/spadi-bashrc.sh` as the only interactive
+rc file. Never source the host bashrc or profile. Keep the prompt format
+`spadi@user-daq:/workspace$` (and corresponding image labels): username/image
+in bold green, working directory in bold blue, and `$` in the default color,
+without Git branch information. Use `ls --color=auto`. Set `SPADI_PROMPT_NAME`
+explicitly in each final image stage, including FULL, rather than deriving it
+from the host identity or prerequisite image metadata. Apptainer retains the
+host UID/GID even though the display name is `spadi`. Noninteractive commands
+must keep argument forwarding and exit status and must not load interactive aliases.

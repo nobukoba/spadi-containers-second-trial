@@ -143,6 +143,7 @@ COPY scripts/runtime/spadi-version.sh /opt/spadi/scripts/spadi-version.sh
 COPY --chmod=0755 scripts/runtime/spadi-prepare-local.sh /opt/spadi/scripts/spadi-prepare-local.sh
 COPY scripts/runtime/spadi-setup.sh /opt/spadi/spadi-setup.sh
 COPY --chmod=0755 scripts/runtime/spadi-shell.sh /opt/spadi/spadi-shell.sh
+COPY scripts/runtime/spadi-bashrc.sh /opt/spadi/spadi-bashrc.sh
 COPY scripts/tests/smoke-test-artemis.sh /opt/spadi/scripts/smoke-test-artemis.sh
 COPY scripts/artemis/README.md /opt/spadi/scripts/artemis/README.md
 RUN chmod 0755 /opt/spadi/spadi-setup.sh /opt/spadi/scripts/*.sh
@@ -160,6 +161,7 @@ COPY scripts/development/spadi-env.sh /opt/spadi/scripts/
 COPY scripts/artemis/artemis-build.sh scripts/artemis/artemis-clone-latest.sh /opt/spadi/scripts/
 RUN chmod 0755 /opt/spadi/scripts/*.sh
 ENV SPADI_IMAGE_KIND=devel
+ENV SPADI_PROMPT_NAME=devel-artemis
 CMD ["/opt/spadi/spadi-shell.sh"]
 
 FROM artemis-build AS artemis-runtime-files
@@ -174,6 +176,7 @@ ENV ROOTSYS=/opt/spadi
 ENV ARTEMIS_ROOT=/opt/spadi
 ENV TARTSYS=/opt/spadi
 ENV SPADI_IMAGE_KIND=user
+ENV SPADI_PROMPT_NAME=user-artemis
 ENV PATH=/opt/spadi/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 ENV LD_LIBRARY_PATH=/opt/spadi/lib:/opt/spadi/lib64
 ENV CMAKE_PREFIX_PATH=/opt/spadi

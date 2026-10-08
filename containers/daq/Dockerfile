@@ -232,6 +232,7 @@ RUN printf '%s\n' \
 COPY scripts/runtime/spadi-version.sh /opt/spadi/scripts/spadi-version.sh
 COPY scripts/runtime/spadi-setup.sh /opt/spadi/spadi-setup.sh
 COPY --chmod=0755 scripts/runtime/spadi-shell.sh /opt/spadi/spadi-shell.sh
+COPY scripts/runtime/spadi-bashrc.sh /opt/spadi/spadi-bashrc.sh
 COPY scripts/tests/smoke-test-daq.sh /opt/spadi/scripts/smoke-test-daq.sh
 COPY scripts/nestdaq/README.md /opt/spadi/scripts/nestdaq/README.md
 COPY scripts/nestdaq/common/ /opt/spadi/scripts/nestdaq/common/
@@ -249,6 +250,7 @@ COPY scripts/nestdaq/nestdaq-build.sh scripts/nestdaq/nestdaq-clone-latest.sh /o
 COPY scripts/nestdaq/nestdaq-user-impl-build.sh scripts/nestdaq/nestdaq-user-impl-clone-latest.sh /opt/spadi/scripts/
 RUN chmod 0755 /opt/spadi/scripts/*.sh
 ENV SPADI_IMAGE_KIND=devel
+ENV SPADI_PROMPT_NAME=devel-daq
 CMD ["/opt/spadi/spadi-shell.sh"]
 
 FROM daq-build AS daq-runtime-files
@@ -258,6 +260,7 @@ FROM ${FEE_USER_IMAGE} AS user-daq
 
 ENV SPADI_ROOT=/opt/spadi
 ENV SPADI_IMAGE_KIND=user
+ENV SPADI_PROMPT_NAME=user-daq
 ENV EXP_CONFIG_ROOT=/opt/spadi/scripts/exp-config
 ENV PATH=/opt/spadi/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 ENV LD_LIBRARY_PATH=/opt/spadi/lib:/opt/spadi/lib64

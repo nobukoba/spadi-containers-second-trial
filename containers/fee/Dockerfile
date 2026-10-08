@@ -104,6 +104,7 @@ COPY scripts/runtime/spadi-version.sh /opt/spadi/scripts/spadi-version.sh
 COPY --chmod=0755 scripts/runtime/spadi-prepare-local.sh /opt/spadi/scripts/spadi-prepare-local.sh
 COPY scripts/runtime/spadi-setup.sh /opt/spadi/spadi-setup.sh
 COPY --chmod=0755 scripts/runtime/spadi-shell.sh /opt/spadi/spadi-shell.sh
+COPY scripts/runtime/spadi-bashrc.sh /opt/spadi/spadi-bashrc.sh
 COPY scripts/tests/smoke-test-fee.sh /opt/spadi/scripts/smoke-test-fee.sh
 COPY scripts/fee/README.md /opt/spadi/scripts/fee/README.md
 COPY --chmod=0755 scripts/fee/amaneq-lrtdc-1ch/ /opt/spadi/scripts/fee/amaneq-lrtdc-1ch/
@@ -126,6 +127,7 @@ COPY scripts/fee/openfpgaloader-clone-latest.sh scripts/fee/sitcp-utility-clone-
 RUN chmod 0755 /opt/spadi/scripts/*.sh
 
 ENV SPADI_IMAGE_KIND=devel
+ENV SPADI_PROMPT_NAME=devel-fee
 CMD ["/opt/spadi/spadi-shell.sh"]
 
 FROM fee-build AS fee-runtime-files
@@ -138,6 +140,7 @@ FROM almalinux:9 AS user-fee
 
 ENV SPADI_ROOT=/opt/spadi
 ENV SPADI_IMAGE_KIND=user
+ENV SPADI_PROMPT_NAME=user-fee
 ENV PATH=/opt/spadi/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 ENV LD_LIBRARY_PATH=/opt/spadi/lib:/opt/spadi/lib64
 ENV CMAKE_PREFIX_PATH=/opt/spadi

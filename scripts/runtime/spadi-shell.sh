@@ -4,4 +4,5 @@ set -e
 source /opt/spadi/spadi-setup.sh
 cd /workspace
 # Avoid host ~/.bashrc overriding the validated SPADI environment in Apptainer.
-exec /bin/bash --noprofile --norc "$@"
+unset BASH_ENV ENV PROMPT_COMMAND
+exec /bin/bash --noprofile --rcfile /opt/spadi/spadi-bashrc.sh "$@"
