@@ -46,37 +46,34 @@ This image provides FEE board control and mask configuration. This guide also co
 
 The SPADI_LOCAL environment variable defaults to `/workspace/spadi`; SPADI_ROOT defaults to `/opt/spadi`. Startup sets both variables but does not create directories. The local area maps to the host directory `workspace/spadi`. See the [common README procedures](../README.md) for the full explanation.
 
-## Download the image
+## Download and start the image
 
-Run these commands in a host terminal, outside the container. Choose either Apptainer or Docker for your environment.
+Run the following commands in the host terminal. Choose either Apptainer or Docker.
 
-### Apptainer
-
-Install Apptainer on 64 bit Linux (x86_64) or a Windows WSL2 Linux distribution, then download this image's SIF from the Linux terminal.
+### Apptainer (Linux / Windows WSL2)
 
 ```bash
 curl -fL -O \
   https://github.com/nobukoba/spadi-containers-second-trial/releases/download/latest/spadi-devel-fee.sif
+mkdir -p "$PWD/workspace"
+apptainer shell --cleanenv --bind "$PWD/workspace:/workspace" \
+  --shell /opt/spadi/spadi-shell.sh spadi-devel-fee.sif
 ```
 
-### Docker
-
-Start Docker on macOS or Linux, then download this image from the host terminal. Keep `--platform linux/amd64` on Apple Silicon as well.
+### Docker (macOS / Linux)
 
 ```bash
 docker pull --platform linux/amd64 \
   ghcr.io/nobukoba/spadi-containers-second-trial/spadi-devel-fee:latest
+mkdir -p "$PWD/workspace"
+docker run --rm -it \
+  --platform linux/amd64 \
+  -e LOCAL_UID="$(id -u)" -e LOCAL_GID="$(id -g)" \
+  -v "$PWD/workspace:/workspace" \
+  ghcr.io/nobukoba/spadi-containers-second-trial/spadi-devel-fee:latest
 ```
 
-`latest` can change. For repeatable environments, retain a timestamped SIF from [GitHub Releases](https://github.com/nobukoba/spadi-containers-second-trial/releases/tag/latest) or record the Docker image digest. See the [README Quick start](../README.md#quick-start) for startup and persistence settings.
-
-## Start this image
-
-Use **`spadi-devel-fee`** as the image name in the [README Quick start](../README.md#quick-start). Its SIF filename is `spadi-devel-fee.sif`; its Docker image is `ghcr.io/nobukoba/spadi-containers-second-trial/spadi-devel-fee:latest`. Run the remaining commands inside the container.
-
-```bash
-/opt/spadi/scripts/spadi-version.sh
-```
+Files under `workspace` persist on the host. Download or pull again when updating the image.
 
 ## Prepare the workspace
 
