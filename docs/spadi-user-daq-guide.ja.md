@@ -63,7 +63,7 @@ docker pull --platform linux/amd64 \
 
 ## このイメージを起動する
 
-以下はホストの端末で実行します。DAQ / FULL の Docker はコンテナ内ネットワーク（bridge）を使用します。実機接続時はネットワーク経路を別途確認してください。
+以下はホストの端末で実行します。DAQ / FULL の Docker はホストと共有するネットワーク（host）を使用します。実機接続時はネットワーク経路を別途確認してください。
 
 ### Apptainer
 
@@ -79,7 +79,7 @@ apptainer shell --cleanenv --bind "$PWD/workspace:/workspace" \
 mkdir -p "$PWD/workspace"
 docker run --rm -it \
   --platform linux/amd64 \
-  --network bridge \
+  --network host \
   -e LOCAL_UID="$(id -u)" -e LOCAL_GID="$(id -g)" \
   -v "$PWD/workspace:/workspace" \
   ghcr.io/nobukoba/spadi-containers-second-trial/spadi-user-daq:latest
