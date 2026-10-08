@@ -46,37 +46,34 @@ FEE の基板制御・マスク設定を行うイメージです。 ソース編
 
 環境変数 `SPADI_LOCAL` の既定値は `/workspace/spadi`、`SPADI_ROOT` は `/opt/spadi` です。起動時に設定されます。環境変数の設定だけではディレクトリは作られません。ホストの `workspace/spadi` と対応します。詳細は [README の共通手順](../README.ja.md)を参照してください。
 
-## イメージをダウンロードする
+## イメージのダウンロードと起動
 
-以下はコンテナの外で、ホストの端末から実行します。利用する方式に合わせて、Apptainer または Docker のどちらかを選んでください。
+以下のコマンドはホストの端末で実行します。Apptainer または Docker のどちらかを選んでください。
 
-### Apptainer
-
-64 bit Linux (x86_64) または Windows WSL2 の Linux 端末で、Apptainer をインストールしてから、このイメージの SIF をダウンロードします。
+### Apptainer（Linux / Windows WSL2）
 
 ```bash
 curl -fL -O \
   https://github.com/nobukoba/spadi-containers-second-trial/releases/download/latest/spadi-devel-fee.sif
+mkdir -p "$PWD/workspace"
+apptainer shell --cleanenv --bind "$PWD/workspace:/workspace" \
+  --shell /opt/spadi/spadi-shell.sh spadi-devel-fee.sif
 ```
 
-### Docker
-
-macOS または Linux の端末で、Docker を起動してから、このイメージをダウンロードします。Apple Silicon の場合も `--platform linux/amd64` を指定します。
+### Docker（macOS / Linux）
 
 ```bash
 docker pull --platform linux/amd64 \
   ghcr.io/nobukoba/spadi-containers-second-trial/spadi-devel-fee:latest
+mkdir -p "$PWD/workspace"
+docker run --rm -it \
+  --platform linux/amd64 \
+  -e LOCAL_UID="$(id -u)" -e LOCAL_GID="$(id -g)" \
+  -v "$PWD/workspace:/workspace" \
+  ghcr.io/nobukoba/spadi-containers-second-trial/spadi-devel-fee:latest
 ```
 
-`latest` は更新されます。再現性が必要な場合は、[GitHub Releases](https://github.com/nobukoba/spadi-containers-second-trial/releases/tag/latest) のタイムスタンプ付き SIF を保存するか、Docker イメージの digest を記録してください。起動方法と永続化の設定は [README の Quick start](../README.ja.md#quick-start) を参照してください。
-
-## このイメージを起動する
-
-[README の Quick start](../README.ja.md#quick-start) のイメージ名を **`spadi-devel-fee`** にして起動します。ダウンロードする SIF は `spadi-devel-fee.sif`、Docker イメージは `ghcr.io/nobukoba/spadi-containers-second-trial/spadi-devel-fee:latest` です。起動後の以下の操作はコンテナ内で実行します。
-
-```bash
-/opt/spadi/scripts/spadi-version.sh
-```
+作業ファイルはホストの `workspace` に保存されます。イメージを更新する場合は再ダウンロードまたは再 pull してください。
 
 ## 作業領域を準備する
 
