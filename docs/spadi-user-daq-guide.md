@@ -65,7 +65,7 @@ docker run --rm -it \
   ghcr.io/nobukoba/spadi-containers-second-trial/spadi-user-daq:latest
 ```
 
-DAQ / FULL uses `--network host` to share the host network. Verify device connectivity in your environment.
+Apptainer normally shares the host network regardless of the image type. Docker shares the host network when started with `--network host`, regardless of the image type. Verify device connectivity in your environment.
 
 Files under `workspace` persist on the host. Download or pull again when updating the image.
 

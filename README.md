@@ -80,7 +80,7 @@ Docker also loads the SPADI environment and enters `/workspace` automatically.
 
 ### Container networking
 
-For Linux Docker hardware acquisition or the default Web Controller, use host networking as follows. Replace the image name for FULL or devel variants.
+Apptainer normally shares the host network regardless of the image type. Docker shares the host network when started with `--network host`, regardless of the image type. Port publishing with `-p` is unnecessary in host network mode. The following example uses `spadi-user-daq`; replace the image name to use another image.
 
 ```bash
 docker run --rm -it --platform linux/amd64 --network host \

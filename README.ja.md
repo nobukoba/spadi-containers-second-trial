@@ -80,7 +80,7 @@ Docker でも SPADI 環境の読み込みと `/workspace` への移動は自動�
 
 ### コンテナで使用するネットワーク
 
-DAQ / FULL は `--network host` でホストのネットワークを共有します。追加の `-p` ポート公開設定は不要です。FULL や devel を使う場合はイメージ名を該当する名前に変更します。
+Apptainer は、通常の起動ではイメージの種類にかかわらずホストのネットワークを共有します。Docker は、イメージの種類にかかわらず、`--network host` を指定するとホストのネットワークを共有します。 host ネットワークでは追加の `-p` ポート公開設定は不要です。以下は `spadi-user-daq` の例で、別のイメージを使う場合はイメージ名を変更します。
 
 ```bash
 docker run --rm -it --platform linux/amd64 --network host \

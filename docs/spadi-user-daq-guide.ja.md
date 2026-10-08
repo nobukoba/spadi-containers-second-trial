@@ -65,7 +65,7 @@ docker run --rm -it \
   ghcr.io/nobukoba/spadi-containers-second-trial/spadi-user-daq:latest
 ```
 
-DAQ / FULL は `--network host` でホストのネットワークを共有します。実機への接続経路は使用環境で確認してください。
+Apptainer は、通常の起動ではイメージの種類にかかわらずホストのネットワークを共有します。Docker は、イメージの種類にかかわらず、`--network host` を指定するとホストのネットワークを共有します。 実機への接続経路は使用環境で確認してください。
 
 作業ファイルはホストの `workspace` に保存されます。イメージを更新する場合は再ダウンロードまたは再 pull してください。
 
