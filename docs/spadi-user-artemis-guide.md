@@ -15,7 +15,7 @@ This image provides ROOT and ARTEMIS analysis.
 ├── share/
 ├── versions/
 └── scripts/
-│   ├── spadi-prepare-runtime.sh
+│   ├── spadi-prepare-local.sh
 │   └── artemis/
 
 /workspace/spadi/                   # SPADI_LOCAL → host workspace/spadi
@@ -25,7 +25,7 @@ This image provides ROOT and ARTEMIS analysis.
 └── rawdata/
 ```
 
-/opt/spadi is supplied by the image; /workspace/spadi is the persistent host workspace. spadi-prepare-runtime.sh creates scripts and rawdata. User images do not provide /opt/spadi/src. The mkdir command below creates analysis directories.
+/opt/spadi is supplied by the image; /workspace/spadi is the persistent host workspace. spadi-prepare-local.sh creates scripts and rawdata. User images do not provide /opt/spadi/src. The mkdir command below creates analysis directories.
 
 The SPADI_LOCAL environment variable defaults to `/workspace/spadi`; SPADI_ROOT defaults to `/opt/spadi`. Startup sets both variables but does not create directories. The local area maps to the host directory `workspace/spadi`. See the [common README procedures](../README.md) for the full explanation.
 
@@ -63,7 +63,7 @@ Files under `workspace` persist on the host. Download or pull again when updatin
 Copy the runtime scripts available in this image. Existing configuration and source files are preserved. See the [README](../README.md) for common preparation and update procedures.
 
 ```bash
-spadi-prepare-runtime.sh
+spadi-prepare-local.sh
 ```
 
 ## Start ROOT and ARTEMIS
@@ -78,7 +78,7 @@ mkdir -p "$SPADI_LOCAL/analysis/example/macro" "$SPADI_LOCAL/analysis/example/ou
 cd "$SPADI_LOCAL/analysis/example"
 ```
 
-The mkdir command creates the analysis directories. spadi-prepare-runtime.sh prepares the available ARTEMIS scripts and rawdata directory; experiment steering files, calibration parameters, and input data must be supplied separately.
+The mkdir command creates the analysis directories. spadi-prepare-local.sh prepares the available ARTEMIS scripts and rawdata directory; experiment steering files, calibration parameters, and input data must be supplied separately.
 
 Check ROOT and save a ROOT file without a graphical display:
 
