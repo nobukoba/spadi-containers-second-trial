@@ -55,10 +55,25 @@ docker pull --platform linux/amd64 \
 
 ## Start this image
 
-Use **`spadi-user-artemis`** as the image name in the [README Quick start](../README.md#quick-start). Its SIF filename is `spadi-user-artemis.sif`; its Docker image is `ghcr.io/nobukoba/spadi-containers-second-trial/spadi-user-artemis:latest`. Run the remaining commands inside the container.
+Run the following on the host. DAQ / FULL Docker containers use their own bridge network. Check device routing separately for hardware access.
+
+### Apptainer
 
 ```bash
-/opt/spadi/scripts/spadi-version.sh
+mkdir -p "$PWD/workspace"
+apptainer shell --cleanenv --bind "$PWD/workspace:/workspace" \
+  --shell /opt/spadi/spadi-shell.sh spadi-user-artemis.sif
+```
+
+### Docker
+
+```bash
+mkdir -p "$PWD/workspace"
+docker run --rm -it \
+  --platform linux/amd64 \
+  -e LOCAL_UID="$(id -u)" -e LOCAL_GID="$(id -g)" \
+  -v "$PWD/workspace:/workspace" \
+  ghcr.io/nobukoba/spadi-containers-second-trial/spadi-user-artemis:latest
 ```
 
 ## Prepare the workspace
