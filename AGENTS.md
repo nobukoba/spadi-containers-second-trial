@@ -245,7 +245,7 @@ Use `latest` and UTC timestamp tags in `YYYYMMDD-HHMMutc` format, following the 
 ## README
 
 Maintain separate image-specific user and devel guides, with matching .ja.md pages and links from the bilingual main READMEs. The legacy user-guide and developer-guide pages are navigation indexes. Runtime procedures belong in the relevant image guides.
-Apptainer quick-start headings should say `64 bit Linux / Windows WSL2`;
+Apptainer quick-start headings should say `Linux / Windows WSL2`;
 state `64 bit Linux (x86_64)` in the installation sentence and run commands
 inside the WSL2 Linux terminal.
 
@@ -305,7 +305,7 @@ build/clone helpers are explicitly installed by devel stages.
 Do not equate MZN-D mask readback failure with failed unmasking. The official StrLrTdc firmware's pinned strtdc-src revision 71c188a74c93a7d06cb9e803d50360b05495e730 has a duplicated kTdcMaskMznU condition in the local-bus Read branch where kTdcMaskMznD is required; the Write branch correctly handles MZN-D. Hardware identifying as 0x60c4020a acknowledges a channel-102 byte write but reads back 0xff. This is consistent with the firmware readback defect, but does not independently prove the internal mask value. Keep the fail-closed helper check until a corrected firmware or independent acquisition verification establishes the setting. HUL 32-bit registers use four byte transactions at offsets i << 16, not consecutive byte addresses; decode firmware version with that layout.
 
 Runtime preparation must be usable in user images without source/build helpers.
-Use spadi-prepare-runtime.sh for non-overwriting copies of component recipes.
+Use spadi-prepare-local.sh in both user and devel images for non-overwriting copies of component recipes; devel images additionally prepare source and build directories.
 The live recipe uses a dedicated Valkey port/DB set, refuses to clear an active
 registry, and uses SOURCE_MODE=live; replay remains the default for RARiS.
 The pinned AmQStrTdcSampler reads case-sensitive msiTcpIp and TdcType parameters
@@ -373,7 +373,7 @@ do not copy HR mezzanine initialization or MIKUMARI-primary operations blindly.
 Use "four software processes" for the single-board pipeline, never "four boards".
 Capture reusable corrections and runtime findings here in the same change.
 
-Document directory creation stages: spadi-prepare-runtime.sh creates scripts/rawdata
+Document directory creation stages: spadi-prepare-local.sh creates scripts/rawdata in user images and additionally source/build directories in devel images
 and preserves existing configs; live run-start.sh creates the FileSink output
 subdirectory; browser FileSink Run creates the data file. These are distinct
 stages, and the host bind-mounted workspace retains their results.
@@ -400,3 +400,7 @@ Guide-navigation tables must link only to the page language: English pages list 
 For pinned ROOT v6-32-06, include `Compression.h`: `ROOT/RCompressionSetting.hxx` does not exist. `ROOT::RCompressionSetting::EAlgorithm` is a struct containing the `EValues` enum, so compression algorithm arrays must store `EAlgorithm::EValues`. Keep ARTEMIS and FULL smoke macros consistent and validate compressed TTree write/read with ZLIB, LZMA, LZ4, and ZSTD in the actual runtime image. A smoke-test compilation failure after a successful image build is not a reason to change pinned dependency versions.
 
 Keep each image guide self-contained for downloads: include its exact SIF release URL and Docker pull command (with `--platform linux/amd64`) in both languages, even though the README repeats them. Place the SPADI_LOCAL/SPADI_ROOT environment explanation inside the directory-structure section, rather than under a separate top-level heading. Download commands run on the host; image-specific runtime commands run inside the container.
+
+## Unified local preparation and startup documentation
+
+All eight image variants expose `spadi-prepare-local.sh` as the single user-facing workspace preparation command. User images copy only runtime recipes and rawdata directories; devel images additionally copy source trees, build helpers, and local build/install directories. Never overwrite existing user files. Keep the download and startup commands together under separate Apptainer and Docker subsections in each image guide, in English and Japanese. DAQ and FULL Docker examples must retain `--network host`; do not replace it with bridge networking or suggest `-p` for host networking. Version metadata and CI checks remain required, but do not instruct users to run version checks immediately after entering the container.
