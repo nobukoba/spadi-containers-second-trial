@@ -151,16 +151,17 @@ sitcp-sitcpxg-ip-writer 192.168.10.16 192.168.10.17
 
 既定では EEPROM を更新します。現在動作中の IP の切り替えと、リセット後に EEPROM の IP が使われるかは基板の実装・DIP 設定に依存します。書き込み直後に新 IP に切り替わったと決めつけず、基板の手順に従って再起動・設定確認を行ってください。
 
-### MPC / MPCX のライセンスファイルを書き込む
+### MPC / MPCX のライセンス書き込みと EEPROM の IP 変更
 
 対象基板用に取得したファイルをホストの `workspace` に置きます。以下の `board.mpcx` は利用者が用意するファイル名の例です。
 
 ```bash
-mpc-mpcx-ip-writer 192.168.10.16 /workspace/board.mpcx
+mpc-mpcx-ip-writer 192.168.10.16 /workspace/board.mpcx \
+  --set-eeprom-ip 192.168.10.17
 mpc-mpcx-ip-reader 192.168.10.16
 ```
 
-ライセンスファイルはイメージに含まれません。通常のファイル書き込みと IP の変更は別操作です。追加オプション、MPC ファイル、現在の IP を変更する操作については `mpc-mpcx-ip-command --help` と [収録リビジョンのユーティリティ README](https://github.com/nobukoba/sitcp-sitcpxg-mpc-mpcx-ip-utility-first-trial/blob/4bc47b6f5ac791acfbd88c73dd987b7625074273/README.md) を参照してください。
+ライセンスファイルはイメージに含まれません。このコマンドは現在の IP `192.168.10.16` に接続してライセンスを書き込み、EEPROM に IP `192.168.10.17` を保存します。現在動作中の IP は変更しないため、直後の読み取りは元の IP を使います。MPC ファイルの場合は `/workspace/board.mpc` など、用意したファイルのパスに置き換えてください。再起動後の IP 選択は基板の DIP 設定・実装に従います。追加オプション、MPC ファイル、現在の IP を変更する操作については `mpc-mpcx-ip-command --help` と [収録リビジョンのユーティリティ README](https://github.com/nobukoba/sitcp-sitcpxg-mpc-mpcx-ip-utility-first-trial/blob/4bc47b6f5ac791acfbd88c73dd987b7625074273/README.md) を参照してください。
 
 ## openFPGALoader で FPGA を書き込む
 

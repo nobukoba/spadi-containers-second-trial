@@ -448,3 +448,5 @@ Main README image-guide navigation should use one row per family (FEE, DAQ, ARTE
 ## Software inventories and FEE operation coverage
 
 Every user/devel image guide in both languages must include an included-software appendix near the end, grounded in Dockerfiles and versions/versions.env, with purposes, upstream links, pinned versions, and user/devel differences. Keep the SPADI-A DAQ manual mapping appendix last. FEE guides must explain SiTCP/SiTCP-XG IP and MPC/MPCX license utilities and practical openFPGALoader cable detection/SRAM loading, not only set_tdcmask. Distinguish EEPROM from live IP changes and SRAM from flash programming. State required board-specific files, network access, host USB permissions and Docker device passthrough; do not invent a universal flash command or imply macOS Docker automatically exposes USB JTAG.
+
+The FEE MPC/MPCX license example must combine file writing with `--set-eeprom-ip`, rather than show a license-only write. Explain that the positional IP is the current contact address and that EEPROM updates do not change the live IP; immediate readback still uses the original address. Both MPC and MPCX file paths are supported.

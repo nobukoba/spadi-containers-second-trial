@@ -151,16 +151,17 @@ sitcp-sitcpxg-ip-writer 192.168.10.16 192.168.10.17
 
 The default operation updates EEPROM. Changing the live IP and selecting the EEPROM IP after reset depend on the board implementation and DIP settings. Follow the board's reset and verification procedure rather than assuming the new address becomes active immediately.
 
-### Write an MPC / MPCX license file
+### Write an MPC / MPCX license file and change the EEPROM IP
 
 Place the file obtained for this board in the host `workspace` directory. Here `board.mpcx` is an example filename supplied by the user.
 
 ```bash
-mpc-mpcx-ip-writer 192.168.10.16 /workspace/board.mpcx
+mpc-mpcx-ip-writer 192.168.10.16 /workspace/board.mpcx \
+  --set-eeprom-ip 192.168.10.17
 mpc-mpcx-ip-reader 192.168.10.16
 ```
 
-License files are not included in the image. Normal license-file writing and IP changes are separate operations. For additional options, MPC files, and live-IP changes, use `mpc-mpcx-ip-command --help` and the [README at the included utility revision](https://github.com/nobukoba/sitcp-sitcpxg-mpc-mpcx-ip-utility-first-trial/blob/4bc47b6f5ac791acfbd88c73dd987b7625074273/README.md).
+License files are not included in the image. This command connects to the current IP `192.168.10.16`, writes the license, and stores `192.168.10.17` in EEPROM. It does not change the live IP, so the immediate readback uses the original address. For an MPC file, substitute its actual path, such as `/workspace/board.mpc`. IP selection after reset follows the board's DIP settings and implementation. For additional options, MPC files, and live-IP changes, use `mpc-mpcx-ip-command --help` and the [README at the included utility revision](https://github.com/nobukoba/sitcp-sitcpxg-mpc-mpcx-ip-utility-first-trial/blob/4bc47b6f5ac791acfbd88c73dd987b7625074273/README.md).
 
 ## Program an FPGA with openFPGALoader
 
