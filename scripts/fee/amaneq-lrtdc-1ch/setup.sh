@@ -6,7 +6,7 @@ source "${HERE}/config.sh"
 AMANEQ_IP="${1:-$AMANEQ_IP}"
 
 # Select the LR tool explicitly: HR installs a command with the same name.
-tdcmask="${SPADI_ROOT:-/opt/spadi}/StrLRTDC/bin/set_tdcmask"
+tdcmask="${SPADI_ROOT:-/opt/spadi}/bin/StrLRTDC/set_tdcmask"
 if [[ ! -x "$tdcmask" ]]; then
     tdcmask="$(command -v set_tdcmask)"
 fi
