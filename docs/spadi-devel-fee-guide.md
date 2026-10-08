@@ -15,7 +15,7 @@ This image provides FEE board control and mask configuration. This guide also co
 ├── share/
 ├── versions/
 ├── scripts/
-│   ├── spadi-prepare-runtime.sh
+│   ├── spadi-prepare-local.sh
 │   ├── spadi-prepare-local.sh
 │   ├── spadi-env.sh
 │   ├── *-build.sh / *-clone-latest.sh
