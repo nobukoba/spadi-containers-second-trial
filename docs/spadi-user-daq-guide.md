@@ -37,45 +37,25 @@ This image provides FEE and NestDAQ acquisition and replay with browser control.
 
 The SPADI_LOCAL environment variable defaults to `/workspace/spadi`; SPADI_ROOT defaults to `/opt/spadi`. Startup sets both variables but does not create directories. The local area maps to the host directory `workspace/spadi`. See the [common README procedures](../README.md) for the full explanation.
 
-## Download the image
+## Download and start the image
 
-Run these commands in a host terminal, outside the container. Choose either Apptainer or Docker for your environment.
+Run the following commands in the host terminal. Choose either Apptainer or Docker.
 
-### Apptainer
-
-Install Apptainer on 64 bit Linux (x86_64) or a Windows WSL2 Linux distribution, then download this image's SIF from the Linux terminal.
+### Apptainer (Linux / Windows WSL2)
 
 ```bash
 curl -fL -O \
   https://github.com/nobukoba/spadi-containers-second-trial/releases/download/latest/spadi-user-daq.sif
-```
-
-### Docker
-
-Start Docker on macOS or Linux, then download this image from the host terminal. Keep `--platform linux/amd64` on Apple Silicon as well.
-
-```bash
-docker pull --platform linux/amd64 \
-  ghcr.io/nobukoba/spadi-containers-second-trial/spadi-user-daq:latest
-```
-
-`latest` can change. For repeatable environments, retain a timestamped SIF from [GitHub Releases](https://github.com/nobukoba/spadi-containers-second-trial/releases/tag/latest) or record the Docker image digest. See the [README Quick start](../README.md#quick-start) for startup and persistence settings.
-
-## Start this image
-
-Run the following on the host. DAQ / FULL Docker containers use the host network. Check device routing separately for hardware access.
-
-### Apptainer
-
-```bash
 mkdir -p "$PWD/workspace"
 apptainer shell --cleanenv --bind "$PWD/workspace:/workspace" \
   --shell /opt/spadi/spadi-shell.sh spadi-user-daq.sif
 ```
 
-### Docker
+### Docker (macOS / Linux)
 
 ```bash
+docker pull --platform linux/amd64 \
+  ghcr.io/nobukoba/spadi-containers-second-trial/spadi-user-daq:latest
 mkdir -p "$PWD/workspace"
 docker run --rm -it \
   --platform linux/amd64 \
@@ -84,6 +64,10 @@ docker run --rm -it \
   -v "$PWD/workspace:/workspace" \
   ghcr.io/nobukoba/spadi-containers-second-trial/spadi-user-daq:latest
 ```
+
+DAQ / FULL uses `--network host` to share the host network. Verify device connectivity in your environment.
+
+Files under `workspace` persist on the host. Download or pull again when updating the image.
 
 ## Prepare the workspace
 
