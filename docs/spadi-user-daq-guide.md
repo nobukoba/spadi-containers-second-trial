@@ -35,9 +35,31 @@ This image provides FEE and NestDAQ acquisition and replay with browser control.
 
 /opt/spadi is supplied by the image; /workspace/spadi is the persistent host workspace. spadi-prepare-runtime.sh creates scripts and rawdata. User images do not provide /opt/spadi/src. AMANEQ run-start.sh creates the output subdirectory; browser FileSink Run creates the data file. rawdata-download.sh downloads RARiS input files.
 
-## About the SPADI_LOCAL environment variable
-
 The SPADI_LOCAL environment variable defaults to `/workspace/spadi`; SPADI_ROOT defaults to `/opt/spadi`. Startup sets both variables but does not create directories. The local area maps to the host directory `workspace/spadi`. See the [common README procedures](../README.md) for the full explanation.
+
+## Download the image
+
+Run these commands in a host terminal, outside the container. Choose either Apptainer or Docker for your environment.
+
+### Apptainer
+
+Install Apptainer on 64 bit Linux (x86_64) or a Windows WSL2 Linux distribution, then download this image's SIF from the Linux terminal.
+
+```bash
+curl -fL -O \
+  https://github.com/nobukoba/spadi-containers-second-trial/releases/download/latest/spadi-user-daq.sif
+```
+
+### Docker
+
+Start Docker on macOS or Linux, then download this image from the host terminal. Keep `--platform linux/amd64` on Apple Silicon as well.
+
+```bash
+docker pull --platform linux/amd64 \
+  ghcr.io/nobukoba/spadi-containers-second-trial/spadi-user-daq:latest
+```
+
+`latest` can change. For repeatable environments, retain a timestamped SIF from [GitHub Releases](https://github.com/nobukoba/spadi-containers-second-trial/releases/tag/latest) or record the Docker image digest. See the [README Quick start](../README.md#quick-start) for startup and persistence settings.
 
 ## Start this image
 
