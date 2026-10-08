@@ -152,7 +152,7 @@ Local bin, lib, lib64, CMake, and pkg-config paths precede the image installatio
 | Operation | Result |
 |---|---|
 | `Container startup` | Environment only; no local tree |
-| `spadi-prepare-runtime.sh` | Available component scripts and rawdata directory; all image kinds |
+| `spadi-prepare-local.sh` | Available component scripts and rawdata directory; all image kinds |
 | `spadi-prepare-local.sh` | Sources, build directories, local installation directories, and helpers; devel images only |
 | `AMANEQ run-start.sh` | rawdata/amaneq-lrtdc-1ch/00 directory; devices wait in Idle |
 | `Browser FileSink Run` | Selected run file, such as 00/run000001.dat |
@@ -161,7 +161,7 @@ Local bin, lib, lib64, CMake, and pkg-config paths precede the image installatio
 Inside a container, prepare runtime recipes with:
 
 ```bash
-spadi-prepare-runtime.sh
+spadi-prepare-local.sh
 ```
 
 In a devel image, prepare source editing and builds with:
