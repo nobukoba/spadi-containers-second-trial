@@ -171,15 +171,11 @@ devel イメージでは、さらに `src` にソースをコピーし、`build`
 
 ## イメージ別ガイド
 
-| イメージ | ガイド |
-|---|---|
-| `spadi-user-fee` | [ガイド](docs/spadi-user-fee-guide.ja.md) |
-| `spadi-devel-fee` | [ガイド](docs/spadi-devel-fee-guide.ja.md) |
-| `spadi-user-daq` | [ガイド](docs/spadi-user-daq-guide.ja.md) |
-| `spadi-devel-daq` | [ガイド](docs/spadi-devel-daq-guide.ja.md) |
-| `spadi-user-artemis` | [ガイド](docs/spadi-user-artemis-guide.ja.md) |
-| `spadi-devel-artemis` | [ガイド](docs/spadi-devel-artemis-guide.ja.md) |
-| `spadi-user-full` | [ガイド](docs/spadi-user-full-guide.ja.md) |
-| `spadi-devel-full` | [ガイド](docs/spadi-devel-full-guide.ja.md) |
+| 種類 | user | devel |
+|---|---|---|
+| FEE | [spadi-user-fee](docs/spadi-user-fee-guide.ja.md) | [spadi-devel-fee](docs/spadi-devel-fee-guide.ja.md) |
+| DAQ | [spadi-user-daq](docs/spadi-user-daq-guide.ja.md) | [spadi-devel-daq](docs/spadi-devel-daq-guide.ja.md) |
+| ARTEMIS | [spadi-user-artemis](docs/spadi-user-artemis-guide.ja.md) | [spadi-devel-artemis](docs/spadi-devel-artemis-guide.ja.md) |
+| FULL | [spadi-user-full](docs/spadi-user-full-guide.ja.md) | [spadi-devel-full](docs/spadi-devel-full-guide.ja.md) |
 
 コンテナの実装・CI・公開は [コンテナ保守ガイド](docs/container-maintainer-guide.md)を参照してください。

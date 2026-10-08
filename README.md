@@ -171,15 +171,11 @@ See the image guides below for component-specific operations.
 
 ## Image guides
 
-| Image | Guide |
-|---|---|
-| `spadi-user-fee` | [Guide](docs/spadi-user-fee-guide.md) |
-| `spadi-devel-fee` | [Guide](docs/spadi-devel-fee-guide.md) |
-| `spadi-user-daq` | [Guide](docs/spadi-user-daq-guide.md) |
-| `spadi-devel-daq` | [Guide](docs/spadi-devel-daq-guide.md) |
-| `spadi-user-artemis` | [Guide](docs/spadi-user-artemis-guide.md) |
-| `spadi-devel-artemis` | [Guide](docs/spadi-devel-artemis-guide.md) |
-| `spadi-user-full` | [Guide](docs/spadi-user-full-guide.md) |
-| `spadi-devel-full` | [Guide](docs/spadi-devel-full-guide.md) |
+| Family | user | devel |
+|---|---|---|
+| FEE | [spadi-user-fee](docs/spadi-user-fee-guide.md) | [spadi-devel-fee](docs/spadi-devel-fee-guide.md) |
+| DAQ | [spadi-user-daq](docs/spadi-user-daq-guide.md) | [spadi-devel-daq](docs/spadi-devel-daq-guide.md) |
+| ARTEMIS | [spadi-user-artemis](docs/spadi-user-artemis-guide.md) | [spadi-devel-artemis](docs/spadi-devel-artemis-guide.md) |
+| FULL | [spadi-user-full](docs/spadi-user-full-guide.md) | [spadi-devel-full](docs/spadi-devel-full-guide.md) |
 
 For container implementation, CI, and publication, see the [container maintainer guide](docs/container-maintainer-guide.md).
