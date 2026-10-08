@@ -105,14 +105,31 @@ Inside the container:
 
 `cat config.sh` displays the current settings. Edit them with a text editor such as `vim config.sh` before preparing services.
 
+Move to the configuration directory, review settings, and check connectivity.
+
 ```bash
 cd "$SPADI_LOCAL/scripts/nestdaq/amaneq-lrtdc-1ch"
 cat config.sh
 ping -c 3 192.168.10.16
-./run-start.sh
 ```
 
-`run-start.sh` applies and verifies the FEE masks, prepares Valkey, parameters, topology, and four processes, and waits for all processes to become **Idle**. Acquisition has not started. Initialize, Run, Stop, and change run numbers in the browser.
+First configure and read back the FEE input masks.
+
+```bash
+./fee-setup.sh
+```
+
+**Continue only if this command succeeds.** Stop on any error and check the MZN-D readback limitation above.
+
+Then initialize DAQ services.
+
+```bash
+./initialize.sh
+```
+
+This prepares Valkey, parameters, topology, the initial run number, the Web Controller, and four processes, then waits for all processes to become **Idle**. It does not change FEE registers or masks. Acquisition has not started. Initialize, Run, Stop, and change run numbers in the browser.
+
+`run-start.sh` is an alternative that runs these two commands in order. Do not run it again after executing them separately.
 
 ### Initialize in the browser
 

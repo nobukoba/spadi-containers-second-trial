@@ -154,7 +154,7 @@ Local bin, lib, lib64, CMake, and pkg-config paths precede the image installatio
 | `Container startup` | Environment only; no local tree |
 | `spadi-prepare-local.sh` | Available component scripts and rawdata directory; all image kinds |
 | `spadi-prepare-local.sh` | Sources, build directories, local installation directories, and helpers; devel images only |
-| `AMANEQ run-start.sh` | rawdata/amaneq-lrtdc-1ch/00 directory; devices wait in Idle |
+| `AMANEQ initialize.sh` | rawdata/amaneq-lrtdc-1ch/00 directory; devices wait in Idle |
 | `Browser FileSink Run` | Selected run file, such as 00/run000001.dat |
 | `ARTEMIS guide mkdir / ROOT example` | analysis directories / example ROOT output |
 
@@ -171,6 +171,53 @@ spadi-prepare-local.sh
 ```
 
 Both helpers preserve existing files. Downloading a new image does not refresh old workspace helpers. Stop the relevant sessions, save old scripts under another name, prepare again, and compare changes. Keep edited config.sh files. Review NestDAQ common helpers, run helpers, and FEE setup.sh together; do not mix the browser-controlled procedure with an older helper that issues Run automatically.
+
+## Prepare AMANEQ DAQ in separate steps
+
+Run these commands inside a DAQ / FULL container. They split the operations performed by `run-start.sh`. Check the [DAQ guide](docs/spadi-user-daq-guide.md) for board connections, firmware requirements, and browser controls.
+
+### 1. Prepare the workspace and configuration
+
+```bash
+spadi-prepare-local.sh
+cd "$SPADI_LOCAL/scripts/nestdaq/amaneq-lrtdc-1ch"
+cat config.sh
+```
+
+If needed, edit the IP, run number, output path, and ports with `vim config.sh` while the session is stopped.
+
+### 2. Check board connectivity
+
+```bash
+ping -c 3 192.168.10.16
+```
+
+### 3. Configure the FEE
+
+```bash
+./fee-setup.sh
+```
+
+This sets and reads back the input masks to unmask only channel 102. **Continue only after this command succeeds.** If it reports an error, including an MZN-D readback mismatch, do not start DAQ; check the readback limitation in the [DAQ guide](docs/spadi-user-daq-guide.md).
+
+### 4. Initialize DAQ services
+
+```bash
+./initialize.sh
+```
+
+This starts Valkey, registers parameters and topology, sets the initial run number, starts the Web Controller and four DAQ processes, and waits for all devices to be Idle. It does not change FEE registers or masks. Acquisition has not started.
+
+### 5. Check status and logs
+
+```bash
+./run-status.sh
+./run-attach.sh
+```
+
+Press `Ctrl-b`, release it, then press `d` to detach from tmux. Follow the [browser procedure](docs/spadi-user-daq-guide.md) to initialize, start, and stop acquisition.
+
+Do not also run `./run-start.sh` after these two preparation commands. It is an alternative that runs both commands together.
 
 ## Image guides
 

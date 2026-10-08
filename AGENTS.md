@@ -436,3 +436,5 @@ colon and dollar sign, and no Git branch. Detect Apptainer from its runtime-set
 converted from Docker can retain Docker filesystem markers. The default for
 these Docker/SIF images is Docker. CI must assert the expected runtime label
 independently in both the real Docker and clean-environment Apptainer routes.
+
+Document AMANEQ startup with separate `fee-setup.sh` and `initialize.sh` command blocks in the bilingual READMEs and DAQ/FULL guides. Require successful FEE mask verification before DAQ initialization. Explain each operation and retain `run-start.sh` only as an alternative wrapper; users must not run both routes in the same session. This makes hardware configuration and software initialization independently visible without changing runtime behavior.
