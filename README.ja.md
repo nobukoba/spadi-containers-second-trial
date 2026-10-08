@@ -4,7 +4,7 @@
 
 SPADI Front End Electronics (FEE)、NestDAQ、ARTEMIS ソフトウェア用のビルド済み Docker および Apptainer SIF 環境です。
 
-イメージは `linux/amd64` 向けです。通常利用には `spadi-user-*`、コンテナ内で SPADI ソフトウェアを編集・再ビルドする場合には `spadi-devel-*` を使用します。
+通常利用には `spadi-user-*`、コンテナ内で SPADI ソフトウェアを編集・再ビルドする場合には `spadi-devel-*` を使用します。
 
 ## イメージの種類
 
@@ -21,7 +21,7 @@ SPADI Front End Electronics (FEE)、NestDAQ、ARTEMIS ソフトウェア用の�
 
 NestDAQ ユーザーイメージ (spadi-user-daq) を使用する例です。
 
-### Apptainer（64 bit Linux / Windows WSL2）
+### Apptainer（Linux / Windows WSL2）
 
 64 bit Linux (x86_64) に Apptainer をインストールしてから、以下のコマンドを実行してください。Windows WSL2 の Linux ディストリビューションも利用できます。コマンドは Linux 側の端末で実行してください。
 
@@ -80,10 +80,10 @@ Docker でも SPADI 環境の読み込みと `/workspace` への移動は自動�
 
 ### DAQ / FULL で使用するネットワーク
 
-Linux の Docker で実機取得や既定の Web Controller を使う場合は、次の host network で起動します。FULL や devel を使う場合はイメージ名を該当する名前に変更します。
+DAQ / FULL は Docker のコンテナ内ネットワーク（bridge）で起動します。実機接続や Web Controller に必要な通信はポート公開とネットワーク経路を別途設定してください。FULL や devel を使う場合はイメージ名を該当する名前に変更します。
 
 ```bash
-docker run --rm -it --platform linux/amd64 --network host \
+docker run --rm -it --platform linux/amd64 --network bridge \
   -e LOCAL_UID="$(id -u)" -e LOCAL_GID="$(id -g)" \
   -v "$PWD/workspace:/workspace" \
   ghcr.io/nobukoba/spadi-containers-second-trial/spadi-user-daq:latest
