@@ -14,7 +14,7 @@ FEE の基板制御・マスク設定を行うイメージです。
 ├── share/
 ├── versions/
 ├── scripts/
-│   ├── spadi-prepare-runtime.sh
+│   ├── spadi-prepare-local.sh
 │   └── fee/
 ├── StrLRTDC/bin/set_tdcmask
 └── StrHRTDC/bin/
@@ -26,7 +26,7 @@ FEE の基板制御・マスク設定を行うイメージです。
 └── rawdata/
 ```
 
-`/opt/spadi` はイメージが提供し、`/workspace/spadi` はホストに保存される作業領域です。 `spadi-prepare-runtime.sh` が scripts と rawdata を作成します。user イメージには `/opt/spadi/src` はありません。
+`/opt/spadi` はイメージが提供し、`/workspace/spadi` はホストに保存される作業領域です。 `spadi-prepare-local.sh` が scripts と rawdata を作成します。user イメージには `/opt/spadi/src` はありません。
 
 環境変数 `SPADI_LOCAL` の既定値は `/workspace/spadi`、`SPADI_ROOT` は `/opt/spadi` です。起動時に設定されます。環境変数の設定だけではディレクトリは作られません。ホストの `workspace/spadi` と対応します。詳細は [README の共通手順](../README.ja.md)を参照してください。
 
@@ -64,7 +64,7 @@ docker run --rm -it \
 このイメージに含まれるランタイム用スクリプトをコピーします。 既存の設定やソースは上書きしません。準備ヘルパーの共通仕様と更新方法は [README](../README.ja.md) を参照してください。
 
 ```bash
-spadi-prepare-runtime.sh
+spadi-prepare-local.sh
 ```
 
 ## AMANEQ LR-TDC の102チャンネルを設定する
