@@ -78,7 +78,7 @@ The bind-mounted `/workspace` is persistent. Files edited below `/workspace/spad
 
 Docker also loads the SPADI environment and enters `/workspace` automatically.
 
-### Networking for DAQ / FULL
+### Container networking
 
 For Linux Docker hardware acquisition or the default Web Controller, use host networking as follows. Replace the image name for FULL or devel variants.
 
