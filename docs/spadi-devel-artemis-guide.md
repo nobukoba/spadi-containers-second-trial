@@ -15,7 +15,7 @@ This image provides ROOT and ARTEMIS analysis. This guide also covers source edi
 ├── share/
 ├── versions/
 ├── scripts/
-│   ├── spadi-prepare-runtime.sh
+│   ├── spadi-prepare-local.sh
 │   ├── spadi-prepare-local.sh
 │   ├── spadi-env.sh
 │   ├── *-build.sh / *-clone-latest.sh
@@ -42,36 +42,31 @@ This image provides ROOT and ARTEMIS analysis. This guide also covers source edi
 
 The SPADI_LOCAL environment variable defaults to `/workspace/spadi`; SPADI_ROOT defaults to `/opt/spadi`. Startup sets both variables but does not create directories. The local area maps to the host directory `workspace/spadi`. See the [common README procedures](../README.md) for the full explanation.
 
-## Download the image
+## Download and start the image
 
-Run these commands in a host terminal, outside the container. Choose either Apptainer or Docker for your environment.
+Run the commands for your chosen container system in the host terminal.
 
-### Apptainer
-
-Install Apptainer on 64 bit Linux (x86_64) or a Windows WSL2 Linux distribution, then download this image's SIF from the Linux terminal.
+### Apptainer (Linux / Windows WSL2)
 
 ```bash
 curl -fL -O \
   https://github.com/nobukoba/spadi-containers-second-trial/releases/download/latest/spadi-devel-artemis.sif
+mkdir -p "$PWD/workspace"
+apptainer shell --cleanenv --bind "$PWD/workspace:/workspace" \
+  --shell /opt/spadi/spadi-shell.sh spadi-devel-artemis.sif
 ```
 
-### Docker
-
-Start Docker on macOS or Linux, then download this image from the host terminal. Keep `--platform linux/amd64` on Apple Silicon as well.
+### Docker (macOS / Linux)
 
 ```bash
 docker pull --platform linux/amd64 \
   ghcr.io/nobukoba/spadi-containers-second-trial/spadi-devel-artemis:latest
-```
-
-`latest` can change. For repeatable environments, retain a timestamped SIF from [GitHub Releases](https://github.com/nobukoba/spadi-containers-second-trial/releases/tag/latest) or record the Docker image digest. See the [README Quick start](../README.md#quick-start) for startup and persistence settings.
-
-## Start this image
-
-Use **`spadi-devel-artemis`** as the image name in the [README Quick start](../README.md#quick-start). Its SIF filename is `spadi-devel-artemis.sif`; its Docker image is `ghcr.io/nobukoba/spadi-containers-second-trial/spadi-devel-artemis:latest`. Run the remaining commands inside the container.
-
-```bash
-/opt/spadi/scripts/spadi-version.sh
+mkdir -p "$PWD/workspace"
+docker run --rm -it \
+  --platform linux/amd64 \
+  -e LOCAL_UID="$(id -u)" -e LOCAL_GID="$(id -g)" \
+  -v "$PWD/workspace:/workspace" \
+  ghcr.io/nobukoba/spadi-containers-second-trial/spadi-devel-artemis:latest
 ```
 
 ## Prepare the workspace
@@ -130,7 +125,7 @@ mkdir -p "$SPADI_LOCAL/analysis/example/macro" "$SPADI_LOCAL/analysis/example/ou
 cd "$SPADI_LOCAL/analysis/example"
 ```
 
-The mkdir command creates the analysis directories. spadi-prepare-runtime.sh prepares the available ARTEMIS scripts and rawdata directory; experiment steering files, calibration parameters, and input data must be supplied separately.
+The mkdir command creates the analysis directories. spadi-prepare-local.sh prepares the available ARTEMIS scripts and rawdata directory; experiment steering files, calibration parameters, and input data must be supplied separately.
 
 Check ROOT and save a ROOT file without a graphical display:
 
