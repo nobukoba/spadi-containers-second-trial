@@ -75,8 +75,10 @@ command -v mpc-mpcx-ip-command
 command -v sitcp-sitcpxg-ip-writer
 command -v sitcp-sitcpxg-ip-reader
 
+test -x /opt/spadi/bin/StrLRTDC/set_tdcmask
+test -x /opt/spadi/bin/StrHRTDC/set_tdcmask
 test -x /opt/spadi/bin/get_version
-test -x /opt/spadi/StrHRTDC/bin/get_version_hrtdc
+test -x /opt/spadi/bin/StrHRTDC/get_version_hrtdc
 find /opt/spadi -name HulCoreConfig.cmake -print -quit | grep -q .
 
 echo "=== Network diagnostics ==="
