@@ -99,7 +99,7 @@ RUN printf '%s\n' \
       "SPADI_IMAGE_TARGET=${SPADI_IMAGE_TARGET}" \
       > /opt/spadi/versions/container.env
 COPY scripts/runtime/spadi-version.sh /opt/spadi/scripts/spadi-version.sh
-COPY --chmod=0755 scripts/runtime/spadi-prepare-runtime.sh /opt/spadi/scripts/spadi-prepare-runtime.sh
+COPY --chmod=0755 scripts/runtime/spadi-prepare-local.sh /opt/spadi/scripts/spadi-prepare-local.sh
 COPY scripts/runtime/spadi-setup.sh /opt/spadi/spadi-setup.sh
 COPY --chmod=0755 scripts/runtime/spadi-shell.sh /opt/spadi/spadi-shell.sh
 COPY scripts/tests/smoke-test-fee.sh /opt/spadi/scripts/smoke-test-fee.sh
@@ -116,7 +116,7 @@ ENTRYPOINT ["/usr/local/bin/spadi-entrypoint.sh"]
 
 FROM fee-build AS devel-fee
 RUN find /opt/spadi/src -type d -name build -prune -exec rm -rf '{}' + && rm -rf /opt/spadi/src/root-build
-COPY scripts/development/spadi-prepare-local.sh scripts/development/spadi-env.sh /opt/spadi/scripts/
+COPY scripts/development/spadi-env.sh /opt/spadi/scripts/
 COPY scripts/fee/hul-common-lib-build.sh scripts/fee/amaneq-build.sh /opt/spadi/scripts/
 COPY scripts/fee/openfpgaloader-build.sh scripts/fee/sitcp-utility-build.sh /opt/spadi/scripts/
 COPY scripts/fee/hul-common-lib-clone-latest.sh scripts/fee/amaneq-clone-latest.sh /opt/spadi/scripts/
