@@ -152,7 +152,7 @@ echo "$SPADI_LOCAL"
 | 操作 | 作成されるもの |
 |---|---|
 | `コンテナ起動` | 環境変数の設定のみ。作業領域は未作成 |
-| `spadi-prepare-runtime.sh` | 利用可能なコンポーネントの scripts と rawdata。user / devel 共通 |
+| `spadi-prepare-local.sh` | 利用可能なコンポーネントの scripts と rawdata。user / devel 共通 |
 | `spadi-prepare-local.sh` | ソース、build、ローカルインストール先、ヘルパー。devel のみ |
 | `AMANEQ run-start.sh` | rawdata/amaneq-lrtdc-1ch/00。デバイスは Idle 待機 |
 | `ブラウザの FileSink Run` | 00/run000001.dat などの run ファイル |
@@ -161,7 +161,7 @@ echo "$SPADI_LOCAL"
 コンテナ内で、ランタイム用には以下を実行します。
 
 ```bash
-spadi-prepare-runtime.sh
+spadi-prepare-local.sh
 ```
 
 ソースを編集する devel イメージでは、以下を実行します。
