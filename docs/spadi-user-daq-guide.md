@@ -266,4 +266,4 @@ The OS is AlmaLinux 9. Network tools (iproute, iputils, net-tools, bind-utils, t
 
 Valkey and tmux are included for DAQ services. ROOT-dependent TriggerView is disabled in DAQ and enabled in FULL.
 
-user provides runtime software without source trees or local-development build helpers.
+`spadi-user-*` images provide runtime software without source trees or local-development build helpers.

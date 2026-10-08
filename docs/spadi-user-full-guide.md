@@ -324,4 +324,4 @@ Valkey and tmux are included for DAQ services. ROOT-dependent TriggerView is dis
 
 ROOT enables TMVA, X11 / OpenGL, SQLite, and SSL; PyROOT, RooFit, and Web GUI are disabled. ARTEMIS disables GET and enables ZeroMQ / Redis support. OpenMPI and compression libraries are also included.
 
-user provides runtime software without source trees or local-development build helpers. A C++ compiler and headers are retained for ROOT / Cling runtime use.
+`spadi-user-*` images provide runtime software without source trees or local-development build helpers. A C++ compiler and headers are retained for ROOT / Cling runtime use.

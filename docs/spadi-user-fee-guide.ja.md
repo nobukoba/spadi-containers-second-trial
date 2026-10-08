@@ -172,4 +172,4 @@ FEE イメージには NestDAQ / Web Controller がありません。ブラウ�
 
 OS は AlmaLinux 9 です。ネットワーク調査ツール（iproute、iputils、net-tools、bind-utils、traceroute、tcpdump、nmap-ncat）、curl / wget、vim / emacs なども含みます。OS パッケージは AlmaLinux のパッケージ版で、上表のソース固定版とは管理方法が異なります。
 
-user は実行用です。ソースとローカル開発用ビルドヘルパーは含みません。
+`spadi-user-*` は実行用です。ソースとローカル開発用ビルドヘルパーは含みません。

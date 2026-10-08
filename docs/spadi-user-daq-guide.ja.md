@@ -253,7 +253,7 @@ OS は AlmaLinux 9 です。ネットワーク調査ツール（iproute、iputil
 
 DAQ サービス用に Valkey と tmux を含みます。DAQ では ROOT を必要とする TriggerView は無効、FULL では有効です。
 
-user は実行用です。ソースとローカル開発用ビルドヘルパーは含みません。
+`spadi-user-*` は実行用です。ソースとローカル開発用ビルドヘルパーは含みません。
 
 ## Appendix: SPADI-A DAQ マニュアルとの対応
 

@@ -452,3 +452,5 @@ Every user/devel image guide in both languages must include an included-software
 The FEE MPC/MPCX license example must combine file writing with `--set-eeprom-ip`, rather than show a license-only write. Explain that the positional IP is the current contact address and that EEPROM updates do not change the live IP; immediate readback still uses the original address. Both MPC and MPCX file paths are supported.
 
 FEE guides are general board-tool manuals: do not include the channel-102 acquisition-specific configuration recipe or its detailed firmware readback discussion there. Keep those in DAQ/FULL acquisition guides. Introduce hul-common-lib and amaneq-soft with upstream links, prioritize get_version as the basic example, and describe firmware-specific set_tdcmask only as an optional tool example with explicit LR/HR paths.
+
+Use explicit image-family identifiers in user-facing descriptions: write `spadi-user-*` for runtime images rather than the bare word `user`, which can be mistaken for a person or account.

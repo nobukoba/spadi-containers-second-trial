@@ -172,4 +172,4 @@ These are the main included software components. Pins are defined in [versions.e
 
 The OS is AlmaLinux 9. Network tools (iproute, iputils, net-tools, bind-utils, traceroute, tcpdump, nmap-ncat), curl / wget, and vim / emacs are also included. OS packages use AlmaLinux package versions rather than the source pins above.
 
-user provides runtime software without source trees or local-development build helpers.
+`spadi-user-*` images provide runtime software without source trees or local-development build helpers.
