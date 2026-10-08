@@ -81,7 +81,7 @@ get_version 192.168.10.16
 `cat config.sh` は設定ファイルを表示するだけです。編集は `vim config.sh` などで行います。ヘルパーは LR 用 `set_tdcmask` で4バンクを一括設定し、`read_register` で照合します。直接実行する場合は以下です。
 
 ```bash
-/opt/spadi/StrLRTDC/bin/set_tdcmask \
+/opt/spadi/bin/StrLRTDC/set_tdcmask \
   192.168.10.16 ffffffff ffffffff ffffffff ffffffbf
 read_register 192.168.10.16 10300000 4
 ```
