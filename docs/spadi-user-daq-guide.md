@@ -125,24 +125,15 @@ After reloading the browser, uncheck these three options again.
 
 ### Start acquisition in the browser
 
-Deselect service **all** and select only the service in the table. Keep instances set to **all**. Start downstream first: click **Run**, wait for that device to become **Running**, then proceed.
-
-| Order | Service to select | Action |
-|---|---|---|
-| 1 | `FileSink` | **Run** → **Running** |
-| 2 | `TimeFrameBuilder` | **Run** → **Running** |
-| 3 | `STFBuilder` | **Run** → **Running** |
-| 4 | `AmQStrTdcSampler` | **Run** → **Running** |
-
-Sampler Run opens the TCP connection to AMANEQ and starts acquisition. Check all four processes are **Running** with **Error = 0**. Run 1 is saved to the host's `workspace/spadi/rawdata/amaneq-lrtdc-1ch/00/run000001.dat`.
+Keep both service and instance targets set to **all**, then click **Run** once. Verify that `AmQStrTdcSampler`, `STFBuilder`, `TimeFrameBuilder`, and `FileSink` all reach **Running** with **Error = 0**. The sampler opens the TCP connection to AMANEQ and begins acquisition. Run 1 is saved under `workspace/spadi/rawdata/amaneq-lrtdc-1ch/00/run000001.dat` on the host.
 
 ### Stop and start the next run in the browser
 
-Select one service at a time in upstream order: `AmQStrTdcSampler` → `STFBuilder` → `TimeFrameBuilder` → `FileSink`. Click **Stop**, wait for **Ready**, and allow about one second before stopping the next service. FileSink **Ready** means its trailer has been written and the file closed.
+With both targets set to **all**, click **Stop** once and wait for every process to reach **Ready**. Check the FileSink logs to confirm the output file closed successfully. A simultaneous stop may not allow downstream buffers to drain, so lossless run boundaries are not guaranteed. If shutdown or data integrity problems occur, use individual service stops for troubleshooting, in upstream order: `AmQStrTdcSampler` → `STFBuilder` → `TimeFrameBuilder` → `FileSink`, waiting for **Ready** after each.
 
-For the next run, enter an unused **New value** (for example `2`) and click **Send**. Select **all** services and instances, click **Reset Task**, wait for all **Device-Ready**, then **Reset Device**, and wait for all **Idle**. Repeat initialization and startup. Do not change the run number during acquisition.
+For the next run, enter an unused **New value** (for example `2`) and click **Send**. With both targets set to **all**, click **Reset Task** and wait for **Device-Ready**, then **Reset Device** and wait for **Idle**. Repeat initialization and startup. Never change the run number during acquisition.
 
-When finished, Stop all processes in the browser, select **all** services and instances, and click **End**. Check that processes are **Exiting** or have disappeared, then run `./run-cleanup.sh` in the tmux `control` window to close this session. Cleanup refuses while any process is still active. Closing the browser does not stop acquisition.
+When finished, select **all** and click **Stop**, verify all processes are **Ready**, then click **End**. Wait for processes to exit, then run `./run-cleanup.sh` in the tmux `control` window. Closing the browser alone does not stop acquisition.
 
 ### Configuration and saved data
 
