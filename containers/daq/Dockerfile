@@ -244,7 +244,7 @@ WORKDIR /workspace
 
 FROM daq-build AS devel-daq
 RUN find /opt/spadi/src -type d -name build -prune -exec rm -rf '{}' + && rm -rf /opt/spadi/src/root-build
-COPY scripts/development/spadi-prepare-local.sh scripts/development/spadi-env.sh /opt/spadi/scripts/
+COPY scripts/development/spadi-env.sh /opt/spadi/scripts/
 COPY scripts/nestdaq/nestdaq-build.sh scripts/nestdaq/nestdaq-clone-latest.sh /opt/spadi/scripts/
 COPY scripts/nestdaq/nestdaq-user-impl-build.sh scripts/nestdaq/nestdaq-user-impl-clone-latest.sh /opt/spadi/scripts/
 RUN chmod 0755 /opt/spadi/scripts/*.sh
