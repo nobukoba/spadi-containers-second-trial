@@ -182,7 +182,7 @@ ping -c 3 192.168.10.16
 
 1. **State Summary** に `AmQStrTdcSampler`、`STFBuilder`、`TimeFrameBuilder`、`FileSink` がそれぞれ1プロセスずつ表示され、すべて **Idle** であることを確認します。**Show details** で個々の状態も表示できます。
 2. **Wait Device Ready** と **Wait Ready** のチェックを外します。以下では各ボタンを押した後に状態を確認して進めます。
-3. **Auto increment at RUN-Stop** のチェックを外します。サービスを個別に Stop するため、チェックがあるとクリックのたびに run 番号が増えます。
+3. **Auto increment at RUN-Stop** のチェックを外します。run 番号は次の取得を始める前に手動で設定します。
 4. **RUN number** の **New value** に `1` を入力して **Send** を押し、**Next : 1** を確認します。保存済みの番号は使わないでください。
 5. **Select command target** のサービスとインスタンスを両方 **all** にします。
 6. **Init Device and Connection** を押し、4つのプロセスすべてが **Device-Ready** になるまで待ちます。
@@ -192,24 +192,15 @@ ping -c 3 192.168.10.16
 
 ### ブラウザで読み出しを開始する
 
-サービス選択では **all を解除**し、表のサービスだけを選びます。インスタンスは **all** のままにします。下流から順に **Run** を押し、選んだデバイスが **Running** になってから次へ進みます。
-
-| 順番 | 選ぶサービス | 操作 |
-|---|---|---|
-| 1 | `FileSink` | **Run** → **Running** |
-| 2 | `TimeFrameBuilder` | **Run** → **Running** |
-| 3 | `STFBuilder` | **Run** → **Running** |
-| 4 | `AmQStrTdcSampler` | **Run** → **Running** |
-
-Sampler の Run で AMANEQ への TCP 接続が開き、読み出しが始まります。4つのプロセスすべての **Running** と **Error = 0** を確認してください。run 1 の保存先はホストの `workspace/spadi/rawdata/amaneq-lrtdc-1ch/00/run000001.dat` です。
+**Select command target** のサービスとインスタンスを両方 **all** にしたまま、**Run** を1回押します。4つのプロセス（`AmQStrTdcSampler`、`STFBuilder`、`TimeFrameBuilder`、`FileSink`）がすべて **Running** になり、**Error = 0** であることを確認してください。Sampler が AMANEQ への TCP 接続を開いて読み出しを開始します。run 1 の保存先はホストの `workspace/spadi/rawdata/amaneq-lrtdc-1ch/00/run000001.dat` です。
 
 ### ブラウザで停止し、次の run を始める
 
-上流から `AmQStrTdcSampler` → `STFBuilder` → `TimeFrameBuilder` → `FileSink` の順にサービスを1つずつ選び、**Stop** を押します。それぞれ **Ready** になるまで待ち、次の Stop まで1秒程度空けます。最後に FileSink が **Ready** になれば、トレーラー書き込みとファイル close が完了しています。
+サービスとインスタンスを **all** にしたまま、**Stop** を1回押し、すべてのプロセスが **Ready** になることを確認します。FileSink のファイルが正常に閉じられたことをログでも確認してください。一括 Stop では下流の排出が間に合わない可能性があるため、run 境界での無損失は保証しません。データ欠損や終了処理の問題が生じる場合は、トラブルシューティングとして上流から `AmQStrTdcSampler` → `STFBuilder` → `TimeFrameBuilder` → `FileSink` の順に個別 Stop し、各サービスが **Ready** になったことを確認してください。
 
 次の取得では **New value** に未使用の番号（例：`2`）を入力して **Send** を押します。サービスとインスタンスを **all** にし、**Reset Task** → すべてのプロセス **Device-Ready**、**Reset Device** → すべてのプロセス **Idle** の順に確認します。その後、初期化と開始の手順を繰り返します。run 番号は取得中に変更しないでください。
 
-作業を終えるときはブラウザですべてのプロセスを Stop し、サービスとインスタンスを **all** にして **End** を押します。プロセスが **Exiting** または一覧から消えたことを確認し、tmux の `control` ウィンドウで `./run-cleanup.sh` を実行して対象セッションを閉じます。このヘルパーは稼働中のプロセスが残っている場合は終了を拒否します。ブラウザを閉じるだけでは収集は停止しません。
+作業を終えるときはブラウザで **all** を選択して **Stop** し、全プロセスが **Ready** になったことを確認してから **End** を押します。プロセスが **Exiting** または一覧から消えたことを確認し、tmux の `control` ウィンドウで `./run-cleanup.sh` を実行します。ブラウザを閉じるだけでは収集は停止しません。
 
 ### 設定と保存データ
 
