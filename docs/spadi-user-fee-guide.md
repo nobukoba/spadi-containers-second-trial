@@ -14,7 +14,7 @@ This image provides FEE board control and mask configuration.
 ├── share/
 ├── versions/
 ├── scripts/
-│   ├── spadi-prepare-runtime.sh
+│   ├── spadi-prepare-local.sh
 │   └── fee/
 ├── StrLRTDC/bin/set_tdcmask
 └── StrHRTDC/bin/
@@ -26,7 +26,7 @@ This image provides FEE board control and mask configuration.
 └── rawdata/
 ```
 
-/opt/spadi is supplied by the image; /workspace/spadi is the persistent host workspace. spadi-prepare-runtime.sh creates scripts and rawdata. User images do not provide /opt/spadi/src.
+/opt/spadi is supplied by the image; /workspace/spadi is the persistent host workspace. spadi-prepare-local.sh creates scripts and rawdata. User images do not provide /opt/spadi/src.
 
 The SPADI_LOCAL environment variable defaults to `/workspace/spadi`; SPADI_ROOT defaults to `/opt/spadi`. Startup sets both variables but does not create directories. The local area maps to the host directory `workspace/spadi`. See the [common README procedures](../README.md) for the full explanation.
 
@@ -64,7 +64,7 @@ Files under `workspace` persist on the host. Download or pull again when updatin
 Copy the runtime scripts available in this image. Existing configuration and source files are preserved. See the [README](../README.md) for common preparation and update procedures.
 
 ```bash
-spadi-prepare-runtime.sh
+spadi-prepare-local.sh
 ```
 
 ## Configure AMANEQ LR-TDC channel 102
