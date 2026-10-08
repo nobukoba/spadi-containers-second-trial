@@ -68,10 +68,26 @@ docker pull --platform linux/amd64 \
 
 ## このイメージを起動する
 
-[README の Quick start](../README.ja.md#quick-start) のイメージ名を **`spadi-user-full`** にして起動します。ダウンロードする SIF は `spadi-user-full.sif`、Docker イメージは `ghcr.io/nobukoba/spadi-containers-second-trial/spadi-user-full:latest` です。起動後の以下の操作はコンテナ内で実行します。
+以下はホストの端末で実行します。DAQ / FULL の Docker はコンテナ内ネットワーク（bridge）を使用します。実機接続時はネットワーク経路を別途確認してください。
+
+### Apptainer
 
 ```bash
-/opt/spadi/scripts/spadi-version.sh
+mkdir -p "$PWD/workspace"
+apptainer shell --cleanenv --bind "$PWD/workspace:/workspace" \
+  --shell /opt/spadi/spadi-shell.sh spadi-user-full.sif
+```
+
+### Docker
+
+```bash
+mkdir -p "$PWD/workspace"
+docker run --rm -it \
+  --platform linux/amd64 \
+  --network bridge \
+  -e LOCAL_UID="$(id -u)" -e LOCAL_GID="$(id -g)" \
+  -v "$PWD/workspace:/workspace" \
+  ghcr.io/nobukoba/spadi-containers-second-trial/spadi-user-full:latest
 ```
 
 ## 作業領域を準備する
