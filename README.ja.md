@@ -80,7 +80,7 @@ Docker でも SPADI 環境の読み込みと `/workspace` への移動は自動�
 
 ### コンテナで使用するネットワーク
 
-DAQ / FULL は Docker のホストと共有するネットワーク（host）で起動します。実機接続や Web Controller に必要な通信はポート公開とネットワーク経路を別途設定してください。FULL や devel を使う場合はイメージ名を該当する名前に変更します。
+DAQ / FULL は `--network host` でホストのネットワークを共有します。追加の `-p` ポート公開設定は不要です。FULL や devel を使う場合はイメージ名を該当する名前に変更します。
 
 ```bash
 docker run --rm -it --platform linux/amd64 --network host \
