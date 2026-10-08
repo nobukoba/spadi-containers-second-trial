@@ -68,6 +68,16 @@ RUN git clone https://github.com/spadi-alliance/amaneq-soft.git amaneq-soft && \
     cmake --build build -j"${NPROC}" && \
     cmake --install build
 
+# Keep LR and HR tools in separate directories to avoid same-name collisions.
+RUN mkdir -p /opt/spadi/bin/StrLRTDC /opt/spadi/bin/StrHRTDC && \
+    for kind in StrLRTDC StrHRTDC; do \
+      if [ -d "/opt/spadi/$kind/bin" ]; then \
+        cp -a "/opt/spadi/$kind/bin/." "/opt/spadi/bin/$kind/"; \
+        rm -rf "/opt/spadi/$kind/bin"; \
+        ln -s "/opt/spadi/bin/$kind" "/opt/spadi/$kind/bin"; \
+      fi; \
+    done
+
 RUN git clone https://github.com/trabucayre/openFPGALoader.git openFPGALoader && \
     cd openFPGALoader && \
     git checkout "${OPENFPGALOADER_REF}" && \
