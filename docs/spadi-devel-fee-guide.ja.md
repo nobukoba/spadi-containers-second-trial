@@ -15,7 +15,7 @@ FEE の基板制御・マスク設定を行うイメージです。 ソース編
 ├── share/
 ├── versions/
 ├── scripts/
-│   ├── spadi-prepare-runtime.sh
+│   ├── spadi-prepare-local.sh
 │   ├── spadi-prepare-local.sh
 │   ├── spadi-env.sh
 │   ├── *-build.sh / *-clone-latest.sh
