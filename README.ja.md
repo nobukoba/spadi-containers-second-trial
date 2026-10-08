@@ -149,75 +149,21 @@ echo "$SPADI_LOCAL"
 
 ## 共通の準備と更新
 
-| 操作 | 作成されるもの |
-|---|---|
-| `コンテナ起動` | 環境変数の設定のみ。作業領域は未作成 |
-| `spadi-prepare-local.sh` | 利用可能なコンポーネントの scripts と rawdata。user / devel 共通 |
-| `spadi-prepare-local.sh` | ソース、build、ローカルインストール先、ヘルパー。devel のみ |
-| `AMANEQ initialize.sh` | rawdata/amaneq-lrtdc-1ch/00。デバイスは Idle 待機 |
-| `ブラウザの FileSink Run` | 00/run000001.dat などの run ファイル |
-| `ARTEMIS ガイドの mkdir / ROOT 例` | analysis ディレクトリ / ROOT 出力 |
+| 操作 | 対象 | 結果 |
+|---|---|---|
+| コンテナ起動 | user / devel 共通 | 環境を設定。作業領域は作成しない |
+| `spadi-prepare-local.sh` | user | ランタイム用スクリプトとデータ保存先を準備 |
+| `spadi-prepare-local.sh` | devel | 上記に加え、ソース、ビルド・インストール用ディレクトリ、開発用ヘルパーを準備 |
 
-コンテナ内で、ランタイム用には以下を実行します。
+コンテナ内で、user / devel ともに次を実行します。
 
 ```bash
 spadi-prepare-local.sh
 ```
 
-ソースを編集する devel イメージでは、以下を実行します。
+準備する内容は、イメージに含まれるコンポーネントと user / devel の種類に応じて変わります。既存ファイルは上書きしません。
 
-```bash
-spadi-prepare-local.sh
-```
-
-両ヘルパーとも既存ファイルを上書きしません。新しいイメージを取得しただけでは、作業領域にある古いヘルパーは更新されません。使用中のセッションを停止し、既存のスクリプトを別名で保存してから再準備し、変更を比較してください。編集済みの `config.sh` は保持します。特に NestDAQ の `common`、run ヘルパー、FEE の `setup.sh` を一緒に確認し、古い自動 Run の手順を混在させないでください。
-
-## AMANEQ DAQ を段階ごとに準備する
-
-DAQ / FULL コンテナ内で実行します。以下は `run-start.sh` の処理を分けて実行する手順です。ボードの接続・ファームウェア条件とブラウザ操作の詳細は [DAQ ガイド](docs/spadi-user-daq-guide.ja.md#amaneq-の-lr-tdc-を-nestdaq-で1チャンネル読み出す)を確認してください。
-
-### 1. 作業領域と設定を準備する
-
-```bash
-spadi-prepare-local.sh
-cd "$SPADI_LOCAL/scripts/nestdaq/amaneq-lrtdc-1ch"
-cat config.sh
-```
-
-必要なら停止中に `vim config.sh` で IP、run 番号、保存先、ポートを編集します。
-
-### 2. ボードへの通信を確認する
-
-```bash
-ping -c 3 192.168.10.16
-```
-
-### 3. FEE を設定する
-
-```bash
-./fee-setup.sh
-```
-
-チャンネル102だけを unmask する入力マスクを設定し、読み戻して確認します。**このコマンドが成功してから次へ進んでください。** MZN-D の読み戻し不一致を含め、エラーになった場合は DAQ を起動せず、[ガイドの制約](docs/spadi-user-daq-guide.ja.md#mzn-d-の読み戻しに関する制約)を確認します。
-
-### 4. DAQ サービスを初期化する
-
-```bash
-./initialize.sh
-```
-
-Valkey 起動 → パラメータ登録 → トポロジー登録 → 初期 run 番号登録 → Web Controller と4つの DAQ プロセス起動 → 全プロセスの Idle 確認を行います。FEE のレジスタやマスクは変更しません。この段階では収集を開始しません。
-
-### 5. 状態とログを確認する
-
-```bash
-./run-status.sh
-./run-attach.sh
-```
-
-`Ctrl-b` を押して離してから `d` で tmux をデタッチできます。収集の初期化・開始・停止は [ブラウザ操作の手順](docs/spadi-user-daq-guide.ja.md#ブラウザで初期化する)に従います。
-
-上の2つの準備コマンドを実行した後に `./run-start.sh` を重ねて実行しないでください。`run-start.sh` は、この2つをまとめて実行する代替手段です。
+新しいイメージを取得しただけでは、作業領域にある古いヘルパーは更新されません。使用中のセッションを停止し、既存のスクリプトを別名で保存してから再準備し、変更を比較してください。編集済みの `config.sh` は保持します。コンポーネント固有の操作・更新手順は、下のイメージ別ガイドを参照してください。
 
 ## イメージ別ガイド
 
