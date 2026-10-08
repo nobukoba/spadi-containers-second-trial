@@ -15,7 +15,7 @@ FEE、NestDAQ、ROOT、ARTEMIS を使う取得と解析を行うイメージで�
 ├── share/
 ├── versions/
 ├── scripts/
-│   ├── spadi-prepare-runtime.sh
+│   ├── spadi-prepare-local.sh
 │   ├── fee/
 │   ├── nestdaq/
 │   └── artemis/
@@ -38,7 +38,7 @@ FEE、NestDAQ、ROOT、ARTEMIS を使う取得と解析を行うイメージで�
     └── raris_ac_lgad_202603/{00,01,02}/run000020.dat
 ```
 
-`/opt/spadi` はイメージが提供し、`/workspace/spadi` はホストに保存される作業領域です。 `spadi-prepare-runtime.sh` が scripts と rawdata を作成します。user イメージには `/opt/spadi/src` はありません。 AMANEQ の run-start.sh が出力サブディレクトリを作り、ブラウザの FileSink Run がデータファイルを作ります。RARiS のファイルは rawdata-download.sh が取得します。 analysis ディレクトリは後述の mkdir で作成します。
+`/opt/spadi` はイメージが提供し、`/workspace/spadi` はホストに保存される作業領域です。 `spadi-prepare-local.sh` が scripts と rawdata を作成します。user イメージには `/opt/spadi/src` はありません。 AMANEQ の run-start.sh が出力サブディレクトリを作り、ブラウザの FileSink Run がデータファイルを作ります。RARiS のファイルは rawdata-download.sh が取得します。 analysis ディレクトリは後述の mkdir で作成します。
 
 環境変数 `SPADI_LOCAL` の既定値は `/workspace/spadi`、`SPADI_ROOT` は `/opt/spadi` です。起動時に設定されます。環境変数の設定だけではディレクトリは作られません。ホストの `workspace/spadi` と対応します。詳細は [README の共通手順](../README.ja.md)を参照してください。
 
@@ -79,7 +79,7 @@ DAQ / FULL は `--network host` でホストのネットワークを共有しま
 このイメージに含まれるランタイム用スクリプトをコピーします。 既存の設定やソースは上書きしません。準備ヘルパーの共通仕様と更新方法は [README](../README.ja.md) を参照してください。
 
 ```bash
-spadi-prepare-runtime.sh
+spadi-prepare-local.sh
 ```
 
 ## AMANEQ の LR-TDC を NestDAQ で1チャンネル読み出す
@@ -219,7 +219,7 @@ mkdir -p "$SPADI_LOCAL/analysis/example/macro" "$SPADI_LOCAL/analysis/example/ou
 cd "$SPADI_LOCAL/analysis/example"
 ```
 
-解析用ディレクトリは上の `mkdir` が作ります。`spadi-prepare-runtime.sh` は利用可能な ARTEMIS スクリプトと `rawdata` を準備しますが、実験用 steering、較正値、入力データを自動生成しません。
+解析用ディレクトリは上の `mkdir` が作ります。`spadi-prepare-local.sh` は利用可能な ARTEMIS スクリプトと `rawdata` を準備しますが、実験用 steering、較正値、入力データを自動生成しません。
 
 画面表示を使わずに ROOT の動作と ROOT ファイルの保存を確認します。
 
