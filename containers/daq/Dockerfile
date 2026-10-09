@@ -15,7 +15,7 @@ ARG FAIRMQ_VERSION=v1.4.55
 ARG HIREDIS_VERSION=v1.0.0
 ARG REDIS_PLUS_PLUS_VERSION=1.3.15
 ARG REDISTIMESERIES_VERSION=v1.10.24
-ARG NESTDAQ_REF=v1.0.0
+ARG NESTDAQ_REF=eda728718362cc0ee169bea9b111ffc3fda7ca6b
 ARG NESTDAQ_USER_IMPL_REF=47897e9bdc4dac2f429909b3fa8bf05ab93115d0
 ARG FAIRLOGGER_REF=5aee7970fbfc66c2f0f1668ea15671b43166df68
 ARG UHBOOK_REF=e979eb28fb64de2eb216ebec31f73a6696d257ec
@@ -129,7 +129,10 @@ RUN cd /opt/spadi/src && \
 # at the source so GitHub runner CPU features cannot leak into distributed
 # binaries. Keep the baseline usable on generic x86-64 machines without AVX.
 RUN cd /opt/spadi/src && \
-    git clone --branch ${NESTDAQ_REF} --depth 1 https://github.com/spadi-alliance/nestdaq.git && \
+    git init nestdaq && \
+    git -C nestdaq remote add origin https://github.com/spadi-alliance/nestdaq.git && \
+    git -C nestdaq fetch --depth 1 origin ${NESTDAQ_REF} && \
+    git -C nestdaq checkout --detach FETCH_HEAD && \
     sed -i \
       's/-Ofast -DNDEBUG -march=native/-Ofast -DNDEBUG -march=x86-64 -mtune=generic -mno-avx -mno-avx2/' \
       nestdaq/CMakeLists.txt && \
