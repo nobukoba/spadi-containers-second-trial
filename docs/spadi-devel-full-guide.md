@@ -76,6 +76,8 @@ apptainer shell --cleanenv --bind "$PWD/workspace:/workspace" \
 
 ### Docker (macOS / Linux)
 
+On Docker Desktop, enable **Enable host networking** before starting the container. See the [setup instructions and screenshot](../README.md#container-networking).
+
 ```bash
 docker pull --platform linux/amd64 \
   ghcr.io/nobukoba/spadi-containers-second-trial/spadi-devel-full:latest

@@ -45,6 +45,8 @@ apptainer shell --cleanenv --bind "$PWD/workspace:/workspace" \
 
 ### Docker（macOS / Linux）
 
+Docker Desktop では、起動前に **Enable host networking** を有効にしてください。[設定手順と画面例](../README.ja.md#コンテナで使用するネットワーク)を参照してください。
+
 ```bash
 docker pull --platform linux/amd64 \
   ghcr.io/nobukoba/spadi-containers-second-trial/spadi-user-artemis:latest
