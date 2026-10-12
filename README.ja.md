@@ -90,7 +90,11 @@ docker run --rm -it --platform linux/amd64 --network host \
   ghcr.io/nobukoba/spadi-containers-second-trial/spadi-user-daq:latest
 ```
 
-Docker Desktop では、これらのコマンドを使用する前に設定で host ネットワークを有効にしてください。bridge ネットワークを使う代替手順では、`--network host` を外し、レシピの `WEBCTL_HOST=0.0.0.0` と起動時の `-p 127.0.0.1:8081:8081`（RARiS は8080）を組み合わせます。実機への到達性は別途確認してください。
+Docker Desktop では、これらのコマンドを使用する前に **Settings → Resources → Network** を開き、**Enable host networking** にチェックを入れて **Apply** で設定を適用してください。
+
+![Docker Desktop の Enable host networking 設定](docs/images/docker-desktop-host-networking.png)
+
+bridge ネットワークを使う代替手順では、`--network host` を外し、レシピの `WEBCTL_HOST=0.0.0.0` と起動時の `-p 127.0.0.1:8081:8081`（RARiS は8080）を組み合わせます。実機への到達性は別途確認してください。
 
 ## イメージのバージョン
 

@@ -90,7 +90,11 @@ docker run --rm -it --platform linux/amd64 --network host \
   ghcr.io/nobukoba/spadi-containers-second-trial/spadi-user-daq:latest
 ```
 
-On Docker Desktop, enable host networking in its settings before using these commands. For a bridge-network alternative, omit `--network host` and combine recipe `WEBCTL_HOST=0.0.0.0` with `-p 127.0.0.1:8081:8081` (8080 for RARiS). Verify hardware reachability separately.
+On Docker Desktop, open **Settings → Resources → Network**, check **Enable host networking**, and apply the change before using these commands.
+
+![Docker Desktop: Enable host networking](docs/images/docker-desktop-host-networking.png)
+
+For a bridge-network alternative, omit `--network host` and combine recipe `WEBCTL_HOST=0.0.0.0` with `-p 127.0.0.1:8081:8081` (8080 for RARiS). Verify hardware reachability separately.
 
 ## Image versions
 
