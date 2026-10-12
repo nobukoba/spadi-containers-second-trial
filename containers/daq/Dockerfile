@@ -135,7 +135,7 @@ RUN cd /opt/spadi/src && \
     git -C nestdaq checkout --detach FETCH_HEAD && \
     sed -i \
       's/-Ofast -DNDEBUG -march=native/-Ofast -DNDEBUG -march=x86-64 -mtune=generic -mno-avx -mno-avx2/' \
-      nestdaq/CMakeLists.txt && \
+      nestdaq/CMakeLists.txt nestdaq/cmake/common.cmake && \
     sed -i 's/ec\.what()/ec.message()/g' \
       nestdaq/controller/websocket_session.cxx \
       nestdaq/controller/http_session.cxx \

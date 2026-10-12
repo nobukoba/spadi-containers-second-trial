@@ -458,3 +458,7 @@ Use explicit image-family identifiers in user-facing descriptions: write `spadi-
 ## Host networking in Docker documentation
 
 Include `--network host` in every normal user-facing `docker run` startup example, including the bilingual README Quick start and all FEE, DAQ, ARTEMIS, and FULL user/devel guides. A later networking section is not a substitute: users copy the first startup example. Keep FEE prose aligned with the included option. Any explicitly documented bridge-network alternative must remove `--network host` before using `-p`; retain Docker Desktop host-network enablement guidance.
+
+## NestDAQ CMake flag relocation
+
+Pinned NestDAQ commit `eda728718362cc0ee169bea9b111ffc3fda7ca6b` sets its Release CPU flags in `cmake/common.cmake`, rather than only in the top-level `CMakeLists.txt`. Patch both files when neutralizing `-march=native` in the canonical DAQ Dockerfile; otherwise the existing architecture guard stops DAQ and FULL prerequisite builds before compilation. Keep the guard and generic x86-64/non-AVX baseline enabled. Inspect all upstream CMake flag definitions whenever updating the NestDAQ pin.
