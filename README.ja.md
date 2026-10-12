@@ -45,6 +45,7 @@ mkdir -p "$PWD/workspace"
 
 docker run --rm -it \
   --platform linux/amd64 \
+  --network host \
   -e LOCAL_UID="$(id -u)" \
   -e LOCAL_GID="$(id -g)" \
   -v "$PWD/workspace:/workspace" \
@@ -89,7 +90,7 @@ docker run --rm -it --platform linux/amd64 --network host \
   ghcr.io/nobukoba/spadi-containers-second-trial/spadi-user-daq:latest
 ```
 
-macOS の一般 Docker 起動例は解析・ソフトウェア利用向けです。ブラウザ用ポートを publish する場合は、レシピの `WEBCTL_HOST=0.0.0.0` と起動時の `-p 127.0.0.1:8081:8081`（RARiS は8080）を組み合わせます。実機への到達性は別途確認してください。
+Docker Desktop では、これらのコマンドを使用する前に設定で host ネットワークを有効にしてください。bridge ネットワークを使う代替手順では、`--network host` を外し、レシピの `WEBCTL_HOST=0.0.0.0` と起動時の `-p 127.0.0.1:8081:8081`（RARiS は8080）を組み合わせます。実機への到達性は別途確認してください。
 
 ## イメージのバージョン
 

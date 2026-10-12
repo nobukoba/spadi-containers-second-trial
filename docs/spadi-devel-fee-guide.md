@@ -71,6 +71,7 @@ docker pull --platform linux/amd64 \
 mkdir -p "$PWD/workspace"
 docker run --rm -it \
   --platform linux/amd64 \
+  --network host \
   -e LOCAL_UID="$(id -u)" -e LOCAL_GID="$(id -g)" \
   -v "$PWD/workspace:/workspace" \
   ghcr.io/nobukoba/spadi-containers-second-trial/spadi-devel-fee:latest
@@ -130,7 +131,7 @@ For Dockerfile, CI, SIF creation, and publication changes, see the [container ma
 
 ## Configure SiTCP / SiTCP-XG networking
 
-Run these commands inside the container. They contact the board at its current IP using RBCP (UDP 4660). Configure the host Ethernet interface and route to the board first, and stop DAQ before changing settings. Ordinary Apptainer startup shares the host network. On Linux, add `--network host` to the Docker startup command to use the same host routes. See the [README](../README.md) for platform-specific networking conditions.
+Run these commands inside the container. They contact the board at its current IP using RBCP (UDP 4660). Configure the host Ethernet interface and route to the board first, and stop DAQ before changing settings. Ordinary Apptainer startup shares the host network. On Linux, the Docker startup command above uses `--network host` to share the host network and routes. See the [README](../README.md) for platform-specific networking conditions.
 
 ### Read the current settings
 

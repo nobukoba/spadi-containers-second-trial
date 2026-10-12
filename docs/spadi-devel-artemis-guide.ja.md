@@ -63,6 +63,7 @@ docker pull --platform linux/amd64 \
 mkdir -p "$PWD/workspace"
 docker run --rm -it \
   --platform linux/amd64 \
+  --network host \
   -e LOCAL_UID="$(id -u)" -e LOCAL_GID="$(id -g)" \
   -v "$PWD/workspace:/workspace" \
   ghcr.io/nobukoba/spadi-containers-second-trial/spadi-devel-artemis:latest

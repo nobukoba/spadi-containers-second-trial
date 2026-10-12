@@ -454,3 +454,7 @@ The FEE MPC/MPCX license example must combine file writing with `--set-eeprom-ip
 FEE guides are general board-tool manuals: do not include the channel-102 acquisition-specific configuration recipe or its detailed firmware readback discussion there. Keep those in DAQ/FULL acquisition guides. Introduce hul-common-lib and amaneq-soft with upstream links, prioritize get_version as the basic example, and describe firmware-specific set_tdcmask only as an optional tool example with explicit LR/HR paths.
 
 Use explicit image-family identifiers in user-facing descriptions: write `spadi-user-*` for runtime images rather than the bare word `user`, which can be mistaken for a person or account.
+
+## Host networking in Docker documentation
+
+Include `--network host` in every normal user-facing `docker run` startup example, including the bilingual README Quick start and all FEE, DAQ, ARTEMIS, and FULL user/devel guides. A later networking section is not a substitute: users copy the first startup example. Keep FEE prose aligned with the included option. Any explicitly documented bridge-network alternative must remove `--network host` before using `-p`; retain Docker Desktop host-network enablement guidance.

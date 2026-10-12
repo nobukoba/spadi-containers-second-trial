@@ -45,6 +45,7 @@ mkdir -p "$PWD/workspace"
 
 docker run --rm -it \
   --platform linux/amd64 \
+  --network host \
   -e LOCAL_UID="$(id -u)" \
   -e LOCAL_GID="$(id -g)" \
   -v "$PWD/workspace:/workspace" \
@@ -89,7 +90,7 @@ docker run --rm -it --platform linux/amd64 --network host \
   ghcr.io/nobukoba/spadi-containers-second-trial/spadi-user-daq:latest
 ```
 
-The general macOS Docker example is intended for analysis and software use. To publish browser control from bridge networking, combine recipe WEBCTL_HOST=0.0.0.0 with -p 127.0.0.1:8081:8081 (8080 for RARiS). Verify hardware reachability separately.
+On Docker Desktop, enable host networking in its settings before using these commands. For a bridge-network alternative, omit `--network host` and combine recipe `WEBCTL_HOST=0.0.0.0` with `-p 127.0.0.1:8081:8081` (8080 for RARiS). Verify hardware reachability separately.
 
 ## Image versions
 

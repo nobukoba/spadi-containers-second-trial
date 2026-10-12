@@ -56,6 +56,7 @@ docker pull --platform linux/amd64 \
 mkdir -p "$PWD/workspace"
 docker run --rm -it \
   --platform linux/amd64 \
+  --network host \
   -e LOCAL_UID="$(id -u)" -e LOCAL_GID="$(id -g)" \
   -v "$PWD/workspace:/workspace" \
   ghcr.io/nobukoba/spadi-containers-second-trial/spadi-user-fee:latest
@@ -73,7 +74,7 @@ spadi-prepare-local.sh
 
 ## SiTCP / SiTCP-XG のネットワーク設定
 
-以下はコンテナ内で実行します。基板の現在の IP を指定して RBCP（UDP 4660）で通信します。ホストの Ethernet 設定と基板への経路を先に確認し、DAQ を停止してください。通常の Apptainer 起動はホストのネットワークを共有します。Linux の Docker で同じ経路を使う場合は、起動例の `docker run` に `--network host` を追加します。環境ごとの条件は [README](../README.ja.md) を参照してください。
+以下はコンテナ内で実行します。基板の現在の IP を指定して RBCP（UDP 4660）で通信します。ホストの Ethernet 設定と基板への経路を先に確認し、DAQ を停止してください。通常の Apptainer 起動はホストのネットワークを共有します。Linux の Docker では、上の起動例に含まれる `--network host` によりホストのネットワークと経路を共有します。環境ごとの条件は [README](../README.ja.md) を参照してください。
 
 ### 現在の設定を読む
 
