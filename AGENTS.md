@@ -462,3 +462,7 @@ Include `--network host` in every normal user-facing `docker run` startup exampl
 ## NestDAQ CMake flag relocation
 
 Pinned NestDAQ commit `eda728718362cc0ee169bea9b111ffc3fda7ca6b` sets its Release CPU flags in `cmake/common.cmake`, rather than only in the top-level `CMakeLists.txt`. Patch both files when neutralizing `-march=native` in the canonical DAQ Dockerfile; otherwise the existing architecture guard stops DAQ and FULL prerequisite builds before compilation. Keep the guard and generic x86-64/non-AVX baseline enabled. Inspect all upstream CMake flag definitions whenever updating the NestDAQ pin.
+
+## LogicFilter installation prefix
+
+The pinned nestdaq-user-impl LogicFilter/CMakeLists.txt builds both LogicFilter and fltcoin but installs them into absolute CMAKE_SOURCE_DIR/bin and lib paths. Patch INSTALL_BINDIR and INSTALL_LIBDIR to CMAKE_INSTALL_BINDIR and CMAKE_INSTALL_LIBDIR in the DAQ build before installation so runtime source removal does not discard these tools. FULL inherits this patched subdirectory (its restore only resets the top-level CMakeLists.txt). Apply the same idempotent correction in the interactive build helper for fresh upstream sources and SPADI_LOCAL installs. DAQ/FULL Docker and SIF smoke tests must check both executables, shared-library resolution, and --help startup.

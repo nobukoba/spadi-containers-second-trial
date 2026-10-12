@@ -11,6 +11,21 @@ uhbook="${SPADI_LOCAL}/src/uhbook"
 [[ -d "$src" ]] || { echo "Missing $src. Run spadi_prepare_local.sh first." >&2; exit 1; }
 [[ -d "$uhbook" ]] || uhbook="${SPADI_ROOT}/src/uhbook"
 
+python3 - "$src" <<'PY'
+from pathlib import Path
+import sys
+
+logic = Path(sys.argv[1]) / 'LogicFilter/CMakeLists.txt'
+s = logic.read_text()
+for kind in ('BIN', 'LIB'):
+    old = f'set(INSTALL_{kind}DIR ${{CMAKE_SOURCE_DIR}}/{kind.lower()})'
+    new = f'set(INSTALL_{kind}DIR ${{CMAKE_INSTALL_{kind}DIR}})'
+    if old not in s and new not in s:
+        raise RuntimeError(f'LogicFilter install {kind.lower()}dir marker not found')
+    s = s.replace(old, new)
+logic.write_text(s)
+PY
+
 cmake -S "$src" -B "$build" \
   -DCMAKE_BUILD_TYPE=Release \
   -DCMAKE_INSTALL_PREFIX="${SPADI_LOCAL}" \

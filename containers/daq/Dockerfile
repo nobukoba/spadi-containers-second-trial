@@ -195,6 +195,18 @@ s = s.replace(marker,
               + marker,
               1)
 p.write_text(s)
+
+# LogicFilter and fltcoin must follow the configured installation prefix.
+# Installing into the source tree loses them when runtime sources are removed.
+logic = Path('/opt/spadi/src/nestdaq-user-impl/LogicFilter/CMakeLists.txt')
+l = logic.read_text()
+for kind in ('BIN', 'LIB'):
+    old = f'set(INSTALL_{kind}DIR ${{CMAKE_SOURCE_DIR}}/{kind.lower()})'
+    new = f'set(INSTALL_{kind}DIR ${{CMAKE_INSTALL_{kind}DIR}})'
+    if old not in l:
+        raise RuntimeError(f'LogicFilter install {kind.lower()}dir marker not found')
+    l = l.replace(old, new, 1)
+logic.write_text(l)
 PY
 
 RUN ! grep -R --line-number -- '-march=native' /opt/spadi/src/nestdaq-user-impl/CMakeLists.txt && \

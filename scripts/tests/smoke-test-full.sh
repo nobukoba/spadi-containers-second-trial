@@ -45,8 +45,19 @@ echo "=== DAQ ==="
 command -v daq-webctl
 command -v TimeFrameBuilder
 command -v STFBFilePlayer
+command -v LogicFilter
+command -v fltcoin
 test -r /opt/spadi/lib/redistimeseries.so
 test -d /opt/spadi/scripts/exp-config
+
+for exe in /opt/spadi/bin/LogicFilter /opt/spadi/bin/fltcoin; do
+  test -x "$exe"
+  if ldd "$exe" | grep -q 'not found'; then
+    echo "ERROR: unresolved shared library for $exe" >&2
+    exit 1
+  fi
+  "$exe" --help >/tmp/"${exe##*/}"-help.txt 2>&1
+done
 
 echo "=== Redis client linkage ==="
 grep -q '^REDIS_PLUS_PLUS_VERSION=1.3.15$' /opt/spadi/versions/versions.env
