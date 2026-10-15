@@ -14,13 +14,13 @@ if tmux -L "$TMUX_SOCKET" has-session -t "$TMUX_SESSION" 2>/dev/null; then
 fi
 printf -v output '%s/00/run%06d.dat' "$RAWDATA_DIR" "$((10#$RUN_NUMBER))"
 [[ ! -e "$output" ]] || { echo "Output already exists: $output. Change RUN_NUMBER." >&2; exit 1; }
-bash "${HERE}/../common/start-valkey.sh" "$NESTDAQ_CONFIG"
-# This recipe owns its Valkey service/DBs. Refuse to clear a running registry.
-active="$(nestdaq_cli --raw -h "$VALKEY_HOST" -p "$VALKEY_PORT" -n "$DAQSERVICE_DB" keys 'daq_service:*:fair-mq-state')"
-[[ -z "$active" ]] || { echo 'DAQ devices already registered on this Valkey service; use another port.' >&2; exit 1; }
+bash "${HERE}/../common/start-redis.sh" "$NESTDAQ_CONFIG"
+# This recipe owns its Redis service/DBs. Refuse to clear a running registry.
+active="$(nestdaq_cli --raw -h "$REDIS_HOST" -p "$REDIS_PORT" -n "$DAQSERVICE_DB" keys 'daq_service:*:fair-mq-state')"
+[[ -z "$active" ]] || { echo 'DAQ devices already registered on this Redis service; use another port.' >&2; exit 1; }
 bash "${HERE}/../common/apply-parameters.sh" "$NESTDAQ_CONFIG"
 bash "${HERE}/../common/apply-topology.sh" "$NESTDAQ_CONFIG"
-nestdaq_cli -h "$VALKEY_HOST" -p "$VALKEY_PORT" -n "$DAQSERVICE_DB" set run_info:run_number "$((10#$RUN_NUMBER))" >/dev/null
+nestdaq_cli -h "$REDIS_HOST" -p "$REDIS_PORT" -n "$DAQSERVICE_DB" set run_info:run_number "$((10#$RUN_NUMBER))" >/dev/null
 bash "${HERE}/../common/tmux-start.sh" "$NESTDAQ_CONFIG"
 devices=(AmQStrTdcSampler STFBuilder TimeFrameBuilder FileSink)
 nestdaq_wait_state IDLE "${devices[@]}"

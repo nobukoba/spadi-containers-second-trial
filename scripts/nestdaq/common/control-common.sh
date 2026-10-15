@@ -4,7 +4,7 @@ source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/config-common.sh"
 
 nestdaq_state() {
     local service="$1" index="${2:-0}"
-    nestdaq_cli --raw -h "$VALKEY_HOST" -p "$VALKEY_PORT" -n "$DAQSERVICE_DB" get "daq_service:${service}:${service}-${index}:fair-mq-state"
+    nestdaq_cli --raw -h "$REDIS_HOST" -p "$REDIS_PORT" -n "$DAQSERVICE_DB" get "daq_service:${service}:${service}-${index}:fair-mq-state"
 }
 
 nestdaq_wait_state() {
@@ -30,7 +30,7 @@ nestdaq_change_state() {
     local transition="$1"; shift
     local services='' service
     for service in "$@"; do services+="${services:+,}\"${service}\""; done
-    nestdaq_cli -h "$VALKEY_HOST" -p "$VALKEY_PORT" -n "$DAQSERVICE_DB" publish daqctl \
+    nestdaq_cli -h "$REDIS_HOST" -p "$REDIS_PORT" -n "$DAQSERVICE_DB" publish daqctl \
         "{\"command\":\"change_state\",\"value\":\"${transition}\",\"services\":[${services}],\"instances\":[\"all\"]}" >/dev/null
 }
 

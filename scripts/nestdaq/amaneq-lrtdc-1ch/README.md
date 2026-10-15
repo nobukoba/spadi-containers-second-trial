@@ -1,6 +1,6 @@
 # AMANEQ LR-TDC one-channel NestDAQ recipe
 
-`config.sh` sets the board IP (192.168.10.16), LR type (1), run number, storage, Valkey, and data/web ports. One sampler and STFBuilder feed one TimeFrameBuilder and FileSink. `fee-setup.sh` applies the channel-102-only masks from the FEE recipe.
+`config.sh` sets the board IP (192.168.10.16), LR type (1), run number, storage, Redis, and data/web ports. One sampler and STFBuilder feed one TimeFrameBuilder and FileSink. `fee-setup.sh` applies the channel-102-only masks from the FEE recipe.
 
 After `spadi-prepare-local.sh` in a DAQ/FULL image:
 

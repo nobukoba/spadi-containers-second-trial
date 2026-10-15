@@ -66,6 +66,8 @@ for exe in /opt/spadi/bin/LogicFilter /opt/spadi/bin/fltcoin; do
   "$exe" --help >/tmp/"${exe##*/}"-help.txt 2>&1
 done
 
+bash /opt/spadi/scripts/check-redis.sh
+
 echo "=== Redis client linkage ==="
 grep -q '^REDIS_PLUS_PLUS_VERSION=1.3.15$' /opt/spadi/versions/versions.env
 grep -q '^HIREDIS_VERSION=v1.0.0$' /opt/spadi/versions/versions.env

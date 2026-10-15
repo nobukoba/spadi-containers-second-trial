@@ -12,5 +12,5 @@ if [[ -z "$plugin_dir" ]]; then
   done
 fi
 : "${plugin_dir:=${SPADI_ROOT}/lib}"
-opts=(-S "<${plugin_dir}" -P daq_service -P metrics -P parameter_config --registry-uri "tcp://${VALKEY_HOST}:${VALKEY_PORT}/${DAQSERVICE_DB}" --metrics-uri "tcp://${VALKEY_HOST}:${VALKEY_PORT}/${METRICS_DB}" --parameter-config-uri "tcp://${VALKEY_HOST}:${VALKEY_PORT}/${PARAMETER_DB}" --host-ip "${NESTDAQ_HOST_IP}" --severity "${NESTDAQ_SEVERITY:-debug4}")
+opts=(-S "<${plugin_dir}" -P daq_service -P metrics -P parameter_config --registry-uri "tcp://${REDIS_HOST}:${REDIS_PORT}/${DAQSERVICE_DB}" --metrics-uri "tcp://${REDIS_HOST}:${REDIS_PORT}/${METRICS_DB}" --parameter-config-uri "tcp://${REDIS_HOST}:${REDIS_PORT}/${PARAMETER_DB}" --host-ip "${NESTDAQ_HOST_IP}" --severity "${NESTDAQ_SEVERITY:-debug4}")
 echo "+ $cmd $* ${opts[*]}"; exec "$cmd" "$@" "${opts[@]}"

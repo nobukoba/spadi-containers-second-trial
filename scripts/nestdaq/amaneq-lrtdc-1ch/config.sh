@@ -18,7 +18,7 @@ RAWDATA_DIR="${SPADI_WORKSPACE}/rawdata/amaneq-lrtdc-1ch"
 RUN_NUMBER=1
 CONTROL_TIMEOUT=30
 
-# Separate from the default RARiS replay ports and Redis/Valkey service.
+# Separate from the default RARiS replay ports and Redis service.
 SAMPLER_OUTPUT_HOST="127.0.0.1"
 SAMPLER_OUTPUT_PORT=5599
 STF_TO_TFB_HOST="127.0.0.1"
@@ -27,8 +27,8 @@ TFB_OUTPUT_HOST="127.0.0.1"
 TFB_OUTPUT_PORT=5601
 # Optional monitor subscribers; PUB works without subscribers.
 FILE_SINK_DQM_PORT=5602
-VALKEY_HOST="127.0.0.1"
-VALKEY_PORT=6380
+REDIS_HOST="127.0.0.1"
+REDIS_PORT=6380
 DAQSERVICE_DB=0
 METRICS_DB=1
 PARAMETER_DB=2

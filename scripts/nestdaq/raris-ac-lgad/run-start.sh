@@ -8,7 +8,7 @@ for ((i=0;i<STF_PLAYERS;i++)); do
   file="${RAWDATA_DIR}/${rel}"
   [[ -r "$file" ]] || { echo "Raw data not found: $file" >&2; echo "Run ./rawdata-download.sh first." >&2; exit 1; }
 done
-start-valkey.sh "${NESTDAQ_CONFIG}"
+start-redis.sh "${NESTDAQ_CONFIG}"
 apply-parameters.sh "${NESTDAQ_CONFIG}"
 apply-topology.sh "${NESTDAQ_CONFIG}"
 tmux-start.sh "${NESTDAQ_CONFIG}"

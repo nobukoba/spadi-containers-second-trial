@@ -17,7 +17,7 @@ while (( SECONDS < deadline )); do
     done
     if "$finished"; then
         tmux -L "$TMUX_SOCKET" kill-session -t "$TMUX_SESSION"
-        echo "Closed tmux session: $TMUX_SESSION. Valkey remains available."
+        echo "Closed tmux session: $TMUX_SESSION. Redis remains available."
         exit 0
     fi
     sleep 0.2

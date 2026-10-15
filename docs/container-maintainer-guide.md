@@ -77,7 +77,7 @@ This metadata must survive into both user and devel images. Docker and Apptainer
 
 ## AlmaLinux 9 runtime policy
 
-AlmaLinux 9 is the container OS baseline. Use its supported runtime packages where practical. In particular, DAQ uses the AlmaLinux 9 `valkey` package as the Redis-compatible service instead of forcing an historical Redis server package solely to match old upstream documentation. Keep NestDAQ-facing client/build libraries pinned independently, and keep RedisTimeSeries pinned as an explicit module dependency for `TS.*` metrics commands.
+AlmaLinux 9 is the container OS baseline. DAQ and FULL build Redis 6.0.10 from the official source, as listed in the [NestDAQ v1.0.0 README](https://github.com/spadi-alliance/nestdaq/blob/v1.0.0/README.md). `REDIS_VERSION` in `versions/versions.env` is passed to both direct and FULL prerequisite builds. RedisTimeSeries remains pinned to v1.10.24 (its source minimum is Redis 6.0.0). Docker and SIF checks verify the server/client versions, module loading, and TS.ADD/TS.RANGE. The separately pinned hiredis/redis-plus-plus libraries remain unchanged.
 
 ## Build cost and CI
 

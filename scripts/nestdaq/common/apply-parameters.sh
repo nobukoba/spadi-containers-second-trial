@@ -4,7 +4,7 @@ HERE="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 source "${HERE}/config-common.sh"; nestdaq_load_config "${1:-${NESTDAQ_CONFIG:-}}"
 : "${TF_BUILDERS:?}"
 : "${MAX_HBF:=4}"; : "${TFB_DECIMATION_FACTOR:=1000}"; : "${TFB_DISCARD_OUTPUT:=false}"; : "${TFB_ENABLE_UDS:=false}"
-uri="redis://${VALKEY_HOST}:${VALKEY_PORT}/${PARAMETER_DB}"; nestdaq_cli -u "$uri" flushdb >/dev/null
+uri="redis://${REDIS_HOST}:${REDIS_PORT}/${PARAMETER_DB}"; nestdaq_cli -u "$uri" flushdb >/dev/null
 param(){ nestdaq_cli -u "$uri" hset "parameters:$1" "${@:2}" >/dev/null; }
 case "${SOURCE_MODE:-replay}" in
   replay)

@@ -97,7 +97,7 @@ AMANEQ ch102 → AmQStrTdcSampler-0 → STFBuilder-0
 
 AMANEQ の実機は1台です。Sampler、STFBuilder、TimeFrameBuilder、FileSink はコンテナ内で動く4つのソフトウェアプロセスです。
 
-Valkey、パラメータ、トポロジー、プラグイン、tmux のヘルパーは RARiS 再生と共通です。実機用には Sampler と STFBuilder を使用し、FileSink で TF/STF レコードを保存します。
+Redis、パラメータ、トポロジー、プラグイン、tmux のヘルパーは RARiS 再生と共通です。実機用には Sampler と STFBuilder を使用し、FileSink で TF/STF レコードを保存します。
 
 ### MZN-D の読み戻しに関する制約
 
@@ -131,7 +131,7 @@ ping -c 3 192.168.10.16
 ./initialize.sh
 ```
 
-Valkey、パラメータ、トポロジー、初期 run 番号、Web Controller と4つのプロセスを準備し、すべてが **Idle** になるまで待ちます。FEE のレジスタやマスクは変更しません。この時点では読み出しを開始しません。以降の初期化・開始・停止・run 番号の変更はブラウザで操作します。
+Redis、パラメータ、トポロジー、初期 run 番号、Web Controller と4つのプロセスを準備し、すべてが **Idle** になるまで待ちます。FEE のレジスタやマスクは変更しません。この時点では読み出しを開始しません。以降の初期化・開始・停止・run 番号の変更はブラウザで操作します。
 
 `run-start.sh` は上の2つを順に実行する代替手段です。個別に実行した後には重ねて実行しないでください。
 
@@ -193,7 +193,7 @@ FEE の Main-U、Main-D、MZN-U、MZN-D のマスクは `ffffffff ffffffff fffff
 
 IP、最初の run 番号、保存先、ポートは NestDAQ 側の `config.sh` で編集します。ここにある `AMANEQ_IP` が FEE ヘルパーにも渡されます。マスク値は `scripts/fee/amaneq-lrtdc-1ch/config.sh` にあります。起動後の run 番号はブラウザで設定します。準備時には `RUN_NUMBER` の既存出力を拒否し、ブラウザからの Run でも FileSink の `openmode=create` が上書きを防ぎます。番号重複による FileSink の異常があれば収集を進めず、ログを確認してください。稼働中のセッションの設定は変更しないでください。
 
-デフォルトは Valkey `127.0.0.1:6380`（DB0: 登録情報、DB1: メトリクス、DB2: パラメータ）、Web 状態表示 `http://localhost:8081/daq-webctl.html`、データ転送ポート5599〜5601、任意の DQM モニター用 PUB ポート5602です。モニターが接続していなくても、FileSink に DQM チャンネルの定義が必要です。RARiS のデフォルトとは分けています。この設定専用の Valkey DB を使い、他の稼働中の設定と共用しないでください。停止後も Valkey は再利用のため残します。
+デフォルトは Redis `127.0.0.1:6380`（DB0: 登録情報、DB1: メトリクス、DB2: パラメータ）、Web 状態表示 `http://localhost:8081/daq-webctl.html`、データ転送ポート5599〜5601、任意の DQM モニター用 PUB ポート5602です。モニターが接続していなくても、FileSink に DQM チャンネルの定義が必要です。RARiS のデフォルトとは分けています。この設定専用の Redis DB を使い、他の稼働中の設定と共用しないでください。停止後も Redis は再利用のため残します。
 
 通常の収集停止は上記のブラウザ操作で行います。`run-stop.sh` はブラウザが使えない場合の停止・終了に使用します。通常の End 後には `run-cleanup.sh` を使います。上流から止めて下流の処理時間を確保し、FileSink の PostRun、トレーラー書き込み、ファイル close を待ってからデバイスと tmux を終了します。エラーやタイムアウト時は調査用に tmux を残します。固定版 upstream は最後の不完全なフレームや FileSink の PostRun に残った入力を破棄する場合があり、run 境界での無損失は保証しません。ログとデリミタのフラグを確認してください。入力がなくてもハートビートデリミタが記録されるため、ファイルの増加だけでは102のヒットを確認できません。保存ファイルは FileSink のヘッダー・トレーラーと TF/STF レコードを含み、以前の `strdaq` の生ストリームとは形式が異なります。
 
@@ -228,7 +228,7 @@ AMANEQ の準備後、コンテナ内で `./run-attach.sh` を実行します。
 
 初期化時と収集中に、Web の **State Summary / Show details** で各プロセスが1つずつあることと、tmux の各ログにエラーがないことを確認します。終了後もウィンドウを残すため、ウィンドウ数だけで正常動作を判断せず、終了コードとログを確認してください。ブラウザが使えない場合は `control` で `./run-stop.sh` を実行できます。
 
-Valkey は共通ヘルパーが管理するバックグラウンドサービスです。デフォルトのログは `control` で `tail -n 50 /tmp/spadi-valkey-6380.log` として確認できます（ポート変更時はファイル名も変わります）。ログ確認・端末操作に xterm、`DISPLAY`、X11 転送は不要です。停止後も Valkey は再利用のため残します。
+Redis は共通ヘルパーが管理するバックグラウンドサービスです。デフォルトのログは `control` で `tail -n 50 /tmp/spadi-redis-6380.log` として確認できます（ポート変更時はファイル名も変わります）。ログ確認・端末操作に xterm、`DISPLAY`、X11 転送は不要です。停止後も Redis は再利用のため残します。
 
 ## RARiS AC-LGAD のファイル再生
 
@@ -299,17 +299,20 @@ NestDAQ FileSink の `.dat` は TF/STF を含む形式です。ROOT に直接開
 | [FairLogger](https://github.com/FairRootGroup/FairLogger) | ログライブラリ | [`5aee7970fbfc`](https://github.com/FairRootGroup/FairLogger/tree/5aee7970fbfc66c2f0f1668ea15671b43166df68) |
 | [FairMQ](https://github.com/FairRootGroup/FairMQ) | メッセージ通信による DAQ デバイス | [`v1.4.55`](https://github.com/FairRootGroup/FairMQ/tree/v1.4.55) |
 | [fmt](https://github.com/fmtlib/fmt) | 文字列整形ライブラリ | [`10.2.1`](https://github.com/fmtlib/fmt/tree/10.2.1) |
+| [Redis](https://github.com/redis/redis) | DAQ 登録情報・パラメータ・メトリクス用サーバー | [`6.0.10`](https://github.com/redis/redis/tree/6.0.10) |
 | [RedisTimeSeries](https://github.com/RedisTimeSeries/RedisTimeSeries) | 時系列データベースモジュール | [`v1.10.24`](https://github.com/RedisTimeSeries/RedisTimeSeries/tree/v1.10.24) |
 | [ROOT](https://github.com/root-project/root) | 解析、ヒストグラム、TTree、Cling | [`v6-32-06`](https://github.com/root-project/root/tree/v6-32-06) |
 | [ARTEMIS](https://github.com/artemis-dev/artemis) | 原子核実験用解析フレームワーク | [`c74e24adf90a`](https://github.com/artemis-dev/artemis/tree/c74e24adf90a83227fa3e5c38dc255ddc4aeb785) |
 | [yaml-cpp](https://github.com/jbeder/yaml-cpp) | YAML 設定の読み込み | [`0.8.0`](https://github.com/jbeder/yaml-cpp/tree/0.8.0) |
 | [ZeroMQ](https://github.com/zeromq/libzmq) | メッセージ通信ライブラリ | [`v4.3.5`](https://github.com/zeromq/libzmq/tree/v4.3.5) |
-| [hiredis](https://github.com/redis/hiredis) | Redis/Valkey C クライアント | [`v1.0.0`](https://github.com/redis/hiredis/tree/v1.0.0) |
-| [redis-plus-plus](https://github.com/sewenew/redis-plus-plus) | Redis/Valkey C++ クライアント | [`1.3.15`](https://github.com/sewenew/redis-plus-plus/tree/1.3.15) |
+| [hiredis](https://github.com/redis/hiredis) | Redis C クライアント | [`v1.0.0`](https://github.com/redis/hiredis/tree/v1.0.0) |
+| [redis-plus-plus](https://github.com/sewenew/redis-plus-plus) | Redis C++ クライアント | [`1.3.15`](https://github.com/sewenew/redis-plus-plus/tree/1.3.15) |
 
 OS は AlmaLinux 9 です。ネットワーク調査ツール（iproute、iputils、net-tools、bind-utils、traceroute、tcpdump、nmap-ncat）、curl / wget、vim / emacs なども含みます。OS パッケージは AlmaLinux のパッケージ版で、上表のソース固定版とは管理方法が異なります。
 
-DAQ サービス用に Valkey と tmux を含みます。DAQ では ROOT を必要とする TriggerView は無効、FULL では有効です。
+Redis は NestDAQ v1.0.0 に記載された **6.0.10** に固定しています。既存の作業領域のスクリプトは自動更新されません。旧版から移行する場合は、設定を保存したうえで新しい作業領域を準備し、変更した IP・ポートなどを新しい `config.sh`（`REDIS_HOST` / `REDIS_PORT`）へ反映してください。旧 Valkey と同じポートを使う場合は、そのサービスを停止してから Redis を起動してください。
+
+DAQ サービス用に Redis と tmux を含みます。DAQ では ROOT を必要とする TriggerView は無効、FULL では有効です。
 
 ROOT は TMVA、X11 / OpenGL、SQLite、SSL を有効にし、PyROOT、RooFit、Web GUI は無効にしています。ARTEMIS の GET は無効、ZeroMQ / Redis 対応は有効です。OpenMPI と圧縮ライブラリも含みます。
 
@@ -321,7 +324,7 @@ ROOT は TMVA、X11 / OpenGL、SQLite、SSL を有効にし、PyROOT、RooFit、
 
 | 公式マニュアルの役割 | このコンテナでの対応 |
 |---|---|
-| `init.sh`：Redis と Web Controller | `common/start-valkey.sh` と `common/tmux-start.sh` の `webctl` ウィンドウ |
+| `init.sh`：Redis と Web Controller | `common/start-redis.sh` と `common/tmux-start.sh` の `webctl` ウィンドウ |
 | `fee_scripts/config_modules.sh`：FEE 設定 | AMANEQ の `fee-setup.sh` と FEE 側 `setup.sh`（このスタンドアロン LR 例では入力マスクを設定） |
 | `mq-param.sh`、`topology.sh` | `common/apply-parameters.sh`、`common/apply-topology.sh` |
 | `tf.sh`、`run-stf-tf.sh`、`start_device.sh` | AMANEQ の `run-start.sh`、`common/tmux-start.sh`、`common/start-device.sh` |

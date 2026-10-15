@@ -72,7 +72,7 @@ The local prefix takes precedence over the validated base in `PATH`, `LD_LIBRARY
 
 SPADI's own build recipes should install libraries under `$PREFIX/lib`, not split SPADI libraries between `lib` and `lib64`. Keep `$SPADI_ROOT/lib64` and `$SPADI_LOCAL/lib64` in runtime search paths defensively for compatibility with dependencies and older builds; remove those references only after every component's actual install layout has been verified. OS libraries under `/usr/lib64` are unrelated to this SPADI prefix policy.
 
-NestDAQ runtime recipes use a single human-editable `config.sh` per recipe. Keep Redis/Valkey topology and parameter-application logic in shared helpers under `scripts/nestdaq/common` so recipe files do not duplicate host, port, process-count, or parameter boilerplate. Operation scripts use explicit names such as `run-start.sh`, `run-stop.sh`, `run-status.sh`, `run-attach.sh`, and `rawdata-download.sh`. Raw-data download helpers must show transfer progress and support resumable public downloads where practical. Runtime recipes copied into `SPADI_LOCAL` are user-owned configuration and must never be overwritten by prepare/update helpers.
+NestDAQ runtime recipes use a single human-editable `config.sh` per recipe. Keep Redis topology and parameter-application logic in shared helpers under `scripts/nestdaq/common` so recipe files do not duplicate host, port, process-count, or parameter boilerplate. Operation scripts use explicit names such as `run-start.sh`, `run-stop.sh`, `run-status.sh`, `run-attach.sh`, and `rawdata-download.sh`. Raw-data download helpers must show transfer progress and support resumable public downloads where practical. Runtime recipes copied into `SPADI_LOCAL` are user-owned configuration and must never be overwritten by prepare/update helpers.
 
 Provide developer helper scripts that can rebuild the source shipped in the devel image into `SPADI_LOCAL`. Build helpers use short natural names such as `<component>-build.sh`; do not call them `self-build`, `user-build`, or `local-build`. Put editable copies in `$SPADI_LOCAL/scripts` and put that directory on `PATH` so helpers can run from any working directory. Prefer one small script per operation/component instead of one argument-driven dispatcher. Also provide an explicit opt-in workflow for cloning latest upstream source into `$SPADI_LOCAL/src/<project>` and building it against the validated `SPADI_ROOT` base. The normal container build remains pinned and reproducible; a developer asking for `latest` is intentionally leaving that pinned baseline. Never make the image build itself silently clone latest/main.
 
@@ -116,7 +116,7 @@ ROOT/Cling is an exception to the general preference to omit compiler-related ru
 
 ## AlmaLinux 9 runtime baseline
 
-AlmaLinux 9 is the runtime baseline for second-trial images. Prefer AlmaLinux 9-supported runtime packages over recreating historical distribution/package combinations from upstream documentation. For NestDAQ, retain the exact compatible build-library pins where they matter (for example hiredis and redis-plus-plus), but use AlmaLinux 9 `valkey` as the Redis-compatible runtime service. RedisTimeSeries is built as a separately pinned module because NestDAQ metrics uses `TS.*` commands. Document this distinction rather than claiming the image exactly reproduces NestDAQ's historical Redis server package baseline.
+AlmaLinux 9 remains the runtime baseline. DAQ and FULL use Redis 6.0.10, the server version listed in the NestDAQ v1.0.0 README, pinned as REDIS_VERSION in versions/versions.env. Build the official Redis source into /opt/spadi; do not install Valkey or a floating distribution Redis package. RedisTimeSeries remains pinned to v1.10.24, whose source declares Redis 6.0.0 as its minimum. Verify module loading and TS.ADD/TS.RANGE in Docker and clean-environment SIF tests. Keep the tested hiredis and redis-plus-plus library pins unchanged: Redis's bundled static client dependency must not overwrite those shared libraries. Runtime recipes use redis-server, redis-cli, REDIS_HOST, REDIS_PORT, and start-redis.sh. Existing workspace recipes are user-owned and are not automatically refreshed by workspace preparation.
 
 ## Environment isolation
 
@@ -306,7 +306,7 @@ Do not equate MZN-D mask readback failure with failed unmasking. The official St
 
 Runtime preparation must be usable in user images without source/build helpers.
 Use spadi-prepare-local.sh in both user and devel images for non-overwriting copies of component recipes; devel images additionally prepare source and build directories.
-The live recipe uses a dedicated Valkey port/DB set, refuses to clear an active
+The live recipe uses a dedicated Redis port/DB set, refuses to clear an active
 registry, and uses SOURCE_MODE=live; replay remains the default for RARiS.
 The pinned AmQStrTdcSampler reads case-sensitive msiTcpIp and TdcType parameters
 (type 1 for LR). It opens TCP in PreRun and closes it in PostRun. Use common
@@ -337,7 +337,7 @@ first TF throws and only the file header is saved. Check all devices again
 after the sampler starts, and fail stopping when a device has disappeared.
 
 Runtime user guides must assume browser-based DAQ operation. AMANEQ run-start.sh
-prepares FEE/Valkey/topology and waits for IDLE only; it must not issue Run.
+prepares FEE/Redis/topology and waits for IDLE only; it must not issue Run.
 Document browser target selection, run-number Send, and downstream-first Run /
 upstream-first Stop. Disable Auto increment at RUN-Stop when stopping services
 individually: the pinned page increments the run number on every Stop click.
@@ -363,7 +363,7 @@ a control shell, and one named window per DAQ process. No xterm, X11, or DISPLAY
 is required. Document attach, window navigation, scrollback, detach, log and
 process-count checks, and final browser End / recipe-only cleanup. Do not change
 global tmux key bindings or use killall/pkill to stop other experiments.
-Valkey is the managed background service; its log can be inspected from control.
+Redis is the managed background service; its log can be inspected from control.
 
 Manual examples are historical: LR TdcType=6 is dated June 2024, while the pinned
 AmQStrTdcSampler accepts LR=1. Check exact upstream code before copying values.
@@ -407,7 +407,7 @@ All eight image variants expose `spadi-prepare-local.sh` as the single user-faci
 
 ## TDC utility layout and DAQ initialization separation
 
-Install LR-TDC executables under `/opt/spadi/bin/StrLRTDC/` and HR-TDC executables under `/opt/spadi/bin/StrHRTDC/`, keeping identically named commands separate. Do not create compatibility symbolic links or legacy executable directories. Apply the same bin/<firmware> layout to local AMANEQ rebuilds and verify it in Docker and SIF smoke tests. The AMANEQ live NestDAQ recipe separates `fee-setup.sh` (FEE configuration) from `initialize.sh` (Valkey, parameters, topology, process initialization); `run-start.sh` calls them in order. DAQ initialization alone must not change FEE registers or masks. Keep smoke tests and both language guides aligned with this layout.
+Install LR-TDC executables under `/opt/spadi/bin/StrLRTDC/` and HR-TDC executables under `/opt/spadi/bin/StrHRTDC/`, keeping identically named commands separate. Do not create compatibility symbolic links or legacy executable directories. Apply the same bin/<firmware> layout to local AMANEQ rebuilds and verify it in Docker and SIF smoke tests. The AMANEQ live NestDAQ recipe separates `fee-setup.sh` (FEE configuration) from `initialize.sh` (Redis, parameters, topology, process initialization); `run-start.sh` calls them in order. DAQ initialization alone must not change FEE registers or masks. Keep smoke tests and both language guides aligned with this layout.
 
 ## Shared interactive Bash prompt
 
@@ -470,3 +470,5 @@ The pinned nestdaq-user-impl LogicFilter/CMakeLists.txt builds both LogicFilter 
 ## Common editor and remote-access clients
 
 All eight user/devel images must provide `vim`, `ssh`, `scp`, and `sftp`. Install AlmaLinux 9 `vim-enhanced` and `openssh-clients` in the final FEE and ARTEMIS stages; DAQ inherits FEE and FULL inherits DAQ through commit-local prerequisites. `vim-minimal` supplies `vi` and is not sufficient for the `vim` command. Keep these additions after expensive compilation layers where possible. The shared Docker/SIF smoke tests must check all four commands. These are client tools; no SSH server is required.
+
+The recipe regression test must check existing-output rejection through `initialize.sh`: the separate `run-start.sh` wrapper intentionally applies FEE setup before DAQ initialization. Do not assert that the wrapper performs no FEE calls when DAQ initialization later rejects an existing file.

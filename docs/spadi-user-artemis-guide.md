@@ -118,8 +118,8 @@ These are the main included software components. Pins are defined in [versions.e
 | [ARTEMIS](https://github.com/artemis-dev/artemis) | Nuclear-physics analysis framework | [`c74e24adf90a`](https://github.com/artemis-dev/artemis/tree/c74e24adf90a83227fa3e5c38dc255ddc4aeb785) |
 | [yaml-cpp](https://github.com/jbeder/yaml-cpp) | YAML configuration parser | [`0.8.0`](https://github.com/jbeder/yaml-cpp/tree/0.8.0) |
 | [ZeroMQ](https://github.com/zeromq/libzmq) | Messaging library | [`v4.3.5`](https://github.com/zeromq/libzmq/tree/v4.3.5) |
-| [hiredis](https://github.com/redis/hiredis) | Redis/Valkey C client | [`v1.0.0`](https://github.com/redis/hiredis/tree/v1.0.0) |
-| [redis-plus-plus](https://github.com/sewenew/redis-plus-plus) | Redis/Valkey C++ client | [`1.3.15`](https://github.com/sewenew/redis-plus-plus/tree/1.3.15) |
+| [hiredis](https://github.com/redis/hiredis) | Redis C client | [`v1.0.0`](https://github.com/redis/hiredis/tree/v1.0.0) |
+| [redis-plus-plus](https://github.com/sewenew/redis-plus-plus) | Redis C++ client | [`1.3.15`](https://github.com/sewenew/redis-plus-plus/tree/1.3.15) |
 
 The OS is AlmaLinux 9. tmux, vim / emacs, and basic file/process tools are also included. OS packages use AlmaLinux package versions rather than the source pins above.
 

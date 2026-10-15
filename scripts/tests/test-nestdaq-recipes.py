@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Exercise runtime orchestration with mock hardware, Valkey, and tmux.
+"""Exercise runtime orchestration with mock hardware, Redis, and tmux.
 
 Run on Linux/WSL2: python3 scripts/tests/test-nestdaq-recipes.py
 This checks helper contracts and lifecycle order; it is not a hardware test.
@@ -40,12 +40,14 @@ def mock(tool, args):
             result = "#E: RBCP timeout"
     elif tool == "read_register":
         result = "#D: Read register: 0 (0x" + ("ffffffbf" if args[1] == "10300000" else "ffffffff") + ")"
-    elif tool == "valkey-cli":
-        commands = {"get", "set", "hset", "keys", "del", "flushdb", "ping", "COMMAND", "publish"}
+    elif tool == "redis-cli":
+        commands = {"get", "set", "hset", "keys", "del", "flushdb", "ping", "COMMAND", "INFO", "publish"}
         offset = next(i for i, arg in enumerate(args) if arg in commands)
         op, *values = args[offset:]
         if op == "ping":
             result = "PONG"
+        elif op == "INFO":
+            result = "redis_version:" + os.environ.get("MOCK_REDIS_VERSION", "6.0.10")
         elif op == "COMMAND":
             result = "ts.add"
         elif op == "get":
@@ -91,6 +93,8 @@ def main():
         tmp = Path(temporary)
         base = tmp / "image"
         (base / "scripts").mkdir(parents=True)
+        (base / "versions").mkdir()
+        (base / "versions/versions.env").write_text("REDIS_VERSION=6.0.10\n")
         for component in ("fee", "nestdaq"):
             shutil.copytree(root / "scripts" / component, base / "scripts" / component)
         # Container COPY/chmod makes the deployed shell scripts executable.
@@ -102,7 +106,7 @@ def main():
         commands.mkdir()
         env = dict(os.environ, SPADI_ROOT=str(base), SPADI_LOCAL=str(local), MOCK_STATE=str(tmp / "state.json"))
         env["PATH"] = str(commands) + ":" + str(local / "scripts/nestdaq/common") + ":" + env["PATH"]
-        for tool in ("tmux", "valkey-cli", "set_tdcmask", "read_register", "AmQStrTdcSampler", "STFBuilder", "TimeFrameBuilder", "FileSink", "daq-webctl"):
+        for tool in ("tmux", "redis-cli", "set_tdcmask", "read_register", "AmQStrTdcSampler", "STFBuilder", "TimeFrameBuilder", "FileSink", "daq-webctl"):
             command = commands / tool
             command.write_text("#!/bin/bash\nexec python3 " + shlex.quote(str(Path(__file__).resolve())) + " --mock " + shlex.quote(tool) + ' "$@"\n')
             command.chmod(0o755)
@@ -167,18 +171,20 @@ def main():
         assert stops == ["AmQStrTdcSampler", "STFBuilder", "TimeFrameBuilder", "FileSink"]
         assert not s["session"] and "trailer" in Path(s["output"]).read_text()
         reset()
-        run(recipe / "run-start.sh", expected=1)  # existing file refused
-        assert not any(c[0] in ("valkey-cli", "set_tdcmask", "read_register") for c in read()["calls"])
+        run(recipe / "initialize.sh", expected=1)  # DAQ-only initialization refuses existing files
+        assert not any(c[0] in ("redis-cli", "set_tdcmask", "read_register") for c in read()["calls"])
         Path(s["output"]).unlink()
         reset()
         run(recipe / "run-start.sh", expected=1, extra={"MOCK_MASK_ERROR": "1"})
-        assert not any(c[0] == "valkey-cli" for c in read()["calls"])
+        assert not any(c[0] == "redis-cli" for c in read()["calls"])
         reset()
         run(recipe / "run-start.sh", expected=1, extra={"MOCK_DEVICE_ERROR": "STFBuilder"})
         assert read()["session"]  # error retains logs instead of claiming acquisition
         reset()
         replay = local / "scripts/nestdaq/raris-ac-lgad/config.sh"
         common = local / "scripts/nestdaq/common"
+        run(common / "start-redis.sh", replay)
+        run(common / "start-redis.sh", replay, expected=1, extra={"MOCK_REDIS_VERSION": "7.2.0"})
         run(common / "apply-parameters.sh", replay)
         run(common / "apply-topology.sh", replay)
         run(common / "tmux-start.sh", replay)

@@ -8,7 +8,7 @@ TMUX=(tmux -L "${TMUX_SOCKET}")
 workdir="$(cd -- "$(dirname -- "$config")" && pwd)"
 "${TMUX[@]}" new-session -c "$workdir" -d -s "${TMUX_SESSION}" -n control "exec bash"
 "${TMUX[@]}" set-option -t "${TMUX_SESSION}" allow-rename off
-"${TMUX[@]}" new-window -c "$workdir" -t "${TMUX_SESSION}" -n webctl "keep-device-window.sh webctl daq-webctl --http-uri http://${WEBCTL_HOST}:${WEBCTL_PORT} --redis-uri tcp://${VALKEY_HOST}:${VALKEY_PORT}/${DAQSERVICE_DB}"
+"${TMUX[@]}" new-window -c "$workdir" -t "${TMUX_SESSION}" -n webctl "keep-device-window.sh webctl daq-webctl --http-uri http://${WEBCTL_HOST}:${WEBCTL_PORT} --redis-uri tcp://${REDIS_HOST}:${REDIS_PORT}/${DAQSERVICE_DB}"
 launch_device() {
   local device="$1" index="$2" window="$3" command
   # Quote paths for tmux's shell, including workspaces containing spaces.

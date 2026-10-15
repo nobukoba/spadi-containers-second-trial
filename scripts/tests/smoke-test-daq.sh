@@ -79,8 +79,8 @@ for helper in config.sh fee-setup.sh initialize.sh run-start.sh run-stop.sh run-
   bash -n "/opt/spadi/scripts/nestdaq/amaneq-lrtdc-1ch/$helper"
 done
 test -r /opt/spadi/scripts/nestdaq/common/control-common.sh
-command -v valkey-server
-command -v valkey-cli
+command -v redis-server
+command -v redis-cli
 command -v tmux
 test -r /opt/spadi/lib/redistimeseries.so
 test -d /opt/spadi/scripts/exp-config
@@ -93,6 +93,8 @@ for exe in /opt/spadi/bin/LogicFilter /opt/spadi/bin/fltcoin; do
   fi
   "$exe" --help >/tmp/"${exe##*/}"-help.txt 2>&1
 done
+
+bash /opt/spadi/scripts/check-redis.sh
 
 echo "=== Redis client linkage ==="
 grep -q '^REDIS_PLUS_PLUS_VERSION=1.3.15$' /opt/spadi/versions/versions.env

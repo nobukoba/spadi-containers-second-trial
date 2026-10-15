@@ -9,13 +9,13 @@ if tmux -L "$TMUX_SOCKET" has-session -t "$TMUX_SESSION" 2>/dev/null; then
 else
     echo 'tmux: STOPPED'
 fi
-if nestdaq_cli -h "$VALKEY_HOST" -p "$VALKEY_PORT" ping >/dev/null 2>&1; then
-    next_run="$(nestdaq_cli --raw -h "$VALKEY_HOST" -p "$VALKEY_PORT" -n "$DAQSERVICE_DB" get run_info:run_number)"
+if nestdaq_cli -h "$REDIS_HOST" -p "$REDIS_PORT" ping >/dev/null 2>&1; then
+    next_run="$(nestdaq_cli --raw -h "$REDIS_HOST" -p "$REDIS_PORT" -n "$DAQSERVICE_DB" get run_info:run_number)"
     printf 'Browser next run: %s\nWeb control: http://localhost:%s/daq-webctl.html\n' "$next_run" "$WEBCTL_PORT"
     for service in AmQStrTdcSampler STFBuilder TimeFrameBuilder FileSink; do
         state="$(nestdaq_state "$service")"
         printf '%-20s %s\n' "$service" "${state:-NOT REGISTERED}"
     done
 else
-    echo 'Valkey: STOPPED'
+    echo 'Redis: STOPPED'
 fi

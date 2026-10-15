@@ -3,6 +3,17 @@
 ARG FEE_DEVEL_IMAGE=ghcr.io/nobukoba/spadi-containers-first-trial/spadi-devel-fee:latest
 ARG FEE_USER_IMAGE=ghcr.io/nobukoba/spadi-containers-first-trial/spadi-user-fee:latest
 
+# Build the pinned server separately from NestDAQ client libraries. Redis uses
+# its bundled static hiredis; do not install it over /opt/spadi/lib/libhiredis.
+FROM ${FEE_DEVEL_IMAGE} AS redis-build
+ARG REDIS_VERSION=6.0.10
+ARG NPROC=4
+RUN git clone --depth 1 --branch ${REDIS_VERSION} https://github.com/redis/redis.git /opt/spadi/src/redis && \
+    make -C /opt/spadi/src/redis -j${NPROC} MALLOC=libc && \
+    make -C /opt/spadi/src/redis PREFIX=/opt/redis MALLOC=libc install && \
+    /opt/redis/bin/redis-server --version | grep -F "v=${REDIS_VERSION} " && \
+    make -C /opt/spadi/src/redis distclean
+
 FROM ${FEE_DEVEL_IMAGE} AS daq-build
 
 ARG SPADI_CONTAINER_VERSION=unreleased
@@ -36,7 +47,7 @@ RUN dnf -y install \
       boost-devel openssl-devel libuuid-devel sqlite-devel \
       bzip2-devel xz-devel zlib-devel libzstd-devel \
       libtool autoconf automake python3 python3-pip python3-setuptools \
-      rsync jq valkey tmux xterm binutils file diffutils patch && \
+      rsync jq tmux xterm binutils file diffutils patch && \
     dnf clean all && rm -rf /var/cache/dnf
 
 RUN mkdir -p \
@@ -237,6 +248,9 @@ RUN for exe in /opt/spadi/bin/daq-webctl /opt/spadi/bin/TimeFrameBuilder /opt/sp
 
 RUN printf '%s\n' '/opt/spadi/lib' '/opt/spadi/lib64' > /etc/ld.so.conf.d/spadi.conf && ldconfig
 
+COPY --from=redis-build /opt/redis/bin/ /opt/spadi/bin/
+COPY --from=redis-build /opt/spadi/src/redis/ /opt/spadi/src/redis/
+
 RUN mkdir -p /opt/spadi/versions
 COPY versions/versions.env /opt/spadi/versions/versions.env
 RUN printf '%s\n' \
@@ -249,6 +263,7 @@ COPY scripts/runtime/spadi-setup.sh /opt/spadi/spadi-setup.sh
 COPY --chmod=0755 scripts/runtime/spadi-shell.sh /opt/spadi/spadi-shell.sh
 COPY scripts/runtime/spadi-bashrc.sh /opt/spadi/spadi-bashrc.sh
 COPY scripts/tests/smoke-test-daq.sh /opt/spadi/scripts/smoke-test-daq.sh
+COPY scripts/tests/check-redis.sh /opt/spadi/scripts/check-redis.sh
 COPY scripts/nestdaq/README.md /opt/spadi/scripts/nestdaq/README.md
 COPY scripts/nestdaq/common/ /opt/spadi/scripts/nestdaq/common/
 COPY scripts/nestdaq/raris-ac-lgad/ /opt/spadi/scripts/nestdaq/raris-ac-lgad/
@@ -284,7 +299,7 @@ ENV PKG_CONFIG_PATH=/opt/spadi/lib/pkgconfig:/opt/spadi/lib64/pkgconfig
 
 RUN dnf -y install \
       boost openssl-libs libuuid sqlite-libs bzip2-libs xz-libs zlib libzstd \
-      valkey tmux && \
+      tmux && \
     dnf clean all && rm -rf /var/cache/dnf
 
 COPY --from=daq-runtime-files /opt/spadi /opt/spadi

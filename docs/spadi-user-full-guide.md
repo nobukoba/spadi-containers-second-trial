@@ -95,7 +95,7 @@ AMANEQ ch102 -> AmQStrTdcSampler-0 -> STFBuilder-0
 
 There is one physical AMANEQ board. Sampler, STFBuilder, TimeFrameBuilder, and FileSink are four software processes inside the container.
 
-The recipe shares Valkey, parameter, topology, plugin, and tmux helpers with RARiS. Live acquisition uses a hardware sampler and STF builder and saves TF/STF records with FileSink.
+The recipe shares Redis, parameter, topology, plugin, and tmux helpers with RARiS. Live acquisition uses a hardware sampler and STF builder and saves TF/STF records with FileSink.
 
 ### MZN-D readback limitation
 
@@ -129,7 +129,7 @@ Then initialize DAQ services.
 ./initialize.sh
 ```
 
-This prepares Valkey, parameters, topology, the initial run number, the Web Controller, and four processes, then waits for all processes to become **Idle**. It does not change FEE registers or masks. Acquisition has not started. Initialize, Run, Stop, and change run numbers in the browser.
+This prepares Redis, parameters, topology, the initial run number, the Web Controller, and four processes, then waits for all processes to become **Idle**. It does not change FEE registers or masks. Acquisition has not started. Initialize, Run, Stop, and change run numbers in the browser.
 
 `run-start.sh` is an alternative that runs these two commands in order. Do not run it again after executing them separately.
 
@@ -191,7 +191,7 @@ The FEE masks for Main-U, Main-D, MZN-U, MZN-D are `ffffffff ffffffff ffffffff f
 
 Edit NestDAQ `config.sh` for `AMANEQ_IP`, initial `RUN_NUMBER`, `RAWDATA_DIR`, and ports. Its IP is passed to the FEE helper; masks remain in `scripts/fee/amaneq-lrtdc-1ch/config.sh`. Choose later run numbers in the browser. Preparation refuses an existing initial output; FileSink uses `openmode=create` to prevent overwrites during browser Run too. If a duplicate number makes FileSink fail, do not continue acquisition; inspect its logs. Keep configuration unchanged while its session runs.
 
-Defaults: Valkey `127.0.0.1:6380` (DB0 registry, DB1 metrics, DB2 parameters), web status `http://localhost:8081/daq-webctl.html`, and data ports 5599–5601, and optional DQM PUB port 5602. FileSink needs this DQM channel even without a monitor subscriber. These differ from RARiS defaults. This recipe owns its Valkey DBs; do not share them with another running setup. Valkey remains after stopping for reuse.
+Defaults: Redis `127.0.0.1:6380` (DB0 registry, DB1 metrics, DB2 parameters), web status `http://localhost:8081/daq-webctl.html`, and data ports 5599–5601, and optional DQM PUB port 5602. FileSink needs this DQM channel even without a monitor subscriber. These differ from RARiS defaults. This recipe owns its Redis DBs; do not share them with another running setup. Redis remains after stopping for reuse.
 
 Stop acquisition in the browser as described above. Use `run-stop.sh` to stop and exit when the browser is unavailable. After normal browser End, use `run-cleanup.sh`. The emergency stop helper stops the source first, allows downstream processing, waits for FileSink's PostRun/trailer/close, then exits devices and tmux. On errors/timeouts tmux is retained for inspection. The pinned upstream may discard a final incomplete frame and queued FileSink PostRun input; this procedure does not guarantee a lossless run boundary. Review logs and delimiter flags. Heartbeat delimiters appear without hits, so file growth alone does not establish channel 102 activity. The output contains FileSink header/trailer and TF/STF records, rather than the previous `strdaq` stream.
 
@@ -226,7 +226,7 @@ Press and release **Ctrl-b**, then press:
 
 During initialization and acquisition, check one instance per service in **State Summary / Show details**, and inspect each tmux log for errors. Windows remain after a process exits, so window count alone is not proof of healthy acquisition; inspect exit status and logs. If the browser is unavailable, run `./run-stop.sh` from `control`.
 
-Valkey is a managed background service. From `control`, inspect its default log with `tail -n 50 /tmp/spadi-valkey-6380.log` (the filename follows the configured port). Terminal operations need no xterm, `DISPLAY`, or X11 forwarding. Valkey remains available after stopping for reuse.
+Redis is a managed background service. From `control`, inspect its default log with `tail -n 50 /tmp/spadi-redis-6380.log` (the filename follows the configured port). Terminal operations need no xterm, `DISPLAY`, or X11 forwarding. Redis remains available after stopping for reuse.
 
 ## RARiS AC-LGAD replay
 
@@ -286,7 +286,7 @@ This guide follows the official [DAQ execution](https://www.rcnp.osaka-u.ac.jp/~
 
 | Role in the official manual | Container equivalent |
 |---|---|
-| `init.sh`: Redis and Web Controller | `common/start-valkey.sh` and the `webctl` window in `common/tmux-start.sh` |
+| `init.sh`: Redis and Web Controller | `common/start-redis.sh` and the `webctl` window in `common/tmux-start.sh` |
 | `fee_scripts/config_modules.sh`: FEE settings | AMANEQ `fee-setup.sh` and FEE `setup.sh` (input masks for this standalone LR example) |
 | `mq-param.sh`, `topology.sh` | `common/apply-parameters.sh`, `common/apply-topology.sh` |
 | `tf.sh`, `run-stf-tf.sh`, `start_device.sh` | AMANEQ `run-start.sh`, `common/tmux-start.sh`, `common/start-device.sh` |
@@ -312,17 +312,20 @@ These are the main included software components. Pins are defined in [versions.e
 | [FairLogger](https://github.com/FairRootGroup/FairLogger) | Logging library | [`5aee7970fbfc`](https://github.com/FairRootGroup/FairLogger/tree/5aee7970fbfc66c2f0f1668ea15671b43166df68) |
 | [FairMQ](https://github.com/FairRootGroup/FairMQ) | Message-based DAQ devices | [`v1.4.55`](https://github.com/FairRootGroup/FairMQ/tree/v1.4.55) |
 | [fmt](https://github.com/fmtlib/fmt) | Text formatting library | [`10.2.1`](https://github.com/fmtlib/fmt/tree/10.2.1) |
+| [Redis](https://github.com/redis/redis) | DAQ registry, parameters, and metrics server | [`6.0.10`](https://github.com/redis/redis/tree/6.0.10) |
 | [RedisTimeSeries](https://github.com/RedisTimeSeries/RedisTimeSeries) | Time-series database module | [`v1.10.24`](https://github.com/RedisTimeSeries/RedisTimeSeries/tree/v1.10.24) |
 | [ROOT](https://github.com/root-project/root) | Analysis, histograms, TTree and Cling | [`v6-32-06`](https://github.com/root-project/root/tree/v6-32-06) |
 | [ARTEMIS](https://github.com/artemis-dev/artemis) | Nuclear-physics analysis framework | [`c74e24adf90a`](https://github.com/artemis-dev/artemis/tree/c74e24adf90a83227fa3e5c38dc255ddc4aeb785) |
 | [yaml-cpp](https://github.com/jbeder/yaml-cpp) | YAML configuration parser | [`0.8.0`](https://github.com/jbeder/yaml-cpp/tree/0.8.0) |
 | [ZeroMQ](https://github.com/zeromq/libzmq) | Messaging library | [`v4.3.5`](https://github.com/zeromq/libzmq/tree/v4.3.5) |
-| [hiredis](https://github.com/redis/hiredis) | Redis/Valkey C client | [`v1.0.0`](https://github.com/redis/hiredis/tree/v1.0.0) |
-| [redis-plus-plus](https://github.com/sewenew/redis-plus-plus) | Redis/Valkey C++ client | [`1.3.15`](https://github.com/sewenew/redis-plus-plus/tree/1.3.15) |
+| [hiredis](https://github.com/redis/hiredis) | Redis C client | [`v1.0.0`](https://github.com/redis/hiredis/tree/v1.0.0) |
+| [redis-plus-plus](https://github.com/sewenew/redis-plus-plus) | Redis C++ client | [`1.3.15`](https://github.com/sewenew/redis-plus-plus/tree/1.3.15) |
 
 The OS is AlmaLinux 9. Network tools (iproute, iputils, net-tools, bind-utils, traceroute, tcpdump, nmap-ncat), curl / wget, and vim / emacs are also included. OS packages use AlmaLinux package versions rather than the source pins above.
 
-Valkey and tmux are included for DAQ services. ROOT-dependent TriggerView is disabled in DAQ and enabled in FULL.
+Redis is pinned to **6.0.10**, as listed in NestDAQ v1.0.0. Existing workspace scripts are not refreshed automatically. When migrating, preserve your settings, prepare a fresh workspace, and reapply customized IP addresses and ports to the new `config.sh` (`REDIS_HOST` / `REDIS_PORT`). Stop the old Valkey service before starting Redis on the same port.
+
+Redis and tmux are included for DAQ services. ROOT-dependent TriggerView is disabled in DAQ and enabled in FULL.
 
 ROOT enables TMVA, X11 / OpenGL, SQLite, and SSL; PyROOT, RooFit, and Web GUI are disabled. ARTEMIS disables GET and enables ZeroMQ / Redis support. OpenMPI and compression libraries are also included.
 
