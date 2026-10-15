@@ -1,6 +1,13 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+# Required in every user/devel image, through both Docker and Apptainer.
+for cmd in vim ssh scp sftp; do
+  command -v "$cmd"
+done
+vim --version >/dev/null
+ssh -V
+
 
 # Version metadata must be self-describing in Docker and SIF images.
 test -x /opt/spadi/scripts/spadi-version.sh

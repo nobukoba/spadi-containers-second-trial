@@ -118,6 +118,10 @@ WORKDIR /workspace
 ENTRYPOINT ["/usr/local/bin/spadi-entrypoint.sh"]
 
 FROM fee-build AS devel-fee
+
+# Interactive editor and SSH/file-transfer clients for all derived images.
+RUN dnf -y install vim-enhanced openssh-clients && \
+    dnf clean all && rm -rf /var/cache/dnf
 RUN find /opt/spadi/src -type d -name build -prune -exec rm -rf '{}' + && rm -rf /opt/spadi/src/root-build
 COPY scripts/development/spadi-env.sh /opt/spadi/scripts/
 COPY scripts/fee/hul-common-lib-build.sh scripts/fee/amaneq-build.sh /opt/spadi/scripts/
@@ -152,6 +156,11 @@ RUN dnf -y update && \
       iproute iputils net-tools bind-utils traceroute tcpdump nmap-ncat \
       curl-minimal wget procps-ng psmisc lsof which less vim-minimal emacs xterm findutils tar gzip \
       libftdi libusbx hidapi libgpiod systemd-libs zlib shadow-utils && \
+    dnf clean all && rm -rf /var/cache/dnf
+
+
+# Interactive editor and SSH/file-transfer clients for all derived images.
+RUN dnf -y install vim-enhanced openssh-clients && \
     dnf clean all && rm -rf /var/cache/dnf
 
 COPY --from=fee-runtime-files /opt/spadi /opt/spadi

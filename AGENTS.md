@@ -466,3 +466,7 @@ Pinned NestDAQ commit `eda728718362cc0ee169bea9b111ffc3fda7ca6b` sets its Releas
 ## LogicFilter installation prefix
 
 The pinned nestdaq-user-impl LogicFilter/CMakeLists.txt builds both LogicFilter and fltcoin but installs them into absolute CMAKE_SOURCE_DIR/bin and lib paths. Patch INSTALL_BINDIR and INSTALL_LIBDIR to CMAKE_INSTALL_BINDIR and CMAKE_INSTALL_LIBDIR in the DAQ build before installation so runtime source removal does not discard these tools. FULL inherits this patched subdirectory (its restore only resets the top-level CMakeLists.txt). Apply the same idempotent correction in the interactive build helper for fresh upstream sources and SPADI_LOCAL installs. DAQ/FULL Docker and SIF smoke tests must check both executables, shared-library resolution, and --help startup.
+
+## Common editor and remote-access clients
+
+All eight user/devel images must provide `vim`, `ssh`, `scp`, and `sftp`. Install AlmaLinux 9 `vim-enhanced` and `openssh-clients` in the final FEE and ARTEMIS stages; DAQ inherits FEE and FULL inherits DAQ through commit-local prerequisites. `vim-minimal` supplies `vi` and is not sufficient for the `vim` command. Keep these additions after expensive compilation layers where possible. The shared Docker/SIF smoke tests must check all four commands. These are client tools; no SSH server is required.
