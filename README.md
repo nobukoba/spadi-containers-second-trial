@@ -190,3 +190,21 @@ See the image guides below for component-specific operations.
 | FULL | [spadi-user-full](docs/spadi-user-full-guide.md) | [spadi-devel-full](docs/spadi-devel-full-guide.md) |
 
 For container implementation, CI, and publication, see the [container maintainer guide](docs/container-maintainer-guide.md).
+
+## Previous SIF and Docker images
+
+- **SIF history and downloads:** [Release assets](https://github.com/nobukoba/spadi-containers-second-trial/releases/tag/latest). Files named `spadi-…-YYYYMMDD-HHMMutc.sif` preserve earlier builds. The `.sif` filenames without timestamps are updated; choose a timestamped file to retrieve an older build.
+- **Build and test history:** [GitHub Actions](https://github.com/nobukoba/spadi-containers-second-trial/actions/workflows/build-all.yml). Each run identifies the source commit and validation results.
+
+Use the GHCR version lists below for Docker image history.
+
+| Family | user | devel |
+|---|---|---|
+| FEE | [spadi-user-fee](https://github.com/nobukoba/spadi-containers-second-trial/pkgs/container/spadi-containers-second-trial%2Fspadi-user-fee/versions?filters%5Bversion_type%5D=tagged) | [spadi-devel-fee](https://github.com/nobukoba/spadi-containers-second-trial/pkgs/container/spadi-containers-second-trial%2Fspadi-devel-fee/versions?filters%5Bversion_type%5D=tagged) |
+| DAQ | [spadi-user-daq](https://github.com/nobukoba/spadi-containers-second-trial/pkgs/container/spadi-containers-second-trial%2Fspadi-user-daq/versions?filters%5Bversion_type%5D=tagged) | [spadi-devel-daq](https://github.com/nobukoba/spadi-containers-second-trial/pkgs/container/spadi-containers-second-trial%2Fspadi-devel-daq/versions?filters%5Bversion_type%5D=tagged) |
+| ARTEMIS | [spadi-user-artemis](https://github.com/nobukoba/spadi-containers-second-trial/pkgs/container/spadi-containers-second-trial%2Fspadi-user-artemis/versions?filters%5Bversion_type%5D=tagged) | [spadi-devel-artemis](https://github.com/nobukoba/spadi-containers-second-trial/pkgs/container/spadi-containers-second-trial%2Fspadi-devel-artemis/versions?filters%5Bversion_type%5D=tagged) |
+| FULL | [spadi-user-full](https://github.com/nobukoba/spadi-containers-second-trial/pkgs/container/spadi-containers-second-trial%2Fspadi-user-full/versions?filters%5Bversion_type%5D=tagged) | [spadi-devel-full](https://github.com/nobukoba/spadi-containers-second-trial/pkgs/container/spadi-containers-second-trial%2Fspadi-devel-full/versions?filters%5Bversion_type%5D=tagged) |
+
+Docker timestamp tags use `YYYYMMDD-HHMMutc` (UTC; add nine hours for Japan time). To use an earlier build, replace `:latest` in `docker pull` / `docker run` with its timestamp tag. Tags beginning with `ci-` are internal build prerequisites.
+
+Docker tags are created before tests finish, so an existing tag does not by itself mean validation passed. Check the matching Actions run. SIF files are published to Releases after all image validations succeed.

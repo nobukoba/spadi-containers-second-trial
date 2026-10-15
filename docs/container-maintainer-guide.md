@@ -58,7 +58,7 @@ The GitHub Actions workflow sources `versions/versions.env` and passes those val
 
 ### Container release version and embedded metadata
 
-The SPADI container release version is the Git tag, for example `v0.1.0`. A release tag must map to the corresponding GHCR image tags for all eight images; released version tags are immutable and must not be overwritten. Keep `latest` only as a convenience pointer, and retain UTC/CI tags for traceability.
+The current main-branch workflow records `branch-main` as the container version and the exact source commit separately. Published Docker tags are `latest` and `YYYYMMDD-HHMMutc`; timestamped SIF files accumulate in the rolling `latest` release alongside the replaceable unversioned filenames. The bilingual README links to both histories. `ci-…` Docker tags are prerequisite builds, not user-facing releases. Docker tags are pushed before smoke tests, while SIF publication requires all eight jobs to pass; check the matching Actions run before treating a Docker tag as validated.
 
 Every image must also be self-describing. The container contains:
 
@@ -83,7 +83,7 @@ AlmaLinux 9 is the container OS baseline. DAQ and FULL build Redis 6.0.10 from t
 
 ROOT and ARTEMIS builds are expensive. Documentation-only changes and host-only helper changes must not trigger those builds. Keep expensive compiled layers cacheable when changing lightweight image-resident scripts.
 
-The push workflow should keep the eight targets independently startable and parallelizable. Do not make one target consume a mutable sibling `:latest` image as a build prerequisite.
+The push workflow should keep the eight targets independently startable and parallelizable. Do not make one target consume a mutable sibling `:latest` image as a build prerequisite. DAQ and FULL require explicit `FEE_*_IMAGE`, `DAQ_*_IMAGE`, and `ARTEMIS_DEVEL_IMAGE` arguments as applicable. CI builds those prerequisites from the same source commit and supplies their references; Dockerfiles intentionally provide no old first-trial or mutable `latest` defaults.
 
 When diagnosing Actions failures, inspect the failed job/step and a small relevant log tail first. Do not download or process a complete long ROOT/ARTEMIS/FULL log unless the focused output is insufficient.
 

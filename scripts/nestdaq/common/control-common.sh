@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# NestDAQ v1.0.0 daqctl payload and registry state names.
+# Pinned NestDAQ daqctl payload and registry state names.
 source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/config-common.sh"
 
 nestdaq_state() {

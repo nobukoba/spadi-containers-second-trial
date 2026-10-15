@@ -190,3 +190,21 @@ devel イメージでは、さらに `src` にソースをコピーし、`build`
 | FULL | [spadi-user-full](docs/spadi-user-full-guide.ja.md) | [spadi-devel-full](docs/spadi-devel-full-guide.ja.md) |
 
 コンテナの実装・CI・公開は [コンテナ保守ガイド](docs/container-maintainer-guide.md)を参照してください。
+
+## 過去の SIF・Docker イメージ
+
+- **SIF の履歴・ダウンロード:** [Releases の Assets](https://github.com/nobukoba/spadi-containers-second-trial/releases/tag/latest)。日時付きの `spadi-…-YYYYMMDD-HHMMutc.sif` が過去の版です。日時なしの `.sif` は更新されるため、過去の版を選ぶ場合は日時付きファイルを使ってください。
+- **ビルド・テストの履歴:** [GitHub Actions](https://github.com/nobukoba/spadi-containers-second-trial/actions/workflows/build-all.yml)。各実行からソースコミットと検証結果を確認できます。
+
+Docker イメージの履歴は、次の GHCR バージョン一覧で確認できます。
+
+| 種類 | user | devel |
+|---|---|---|
+| FEE | [spadi-user-fee](https://github.com/nobukoba/spadi-containers-second-trial/pkgs/container/spadi-containers-second-trial%2Fspadi-user-fee/versions?filters%5Bversion_type%5D=tagged) | [spadi-devel-fee](https://github.com/nobukoba/spadi-containers-second-trial/pkgs/container/spadi-containers-second-trial%2Fspadi-devel-fee/versions?filters%5Bversion_type%5D=tagged) |
+| DAQ | [spadi-user-daq](https://github.com/nobukoba/spadi-containers-second-trial/pkgs/container/spadi-containers-second-trial%2Fspadi-user-daq/versions?filters%5Bversion_type%5D=tagged) | [spadi-devel-daq](https://github.com/nobukoba/spadi-containers-second-trial/pkgs/container/spadi-containers-second-trial%2Fspadi-devel-daq/versions?filters%5Bversion_type%5D=tagged) |
+| ARTEMIS | [spadi-user-artemis](https://github.com/nobukoba/spadi-containers-second-trial/pkgs/container/spadi-containers-second-trial%2Fspadi-user-artemis/versions?filters%5Bversion_type%5D=tagged) | [spadi-devel-artemis](https://github.com/nobukoba/spadi-containers-second-trial/pkgs/container/spadi-containers-second-trial%2Fspadi-devel-artemis/versions?filters%5Bversion_type%5D=tagged) |
+| FULL | [spadi-user-full](https://github.com/nobukoba/spadi-containers-second-trial/pkgs/container/spadi-containers-second-trial%2Fspadi-user-full/versions?filters%5Bversion_type%5D=tagged) | [spadi-devel-full](https://github.com/nobukoba/spadi-containers-second-trial/pkgs/container/spadi-containers-second-trial%2Fspadi-devel-full/versions?filters%5Bversion_type%5D=tagged) |
+
+Docker の日時タグ `YYYYMMDD-HHMMutc` は UTC（日本時間は +9時間）です。過去の版を使うには `docker pull` / `docker run` の `:latest` を選んだ日時タグに置き換えます。`ci-…` は内部ビルド用です。
+
+Docker タグはテスト完了前に作成されるため、タグがあることだけでは検証済みとは限りません。利用する版の Actions の結果を確認してください。SIF は全イメージの検証成功後に Releases へ公開されます。

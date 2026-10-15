@@ -1,7 +1,9 @@
 # syntax=docker/dockerfile:1
 
-ARG FEE_DEVEL_IMAGE=ghcr.io/nobukoba/spadi-containers-first-trial/spadi-devel-fee:latest
-ARG FEE_USER_IMAGE=ghcr.io/nobukoba/spadi-containers-first-trial/spadi-user-fee:latest
+# Required commit-local prerequisites; CI supplies these image references.
+
+ARG FEE_DEVEL_IMAGE
+ARG FEE_USER_IMAGE
 
 # Build the pinned server separately from NestDAQ client libraries. Redis uses
 # its bundled static hiredis; do not install it over /opt/spadi/lib/libhiredis.

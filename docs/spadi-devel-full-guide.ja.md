@@ -359,7 +359,7 @@ NestDAQ FileSink の `.dat` は TF/STF を含む形式です。ROOT に直接開
 | [amaneq-soft](https://github.com/spadi-alliance/amaneq-soft) | AMANEQ LR/HR 用ツール（bin/StrLRTDC、bin/StrHRTDC） | [`86fef97ccc4e`](https://github.com/spadi-alliance/amaneq-soft/tree/86fef97ccc4e6488739e2d8b549a1c5bddd3542e) |
 | [openFPGALoader](https://github.com/trabucayre/openFPGALoader) | 対応インターフェースによる FPGA SRAM・フラッシュ書き込み | [`24e46d13bb8f`](https://github.com/trabucayre/openFPGALoader/tree/24e46d13bb8f2bc9371e9ca8443ece2fafc4b20d) |
 | [SiTCP IP / MPC utilities](https://github.com/nobukoba/sitcp-sitcpxg-mpc-mpcx-ip-utility-first-trial) | SiTCP/SiTCP-XG IP、MPC/MPCX ライセンス設定 | [`4bc47b6f5ac7`](https://github.com/nobukoba/sitcp-sitcpxg-mpc-mpcx-ip-utility-first-trial/tree/4bc47b6f5ac791acfbd88c73dd987b7625074273) |
-| [NestDAQ](https://github.com/spadi-alliance/nestdaq) | DAQ フレームワーク、Web Controller | [`v1.0.0`](https://github.com/spadi-alliance/nestdaq/tree/v1.0.0) |
+| [NestDAQ](https://github.com/spadi-alliance/nestdaq) | DAQ フレームワーク、Web Controller | [`eda728718362`](https://github.com/spadi-alliance/nestdaq/tree/eda728718362cc0ee169bea9b111ffc3fda7ca6b) |
 | [nestdaq-user-impl](https://github.com/spadi-alliance/nestdaq-user-impl) | Sampler、Builder、FileSink | [`47897e9bdc4d`](https://github.com/spadi-alliance/nestdaq-user-impl/tree/47897e9bdc4dac2f429909b3fa8bf05ab93115d0) |
 | [UHBook](https://github.com/spadi-alliance/uhbook) | DAQ ヒストグラム支援 | [`e979eb28fb64`](https://github.com/spadi-alliance/uhbook/tree/e979eb28fb64de2eb216ebec31f73a6696d257ec) |
 | [exp-config](https://github.com/spadi-alliance/exp-config) | 実験設定・スクリプト | [`0ac32181304f`](https://github.com/spadi-alliance/exp-config/tree/0ac32181304f92e608d4bdd1bb0aa087300e82f7) |

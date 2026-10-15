@@ -1,11 +1,16 @@
 #!/usr/bin/env bash
 # Exercise the pinned server and module without using an experiment's TCP port.
-set -euo pipefail
-source /opt/spadi/versions/versions.env
+set -Eeuo pipefail
+source "${SPADI_ROOT:-/opt/spadi}/versions/versions.env"
+trap 'echo "ERROR: Redis check failed at line ${LINENO}: ${BASH_COMMAND}" >&2; if [[ -n "${work:-}" && -r "$work/server.log" ]]; then tail -n 60 "$work/server.log" >&2; fi' ERR
 command -v redis-server
 command -v redis-cli
 redis-server --version | grep -F "v=${REDIS_VERSION} "
-[[ "$(redis-cli --version)" == "redis-cli ${REDIS_VERSION}" ]]
+# Git-source builds append a commit suffix, e.g. " (git:8d70d498)".
+client_output="$(redis-cli --version)"
+printf '%s\n' "$client_output"
+read -r client_name client_version client_details <<<"$client_output"
+[[ "$client_name" == redis-cli && "$client_version" == "$REDIS_VERSION" ]]
 if command -v valkey-server >/dev/null 2>&1 || command -v valkey-cli >/dev/null 2>&1; then
   echo 'ERROR: unexpected Valkey installation' >&2
   exit 1

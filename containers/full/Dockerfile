@@ -1,8 +1,10 @@
 # syntax=docker/dockerfile:1
 
-ARG DAQ_DEVEL_IMAGE=ghcr.io/nobukoba/spadi-containers-first-trial/spadi-devel-daq:latest
-ARG DAQ_USER_IMAGE=ghcr.io/nobukoba/spadi-containers-first-trial/spadi-user-daq:latest
-ARG ARTEMIS_DEVEL_IMAGE=ghcr.io/nobukoba/spadi-containers-first-trial/spadi-devel-artemis:latest
+# Required commit-local prerequisites; CI supplies these image references.
+
+ARG DAQ_DEVEL_IMAGE
+ARG DAQ_USER_IMAGE
+ARG ARTEMIS_DEVEL_IMAGE
 
 FROM ${ARTEMIS_DEVEL_IMAGE} AS artemis-devel-files
 FROM ${DAQ_DEVEL_IMAGE} AS devel-full
