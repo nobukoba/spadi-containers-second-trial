@@ -158,8 +158,11 @@ ENTRYPOINT ["/usr/local/bin/spadi-entrypoint.sh"]
 FROM artemis-build AS devel-artemis
 
 # Interactive editor and SSH/file-transfer clients for all derived images.
-RUN dnf -y install vim-enhanced openssh-clients && \
+RUN dnf -y install vim-enhanced openssh-clients tmux && \
     dnf clean all && rm -rf /var/cache/dnf
+COPY --chmod=0755 scripts/runtime/spadi-tmux.sh /usr/local/bin/tmux
+COPY scripts/runtime/tmux.conf /opt/spadi/tmux.conf
+COPY scripts/tests/check-tmux.sh /opt/spadi/scripts/check-tmux.sh
 RUN find /opt/spadi/src -type d -name build -prune -exec rm -rf '{}' + && rm -rf /opt/spadi/src/root-build
 COPY scripts/development/spadi-env.sh /opt/spadi/scripts/
 COPY scripts/artemis/artemis-build.sh scripts/artemis/artemis-clone-latest.sh /opt/spadi/scripts/
@@ -200,8 +203,11 @@ RUN dnf -y update && \
 
 
 # Interactive editor and SSH/file-transfer clients for all derived images.
-RUN dnf -y install vim-enhanced openssh-clients && \
+RUN dnf -y install vim-enhanced openssh-clients tmux && \
     dnf clean all && rm -rf /var/cache/dnf
+COPY --chmod=0755 scripts/runtime/spadi-tmux.sh /usr/local/bin/tmux
+COPY scripts/runtime/tmux.conf /opt/spadi/tmux.conf
+COPY scripts/tests/check-tmux.sh /opt/spadi/scripts/check-tmux.sh
 
 COPY --from=artemis-runtime-files /opt/spadi /opt/spadi
 

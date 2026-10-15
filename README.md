@@ -58,6 +58,12 @@ Both load the SPADI environment and enter `/workspace`, the working directory in
 
 Run `exit` inside either container to return to the host. Repeat the corresponding shell/run command from the same host directory to reuse `workspace`. Download or pull again only when you want to update the image. Keep your work under `/workspace`; changes elsewhere in a disposable Docker container are not persistent.
 
+### tmux inside the container
+
+Use `tmux` normally inside the container. Its server sockets are separated from the host and other container launches, and new panes use the SPADI environment and prompt. Host `.tmux.conf` and Bash startup files are not loaded. DAQ's `tmux -L spadi` commands use the same isolation.
+
+A new standalone Apptainer launch has its own tmux server. Reattach from the original container shell, or use the same persistent Apptainer instance. Updating the image does not change an already running tmux server; open a new container after updating. Explicit socket selection with `-S` bypasses the automatic separation.
+
 ## Apptainer details
 
 The Quick start uses `--cleanenv` to avoid inheriting host software environment settings. SPADI runtime settings are defined inside the container so the environment does not depend on the host software configuration:

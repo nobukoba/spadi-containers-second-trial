@@ -7,6 +7,7 @@ for cmd in vim ssh scp sftp; do
 done
 vim --version >/dev/null
 ssh -V
+bash /opt/spadi/scripts/check-tmux.sh
 
 
 # Version metadata must be self-describing in Docker and SIF images.

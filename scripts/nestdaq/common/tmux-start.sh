@@ -6,7 +6,7 @@ source "${HERE}/config-common.sh"; config="${1:-${NESTDAQ_CONFIG:-}}"; nestdaq_l
 TMUX=(tmux -L "${TMUX_SOCKET}")
 "${TMUX[@]}" has-session -t "${TMUX_SESSION}" 2>/dev/null && { echo "tmux session already exists: ${TMUX_SESSION}" >&2; exit 1; }
 workdir="$(cd -- "$(dirname -- "$config")" && pwd)"
-"${TMUX[@]}" new-session -c "$workdir" -d -s "${TMUX_SESSION}" -n control "exec bash"
+"${TMUX[@]}" new-session -c "$workdir" -d -s "${TMUX_SESSION}" -n control "exec /opt/spadi/spadi-shell.sh"
 "${TMUX[@]}" set-option -t "${TMUX_SESSION}" allow-rename off
 "${TMUX[@]}" new-window -c "$workdir" -t "${TMUX_SESSION}" -n webctl "keep-device-window.sh webctl daq-webctl --http-uri http://${WEBCTL_HOST}:${WEBCTL_PORT} --redis-uri tcp://${REDIS_HOST}:${REDIS_PORT}/${DAQSERVICE_DB}"
 launch_device() {

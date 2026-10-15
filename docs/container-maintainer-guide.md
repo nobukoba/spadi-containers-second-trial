@@ -119,3 +119,9 @@ Before changing implementation details, read `AGENTS.md`; it is the repository's
 
 Build published binaries for generic x86-64. Do not use `-march=native` or
 runner-specific AVX instruction sets, which can make an image fail on another host.
+
+## tmux isolation
+
+`tmux` resolves to `/usr/local/bin/tmux` in every image. Its socket directory is `/tmp/spadi-tmux-<uid>-<mount-namespace-id>/tmux-<uid>/`, so ordinary commands and `-L spadi` cannot accidentally reuse host sockets even when Apptainer shares `/tmp`. The wrapper discards an external inherited `TMUX` and uses `/opt/spadi/tmux.conf`. New panes use the same container shell and prompt as initial startup. Explicit `-S` and `-f` remain user overrides.
+
+Separate standalone Apptainer launches have separate servers. Reattach within the original container shell, or use the same persistent Apptainer instance. Existing servers are not migrated; start a new container after updating the image. Docker and SIF smoke tests check socket selection and pane startup.

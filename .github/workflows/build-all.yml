@@ -75,6 +75,7 @@ jobs:
         run: |
           bash scripts/tests/test-entrypoint.sh
           bash scripts/tests/test-shell.sh
+          bash scripts/tests/test-tmux-wrapper.sh
 
       - id: versions
         shell: bash
