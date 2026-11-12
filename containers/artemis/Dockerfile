@@ -158,7 +158,7 @@ ENTRYPOINT ["/usr/local/bin/spadi-entrypoint.sh"]
 FROM artemis-build AS devel-artemis
 
 # Interactive editor and SSH/file-transfer clients for all derived images.
-RUN dnf -y install vim-enhanced openssh-clients tmux && \
+RUN dnf -y install git vim-enhanced openssh-clients tmux && \
     dnf clean all && rm -rf /var/cache/dnf
 COPY --chmod=0755 scripts/runtime/spadi-tmux.sh /usr/local/bin/tmux
 COPY scripts/runtime/tmux.conf /opt/spadi/tmux.conf
@@ -203,7 +203,7 @@ RUN dnf -y update && \
 
 
 # Interactive editor and SSH/file-transfer clients for all derived images.
-RUN dnf -y install vim-enhanced openssh-clients tmux && \
+RUN dnf -y install git vim-enhanced openssh-clients tmux && \
     dnf clean all && rm -rf /var/cache/dnf
 COPY --chmod=0755 scripts/runtime/spadi-tmux.sh /usr/local/bin/tmux
 COPY scripts/runtime/tmux.conf /opt/spadi/tmux.conf

@@ -4,6 +4,8 @@
 
 This image provides FEE and NestDAQ acquisition and replay with browser control.
 
+Git is included for cloning and updating experiment configurations inside the container with `git clone` / `git pull`.
+
 ## Directory structure
 
 ```text

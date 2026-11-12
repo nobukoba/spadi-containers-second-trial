@@ -4,6 +4,8 @@
 
 ROOT と ARTEMIS による解析を行うイメージです。
 
+Git を同梱しているため、コンテナ内で実験設定を `git clone` / `git pull` できます。
+
 ## ディレクトリ構造
 
 ```text

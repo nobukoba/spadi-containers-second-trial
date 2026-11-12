@@ -4,6 +4,8 @@
 
 This image provides Acquisition and analysis using FEE, NestDAQ, ROOT, and ARTEMIS.
 
+Git is included for cloning and updating experiment configurations inside the container with `git clone` / `git pull`.
+
 ## Directory structure
 
 ```text

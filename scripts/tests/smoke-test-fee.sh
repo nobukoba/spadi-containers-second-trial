@@ -2,11 +2,12 @@
 set -euo pipefail
 
 # Required in every user/devel image, through both Docker and Apptainer.
-for cmd in vim ssh scp sftp; do
+for cmd in git vim ssh scp sftp; do
   command -v "$cmd"
 done
 vim --version >/dev/null
 ssh -V
+git --version
 bash /opt/spadi/scripts/check-tmux.sh
 
 
@@ -126,7 +127,6 @@ if [[ "$kind" == "user" ]]; then
   assert_command_absent g++
   assert_command_absent cmake
   assert_command_absent make
-  assert_command_absent git
   test ! -d /opt/spadi/src
   test ! -d /opt/spadi/include
 else

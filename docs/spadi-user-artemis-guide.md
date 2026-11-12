@@ -4,6 +4,8 @@
 
 This image provides ROOT and ARTEMIS analysis.
 
+Git is included for cloning and updating experiment configurations inside the container with `git clone` / `git pull`.
+
 ## Directory structure
 
 ```text
