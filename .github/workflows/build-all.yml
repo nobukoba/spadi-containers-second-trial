@@ -37,7 +37,8 @@ permissions:
 jobs:
   build:
     name: ${{ matrix.target }}
-    runs-on: ubuntu-latest
+    # Apptainer 1.4.2 requires libfuse3-3, unavailable on Ubuntu 26.04.
+    runs-on: ubuntu-24.04
     strategy:
       max-parallel: 8
       fail-fast: false
@@ -76,6 +77,14 @@ jobs:
           bash scripts/tests/test-entrypoint.sh
           bash scripts/tests/test-shell.sh
           bash scripts/tests/test-tmux-wrapper.sh
+
+      # Check host package compatibility before expensive image builds.
+      - uses: eWaterCycle/setup-apptainer@v2
+        with:
+          apptainer-version: 1.4.2
+
+      - name: Verify Apptainer installation
+        run: apptainer --version
 
       - id: versions
         shell: bash
@@ -278,10 +287,6 @@ jobs:
             "${{ steps.names.outputs.image }}:${{ steps.tag.outputs.tag }}" \
             /opt/spadi/spadi-shell.sh -ic \
             'test "$SPADI_PROMPT_NAME" = "${{ matrix.target }}" || exit 1; source /tests/check-shell-prompt.sh'
-
-      - uses: eWaterCycle/setup-apptainer@v2
-        with:
-          apptainer-version: 1.4.2
 
       - name: Log in to GHCR from Apptainer
         env:

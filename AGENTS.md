@@ -490,3 +490,7 @@ DAQ/FULL prerequisite image arguments have no default. Always pass commit-local 
 ## Git client in all images
 
 All eight user/devel images must provide Git so users can clone and update experiment configurations such as exp-config inside the container. Git is an intentional runtime client tool, including in user images. Install it in the final FEE and ARTEMIS stages; DAQ inherits FEE and FULL inherits DAQ through commit-local prerequisites. Shared Docker/SIF smoke tests must require `git` and run `git --version`; do not assert Git is absent from runtime images. Keep other development-tool exclusions unchanged.
+
+## Apptainer CI runner compatibility
+
+Pin the image-build matrix to `ubuntu-24.04` while using the Apptainer 1.4.2 Debian package from `eWaterCycle/setup-apptainer@v2`. The moving `ubuntu-latest` runner switched to Ubuntu 26.04, where this package's `libfuse3-3` dependency is not installable; Docker builds and smoke tests succeed but SIF setup fails. Install and verify Apptainer before expensive container builds so host package incompatibility fails early. Revalidate the pinned package and all Docker/SIF tests before updating the runner OS. The publication-only job does not install Apptainer.
