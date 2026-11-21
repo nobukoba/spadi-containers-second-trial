@@ -6,7 +6,10 @@ hardware is needed. The raw data are public RARiS run 20, three FileSink v1
 STF files. Histograms use uncalibrated channel, raw TDC and raw TOT values;
 they are not calibrated charge or time.
 
-Inside the container, prepare the writable workspace and download data:
+Inside the container, prepare the writable workspace and download data.
+Preparation preserves existing user configuration: if the recipe was copied
+from an older image, compare its `config.sh` with the new image before using
+the pinned manifest.
 
 ```bash
 spadi-prepare-local.sh
