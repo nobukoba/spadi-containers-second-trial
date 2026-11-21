@@ -74,3 +74,5 @@ Redis／Valkey が残る場合は、この実行で起動したもので、他�
   "$SPADI_LOCAL/rawdata/raris_ac_lgad_202603" \
   "$SPADI_LOCAL/raris-results/online.root"
 ```
+
+データ取得先のリビジョンは `container-interfacing-nestdaq-eicrecon` の `ccf94e725389b5d32b2cd167312deb88c6461eba` です。SHA-256 は `config.sh` に記載しています。

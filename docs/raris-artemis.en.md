@@ -81,3 +81,5 @@ ordering evidence and replay limitations are in
   "$SPADI_LOCAL/rawdata/raris_ac_lgad_202603" \
   "$SPADI_LOCAL/raris-results/online.root"
 ```
+
+Data manifest: `container-interfacing-nestdaq-eicrecon` revision `ccf94e725389b5d32b2cd167312deb88c6461eba`; SHA-256 hashes are recorded in `config.sh`.
