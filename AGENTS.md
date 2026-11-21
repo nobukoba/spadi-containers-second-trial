@@ -506,3 +506,11 @@ full-run counts or online operation. Its ZeroMQ subscriber uses SUB; the RARiS
 TimeFrameBuilder `out` endpoint is PUSH with multipart FairMQ messages.
 Also, TimeFrameBuilder applies its decimation factor to its decimator channel,
 not the ordinary out channel. Verify the actual output and counts.
+
+
+FULL merges the ARTEMIS prefix into the DAQ prefix, including ARTEMIS
+container.env. Rewrite container.env after that merge using the FULL build
+arguments; otherwise the FULL image reports the ARTEMIS prerequisite target.
+The FULL smoke test must reject a mismatched image target. Declare metadata
+build arguments after expensive compiled layers so new commit metadata does not
+invalidate dependency compilation.

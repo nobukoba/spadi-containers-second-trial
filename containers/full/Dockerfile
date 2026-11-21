@@ -103,7 +103,20 @@ RUN printf '%s\n' '/opt/spadi/lib' '/opt/spadi/lib64' > /etc/ld.so.conf.d/spadi.
 RUN find /opt/spadi/src -type d -name build -prune -exec rm -rf '{}' + && \
     rm -rf /opt/spadi/src/root-build
 
+# Refresh repository-owned runtime assets after merging the prerequisite prefixes.
+COPY scripts/nestdaq/raris-ac-lgad/config.sh /opt/spadi/scripts/nestdaq/raris-ac-lgad/config.sh
 COPY scripts/artemis/raris-ac-lgad/ /opt/spadi/scripts/artemis/raris-ac-lgad/
+# Keep metadata arguments after compiled layers so branch or commit changes do
+# not invalidate the expensive dependency builds.
+ARG SPADI_CONTAINER_VERSION=unreleased
+ARG SPADI_GIT_COMMIT=unknown
+ARG SPADI_IMAGE_TARGET=unknown
+# The merged ARTEMIS prefix carries its own metadata; report this FULL build.
+RUN printf '%s\n' \
+      "SPADI_CONTAINER_VERSION=${SPADI_CONTAINER_VERSION}" \
+      "SPADI_GIT_COMMIT=${SPADI_GIT_COMMIT}" \
+      "SPADI_IMAGE_TARGET=${SPADI_IMAGE_TARGET}" \
+      > /opt/spadi/versions/container.env
 COPY scripts/tests/smoke-test-full.sh /opt/spadi/scripts/smoke-test-full.sh
 RUN chmod 0755 /opt/spadi/scripts/smoke-test-full.sh
 
