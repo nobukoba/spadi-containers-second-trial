@@ -514,3 +514,9 @@ arguments; otherwise the FULL image reports the ARTEMIS prerequisite target.
 The FULL smoke test must reject a mismatched image target. Declare metadata
 build arguments after expensive compiled layers so new commit metadata does not
 invalidate dependency compilation.
+
+In unprivileged WSL, rebuilding a SIF directly from an extracted sandbox can
+fail while recreating root-owned symlinks; fakeroot also needs `newuidmap` when
+subuid mappings are configured. Converting a Docker archive directly with
+`apptainer build output.sif docker-archive:/path/image.tar` worked without those
+privileges for the local FULL validation. This does not replace the CI SIF test.
