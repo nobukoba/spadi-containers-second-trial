@@ -190,9 +190,21 @@ def main():
         run(common / "tmux-start.sh", replay)
         s = read()
         assert all(f"parameters:STFBFilePlayer-{i}" in s["parameters"] for i in range(3))
+        assert all(s["parameters"][f"parameters:STFBFilePlayer-{i}"]["wait"] == "0" for i in range(3))
         assert "parameters:AmQStrTdcSampler-0" not in s["parameters"]
         assert "daq_service:topology:link:STFBFilePlayer:out,TimeFrameBuilder:in" in s["values"]
         assert not any("FileSink" in key for key in s["states"])
+        original = replay.read_text()
+        replay.write_text(original.replace("STFB_PLAYER_WAIT_MS=0", "STFB_PLAYER_WAIT_MS=5"))
+        reset()
+        run(common / "apply-parameters.sh", replay)
+        assert all(read()["parameters"][f"parameters:STFBFilePlayer-{i}"]["wait"] == "5" for i in range(3))
+        for invalid in ("-1", "1.5", "2147483648"):
+            replay.write_text(original.replace("STFB_PLAYER_WAIT_MS=0", f"STFB_PLAYER_WAIT_MS={invalid}"))
+            reset()
+            result = run(common / "apply-parameters.sh", replay, expected=1)
+            assert "STFB_PLAYER_WAIT_MS" in result.stderr
+            assert not any(c[0] == "redis-cli" for c in read()["calls"])
         # Verify moved documentation links, including all four language pages.
         for page in [root / "README.md", root / "README.ja.md", *list((root / "docs").glob("*-guide*.md"))]:
             for target in re.findall(r"\]\(([^)]+)\)", page.read_text()):

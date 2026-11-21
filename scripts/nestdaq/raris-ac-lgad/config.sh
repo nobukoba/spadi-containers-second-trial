@@ -4,6 +4,8 @@ TMUX_SESSION="nestdaq-raris-ac-lgad"
 TMUX_SOCKET="spadi"
 
 STF_PLAYERS=3
+# Delay after each STF sent by each player, in milliseconds (0: no delay).
+STFB_PLAYER_WAIT_MS=0
 TF_BUILDERS=1
 
 SPADI_WORKSPACE="${SPADI_LOCAL:-/workspace/spadi}"
@@ -30,10 +32,9 @@ WEBCTL_PORT=8080
 NESTDAQ_HOST_IP="127.0.0.1"
 
 # relative-path|public-download-url|optional-sha256
-# Replace these working reference URLs with public Google Drive direct-download
-# URLs later without changing the downloader implementation.
+# Pin both the public source revision and content hashes for repeatable analysis.
 RAWDATA_FILES=(
-  "00/run000020.dat|https://raw.githubusercontent.com/nobukoba/container-interfacing-nestdaq-eicrecon/main/example_rawdata/raris_ac_lgad_202603/00/run000020.dat|"
-  "01/run000020.dat|https://raw.githubusercontent.com/nobukoba/container-interfacing-nestdaq-eicrecon/main/example_rawdata/raris_ac_lgad_202603/01/run000020.dat|"
-  "02/run000020.dat|https://raw.githubusercontent.com/nobukoba/container-interfacing-nestdaq-eicrecon/main/example_rawdata/raris_ac_lgad_202603/02/run000020.dat|"
+  "00/run000020.dat|https://raw.githubusercontent.com/nobukoba/container-interfacing-nestdaq-eicrecon/ccf94e725389b5d32b2cd167312deb88c6461eba/example_rawdata/raris_ac_lgad_202603/00/run000020.dat|b73c444a3c08db81ca655d8bb01f872a0743cad5d6ccc8a0326769b02131a3a0"
+  "01/run000020.dat|https://raw.githubusercontent.com/nobukoba/container-interfacing-nestdaq-eicrecon/ccf94e725389b5d32b2cd167312deb88c6461eba/example_rawdata/raris_ac_lgad_202603/01/run000020.dat|3272efa10a4875ecc37e7b5559acbb36e7fdf16c4469e8ef5bab93a4de48d810"
+  "02/run000020.dat|https://raw.githubusercontent.com/nobukoba/container-interfacing-nestdaq-eicrecon/ccf94e725389b5d32b2cd167312deb88c6461eba/example_rawdata/raris_ac_lgad_202603/02/run000020.dat|553faf9912022e80b7cc9e2cc6b41c1d19065b99dfc5307b50e54097738acd9b"
 )

@@ -494,3 +494,34 @@ All eight user/devel images must provide Git so users can clone and update exper
 ## Apptainer CI runner compatibility
 
 Pin the image-build matrix to `ubuntu-24.04` while using the Apptainer 1.4.2 Debian package from `eWaterCycle/setup-apptainer@v2`. The moving `ubuntu-latest` runner switched to Ubuntu 26.04, where this package's `libfuse3-3` dependency is not installable; Docker builds and smoke tests succeed but SIF setup fails. Install and verify Apptainer before expensive container builds so host package incompatibility fails early. Revalidate the pinned package and all Docker/SIF tests before updating the runner OS. The publication-only job does not install Apptainer.
+
+## RARiS ARTEMIS input investigation
+
+The pinned ARTEMIS v1 streaming store's direct STF-file path consumes the
+STF header while testing for a TF, then scans forward, so do not treat a
+successful process start as evidence that a raw STF FileSink was decoded.
+The RARiS input contains HRTBEAT headers. An experimental one-source TF wrapper
+allowed the store to process initial events, but it does not establish correct
+full-run counts or online operation. Its ZeroMQ subscriber uses SUB; the RARiS
+TimeFrameBuilder `out` endpoint is PUSH with multipart FairMQ messages.
+Also, TimeFrameBuilder applies its decimation factor to its decimator channel,
+not the ordinary out channel. Verify the actual output and counts.
+
+
+FULL merges the ARTEMIS prefix into the DAQ prefix, including ARTEMIS
+container.env. Rewrite container.env after that merge using the FULL build
+arguments; otherwise the FULL image reports the ARTEMIS prerequisite target.
+The FULL smoke test must reject a mismatched image target. Declare metadata
+build arguments after expensive compiled layers so new commit metadata does not
+invalidate dependency compilation.
+
+In unprivileged WSL, rebuilding a SIF directly from an extracted sandbox can
+fail while recreating root-owned symlinks; fakeroot also needs `newuidmap` when
+subuid mappings are configured. Converting a Docker archive directly with
+`apptainer build output.sif docker-archive:/path/image.tar` worked without those
+privileges for the local FULL validation. This does not replace the CI SIF test.
+
+ROOT ACLiC emits `RarisProcessor_C_ACLiC_dict_rdict.pcm` alongside
+`RarisProcessor_C.so`; it does not use `RarisProcessor_C_rdict.pcm` for this
+macro. Check the actual generated dictionary name when packaging the compiled
+processor, and retain both the library and PCM in the runtime image.

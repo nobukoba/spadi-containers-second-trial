@@ -28,6 +28,16 @@ if [[ "$kind" != "user" && "$kind" != "devel" ]]; then
   exit 2
 fi
 
+target="$(sed -n 's/^SPADI_IMAGE_TARGET=//p' /opt/spadi/versions/container.env)"
+if [[ "$target" != "unknown" && "$target" != "${kind}-full" ]]; then
+  echo "ERROR: FULL image reports unexpected target: ${target}" >&2
+  exit 1
+fi
+
+# RARiS is precompiled in FULL; a user analysis must not need ACLiC at runtime.
+test -s /opt/spadi/scripts/artemis/raris-ac-lgad/RarisProcessor_C.so
+test -s /opt/spadi/scripts/artemis/raris-ac-lgad/RarisProcessor_C_ACLiC_dict_rdict.pcm
+
 assert_command_absent() {
   local cmd="$1"
   if command -v "$cmd" >/dev/null 2>&1; then
