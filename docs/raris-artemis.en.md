@@ -39,8 +39,9 @@ In the other shell, start the receiver **before** starting the DAQ run:
 ```
 
 Open `http://127.0.0.1:8080` in the host browser (publish port 8080 if using
-Docker). Select all instances and issue CONNECT, INIT TASK, and RUN after all
-are ready. Start RUN within 30 seconds of starting the online receiver; set
+Docker). Leave both Control Targets selectors set to `all`, then click INIT DEVICE,
+INIT TASK, and RUN after each state transition completes. INIT DEVICE sends
+the CONNECT command. Start RUN within 30 seconds of starting the online receiver; set
 `RARIS_TIMEOUT_MS=120000` before the online command to allow more time. The
 receiver stops after 30 seconds without a TF, writes the ROOT file, and fails if
 no TF arrived. A timeout also marks the end of a successful replay, so compare

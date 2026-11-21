@@ -37,7 +37,8 @@ cd "$SPADI_LOCAL/scripts/nestdaq/raris-ac-lgad"
 ```
 
 ホストのブラウザーで `http://127.0.0.1:8080` を開き（Docker ではポート 8080 を
-公開）、全インスタンスを選択して CONNECT、INIT TASK、RUN を順に実行します。
+公開）、Control Targets の両方を `all` のままにして、各状態遷移の完了後に
+INIT DEVICE、INIT TASK、RUN を順に押します。INIT DEVICE は CONNECT コマンドを送ります。
 受信開始から 30 秒以内に RUN してください。余裕が必要なら Online コマンドの前に
 `RARIS_TIMEOUT_MS=120000` を設定します。TF が 30 秒間届かなければ受信を終了して
 保存します。ゼロ件なら失敗し、途中終了も比較によって検出します。サンプルでは
