@@ -9,6 +9,8 @@ RARiS run 20 の３個の FileSink v1 STF ファイルを解析します。ヒ�
 準備コマンドは既存の設定を上書きしません。以前のイメージからコピーした
 レシピがある場合は、新しいイメージの `config.sh` と比較してから固定済み
 マニフェストを利用してください。
+再生速度を変更する場合は、作業領域の `scripts/nestdaq/common/apply-parameters.sh`
+も新しいイメージのものに更新してください。準備コマンドは上書きしません。
 
 ```bash
 spadi-prepare-local.sh
@@ -25,6 +27,13 @@ Offline は３ソースの STF ID を照合し、最初のファイル終端で�
 TF／HBF／ヒットのカウンターが入ります。
 
 Online は同じコンテナ内の２つのシェルを使います。まず既存のリプレイを起動します。
+
+再生を遅くするには、起動前に `$SPADI_LOCAL/scripts/nestdaq/raris-ac-lgad/config.sh`
+を編集し、例えば `STFB_PLAYER_WAIT_MS=5` とします。３つのプレーヤーはそれぞれ
+STF の送信後に指定ミリ秒待ちます。既定値 `0` は待機なしです。処理時間や通信の
+混雑も影響するため、正確な再生レートを保証する設定ではありません。変更後は
+レシピを停止して再起動してください。長い待機時間を使う場合は、受信側が途中終了
+しないよう `RARIS_TIMEOUT_MS` を TF の到着間隔より余裕を持って長く設定します。
 
 ```bash
 cd "$SPADI_LOCAL/scripts/nestdaq/raris-ac-lgad"

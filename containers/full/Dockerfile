@@ -105,6 +105,7 @@ RUN find /opt/spadi/src -type d -name build -prune -exec rm -rf '{}' + && \
 
 # Refresh repository-owned runtime assets after merging the prerequisite prefixes.
 COPY scripts/nestdaq/raris-ac-lgad/config.sh /opt/spadi/scripts/nestdaq/raris-ac-lgad/config.sh
+COPY scripts/nestdaq/common/apply-parameters.sh /opt/spadi/scripts/nestdaq/common/apply-parameters.sh
 COPY scripts/artemis/raris-ac-lgad/ /opt/spadi/scripts/artemis/raris-ac-lgad/
 # Build the ROOT dictionary and processor once; user runs only load the library.
 RUN source /opt/spadi/spadi-setup.sh && \

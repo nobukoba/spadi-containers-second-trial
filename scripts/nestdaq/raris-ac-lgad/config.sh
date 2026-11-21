@@ -4,6 +4,8 @@ TMUX_SESSION="nestdaq-raris-ac-lgad"
 TMUX_SOCKET="spadi"
 
 STF_PLAYERS=3
+# Delay after each STF sent by each player, in milliseconds (0: no delay).
+STFB_PLAYER_WAIT_MS=0
 TF_BUILDERS=1
 
 SPADI_WORKSPACE="${SPADI_LOCAL:-/workspace/spadi}"

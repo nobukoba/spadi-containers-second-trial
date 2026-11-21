@@ -4,6 +4,13 @@ HERE="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 source "${HERE}/config-common.sh"; nestdaq_load_config "${1:-${NESTDAQ_CONFIG:-}}"
 : "${TF_BUILDERS:?}"
 : "${MAX_HBF:=4}"; : "${TFB_DECIMATION_FACTOR:=1000}"; : "${TFB_DISCARD_OUTPUT:=false}"; : "${TFB_ENABLE_UDS:=false}"
+if [[ "${SOURCE_MODE:-replay}" == replay ]]; then
+  : "${STFB_PLAYER_WAIT_MS:=0}"
+  if [[ ! "$STFB_PLAYER_WAIT_MS" =~ ^[0-9]{1,10}$ ]] || (( 10#$STFB_PLAYER_WAIT_MS > 2147483647 )); then
+    echo "STFB_PLAYER_WAIT_MS must be an integer between 0 and 2147483647 milliseconds" >&2
+    exit 2
+  fi
+fi
 uri="redis://${REDIS_HOST}:${REDIS_PORT}/${PARAMETER_DB}"; nestdaq_cli -u "$uri" flushdb >/dev/null
 param(){ nestdaq_cli -u "$uri" hset "parameters:$1" "${@:2}" >/dev/null; }
 case "${SOURCE_MODE:-replay}" in
@@ -11,7 +18,7 @@ case "${SOURCE_MODE:-replay}" in
     : "${STF_PLAYERS:?}"; : "${RAWDATA_DIR:?}"; : "${RUN_FILE:?}"
     for ((i=0;i<STF_PLAYERS;i++)); do
       if declare -p STF_INPUT_FILES >/dev/null 2>&1 && [[ -n "${STF_INPUT_FILES[$i]:-}" ]]; then rel="${STF_INPUT_FILES[$i]}"; else printf -v subdir '%02d' "$i"; rel="${subdir}/${RUN_FILE}"; fi
-      param "STFBFilePlayer-${i}" in-file "${RAWDATA_DIR}/${rel}"
+      param "STFBFilePlayer-${i}" in-file "${RAWDATA_DIR}/${rel}" wait "${STFB_PLAYER_WAIT_MS}"
       param "STFBuilder-${i}" max-hbf "${MAX_HBF}"
     done
     ;;

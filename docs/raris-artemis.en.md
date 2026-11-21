@@ -9,7 +9,9 @@ they are not calibrated charge or time.
 Inside the container, prepare the writable workspace and download data.
 Preparation preserves existing user configuration: if the recipe was copied
 from an older image, compare its `config.sh` with the new image before using
-the pinned manifest.
+the pinned manifest. Also update the workspace copy of
+`scripts/nestdaq/common/apply-parameters.sh` from the new image to use replay
+speed control; preparation does not overwrite it.
 
 ```bash
 spadi-prepare-local.sh
@@ -27,6 +29,14 @@ additional STFs. Errors and an empty run fail the command. The output contains
 
 For online, keep this same container running and use two shells in it (or a
 second shell entering the same container). Start the existing replay first:
+
+To slow replay, edit `$SPADI_LOCAL/scripts/nestdaq/raris-ac-lgad/config.sh`
+before starting it, for example `STFB_PLAYER_WAIT_MS=5`. Each of the three
+players waits that many milliseconds after sending an STF; `0` (the default)
+adds no wait. This is a delay per STF, not a guaranteed playback rate: processing
+and backpressure also affect timing. Stop and restart the recipe after changing
+the setting. If using a long delay, set `RARIS_TIMEOUT_MS` above the expected
+interval between TFs with a margin, or the receiver may stop early.
 
 ```bash
 cd "$SPADI_LOCAL/scripts/nestdaq/raris-ac-lgad"
