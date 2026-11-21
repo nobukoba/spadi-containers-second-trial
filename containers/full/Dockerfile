@@ -106,6 +106,11 @@ RUN find /opt/spadi/src -type d -name build -prune -exec rm -rf '{}' + && \
 # Refresh repository-owned runtime assets after merging the prerequisite prefixes.
 COPY scripts/nestdaq/raris-ac-lgad/config.sh /opt/spadi/scripts/nestdaq/raris-ac-lgad/config.sh
 COPY scripts/artemis/raris-ac-lgad/ /opt/spadi/scripts/artemis/raris-ac-lgad/
+# Build the ROOT dictionary and processor once; user runs only load the library.
+RUN source /opt/spadi/spadi-setup.sh && \
+    cd /opt/spadi/scripts/artemis/raris-ac-lgad && \
+    artemis -l -b -q build.C && \
+    test -s RarisProcessor_C.so && test -s RarisProcessor_C_ACLiC_dict_rdict.pcm
 # Keep metadata arguments after compiled layers so branch or commit changes do
 # not invalidate the expensive dependency builds.
 ARG SPADI_CONTAINER_VERSION=unreleased

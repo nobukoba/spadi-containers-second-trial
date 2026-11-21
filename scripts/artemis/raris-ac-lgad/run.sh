@@ -9,8 +9,7 @@ case "$mode" in
   *) echo "Expected offline or online" >&2; exit 2 ;;
 esac
 scratch="$(mktemp -d)"; trap 'rm -r -- "$scratch"' EXIT
-cp "$here/RarisProcessor.C" "$scratch/RarisProcessor.C"
-export RARIS_SOURCE="$scratch/RarisProcessor.C" RARIS_STEERING="$scratch/steering.yaml" RARIS_MODE="$mode" RARIS_ARG="$arg" RARIS_OUTPUT="$output"
+export RARIS_LIBRARY="$here/RarisProcessor_C.so" RARIS_STEERING="$scratch/steering.yaml" RARIS_MODE="$mode" RARIS_ARG="$arg" RARIS_OUTPUT="$output"
 python3 - <<'PY'
 import json, os
 p={'OutputFile':os.environ['RARIS_OUTPUT']}

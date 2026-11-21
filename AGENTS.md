@@ -520,3 +520,8 @@ fail while recreating root-owned symlinks; fakeroot also needs `newuidmap` when
 subuid mappings are configured. Converting a Docker archive directly with
 `apptainer build output.sif docker-archive:/path/image.tar` worked without those
 privileges for the local FULL validation. This does not replace the CI SIF test.
+
+ROOT ACLiC emits `RarisProcessor_C_ACLiC_dict_rdict.pcm` alongside
+`RarisProcessor_C.so`; it does not use `RarisProcessor_C_rdict.pcm` for this
+macro. Check the actual generated dictionary name when packaging the compiled
+processor, and retain both the library and PCM in the runtime image.

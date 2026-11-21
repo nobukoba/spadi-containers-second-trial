@@ -1,7 +1,7 @@
 # RARiS ARTEMIS offline and replay analysis
 
 Use a newly built `spadi-user-full` image containing this tutorial. It needs
-ARTEMIS, ROOT, NestDAQ and the C++ compiler provided by that image. No detector
+ARTEMIS, ROOT and NestDAQ. The processor is compiled when the image is built; runs do not compile it. No detector
 hardware is needed. The raw data are public RARiS run 20, three FileSink v1
 STF files. Histograms use uncalibrated channel, raw TDC and raw TOT values;
 they are not calibrated charge or time.

@@ -1,7 +1,7 @@
 # RARiS の ARTEMIS Offline／Online 解析
 
 このチュートリアルを含む新しい `spadi-user-full` を使います。ARTEMIS、ROOT、
-NestDAQ と C++ コンパイラーが必要ですが、検出器ハードウェアは不要です。公開
+NestDAQ が必要ですが、検出器ハードウェアは不要です。プロセッサーはイメージ作成時にコンパイルされるため、解析実行時のコンパイルは不要です。公開
 RARiS run 20 の３個の FileSink v1 STF ファイルを解析します。ヒストグラムの
 チャンネル、TDC、TOT は未較正の生値であり、較正済み時間や電荷ではありません。
 
