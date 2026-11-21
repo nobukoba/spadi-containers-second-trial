@@ -103,6 +103,7 @@ RUN printf '%s\n' '/opt/spadi/lib' '/opt/spadi/lib64' > /etc/ld.so.conf.d/spadi.
 RUN find /opt/spadi/src -type d -name build -prune -exec rm -rf '{}' + && \
     rm -rf /opt/spadi/src/root-build
 
+COPY scripts/artemis/raris-ac-lgad/ /opt/spadi/scripts/artemis/raris-ac-lgad/
 COPY scripts/tests/smoke-test-full.sh /opt/spadi/scripts/smoke-test-full.sh
 RUN chmod 0755 /opt/spadi/scripts/smoke-test-full.sh
 

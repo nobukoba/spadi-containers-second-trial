@@ -494,3 +494,15 @@ All eight user/devel images must provide Git so users can clone and update exper
 ## Apptainer CI runner compatibility
 
 Pin the image-build matrix to `ubuntu-24.04` while using the Apptainer 1.4.2 Debian package from `eWaterCycle/setup-apptainer@v2`. The moving `ubuntu-latest` runner switched to Ubuntu 26.04, where this package's `libfuse3-3` dependency is not installable; Docker builds and smoke tests succeed but SIF setup fails. Install and verify Apptainer before expensive container builds so host package incompatibility fails early. Revalidate the pinned package and all Docker/SIF tests before updating the runner OS. The publication-only job does not install Apptainer.
+
+## RARiS ARTEMIS input investigation
+
+The pinned ARTEMIS v1 streaming store's direct STF-file path consumes the
+STF header while testing for a TF, then scans forward, so do not treat a
+successful process start as evidence that a raw STF FileSink was decoded.
+The RARiS input contains HRTBEAT headers. An experimental one-source TF wrapper
+allowed the store to process initial events, but it does not establish correct
+full-run counts or online operation. Its ZeroMQ subscriber uses SUB; the RARiS
+TimeFrameBuilder `out` endpoint is PUSH with multipart FairMQ messages.
+Also, TimeFrameBuilder applies its decimation factor to its decimator channel,
+not the ordinary out channel. Verify the actual output and counts.

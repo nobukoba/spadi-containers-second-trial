@@ -208,3 +208,7 @@ Docker イメージの履歴は、次の GHCR バージョン一覧で確認で�
 Docker の日時タグ `YYYYMMDD-HHMMutc` は UTC（日本時間は +9時間）です。過去の版を使うには `docker pull` / `docker run` の `:latest` を選んだ日時タグに置き換えます。`ci-…` は内部ビルド用です。
 
 Docker タグはテスト完了前に作成されるため、タグがあることだけでは検証済みとは限りません。利用する版の Actions の結果を確認してください。SIF は全イメージの検証成功後に Releases へ公開されます。
+
+## RARiS の ARTEMIS 解析
+
+`spadi-user-full` で実行できる Offline／リプレイ解析の手順は [日本語ガイド](docs/raris-artemis.ja.md)（[English](docs/raris-artemis.en.md)）を参照してください。

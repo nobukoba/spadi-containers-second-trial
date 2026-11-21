@@ -172,6 +172,13 @@ In devel images, it additionally copies sources into `src`, creates `build`, `bi
 
 Existing files and source directories are not overwritten. Running the command again adds only missing content.
 
+### ARTEMIS analysis of the RARiS replay
+
+`spadi-user-full` supports hardware-free RARiS offline and NestDAQ replay
+analysis. Follow the [English tutorial](docs/raris-artemis.en.md) or
+[Japanese tutorial](docs/raris-artemis.ja.md) for download, ROOT output,
+comparison, and cleanup.
+
 ## Update the image and workspace
 
 To update an image, download the SIF again or pull the Docker image on the host, then start a container with the new image. Configuration, sources, and data saved in the host `workspace` remain.

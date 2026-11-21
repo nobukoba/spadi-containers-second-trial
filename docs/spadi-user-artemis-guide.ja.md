@@ -128,3 +128,7 @@ OS は AlmaLinux 9 です。tmux、vim / emacs、基本的なファイル・プ�
 ROOT は TMVA、X11 / OpenGL、SQLite、SSL を有効にし、PyROOT、RooFit、Web GUI は無効にしています。ARTEMIS の GET は無効、ZeroMQ / Redis 対応は有効です。OpenMPI と圧縮ライブラリも含みます。
 
 `spadi-user-*` は実行用です。ソースとローカル開発用ビルドヘルパーは含みません。 ROOT / Cling の実行に必要な C++ コンパイラとヘッダーは含みます。
+
+## RARiS の Offline／Online 解析
+
+`spadi-user-full` では公開 RARiS データを用いた解析も利用できます。準備、リプレイ、ROOT 出力と比較の手順は [RARiS ガイド](raris-artemis.ja.md) を参照してください。
