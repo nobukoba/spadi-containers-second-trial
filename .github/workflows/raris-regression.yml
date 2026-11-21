@@ -1,0 +1,26 @@
+name: RARiS regression
+
+on:
+  pull_request:
+    paths:
+      - 'scripts/artemis/raris-ac-lgad/**'
+      - 'scripts/nestdaq/**'
+      - 'scripts/tests/test-nestdaq-recipes.py'
+      - 'experiments/raris-ordering/**'
+      - '.github/workflows/raris-regression.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  host-tests:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate shell scripts
+        run: bash -n scripts/artemis/raris-ac-lgad/{run,compare,test-actual}.sh scripts/nestdaq/raris-ac-lgad/config.sh
+      - name: Test HBF inspection and fixture framing
+        run: python3 -m unittest discover -s experiments/raris-ordering -p 'test_*.py'
+      - name: Test NestDAQ recipes
+        run: python3 scripts/tests/test-nestdaq-recipes.py
